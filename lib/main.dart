@@ -1,6 +1,8 @@
+import 'package:ecapp/screens/home/home-screen.dart';
+import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/screens/home/home-screen.dart';
+//import 'package:ecapp/screens/home/home-screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,14 +13,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food App',
-      theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
-        textTheme: TextTheme(
-          body1: TextStyle(color: ksecondaryColor),
-          body2: TextStyle(color: ksecondaryColor),
-        ),
-      ),
+//      theme: ThemeData(
+//        primaryColor: kPrimaryColor,
+//        scaffoldBackgroundColor: Colors.white,
+//        textTheme: TextTheme(
+//          body1: TextStyle(color: ksecondaryColor),
+//          body2: TextStyle(color: ksecondaryColor),
+//        ),
+//      ),
+      theme: theme(),
       home: HomeScreen(),
     );
   }

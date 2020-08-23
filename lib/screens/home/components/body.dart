@@ -11,12 +11,12 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          DiscountCard(),
           SearchBox(
             onChanged: (value) {},
           ),
           CategoryList(),
           ItemList(),
-          DiscountCard(),
         ],
       ),
     );
