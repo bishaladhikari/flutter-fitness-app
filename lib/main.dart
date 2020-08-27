@@ -1,10 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
-
-import 'config/route.dart';
-//import 'package:ecapp/screens/home/account-page.dart';
 
 void main() => runApp(EasyLocalization(
 //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
@@ -42,7 +40,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-//      home: HomeScreen(),
+
+      home: MainPage(),
     );
   }
 }

@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeAppBar(context),
-      bottomNavigationBar: BottomNavBar(),
+//      bottomNavigationBar: BottomNavBar(),
       body: Body(),
     );
   }

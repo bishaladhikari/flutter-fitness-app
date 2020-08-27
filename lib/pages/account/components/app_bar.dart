@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';
 
-AppBar homeAppBar(BuildContext context) {
+AppBar AccountAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
     elevation: 0,
@@ -18,11 +18,11 @@ AppBar homeAppBar(BuildContext context) {
             .copyWith(fontWeight: FontWeight.bold),
         children: [
           TextSpan(
-            text: "Grocery",
+            text: "Account",
             style: TextStyle(color: ksecondaryColor),
           ),
           TextSpan(
-            text: "Store",
+            text: "Page",
             style: TextStyle(color: kPrimaryColor),
           ),
         ],

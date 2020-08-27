@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/bottom_nav_bar.dart';
-
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: homeAppBar(context),
-      bottomNavigationBar: BottomNavBar(),
+      appBar: AccountAppBar(context),
       body: Body(),
     );
   }
