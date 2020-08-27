@@ -1,10 +1,12 @@
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
-import 'package:ecapp/screens/home/components/category_list.dart';
-import 'package:ecapp/screens/home/components/discount_card.dart';
-import 'package:ecapp/screens/home/components/item_list.dart';
+
 import 'package:easy_localization/easy_localization.dart';
+
+import 'category_list.dart';
+import 'discount_card.dart';
+import 'item_list.dart';
 
 class Body extends StatelessWidget {
   @override
