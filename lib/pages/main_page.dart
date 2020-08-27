@@ -27,26 +27,46 @@ class _MainPageState extends State<MainPage> {
         onPageChanged: _onPageChanged,
         physics: NeverScrollableScrollPhysics(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onItemTapped,
-        items: [
-          BottomNavigationBarItem(
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 35),
+        height: 75,
+        width: double.infinity,
+        // double.infinity means it cove the available width
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, -7),
+              blurRadius: 33,
+              color: Color(0xFF6DAED9).withOpacity(0.11),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
               icon: SvgPicture.asset("assets/icons/home.svg"),
-              title: Text("")
-          ),
-          BottomNavigationBarItem(
+              onPressed: ()=>{onItemTapped(0)},
+            ),
+            IconButton(
               icon: SvgPicture.asset("assets/icons/Following.svg"),
-              title: Text("")
-          ),
-          BottomNavigationBarItem(
+              onPressed: ()=>{onItemTapped(0)},
+            ),
+            IconButton(
               icon: SvgPicture.asset("assets/icons/Glyph.svg"),
-              title: Text("")
-          ),
-          BottomNavigationBarItem(
+              onPressed: ()=>{onItemTapped(0)},
+            ),
+            IconButton(
               icon: SvgPicture.asset("assets/icons/person.svg"),
-              title: Text("")
-          )
-        ],
+              onPressed: ()=>{onItemTapped(1)},
+            ),
+          ],
+        ),
       ),
     );
   }
