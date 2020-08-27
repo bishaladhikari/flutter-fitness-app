@@ -14,10 +14,10 @@ class DiscountCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            "Offers & Discounts",
-            style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-          ),
+//          Text(
+//            "Offers & Discounts",
+//            style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+//          ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 20),
             width: double.infinity,

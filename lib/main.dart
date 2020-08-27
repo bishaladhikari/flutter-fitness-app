@@ -1,10 +1,26 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/screens/home/home-screen.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
 //import 'package:ecapp/screens/home/account-screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(EasyLocalization(
+//    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
+//<key>CFBundleLocalizations</key>
+//<array>
+//<string>en</string>
+//<string>nb</string>
+//</array>
+      child: MyApp(),
+      path: "assets/translations/",
+      saveLocale: true,
+      supportedLocales: [
+        Locale('en', "US"),
+        Locale('vi', "VN"),
+      ],
+      fallbackLocale: Locale('en', 'US'),
+    ));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -22,6 +38,10 @@ class MyApp extends StatelessWidget {
 //        ),
 //      ),
       theme: theme(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+
       home: HomeScreen(),
     );
   }

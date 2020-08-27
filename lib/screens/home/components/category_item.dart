@@ -22,23 +22,18 @@ class CategoryItem extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: isActive
-                  ? TextStyle(
-                      color: kTextColor,
-                      fontWeight: FontWeight.bold,
-                    )
-                  : TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 12),
             ),
-            if (isActive)
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: 3,
-                width: 22,
-                decoration: BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+//            if (isActive)
+//              Container(
+//                margin: EdgeInsets.symmetric(vertical: 5),
+//                height: 3,
+//                width: 22,
+//                decoration: BoxDecoration(
+//                  color: kPrimaryColor,
+//                  borderRadius: BorderRadius.circular(10),
+//                ),
+//              ),
           ],
         ),
       ),
