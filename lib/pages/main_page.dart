@@ -14,10 +14,6 @@ class _MainPageState extends State<MainPage> {
 
   void _onPageChanged(int index) {}
 
-  void onItemTapped(int selectedIndex) {
-    _pageController.jumpToPage(selectedIndex);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,19 +47,19 @@ class _MainPageState extends State<MainPage> {
           children: <Widget>[
             IconButton(
               icon: SvgPicture.asset("assets/icons/home.svg"),
-              onPressed: ()=>{onItemTapped(0)},
+              onPressed: () => {_pageController.jumpToPage(0)},
             ),
             IconButton(
               icon: SvgPicture.asset("assets/icons/Following.svg"),
-              onPressed: ()=>{onItemTapped(0)},
+              onPressed: () => {_pageController.jumpToPage(1)},
             ),
             IconButton(
               icon: SvgPicture.asset("assets/icons/Glyph.svg"),
-              onPressed: ()=>{onItemTapped(0)},
+              onPressed: () => {_pageController.jumpToPage(1)},
             ),
             IconButton(
               icon: SvgPicture.asset("assets/icons/person.svg"),
-              onPressed: ()=>{onItemTapped(1)},
+              onPressed: () => {_pageController.jumpToPage(1)},
             ),
           ],
         ),
