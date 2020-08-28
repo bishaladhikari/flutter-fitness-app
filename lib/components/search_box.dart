@@ -1,3 +1,4 @@
+import 'package:ecapp/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';
@@ -21,7 +22,13 @@ class SearchBox extends StatelessWidget {
         ),
       ),
       child: TextField(
-        onChanged: onChanged,
+        autofocus: false,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SearchScreen()),
+          );
+        },
         decoration: InputDecoration(
           border: InputBorder.none,
           icon: SvgPicture.asset("assets/icons/search.svg"),

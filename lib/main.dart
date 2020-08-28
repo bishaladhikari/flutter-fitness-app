@@ -4,6 +4,7 @@ import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
 //import 'package:ecapp/screens/home/account-screen.dart';
+//import 'package:ecapp/components/search_box.dart';
 
 void main() => runApp(EasyLocalization(
 //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
