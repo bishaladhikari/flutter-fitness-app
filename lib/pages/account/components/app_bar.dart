@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 AppBar AccountAppBar(BuildContext context) {
   return AppBar(
@@ -30,7 +31,7 @@ AppBar AccountAppBar(BuildContext context) {
     ),
     actions: <Widget>[
       IconButton(
-        icon: SvgPicture.asset("assets/icons/notification.svg"),
+        icon: Icon(Icons.settings),
         onPressed: () {},
       ),
     ],

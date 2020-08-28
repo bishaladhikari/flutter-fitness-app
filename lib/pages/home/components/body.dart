@@ -27,18 +27,18 @@ class Body extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
             ),
           ),
-          RaisedButton(
-            child: Text('English'),
-            onPressed:() {
-              EasyLocalization.of(context).locale = Locale('en','US');
-            },
-          ),
-          RaisedButton(
-            child: Text('japanese'),
-            onPressed:() {
-              EasyLocalization.of(context).locale = Locale('vi','VN');
-            },
-          ),
+//          RaisedButton(
+//            child: Text('English'),
+//            onPressed:() {
+//              EasyLocalization.of(context).locale = Locale('en','US');
+//            },
+//          ),
+//          RaisedButton(
+//            child: Text('japanese'),
+//            onPressed:() {
+//              EasyLocalization.of(context).locale = Locale('vi','VN');
+//            },
+//          ),
           ItemList(),
         ],
       ),

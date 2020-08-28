@@ -12,7 +12,7 @@ void main() => runApp(EasyLocalization(
 //<string>nb</string>
 //</array>
       child: MyApp(),
-      path: "assets/translations/",
+      path: "assets/translations",
       saveLocale: true,
       supportedLocales: [
         Locale('en', "US"),
