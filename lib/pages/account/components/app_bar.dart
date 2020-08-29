@@ -7,31 +7,14 @@ AppBar AccountAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
     elevation: 0,
-    leading: IconButton(
-      icon: SvgPicture.asset("assets/icons/menu.svg"),
-      onPressed: () {},
-    ),
-    title: RichText(
-      text: TextSpan(
-        style: Theme.of(context)
-            .textTheme
-            .title
-            .copyWith(fontWeight: FontWeight.bold),
-        children: [
-          TextSpan(
-            text: "Account",
-            style: TextStyle(color: ksecondaryColor),
-          ),
-          TextSpan(
-            text: "Page",
-            style: TextStyle(color: kPrimaryColor),
-          ),
-        ],
-      ),
-    ),
+//    leading: ImageButton(
+//      image: SvgPicture.asset("assets/icons/menu.svg"),
+//      onPressed: () {},
+//    ),
+    title: Text(""),
     actions: <Widget>[
       IconButton(
-        icon: Icon(Icons.settings),
+        icon: Icon(Icons.settings,color: Colors.white,),
         onPressed: () {},
       ),
     ],

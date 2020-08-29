@@ -3,8 +3,10 @@ import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(EasyLocalization(
+void main() =>
+    runApp(EasyLocalization(
 //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
 //<key>CFBundleLocalizations</key>
 //<array>
@@ -23,8 +25,12 @@ void main() => runApp(EasyLocalization(
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.deepOrangeAccent,
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food App',
