@@ -8,22 +8,17 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
+            margin: const EdgeInsets.symmetric(vertical:8.0),
             height: 200,
-            decoration: new BoxDecoration(
-              color: Colors.deepOrangeAccent,
-
-            ),
-            child: Column(
+            child: ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Text('Hello world')
-                    ],
+                  child: ListTile(
+                      title: Text('Hello world')
                   ),
                 )
               ],

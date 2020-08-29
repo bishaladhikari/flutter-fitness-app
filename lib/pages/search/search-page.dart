@@ -9,9 +9,8 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-      backgroundColor: Colors.orange[400],
+    return Scaffold(appBar: AppBar(
+      backgroundColor: Colors.white,
       title: Container(
           margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           decoration: BoxDecoration(
@@ -28,8 +27,8 @@ class _SearchPageState extends State<SearchPage> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Search Here",
-                    hintStyle: TextStyle(color: Colors.white),
-                    icon: Icon(Icons.search, color: Colors.white),
+//                    hintStyle: TextStyle(color: Colors.white),
+                    icon: Icon(Icons.search, color: Colors.grey),
                   ),
                 ),
               ),
@@ -46,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
       leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Colors.grey,
           ),
           onPressed: () {
             Navigator.push(
