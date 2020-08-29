@@ -32,6 +32,8 @@ dependencies:
   smooth_star_rating: ^1.0.4
   easy_localization: ^2.3.0
   material_design_icons_flutter: 4.0.5555
+  async_loader: ^0.1.2
+  undraw:
 
 dev_dependencies:
   flutter_test:

@@ -12,7 +12,7 @@ AppBar AccountAppBar(BuildContext context) {
 //      image: SvgPicture.asset("assets/icons/menu.svg"),
 //      onPressed: () {},
 //    ),
-    title: Text(""),
+    title: Text("Account Settings"),
     actions: <Widget>[
       IconButton(
         icon: Icon(
