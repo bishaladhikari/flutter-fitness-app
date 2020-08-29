@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/screens/home/home-screen.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
-//import 'package:ecapp/screens/home/account-screen.dart';
-//import 'package:ecapp/components/search_box.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(EasyLocalization(
+void main() =>
+    runApp(EasyLocalization(
 //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
 //<key>CFBundleLocalizations</key>
 //<array>
@@ -14,7 +14,7 @@ void main() => runApp(EasyLocalization(
 //<string>nb</string>
 //</array>
       child: MyApp(),
-      path: "assets/translations/",
+      path: "assets/translations",
       saveLocale: true,
       supportedLocales: [
         Locale('en', "US"),
@@ -25,8 +25,12 @@ void main() => runApp(EasyLocalization(
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.deepOrangeAccent,
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food App',
@@ -43,7 +47,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
 
-      home: HomeScreen(),
+      home: MainPage(),
     );
   }
 }

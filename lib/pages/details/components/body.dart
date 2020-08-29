@@ -1,8 +1,9 @@
+import 'package:ecapp/pages/details/components/order_button.dart';
+import 'package:ecapp/pages/details/components/title_price_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/screens/details/components/item_image.dart';
-import 'package:ecapp/screens/details/components/order_button.dart';
-import 'package:ecapp/screens/details/components/title_price_rating.dart';
+
+import 'item_image.dart';
 
 class Body extends StatelessWidget {
   @override

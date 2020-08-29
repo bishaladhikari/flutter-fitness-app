@@ -1,6 +1,6 @@
+import 'package:ecapp/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/screens/details/details-screen.dart';
-import 'package:ecapp/screens/home/components/item_card.dart';
+import 'item_card.dart';
 
 class ItemList extends StatelessWidget {
   const ItemList({
@@ -22,7 +22,7 @@ class ItemList extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return DetailsScreen();
+                    return DetailsPage();
                   },
                 ),
               );

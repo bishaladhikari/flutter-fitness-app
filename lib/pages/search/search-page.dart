@@ -1,28 +1,12 @@
-import 'package:ecapp/screens/home/home-screen.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(SearchScreen());
-}
-
-class SearchScreen extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: " MyApp ",
-      home: HomeScreen1(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.orange),
-    );
-  }
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class HomeScreen1 extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen1> {
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen1> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => MainPage()),
             );
           }),
     ));

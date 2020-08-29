@@ -1,4 +1,4 @@
-import 'package:ecapp/screens/account/account-screen.dart';
+import 'package:ecapp/pages/account/account-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,7 +50,7 @@ class BottomNavBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return AccountScreen();
+                    return AccountPage();
                   },
                 ),
               );
