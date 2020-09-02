@@ -16,6 +16,7 @@ class _MainPageState extends State<MainPage> {
 
   void _onPageChanged(int index) {}
   int currentPage = 0;
+  int cart_count = 0;
   void _changePage(id) {
     setState(() {
       _pageController.jumpToPage(id);
@@ -54,28 +55,47 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: currentPage == 0 ? SvgPicture.asset("assets/icons/home.svg") : SvgPicture.asset("assets/icons/home_faded.svg"),
-//              icon: Icon(Icons.home),
+              icon: currentPage == 0 ? SvgPicture.asset("assets/icons/HomeFilled.svg") : SvgPicture.asset("assets/icons/bold_icons/HomeOutlinedBold.svg"),
+              padding: EdgeInsets.all(15),
               onPressed: () => {
                 _changePage(0),
               },
 
             ),
             IconButton(
-              icon: currentPage == 1 ? SvgPicture.asset("assets/icons/category.svg") : SvgPicture.asset("assets/icons/category_out.svg"),
+              icon: currentPage == 1 ? SvgPicture.asset("assets/icons/category.svg") : SvgPicture.asset("assets/icons/bold_icons/Category_Out_bold.svg"),
               padding: EdgeInsets.all(15),
               onPressed: () => {
                 _changePage(1)
               },
             ),
             IconButton(
-              icon: currentPage == 2? SvgPicture.asset("assets/icons/Cart.svg") : SvgPicture.asset("assets/icons/Cart_Out.svg"),
+              icon: Stack(
+                  children: [
+                  currentPage == 2? SvgPicture.asset("assets/icons/Cart.svg") : SvgPicture.asset("assets/icons/bold_icons/CartOutBold.svg"),
+                  Expanded(
+
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(left: 14, top:0, bottom: 14),
+                      width: 15,
+                      height: 15,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.orange
+                      ),
+                      child: Text(cart_count.toString(), style: TextStyle(fontSize: 10, color: Colors.white),),
+                    ),
+                  )
+                ],
+              ),
               padding: EdgeInsets.all(10),
 
               onPressed: () => {_changePage(2)},
             ),
             IconButton(
-              icon:  currentPage == 3 ? SvgPicture.asset("assets/icons/person_selected.svg") : SvgPicture.asset("assets/icons/person.svg"),
+              padding: EdgeInsets.all(10),
+              icon:  currentPage == 3 ? SvgPicture.asset("assets/icons/Person.svg") : SvgPicture.asset("assets/icons/bold_icons/PersonOutlinedBold.svg"),
               onPressed: () => {_changePage(3)},
             ),
           ],
