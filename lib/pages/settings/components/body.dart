@@ -8,15 +8,20 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: <Widget>[ 
+          
           ListTile(title: Text('Account Information')),
-          ListTile(title: Text('Address Book')),
+          ListTile(title: Text('Address Book')),   
           ListTile(title: Text('Language')),
+           
           ListTile(title: Text('Policies')),
           ListTile(title: Text('About')),
           ListTile(title: Text('Help')),
+          
         ],
+        
       ),
+     
     );
   }
 }
