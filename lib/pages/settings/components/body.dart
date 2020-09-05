@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
@@ -57,16 +58,34 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                   Row(children: <Widget>[
-                    RadioListTile(
-                      groupValue: radioItem,
-                      title: Text('Nepali'),
-                      value: 'Nepali',
-                      onChanged: (val) {
-                        setState(() {
-                          radioItem = val;
-                        });
-                      },
+                    Expanded(
+                      child: RadioListTile<String>(
+                        groupValue: radioItem,
+                        title: Text('English'),
+                        value: 'en',
+                        onChanged: (val) {
+                          setState(() {
+                            radioItem = val;
+                            EasyLocalization.of(context).locale = Locale('en','US');
+                          });
+                        },
+                      ),
                     ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        groupValue: radioItem,
+                        title: Text('Japanese'),
+                        value: 'jp',
+                        onChanged: (val) {
+                          setState(() {
+                            radioItem = val;
+                            EasyLocalization.of(context).locale = Locale('jp','JP');
+                          });
+                        },
+                      ),
+                    ),
+
+
                     // RadioListTile(
                     //   groupValue: radioItem,
                     //   title: Text('Japanese'),

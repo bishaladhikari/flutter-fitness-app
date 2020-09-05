@@ -18,7 +18,7 @@ void main() =>
       saveLocale: true,
       supportedLocales: [
         Locale('en', "US"),
-        Locale('vi', "VN"),
+        Locale('jp', "JP"),
       ],
       fallbackLocale: Locale('en', 'US'),
     ));
