@@ -56,7 +56,7 @@ flutter:
     - assets/translations/
     - assets/images/
     - assets/icons/
-    - assets/icons/bold_icons/
+#    - assets/icons/bold_icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
