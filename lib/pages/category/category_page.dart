@@ -18,6 +18,7 @@ class _CategoryPageState extends State<CategoryPage>
     categoryBloc..getCategories();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

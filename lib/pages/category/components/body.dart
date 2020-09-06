@@ -1,3 +1,6 @@
+import 'package:ecapp/bloc/get_categories_bloc.dart';
+import 'package:ecapp/model/category_response.dart';
+import 'package:ecapp/pages/category/components/category_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,71 +8,59 @@ import 'package:ecapp/model/Category.dart';
 import 'dart:developer';
 
 class CategoryBody extends StatefulWidget {
-  final List<Category> categories;
-
-  CategoryBody({Key key, @required this.categories}) : super(key: key);
-
   @override
-  _CategoryBodyState createState() => _CategoryBodyState(categories);
+  _CategoryBodyState createState() => _CategoryBodyState();
 }
 
-class _CategoryBodyState extends State<CategoryBody>
-    with SingleTickerProviderStateMixin {
-  final List<Category> categories;
-
-  _CategoryBodyState(this.categories);
-
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: categories.length);
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {}
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
+class _CategoryBodyState extends State<CategoryBody> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text(
-            "Category",
-            style: Theme.of(context)
-                .textTheme
-                .headline5
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 15, left: 10),
-          child: SizedBox(
-            height: 30,
-            child: TabBar(
-              isScrollable: true,
-              unselectedLabelColor: Colors.black,
-              labelColor: Colors.red,
-              controller: _tabController,
-              tabs: categories.map((Category category) {
-                return Container(
-                    padding: EdgeInsets.only(bottom: 15.0, top: 10.0),
-                    child: new Text(category.name.toUpperCase(),
-                        style: TextStyle(
-                            fontSize: 14.0, fontWeight: FontWeight.bold)));
-              }).toList(),
-            ),
+    return StreamBuilder<CategoryResponse>(
+      stream: categoryBloc.subject.stream,
+      builder: (context, AsyncSnapshot<CategoryResponse> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+            return _buildErrorWidget(snapshot.data.error);
+          }
+          return _buildHomeWidget(snapshot.data);
+        } else if (snapshot.hasError) {
+          return _buildErrorWidget(snapshot.error);
+        } else {
+          return _buildLoadingWidget();
+        }
+      },
+    );
+  }
+
+  Widget _buildLoadingWidget() {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
           ),
         )
       ],
-    );
+    ));
+  }
+
+  Widget _buildErrorWidget(String error) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occured: $error"),
+      ],
+    ));
+  }
+
+  Widget _buildHomeWidget(CategoryResponse data) {
+    List<Category> categories = data.categories;
+    return CategoryList(categories: categories);
   }
 }
