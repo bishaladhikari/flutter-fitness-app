@@ -35,32 +35,33 @@ class _CategoryBodyState extends State<CategoryBody> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 25.0,
+              width: 25.0,
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 4.0,
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Error occured: $error"),
+          ],
+        ));
   }
 
   Widget _buildHomeWidget(CategoryResponse data) {
     List<Category> categories = data.categories;
+    print(categories);
     return CategoryList(categories: categories);
   }
 }
