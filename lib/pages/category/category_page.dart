@@ -13,13 +13,6 @@ class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
 
   @override
-  void initState() {
-    super.initState();
-    categoryBloc..getCategories();
-  }
-
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

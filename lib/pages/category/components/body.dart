@@ -14,6 +14,12 @@ class CategoryBody extends StatefulWidget {
 
 class _CategoryBodyState extends State<CategoryBody> {
   @override
+  void initState() {
+    super.initState();
+    categoryBloc..getCategories();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<CategoryResponse>(
       stream: categoryBloc.subject.stream,
@@ -61,7 +67,7 @@ class _CategoryBodyState extends State<CategoryBody> {
 
   Widget _buildHomeWidget(CategoryResponse data) {
     List<Category> categories = data.categories;
-    print(categories);
+    print(categories[0].name);
     return CategoryList(categories: categories);
   }
 }
