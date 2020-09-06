@@ -56,12 +56,12 @@ class _CategoryListState extends State<CategoryList>
             child: TabBar(
               isScrollable: true,
               unselectedLabelColor: Colors.black,
-              labelColor: Colors.red,
+              labelColor: Colors.black,
               controller: _tabController,
               tabs: categories.map((Category category) {
                 return Container(
                     padding: EdgeInsets.only(bottom: 15.0, top: 10.0),
-                    child: new Text(category.name.toUpperCase(),
+                    child: Text(category.name.toUpperCase(),
                         style: TextStyle(
                             fontSize: 14.0, fontWeight: FontWeight.bold)));
               }).toList(),
