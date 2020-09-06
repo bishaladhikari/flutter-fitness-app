@@ -19,6 +19,7 @@ class _BodyState extends State<Body> {
           ListTile(title: Text('Address Book')),
           ListTile(
               title: Text('Language'),
+              subtitle: Text(EasyLocalization.of(context).locale.toString()),
               onTap: () {
                 _languageChange(context);
               }),
@@ -31,9 +32,7 @@ class _BodyState extends State<Body> {
   }
 
   void _languageChange(context) {
-
-
-    String radioItem = "";
+    String radioItem = EasyLocalization.of(context).locale.toString();
 
     showModalBottomSheet(
         context: context,
@@ -66,7 +65,8 @@ class _BodyState extends State<Body> {
                         onChanged: (val) {
                           setState(() {
                             radioItem = val;
-                            EasyLocalization.of(context).locale = Locale('en','US');
+                            EasyLocalization.of(context).locale =
+                                Locale('en', 'US');
                           });
                         },
                       ),
@@ -79,12 +79,12 @@ class _BodyState extends State<Body> {
                         onChanged: (val) {
                           setState(() {
                             radioItem = val;
-                            EasyLocalization.of(context).locale = Locale('jp','JP');
+                            EasyLocalization.of(context).locale =
+                                Locale('jp', 'JP');
                           });
                         },
                       ),
                     ),
-
 
                     // RadioListTile(
                     //   groupValue: radioItem,

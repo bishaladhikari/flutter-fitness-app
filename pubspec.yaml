@@ -35,6 +35,8 @@ dependencies:
   async_loader: ^0.1.2
   undraw:
   shared_preferences: ^0.5.10
+  dio: ^3.0.9
+  rxdart: ^0.23.1
 
 dev_dependencies:
   flutter_test:
