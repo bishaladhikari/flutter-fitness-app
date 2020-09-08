@@ -19,7 +19,10 @@ class _BodyState extends State<Body> {
           ListTile(title: Text('Address Book')),
           ListTile(
               title: Text('Language'),
-              subtitle: Text(EasyLocalization.of(context).locale.toString()),
+              subtitle:
+                  (EasyLocalization.of(context).locale.toString() == 'en_US')
+                      ? Text("English")
+                      : Text("EasyLocalization.of(context).locale.toString()"),
               onTap: () {
                 _languageChange(context);
               }),
@@ -33,19 +36,21 @@ class _BodyState extends State<Body> {
 
   void _languageChange(context) {
     String radioItem = EasyLocalization.of(context).locale.toString();
+    print(radioItem);
 
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
           return Container(
-            height: MediaQuery.of(context).size.height * .50,
+            height: MediaQuery.of(context).size.height * .30,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text("Language Information"),
+                      Text("Language Information",
+                          style: TextStyle(fontSize: 15, color: Colors.black)),
                       Spacer(),
                       IconButton(
                         icon:
@@ -61,7 +66,7 @@ class _BodyState extends State<Body> {
                       child: RadioListTile<String>(
                         groupValue: radioItem,
                         title: Text('English'),
-                        value: 'en',
+                        value: 'en_US',
                         onChanged: (val) {
                           setState(() {
                             radioItem = val;
@@ -75,7 +80,7 @@ class _BodyState extends State<Body> {
                       child: RadioListTile<String>(
                         groupValue: radioItem,
                         title: Text('Japanese'),
-                        value: 'jp',
+                        value: 'jp_JP',
                         onChanged: (val) {
                           setState(() {
                             radioItem = val;
@@ -85,28 +90,17 @@ class _BodyState extends State<Body> {
                         },
                       ),
                     ),
-
-                    // RadioListTile(
-                    //   groupValue: radioItem,
-                    //   title: Text('Japanese'),
-                    //   value: 'Item 1',
-                    //   onChanged: (val) {},
-                    // ),
-                    // RadioListTile(
-                    //   groupValue: radioItem,
-                    //   title: Text('English'),
-                    //   value: 'Item 1',
-                    //   onChanged: (val) {},
-                    // )
                   ]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       RaisedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                         padding: const EdgeInsets.symmetric(horizontal: 96.0),
-                        color: Color(0xFFDA1D21),
+                        color: Color(0xfff29f39),
                         textColor: Colors.white,
                         child: Text("SUBMIT"),
                         shape: RoundedRectangleBorder(
