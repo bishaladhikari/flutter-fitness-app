@@ -4,7 +4,7 @@ import 'package:ecapp/pages/category/components/category_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ecapp/model/Category.dart';
+import 'package:ecapp/model/category.dart';
 import 'dart:developer';
 
 class CategoryBody extends StatefulWidget {
@@ -67,7 +67,6 @@ class _CategoryBodyState extends State<CategoryBody> {
 
   Widget _buildHomeWidget(CategoryResponse data) {
     List<Category> categories = data.categories;
-    print(categories[0].name);
     return CategoryList(categories: categories);
   }
 }

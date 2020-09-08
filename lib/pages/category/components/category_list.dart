@@ -1,4 +1,5 @@
-import 'package:ecapp/model/Category.dart';
+import 'package:ecapp/model/category.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatefulWidget {
@@ -38,17 +39,8 @@ class _CategoryListState extends State<CategoryList>
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text(
-            "Category",
-            style: Theme.of(context)
-                .textTheme
-                .headline5
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.only(top: 15, left: 10),
           child: SizedBox(
@@ -56,18 +48,73 @@ class _CategoryListState extends State<CategoryList>
             child: TabBar(
               isScrollable: true,
               unselectedLabelColor: Colors.black,
-              labelColor: Colors.red,
+              labelColor: Color(0xfff29f39),
+              indicatorColor: Color(0xfff29f39),
+              indicatorSize: TabBarIndicatorSize.tab,
               controller: _tabController,
               tabs: categories.map((Category category) {
                 return Container(
-                    padding: EdgeInsets.only(bottom: 15.0, top: 10.0),
                     child: new Text(category.name.toUpperCase(),
-                        style: TextStyle(
+                        style: new TextStyle(
                             fontSize: 14.0, fontWeight: FontWeight.bold)));
               }).toList(),
             ),
           ),
-        )
+        ),
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(
+                  left: 20.0, top: 20.0 / 2, bottom: 20.0 * 2.5),
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: Column(
+                children: <Widget>[
+                  Image.asset("assets/images/burger.png"),
+                  Container(
+                    padding: EdgeInsets.all(20.0 / 2),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 10),
+                              blurRadius: 50,
+                              color: Colors.white.withOpacity(0.23))
+                        ]),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                  left: 20.0, top: 20.0 / 2, bottom: 20.0 * 2.5),
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: Column(
+                children: <Widget>[
+                  Image.asset("assets/images/burger.png"),
+                  Container(
+                    padding: EdgeInsets.all(20.0 / 2),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 10),
+                              blurRadius: 50,
+                              color: Colors.white.withOpacity(0.23))
+                        ]),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

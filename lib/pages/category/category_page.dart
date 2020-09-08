@@ -11,23 +11,33 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: SvgPicture.asset("assets/icons/search.svg"),
-          onPressed: () {},
+        title: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          decoration: BoxDecoration(
+            color: Color(0xFFE0E0E0),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: TextField(
+            cursorColor: Colors.grey,
+            style: TextStyle(fontSize: 16.0, color: Colors.black),
+            decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                  size: 20,
+                ),
+                border: InputBorder.none,
+                hintText: "What are you looking for",
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 20.0)),
+          ),
         ),
         actions: <Widget>[
-          IconButton(
-            icon: SvgPicture.asset("assets/icons/search.svg"),
-            color: Colors.black,
-            onPressed: () {},
-          ),
           IconButton(
             icon: SvgPicture.asset("assets/icons/CartOutBold.svg"),
             color: Colors.black,
