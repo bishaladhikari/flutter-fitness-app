@@ -2,6 +2,9 @@ import 'package:ecapp/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'account/account-page.dart';
+import 'cart/cart_page.dart';
+import 'category/category_page.dart';
+import 'package:ecapp/constants.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -10,9 +13,23 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [HomePage(), AccountPage()];
+  List<Widget> _screens = [
+    HomePage(),
+    CategoryPage(),
+    CartPage(),
+    AccountPage()
+  ];
 
   void _onPageChanged(int index) {}
+  int currentPage = 0;
+  int cart_count = 0;
+
+  void _changePage(id) {
+    setState(() {
+      _pageController.jumpToPage(id);
+      currentPage = id;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +63,54 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: SvgPicture.asset("assets/icons/home.svg"),
-              onPressed: () => {_pageController.jumpToPage(0)},
+              icon: currentPage == 0
+                  ? SvgPicture.asset("assets/icons/home.svg",
+                      color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/home_outline.svg"),
+              padding: EdgeInsets.all(15),
+              onPressed: () => {
+                _changePage(0),
+              },
             ),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/Following.svg"),
-              onPressed: () => {_pageController.jumpToPage(1)},
+              icon: currentPage == 1
+                  ? SvgPicture.asset("assets/icons/category.svg",
+                      color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
+              padding: EdgeInsets.all(15),
+              onPressed: () => {_changePage(1)},
             ),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/Glyph.svg"),
-              onPressed: () => {_pageController.jumpToPage(1)},
+              icon: Stack(
+                children: [
+                  currentPage == 2
+                      ? SvgPicture.asset("assets/icons/Cart.svg",
+                          color: NPrimaryColor)
+                      : SvgPicture.asset("assets/icons/CartOutBold.svg"),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.orange),
+                    child: Text(
+                      cart_count.toString(),
+                      style: TextStyle(fontSize: 10, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              padding: EdgeInsets.all(10),
+              onPressed: () => {_changePage(2)},
             ),
             IconButton(
-              icon: SvgPicture.asset("assets/icons/person.svg"),
-              onPressed: () => {_pageController.jumpToPage(1)},
+              padding: EdgeInsets.all(10),
+              icon: currentPage == 3
+                  ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/person_outlined.svg"),
+              onPressed: () => {_changePage(3)},
             ),
           ],
         ),
