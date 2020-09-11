@@ -76,20 +76,20 @@ class _BodyState extends State<Body> {
                         },
                       ),
                     ),
-                    Expanded(
-                      child: RadioListTile<String>(
-                        groupValue: radioItem,
-                        title: Text('Japanese'),
-                        value: 'jp_JP',
-                        onChanged: (val) {
-                          setState(() {
-                            radioItem = val;
-                            EasyLocalization.of(context).locale =
-                                Locale('jp', 'JP');
-                          });
-                        },
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: RadioListTile<String>(
+                    //     groupValue: radioItem,
+                    //     title: Text('Japanese'),
+                    //     value: 'jp_JP',
+                    //     onChanged: (val) {
+                    //       setState(() {
+                    //         radioItem = val;
+                    //         EasyLocalization.of(context).locale =
+                    //             Locale('jp', 'JP');
+                    //       });
+                    //     },
+                    //   ),
+                    // ),
                   ]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
