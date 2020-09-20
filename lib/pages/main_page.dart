@@ -72,7 +72,7 @@ class _MainPageState extends State<MainPage> {
             IconButton(
               icon: Stack(
                   children: [
-                  currentPage == 2? SvgPicture.asset("assets/icons/Cart.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/CartOutBold.svg"),
+                  currentPage == 2? SvgPicture.asset("assets/icons/Cart_03.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/Cart_02.svg"),
                   Expanded(
 
                     child: Container(
@@ -95,7 +95,7 @@ class _MainPageState extends State<MainPage> {
             ),
             IconButton(
               padding: EdgeInsets.all(10),
-              icon:  currentPage == 3 ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/person_outlined.svg"),
+              icon:  currentPage == 3 ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/person.svg"),
               onPressed: () => {_changePage(3)},
             ),
           ],
