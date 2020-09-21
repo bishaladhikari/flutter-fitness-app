@@ -7,6 +7,7 @@ void main() => runApp(MaterialApp(
     ));
 
 class AddressPage extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +34,7 @@ class AddressPage extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  
                   TextField(
                       decoration: InputDecoration(
                     hintText: "Full Name",
@@ -63,6 +65,7 @@ class AddressPage extends StatelessWidget {
                     hintText: "Address",
                     hintStyle: TextStyle(color: Colors.grey),
                   )),
+                   
                   Container(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     child: Text(
@@ -132,7 +135,7 @@ class AddressPage extends StatelessWidget {
                       height: 35,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.orange[900]),
+                          color: Colors.blue),
                       child: Center(
                           child: Text(
                         'Save',

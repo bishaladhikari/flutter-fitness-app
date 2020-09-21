@@ -13,17 +13,22 @@ class Body extends StatelessWidget {
           ListTile(title: Text('Account Information')),
           ListTile(
               title: Text('Address Book'),
-              onTap: () {
+           onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AddressPage()),
-                );
+                );   
+              
+
                 ListTile(title: Text('Language'));
 
                 ListTile(title: Text('Policies'));
                 ListTile(title: Text('About'));
                 ListTile(title: Text('Help'));
-              }),
-        ]));
+              })]));
+            
+            
+            }
+            
   }
-}
+
