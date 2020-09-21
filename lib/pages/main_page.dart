@@ -5,6 +5,7 @@ import 'account/account-page.dart';
 import 'cart/cart_page.dart';
 import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
+
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -12,17 +13,24 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [HomePage(), CategoryPage(), CartPage() , AccountPage()];
+  List<Widget> _screens = [
+    HomePage(),
+    CategoryPage(),
+    CartPage(),
+    AccountPage()
+  ];
 
   void _onPageChanged(int index) {}
   int currentPage = 0;
   int cart_count = 0;
+
   void _changePage(id) {
     setState(() {
       _pageController.jumpToPage(id);
       currentPage = id;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,47 +63,55 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: currentPage == 0 ? SvgPicture.asset("assets/icons/home.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/home_outline.svg"),
+              icon: currentPage == 0
+                  ? SvgPicture.asset("assets/icons/home.svg",
+                      color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/home_outline.svg"),
               padding: EdgeInsets.all(15),
               onPressed: () => {
                 _changePage(0),
               },
-
             ),
             IconButton(
-              icon: currentPage == 1 ? SvgPicture.asset("assets/icons/category.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
+              icon: currentPage == 1
+                  ? SvgPicture.asset("assets/icons/category.svg",
+                      color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
               padding: EdgeInsets.all(15),
-              onPressed: () => {
-                _changePage(1)
-              },
+              onPressed: () => {_changePage(1)},
             ),
             IconButton(
               icon: Stack(
-                  children: [
-                  currentPage == 2? SvgPicture.asset("assets/icons/Cart_03.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/Cart_02.svg"),
+                children: [
+                  currentPage == 2
+                      ? SvgPicture.asset("assets/icons/Cart_03.svg",
+                          color: NPrimaryColor)
+                      : SvgPicture.asset("assets/icons/Cart_02.svg"),
                   Expanded(
-
                     child: Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.only(left: 14, top:0, bottom: 14),
+                      margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
                       width: 15,
                       height: 15,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.orange),
+                      child: Text(
+                        cart_count.toString(),
+                        style: TextStyle(fontSize: 10, color: Colors.white),
                       ),
-                      child: Text(cart_count.toString(), style: TextStyle(fontSize: 10, color: Colors.white),),
                     ),
                   )
                 ],
               ),
               padding: EdgeInsets.all(10),
-
               onPressed: () => {_changePage(2)},
             ),
             IconButton(
               padding: EdgeInsets.all(10),
-              icon:  currentPage == 3 ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor) : SvgPicture.asset("assets/icons/person.svg"),
+              icon: currentPage == 3
+                  ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/person.svg"),
               onPressed: () => {_changePage(3)},
             ),
           ],
