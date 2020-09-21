@@ -44,7 +44,7 @@ class _CategoryListState extends State<CategoryList>
         length: categories.length,
         child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(40.0),
+              preferredSize: Size.fromHeight(48.0),
               child: AppBar(
                 backgroundColor: Colors.white,
                 elevation: 0.0,
