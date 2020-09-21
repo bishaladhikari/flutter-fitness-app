@@ -84,22 +84,24 @@ class _MainPageState extends State<MainPage> {
               icon: Stack(
                 children: [
                   currentPage == 2
-                      ? SvgPicture.asset("assets/icons/Cart.svg",
+                      ? SvgPicture.asset("assets/icons/Cart_03.svg",
                           color: NPrimaryColor)
-                      : SvgPicture.asset("assets/icons/CartOutBold.svg"),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange),
-                    child: Text(
-                      cart_count.toString(),
-                      style: TextStyle(fontSize: 10, color: Colors.white),
+                      : SvgPicture.asset("assets/icons/Cart_02.svg"),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
+                      width: 15,
+                      height: 15,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.orange),
+                      child: Text(
+                        cart_count.toString(),
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               padding: EdgeInsets.all(10),
@@ -109,7 +111,7 @@ class _MainPageState extends State<MainPage> {
               padding: EdgeInsets.all(10),
               icon: currentPage == 3
                   ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/person_outlined.svg"),
+                  : SvgPicture.asset("assets/icons/person.svg"),
               onPressed: () => {_changePage(3)},
             ),
           ],
