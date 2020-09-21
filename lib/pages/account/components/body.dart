@@ -54,9 +54,11 @@ class Body extends StatelessWidget {
             title: "Wishlist ",
             subtitle: "Your Most Loved Styles.",
             tralingIcon: Icons.keyboard_arrow_right,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/wishListPage');
+            },
           ),
-          
+
           SizedBox(
             height: 15.0,
           ),
@@ -66,7 +68,7 @@ class Body extends StatelessWidget {
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {},
           ),
-           Divider(
+          Divider(
             height: 1.0,
             color: Colors.grey,
           ),
