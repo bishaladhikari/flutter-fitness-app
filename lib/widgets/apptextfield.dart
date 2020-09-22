@@ -6,11 +6,14 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        
-        hintStyle: TextStyle(color: Colors.grey),
-        hintText: hintText),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintStyle: TextStyle(color: Colors.grey),
+          hintText: hintText),
+      ),
     );
   }
 }

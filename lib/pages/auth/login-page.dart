@@ -29,7 +29,7 @@ class _LoginpageState extends State<Loginpage>
         backgroundColor: Colors.deepOrangeAccent,
         elevation: 0.0,
       ),
-      body: Column(mainAxisSize: MainAxisSize.max, children: [
+      body: ListView(children: [
         Container(
           height: 200,
           color: Colors.deepOrangeAccent,
@@ -43,33 +43,40 @@ class _LoginpageState extends State<Loginpage>
                   "E-Capp",
                   style: TextStyle(color: Colors.white, fontSize: 40.0),
                 ),
-                Text("Shopping Made Easy!", style: TextStyle(color: Colors.white))
+                Text("Shopping Made Easy!",
+                    style: TextStyle(color: Colors.white))
               ],
             ),
           ),
         ),
         Center(
           child: Padding(
-    padding: EdgeInsets.all(16.0),
-    child: Text('Sign In!', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 20.0)),
-  ),
+            padding: EdgeInsets.all(16.0),
+            child: Text('Sign In!',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0)),
+          ),
         ),
         AppTextField(hintText: "Email"),
         AppTextField(hintText: "Password"),
         Container(
           alignment: Alignment.centerRight,
-child: Padding(
-    padding: EdgeInsets.all(16.0),
-    child: Text('Forget Password?', style: TextStyle(color: Colors.black, fontSize: 15.0)),
-  ),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text('Forget Password?',
+                style: TextStyle(color: Colors.black, fontSize: 15.0)),
           ),
+        ),
         Container(
           padding: const EdgeInsets.all(5.0),
           margin: const EdgeInsets.all(10.0),
           height: 50.0,
-        width: MediaQuery.of(context).size.width ,
-        decoration: BoxDecoration(
-            color: Colors.deepOrangeAccent, borderRadius: BorderRadius.circular(5.0)),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              color: Colors.deepOrangeAccent,
+              borderRadius: BorderRadius.circular(5.0)),
           child: Center(child: Text("SIGN IN")),
         ),
         Align(
@@ -99,48 +106,86 @@ child: Padding(
           mainAxisSize: MainAxisSize.max,
           children: [
             Container(
-            padding: const EdgeInsets.all(4.0),
-           margin: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(4.0),
+              margin: const EdgeInsets.all(4.0),
               height: 50.0,
-        width: MediaQuery.of(context).size.width / 2.1,
-        decoration: BoxDecoration(
-            color: Color(0xFFFE3C6A), borderRadius: BorderRadius.circular(5.0)),
-        
-          child: Center(child: Text("Facebook")),
-        ),
-            
+              width: MediaQuery.of(context).size.width / 2.1,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  top: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  right: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  left: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                ),
+                  color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(5.0)),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/icons/fb.png",
+                    height: 25.0,
+                  ),
+                  Expanded(child: Text("Facebook",textAlign: TextAlign.center, style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0))),
+                ],
+              ),
+            ),
             Container(
               padding: const EdgeInsets.all(4.0),
-          margin: const EdgeInsets.all(4.0),
+              margin: const EdgeInsets.all(4.0),
               height: 50.0,
-        width: MediaQuery.of(context).size.width / 2.1,
-        decoration: BoxDecoration(
-            color: Color(0xFFFE3C6A), borderRadius: BorderRadius.circular(5.0)),
-        
-          child: Center(child: Text("Google")),
-        ),
+              width: MediaQuery.of(context).size.width / 2.1,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  top: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  right: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  left: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                ),
+                  color: Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(5.0)),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/icons/google.png",
+                    height: 25.0,
+                  ),
+                  Expanded(child: Text("Google",textAlign: TextAlign.center, style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0))),
+                ],
+              ),
+            ),
           ],
         ),
-        Container(
-          padding: const EdgeInsets.all(5.0),
-          margin: const EdgeInsets.all(10.0),
-          height: 50.0,
-        width: MediaQuery.of(context).size.width ,
-        decoration: BoxDecoration(
-          border: Border(
-          bottom: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
-          top: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
-          right: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
-          left: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
-
-
+        GestureDetector(
+          onTap: () {
+              Navigator.of(context).pushNamed('/register-page');},
+                  child: Container(
+            padding: const EdgeInsets.all(5.0),
+            margin: const EdgeInsets.all(10.0),
+            height: 50.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey, width: 1.0),
+                  top: BorderSide(color: Colors.grey, width: 1.0),
+                  right: BorderSide(color: Colors.grey, width: 1.0),
+                  left: BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Center(child: Text("New? Create an Account")),
           ),
-            borderRadius: BorderRadius.circular(10.0)),
-          child: Center(child: Text("New? Create an Account")),
         )
       ]),
-      
     );
-    
   }
 }
