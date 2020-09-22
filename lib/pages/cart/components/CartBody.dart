@@ -10,9 +10,9 @@ class CartBody extends StatefulWidget {
 
 class _CartBodyState extends State<CartBody> {
   List cart = [
-    {'name': 'Cabbage', 'price': 'Rs 100', 'image': 'assets/images/burger_single.png', 'count':1},
-    {'name': 'Tomato', 'price': 'Rs 50', 'image': 'assets/images/tomato.png', 'count': 5},
-    {'name': 'Potato', 'price': 'Rs 250', 'image': 'assets/images/tomato.png', 'count':2},
+    {'name': 'Cabbage', 'price': 'Rs 100', 'image': 'https://img2.pngio.com/cheese-pizza-png-clip-art-library-plain-pizza-png-920_805.png', 'count':1},
+    {'name': 'Tomato', 'price': 'Rs 50', 'image': 'https://pngimg.com/uploads/burger_sandwich/burger_sandwich_PNG4135.png', 'count': 5},
+    {'name': 'Potato', 'price': 'Rs 250', 'image': 'https://lh3.googleusercontent.com/proxy/RmSFgLUs1MO_dQxup3bjAo9SCeo5kBup11gBI5Kqm-269CCqKfMouHQET1RULWXV1j6Nia5tzt4-dxzKoXI2CpG5e2N0W-zoRXG3vfKBJ6R-c5w6VAHCJDbssQ', 'count':2},
   ];
   @override
   subCount(i){
@@ -40,6 +40,7 @@ class _CartBodyState extends State<CartBody> {
       width: double.infinity,
       height: double.infinity,
       child: Column(
+//        mainAxisSize: Main,
         children: [
           SizedBox(
             height: 10,
@@ -59,8 +60,10 @@ class _CartBodyState extends State<CartBody> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           image: DecorationImage(
-                            image: AssetImage(cart[i]['image']),
-                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              cart[i]['image']
+                            ),
+                            fit: BoxFit.fitHeight,
 //                            image: Image.asset(cart[i]['image']),
                           ),
                         ),
@@ -157,7 +160,61 @@ class _CartBodyState extends State<CartBody> {
               );
             },
           ),
-        ],
+      Container(
+        padding: EdgeInsets.only(bottom: 1),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: Container(
+                height:83.5,
+                color: Colors.white,
+                child: Center(
+                  child: Text('Total',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 25, vertical: 27),
+//                          height: 50,
+                  color: Colors.white,
+                  width: 200,
+                  child: Stack(
+                    children: [
+                      Container(
+//                                height: 50,
+                        width: double.infinity,
+//                        decoration: ,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 4),
+                        child: Center(
+                          child: Text('Rs ' + '1', style: TextStyle(color: Colors.black, fontSize: 15) ),
+                        ),
+                      ),
+
+                    ],
+                  )),
+            )
+          ],
+        ),
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        alignment: Alignment.bottomRight,
+        child: RaisedButton(
+          color: NPrimaryColor,
+          onPressed: (){},
+          child: Text('Checkout', style: TextStyle(color:Colors.white),),
+        ),
+      )
+    ],
+
       ),
     );
   }
