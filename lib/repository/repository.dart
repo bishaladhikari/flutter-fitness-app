@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:ecapp/model/category_response.dart';
+import 'package:ecapp/models/category_response.dart';
 import 'dart:developer';
 
 class EcomRepository {

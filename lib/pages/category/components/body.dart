@@ -1,10 +1,10 @@
 import 'package:ecapp/bloc/get_categories_bloc.dart';
-import 'package:ecapp/model/category_response.dart';
+import 'package:ecapp/models/category_response.dart';
 import 'package:ecapp/pages/category/components/category_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ecapp/model/category.dart';
+import 'package:ecapp/models/category.dart';
 import 'dart:developer';
 
 class CategoryBody extends StatefulWidget {
@@ -60,7 +60,7 @@ class _CategoryBodyState extends State<CategoryBody> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Error occured: $error"),
+            Text("Error occurred: $error"),
           ],
         ));
   }

@@ -1,4 +1,5 @@
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/home/components/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
 
@@ -39,7 +40,15 @@ class Body extends StatelessWidget {
 //              EasyLocalization.of(context).locale = Locale('vi','VN');
 //            },
 //          ),
-          ItemList(),
+//          ItemList(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "products_for_you".tr().toString(),
+              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+            ),
+          ),
+          ProductList()
         ],
       ),
     );
