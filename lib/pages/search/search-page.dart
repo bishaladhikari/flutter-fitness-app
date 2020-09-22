@@ -7,6 +7,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  List cat = [
+    'Food','Male Fashion','Female Fashion'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
