@@ -16,7 +16,6 @@ class ProductsList extends StatefulWidget {
 }
 
 class _ProductsListState extends State<ProductsList> {
-
   @override
   void initState() {
     super.initState();
@@ -45,83 +44,53 @@ class _ProductsListState extends State<ProductsList> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor:
-                new AlwaysStoppedAnimation<Color>(Colors.white),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
-    var size = MediaQuery
-        .of(context)
-        .size;
+    var size = MediaQuery.of(context).size;
 
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
+    final double itemHeight = (size.height) / 3;
     final double itemWidth = size.width / 2;
-    final orientation = MediaQuery
-        .of(context)
-        .orientation;
+    final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
+              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
                 childAspectRatio: (itemWidth / itemHeight) * 1.1
             ),
             controller: ScrollController(keepScrollOffset: false),
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return Center(
-            child: ProductItem(
-                product: products[index]
-            ),
-          );
-        }
-    )
-//      child: GridView.count(
-//        crossAxisCount: 2,
-//        childAspectRatio: (itemWidth / itemHeight) * 1.1,
-//        controller: ScrollController(keepScrollOffset: false),
-//        shrinkWrap: true,
-//        scrollDirection: Axis.vertical,
-//
-//        children: <Widget>[
-////          Center(
-////            child: ProductItem(
-////              product: Product(
-////                  company: 'Apple',
-////                  name: 'iPhone 11 (128GB)',
-////                  icon: 'assets/images/phone1.png',
-////                  rating: 4.5,
-////                  remainingQuantity: 5,
-////                  price: '\$4,000'),
-////              gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-////            ),
-////          ),
-//        ],
-//      ),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              return Center(
+                child: ProductItem(product: products[index]),
+              );
+            })
     );
   }
 }

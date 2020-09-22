@@ -39,16 +39,17 @@ class ProductItem extends StatelessWidget {
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Spacer(),
-                        Icon(
-                          Ionicons.getIconData("ios-heart-empty"),
-                          color: Colors.black54,
-                        )
-                      ],
-                    ),
+//                    Row(
+//                      children: <Widget>[
+//                        Spacer(),
+//                        Icon(
+//                          Ionicons.getIconData("ios-heart-empty"),
+//                          color: Colors.black54,
+//                        )
+//                      ],
+//                    ),
                     _productImage(),
+                    SizedBox(height: 10),
                     _productDetails()
                   ],
                 ),
@@ -74,22 +75,29 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Center(
           child: CachedNetworkImage(
-            imageUrl: "http://ecsite.eeeinnovation.com/storage/uploads/products/thumbnails/pro16007825145f6a00b22f9a53.png",
+            placeholder: (context, url) => CircularProgressIndicator(),
+            imageUrl: "https://i.insider.com/5d8ca1222e22af53447766c2?width=900&format=jpeg&auto=webp",
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-//              height: 75,
+              height: 100,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: imageProvider,
                     fit: BoxFit.cover,
-                    colorFilter:
-                    ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                )
               ),
             ),
-            placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),
+//        Positioned(
+//          top:0.0,
+//          right: 0.0,
+//          child: new IconButton(
+//            color: Colors.white,
+//                icon:   Icon(Ionicons.getIconData("ios-heart"), color: Colors.white),
+//                onPressed: () {}),
+//        ),
 //        Center(
 //          child: Container(
 //            width: 75,
@@ -110,13 +118,14 @@ class ProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          product.category.name,
-          style: TextStyle(fontSize: 12, color: Color(0XFFb1bdef)),
+          product.name,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
         Text(
-          product.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+          product.category.name,
+          style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
         ),
+
         SizedBox(height: 10),
         Row(
           children: <Widget>[
