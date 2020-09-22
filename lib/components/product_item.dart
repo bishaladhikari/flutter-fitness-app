@@ -97,14 +97,14 @@ class ProductItem extends StatelessWidget {
           product.name,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
         ),
-        StarRating(rating: product.rating, size: 10),
+        SizedBox(height: 10),
         Row(
           children: <Widget>[
             Text(product.price,
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red)),
+                    color: Colors.deepOrangeAccent)),
             Text(
               '#00.000',
               style: TextStyle(
@@ -113,7 +113,9 @@ class ProductItem extends StatelessWidget {
                   decoration: TextDecoration.lineThrough),
             )
           ],
-        )
+        ),
+        SizedBox(height: 10),
+        StarRating(rating: product.rating, size: 10),
       ],
     );
   }

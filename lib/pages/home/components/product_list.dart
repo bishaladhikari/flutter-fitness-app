@@ -29,7 +29,7 @@ class ProductList extends StatelessWidget {
               product: Product(
                   company: 'Apple',
                   name: 'iPhone 11 (128GB)',
-                  icon: 'assets/phone1.jpeg',
+                  icon: 'assets/images/phone1.png',
                   rating: 4.5,
                   remainingQuantity: 5,
                   price: '\$4,000'),
