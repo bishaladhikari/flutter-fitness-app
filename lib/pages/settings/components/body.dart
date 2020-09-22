@@ -1,5 +1,6 @@
 // import 'package:ecapp/constants.dart';
 import 'package:ecapp/pages/details/components/add-address.dart';
+import 'package:ecapp/pages/details/components/add_location.dart';
 import 'package:flutter/material.dart';
 // import 'package:ecapp/components/search_box.dart';
 
@@ -16,7 +17,7 @@ class Body extends StatelessWidget {
            onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddressPage()),
+                  MaterialPageRoute(builder: (context) => LocationPage()),
                 );   
               
 

@@ -37,12 +37,12 @@ class _AddressPageState extends State<AddressPage> {
         appBar: new AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          leading: new Padding(
-              padding: const EdgeInsets.only(top: 16.0, left: 10.0),
-              child: new Text(
-                'Cancel',
-                style: TextStyle(color: Colors.black, fontSize: 15),
-              )),
+          // * leading: new Padding(
+              // padding: const EdgeInsets.only(top: 16.0, left: 10.0),
+              // child: new Text(
+                // 'Cancel',
+                // style: TextStyle(color: Colors.black, fontSize: 15),
+              // )),*
           title: new Text(
             'Add New Address',
             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -84,10 +84,20 @@ class _AddressPageState extends State<AddressPage> {
                   ]),
                 ),
                 TextFormField(
+                    decoration: InputDecoration(
+                        hintText: "Zip-Code",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        labelText: "Zipcode"),
+                    validator: MultiValidator([
+                      PatternValidator(
+                          r'(^[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$)',
+                          errorText: 'Not A Valid Code Number')
+                    ])),
+                TextFormField(
                   decoration: InputDecoration(
-                      hintText: " Region",
+                      hintText: " House",
                       hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "Region"),
+                      labelText: "House"),
                   validator: validatepass,
                 ),
                 TextFormField(
@@ -99,11 +109,12 @@ class _AddressPageState extends State<AddressPage> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      hintText: "Area",
+                      hintText: "Address",
                       hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "Area"),
+                      labelText: "Address"),
                   validator: validatepass,
                 ),
+                PrefectureDropdown(),
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 20, 120, 20),
                   child: Text(
@@ -197,5 +208,92 @@ class _AddressPageState extends State<AddressPage> {
                 )
               ]),
             ))));
+  }
+}
+
+class PrefectureDropdown extends StatefulWidget {
+  PrefectureDropdown({Key key}) : super(key: key);
+
+  @override
+  _PrefectureDropdownState createState() => _PrefectureDropdownState();
+}
+
+class _PrefectureDropdownState extends State<PrefectureDropdown> {
+  String dropdownValue = null;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField(
+      decoration: InputDecoration(
+          hintText: "Prefecture",
+          hintStyle: TextStyle(color: Colors.grey),
+          labelText: "Prefecture"),
+      value: dropdownValue,
+      icon: Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(color: Colors.black),
+      onChanged: (String newValue) {
+        setState(
+          () {
+            dropdownValue = newValue;
+          },
+        );
+      },
+      items: <String>[
+        '北海道',
+        '青森県',
+        '岩手県',
+        '宮城県',
+        '秋田県',
+        '山形県',
+        '福島県',
+        '茨城県',
+        '栃木県',
+        '群馬県',
+        '埼玉県',
+        '千葉県',
+        '東京都',
+        '神奈川県',
+        '山梨県',
+        '新潟県',
+        '長野県',
+        '岐阜県',
+        '静岡県',
+        '愛知県',
+        '三重県',
+        '富山県',
+        '石川県',
+        '福井県',
+        '滋賀県',
+        '京都府',
+        '大阪府',
+        '兵庫県',
+        '奈良県',
+        '和歌山県',
+        '鳥取県',
+        '島根県',
+        '岡山県',
+        '広島県',
+        '山口県',
+        '徳島県',
+        '香川県',
+        '愛媛県',
+        '高知県',
+        '熊本県',
+        '福岡県',
+        '佐賀県',
+        '長崎県',
+        '熊本県',
+        '大分県',
+        '宮崎県',
+        '鹿児島県'
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
   }
 }
