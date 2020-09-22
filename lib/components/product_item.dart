@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:flutter/material.dart';
@@ -72,15 +73,34 @@ class ProductItem extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Center(
-          child: Container(
-            width: 75,
-            height: 75,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(product.icon), fit: BoxFit.contain),
+          child: CachedNetworkImage(
+            imageUrl: "http://ecsite.eeeinnovation.com/storage/uploads/products/thumbnails/pro16007825145f6a00b22f9a53.png",
+            imageBuilder: (context, imageProvider) => Container(
+//              width: 75,
+//              height: 75,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                    colorFilter:
+                    ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+              ),
             ),
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
-        )
+        ),
+//        Center(
+//          child: Container(
+//            width: 75,
+//            height: 75,
+//            decoration: BoxDecoration(
+//              image: DecorationImage(
+////                  image: NetworkImage(product.imageThumbnail), fit: BoxFit.contain),
+//                  image: CachedNetworkImlage(imageUr:"http://ecsite.eeeinnovation.com/storage/uploads/products/thumbnails/pro16007825145f6a00b22f9a53.png"), fit: BoxFit.contain),
+//            ),
+//          ),
+//        )
       ],
     );
   }
@@ -90,7 +110,7 @@ class ProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          product.company,
+          product.category.name,
           style: TextStyle(fontSize: 12, color: Color(0XFFb1bdef)),
         ),
         Text(
@@ -100,7 +120,7 @@ class ProductItem extends StatelessWidget {
         SizedBox(height: 10),
         Row(
           children: <Widget>[
-            Text(product.price,
+            Text(product.sellingPrice,
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -115,7 +135,7 @@ class ProductItem extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10),
-        StarRating(rating: product.rating, size: 10),
+        StarRating(rating: product.avgRating, size: 10),
       ],
     );
   }
