@@ -20,7 +20,11 @@ class Body extends StatelessWidget {
                   left: 25,
                   child: ProfileImage(),
                 ),
-                Positioned(right: 25, bottom: 25, child: LoginSignup())
+                Positioned(right: 25, bottom: 25, child: GestureDetector(child: LoginSignup(),
+                onTap: () {
+              Navigator.of(context).pushNamed('/login-page');},
+                ),
+                )
               ],
             ),
           ),
