@@ -204,13 +204,17 @@ class _CartBodyState extends State<CartBody> {
           ],
         ),
       ),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        alignment: Alignment.bottomRight,
-        child: RaisedButton(
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        child: Container(
+          width: double.infinity,
+          child: RaisedButton(
           color: NPrimaryColor,
-          onPressed: (){},
-          child: Text('Checkout', style: TextStyle(color:Colors.white),),
+            onPressed: () {
+
+            },
+            child: Text('Checkout', style: TextStyle(color:Colors.white)),
+          ),
         ),
       )
     ],

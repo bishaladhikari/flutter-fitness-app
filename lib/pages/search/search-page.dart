@@ -10,6 +10,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
+      elevation: 0,
       backgroundColor: Colors.white,
       title: Container(
           margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),

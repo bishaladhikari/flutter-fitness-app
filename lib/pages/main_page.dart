@@ -34,6 +34,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(child : leftDrawerMenu()),
       body: PageView(
         controller: _pageController,
         children: _screens,
@@ -120,3 +121,203 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+leftDrawerMenu() {
+  Color blackColor = Colors.black.withOpacity(0.6);
+  return Container(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 16.0),
+          height: 150,
+          child: DrawerHeader(
+            child: ListTile(
+              trailing: Icon(
+                Icons.chevron_right,
+                size: 28,
+              ),
+              subtitle: GestureDetector(
+                onTap: () {
+                },
+                child: Text(
+                  "See Profile",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: blackColor),
+                ),
+              ),
+              title: Text(
+                "Ali Anıl Koçak",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: blackColor),
+              ),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xFFF8FAFB),
+            ),
+          ),
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.home,
+            color: kPrimaryColor,
+          ),
+          title: Text(
+            'Home',
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: kPrimaryColor),
+          ),
+          onTap: () {
+          },
+        ),
+        ListTile(
+          trailing: Icon(
+            Icons.home,
+            color: Color(0xFFFB7C7A),
+            size: 18,
+          ),
+          leading: Icon(Icons.home, color: ksecondaryColor),
+          title: Text('My orders',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: blackColor)),
+          onTap: () {
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.home, color: ksecondaryColor),
+          title: Text('Search',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: blackColor)),
+          onTap: () {
+          },
+        ),
+        ListTile(
+          trailing: Icon(
+            Icons.home,
+            color: Color(0xFFFB7C7A),
+            size: 18,
+          ),
+          leading: Icon(Icons.home, color: ksecondaryColor),
+          title: Text('Notifications',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: blackColor)),
+          onTap: () {
+
+          },
+        ),
+//        ListTile(
+//          trailing: Icon(
+//            Icons.looks_two,
+//            color: Color(0xFFFB7C7A),
+//            size: 18,
+//          ),
+//          leading:
+//          Icon(Feather.getIconData('shopping-cart'), color: blackColor),
+//          title: Text('Shopping Cart',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            Navigator.push(
+//              context,
+//              PageTransition(
+//                type: PageTransitionType.fade,
+//                child: ShoppingCart(true),
+//              ),
+//            );
+//          },
+//        ),
+//        ListTile(
+//          leading: Icon(Feather.getIconData('list'), color: blackColor),
+//          title: Text('My Orders',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            Nav.route(context, ProductList());
+//          },
+//        ),
+//        ListTile(
+//          leading: Icon(Feather.getIconData('award'), color: blackColor),
+//          title: Text('Points',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            Nav.route(context, Checkout());
+//          },
+//        ),
+//        ListTile(
+//          leading:
+//          Icon(Feather.getIconData('message-circle'), color: blackColor),
+//          title: Text('Support',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            Nav.route(context, ProductList());
+//          },
+//        ),
+//        ListTile(
+//          leading:
+//          Icon(Feather.getIconData('help-circle'), color: blackColor),
+//          title: Text('Help',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            Nav.route(context, UserSettings());
+//          },
+//        ),
+//        ListTile(
+//          leading: Icon(Feather.getIconData('settings'), color: blackColor),
+//          title: Text('Settings',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            Navigator.push(
+//              context,
+//              PageTransition(
+//                type: PageTransitionType.fade,
+//                child: UserSettings(),
+//              ),
+//            );
+//          },
+//        ),
+//        ListTile(
+//          leading: Icon(Feather.getIconData('x-circle'), color: blackColor),
+//          title: Text('Quit',
+//              style: TextStyle(
+//                  fontSize: 16,
+//                  fontWeight: FontWeight.w600,
+//                  color: blackColor)),
+//          onTap: () {
+//            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+//          },
+//        ),
+      ],
+    ),
+  );
+}
+
