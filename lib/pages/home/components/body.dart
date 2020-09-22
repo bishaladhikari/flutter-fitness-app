@@ -48,7 +48,10 @@ class Body extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
             ),
           ),
-          ProductList()
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:20.0),
+            child: ProductList(),
+          )
         ],
       ),
     );
