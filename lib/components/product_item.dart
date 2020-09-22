@@ -75,19 +75,38 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Center(
           child: CachedNetworkImage(
-            placeholder: (context, url) => CircularProgressIndicator(),
-            imageUrl: "https://i.insider.com/5d8ca1222e22af53447766c2?width=900&format=jpeg&auto=webp",
+            placeholder: (context, url) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
+            imageUrl:
+                "https://i.insider.com/5d8ca1222e22af53447766c2?width=900&format=jpeg&auto=webp",
+//            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
               height: 100,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                )
+                  image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              )),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
-            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),
 //        Positioned(
@@ -125,7 +144,6 @@ class ProductItem extends StatelessWidget {
           product.category.name,
           style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
         ),
-
         SizedBox(height: 10),
         Row(
           children: <Widget>[
