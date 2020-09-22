@@ -1,3 +1,4 @@
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/widgets/widgets-index.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +27,13 @@ class _LoginpageState extends State<Loginpage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: NPrimaryColor,
         elevation: 0.0,
       ),
       body: ListView(children: [
         Container(
           height: 200,
-          color: Colors.deepOrangeAccent,
+          color: NPrimaryColor,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -75,9 +76,9 @@ class _LoginpageState extends State<Loginpage>
           height: 50.0,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: Colors.deepOrangeAccent,
+              color: NPrimaryColor,
               borderRadius: BorderRadius.circular(5.0)),
-          child: Center(child: Text("SIGN IN")),
+          child: Center(child: Text("SIGN IN",style: TextStyle(fontSize: 14, color: Colors.white))),
         ),
         Align(
             alignment: Alignment.center,
@@ -112,10 +113,10 @@ class _LoginpageState extends State<Loginpage>
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  top: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  right: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  left: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                  top: BorderSide(color: NPrimaryColor, width: 1.0),
+                  right: BorderSide(color: NPrimaryColor, width: 1.0),
+                  left: BorderSide(color: NPrimaryColor, width: 1.0),
                 ),
                   color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(5.0)),
               child: Row(
@@ -141,10 +142,10 @@ class _LoginpageState extends State<Loginpage>
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  top: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  right: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  left: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                  top: BorderSide(color: NPrimaryColor, width: 1.0),
+                  right: BorderSide(color: NPrimaryColor, width: 1.0),
+                  left: BorderSide(color: NPrimaryColor, width: 1.0),
                 ),
                   color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(5.0)),

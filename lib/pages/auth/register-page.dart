@@ -1,3 +1,4 @@
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/widgets/widgets-index.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +27,13 @@ class _RegisterpageState extends State<Registerpage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: NPrimaryColor,
         elevation: 0.0,
       ),
       body: ListView(children: [
         Container(
           height: 200,
-          color: Colors.deepOrangeAccent,
+          color: NPrimaryColor,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -73,9 +74,9 @@ class _RegisterpageState extends State<Registerpage>
           height: 50.0,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: Colors.deepOrangeAccent,
+              color: NPrimaryColor,
               borderRadius: BorderRadius.circular(5.0)),
-          child: Center(child: Text("Create an Account")),
+          child: Center(child: Text("Create an Account",style: TextStyle(fontSize: 14, color: Colors.white))),
         ),
         Align(
             alignment: Alignment.center,
@@ -110,10 +111,10 @@ class _RegisterpageState extends State<Registerpage>
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  top: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  right: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  left: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                  top: BorderSide(color: NPrimaryColor, width: 1.0),
+                  right: BorderSide(color: NPrimaryColor, width: 1.0),
+                  left: BorderSide(color: NPrimaryColor, width: 1.0),
                 ),
                   color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(5.0)),
               child: Row(
@@ -139,10 +140,10 @@ class _RegisterpageState extends State<Registerpage>
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  top: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  right: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
-                  left: BorderSide(color: Colors.deepOrangeAccent, width: 1.0),
+                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                  top: BorderSide(color: NPrimaryColor, width: 1.0),
+                  right: BorderSide(color: NPrimaryColor, width: 1.0),
+                  left: BorderSide(color: NPrimaryColor, width: 1.0),
                 ),
                   color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(5.0)),
@@ -180,7 +181,7 @@ class _RegisterpageState extends State<Registerpage>
                   left: BorderSide(color: Colors.grey, width: 1.0),
                 ),
                 borderRadius: BorderRadius.circular(10.0)),
-            child: Center(child: Text("Have an Account? Sign Up")),
+            child: Center(child: Text("Have an Account? Sign In")),
           ),
         )
       ]),
