@@ -18,7 +18,7 @@ class ProductItem extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-//            margin: EdgeInsets.only(left: 20, right: 15, top: 20, bottom: 20),
+            margin: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -32,7 +32,7 @@ class ProductItem extends StatelessWidget {
             ),
 //            width: trendCardWidth,
             child: Card(
-              elevation: 2,
+              elevation: 0,
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
