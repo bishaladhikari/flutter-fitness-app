@@ -1,9 +1,9 @@
-import 'package:ecapp/model/category_response.dart';
+import 'package:ecapp/models/category_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CategoriesListBloc {
-  final EcomRepository _repository = EcomRepository();
+  final Repository _repository = Repository();
   final BehaviorSubject<CategoryResponse> _subject =
       BehaviorSubject<CategoryResponse>();
 
