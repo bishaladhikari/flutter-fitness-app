@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(EasyLocalization(
+void main() =>
+    runApp(EasyLocalization(
 //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
 //<key>CFBundleLocalizations</key>
 //<array>
@@ -18,7 +19,7 @@ void main() => runApp(EasyLocalization(
       saveLocale: true,
       supportedLocales: [
         Locale('en', "US"),
-        Locale('vi', "VN"),
+        Locale('jp', "JP"),
       ],
       fallbackLocale: Locale('en', 'US'),
     ));
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.deepOrangeAccent,
+        statusBarColor: Colors.white,
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
