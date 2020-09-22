@@ -6,27 +6,22 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 AppBar AccountAppBar(BuildContext context) {
   return AppBar(
-    backgroundColor: Colors.deepOrangeAccent,
+    automaticallyImplyLeading: false,
+    backgroundColor: Colors.white,
     elevation: 0,
 //    leading: null,
 //    leading: ImageButton(
 //      image: SvgPicture.asset("assets/icons/menu.svg"),
 //      onPressed: () {},
 //    ),
-    title: Text(""),
-    actions: <Widget>[
+    title: Text("Profile"),
+    actions: [
       IconButton(
-        icon: Icon(
-          Icons.settings,
-          color: Colors.white,
-        ),
+        icon: Icon(Icons.settings),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SettingsPage()),
-          );
+          Navigator.of(context).pushNamed('/settings-page');
         },
-      ),
+      )
     ],
   );
 }
