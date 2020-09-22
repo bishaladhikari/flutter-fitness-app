@@ -15,6 +15,13 @@ AppBar AccountAppBar(BuildContext context) {
 //      onPressed: () {},
 //    ),
     title: Text("Profile"),
+    actions: [
+      IconButton(
+        icon: Icon(Icons.settings),
+        onPressed: () {
+          Navigator.of(context).pushNamed('/settings-page');
+        },
+      )
+    ],
   );
 }
-
