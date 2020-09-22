@@ -167,10 +167,10 @@ class LoginSignup extends StatelessWidget {
         height: 50.0,
         width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
-            color: Color(0xFFFE3C6A), borderRadius: BorderRadius.circular(5.0)),
+            color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Center(child: Text("LOG IN/ SIGN UP")),
+          child: Center(child: Text("LOG IN/ SIGN UP",style: TextStyle(fontSize: 11, color: Colors.white),)),
         ),
       ),
     );
