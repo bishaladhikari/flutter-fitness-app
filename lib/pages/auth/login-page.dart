@@ -64,14 +64,13 @@ child: Padding(
   ),
           ),
         Container(
+          padding: const EdgeInsets.all(5.0),
+          margin: const EdgeInsets.all(10.0),
           height: 50.0,
         width: MediaQuery.of(context).size.width ,
         decoration: BoxDecoration(
             color: Colors.deepOrangeAccent, borderRadius: BorderRadius.circular(5.0)),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
           child: Center(child: Text("SIGN IN")),
-        ),
         ),
         Align(
             alignment: Alignment.center,
@@ -100,20 +99,48 @@ child: Padding(
           mainAxisSize: MainAxisSize.max,
           children: [
             Container(
-              padding: EdgeInsets.all(10.0),
-              alignment: Alignment.center,
-              child: Text("Facebook"),
-              color: Colors.deepOrangeAccent,
-            ),
+            padding: const EdgeInsets.all(4.0),
+           margin: const EdgeInsets.all(4.0),
+              height: 50.0,
+        width: MediaQuery.of(context).size.width / 2.1,
+        decoration: BoxDecoration(
+            color: Color(0xFFFE3C6A), borderRadius: BorderRadius.circular(5.0)),
+        
+          child: Center(child: Text("Facebook")),
+        ),
+            
             Container(
-              padding: EdgeInsets.all(10.0),
-              alignment: Alignment.center,
-              child: Text("Google"),
-              color: Colors.deepOrangeAccent,
-            ),
+              padding: const EdgeInsets.all(4.0),
+          margin: const EdgeInsets.all(4.0),
+              height: 50.0,
+        width: MediaQuery.of(context).size.width / 2.1,
+        decoration: BoxDecoration(
+            color: Color(0xFFFE3C6A), borderRadius: BorderRadius.circular(5.0)),
+        
+          child: Center(child: Text("Google")),
+        ),
           ],
+        ),
+        Container(
+          padding: const EdgeInsets.all(5.0),
+          margin: const EdgeInsets.all(10.0),
+          height: 50.0,
+        width: MediaQuery.of(context).size.width ,
+        decoration: BoxDecoration(
+          border: Border(
+          bottom: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
+          top: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
+          right: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
+          left: BorderSide(color: Colors.deepOrangeAccent, width:1.0),
+
+
+          ),
+            borderRadius: BorderRadius.circular(10.0)),
+          child: Center(child: Text("New? Create an Account")),
         )
       ]),
+      
     );
+    
   }
 }
