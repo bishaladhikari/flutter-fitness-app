@@ -25,31 +25,27 @@ class _LoginpageState extends State<Loginpage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: NPrimaryColor,
-        elevation: 0.0,
-      ),
-      body: ListView(children: [
-        Container(
-          height: 200,
-          color: NPrimaryColor,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "E-Capp",
-                  style: TextStyle(color: Colors.white, fontSize: 40.0),
-                ),
-                Text("Shopping Made Easy!",
-                    style: TextStyle(color: Colors.white))
-              ],
-            ),
-          ),
-        ),
+    return Material(
+          child: ListView(children: [
+        // Container(
+        //   height: 200,
+        //   color: NPrimaryColor,
+        //   child: Center(
+        //     child: Column(
+        //       mainAxisSize: MainAxisSize.max,
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       crossAxisAlignment: CrossAxisAlignment.center,
+        //       children: [
+        //         Text(
+        //           "E-Capp",
+        //           style: TextStyle(color: Colors.white, fontSize: 40.0),
+        //         ),
+        //         Text("Shopping Made Easy!",
+        //             style: TextStyle(color: Colors.white))
+        //       ],
+        //     ),
+        //   ),
+        // ),
         Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),
@@ -76,9 +72,10 @@ class _LoginpageState extends State<Loginpage>
           height: 50.0,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: NPrimaryColor,
-              borderRadius: BorderRadius.circular(5.0)),
-          child: Center(child: Text("SIGN IN",style: TextStyle(fontSize: 14, color: Colors.white))),
+              color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
+          child: Center(
+              child: Text("SIGN IN",
+                  style: TextStyle(fontSize: 14, color: Colors.white))),
         ),
         Align(
             alignment: Alignment.center,
@@ -112,13 +109,14 @@ class _LoginpageState extends State<Loginpage>
               height: 50.0,
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
-                  top: BorderSide(color: NPrimaryColor, width: 1.0),
-                  right: BorderSide(color: NPrimaryColor, width: 1.0),
-                  left: BorderSide(color: NPrimaryColor, width: 1.0),
-                ),
-                  color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(5.0)),
+                  border: Border(
+                    bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                    top: BorderSide(color: NPrimaryColor, width: 1.0),
+                    right: BorderSide(color: NPrimaryColor, width: 1.0),
+                    left: BorderSide(color: NPrimaryColor, width: 1.0),
+                  ),
+                  color: Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(5.0)),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -128,10 +126,13 @@ class _LoginpageState extends State<Loginpage>
                     "assets/icons/fb.png",
                     height: 25.0,
                   ),
-                  Expanded(child: Text("Facebook",textAlign: TextAlign.center, style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0))),
+                  Expanded(
+                      child: Text("Facebook",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0))),
                 ],
               ),
             ),
@@ -141,12 +142,12 @@ class _LoginpageState extends State<Loginpage>
               height: 50.0,
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
-                  top: BorderSide(color: NPrimaryColor, width: 1.0),
-                  right: BorderSide(color: NPrimaryColor, width: 1.0),
-                  left: BorderSide(color: NPrimaryColor, width: 1.0),
-                ),
+                  border: Border(
+                    bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                    top: BorderSide(color: NPrimaryColor, width: 1.0),
+                    right: BorderSide(color: NPrimaryColor, width: 1.0),
+                    left: BorderSide(color: NPrimaryColor, width: 1.0),
+                  ),
                   color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(5.0)),
               child: Row(
@@ -158,10 +159,13 @@ class _LoginpageState extends State<Loginpage>
                     "assets/icons/google.png",
                     height: 25.0,
                   ),
-                  Expanded(child: Text("Google",textAlign: TextAlign.center, style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0))),
+                  Expanded(
+                      child: Text("Google",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0))),
                 ],
               ),
             ),
@@ -169,8 +173,9 @@ class _LoginpageState extends State<Loginpage>
         ),
         GestureDetector(
           onTap: () {
-              Navigator.of(context).pushNamed('/register-page');},
-                  child: Container(
+            Navigator.of(context).pushNamed('/register-page');
+          },
+          child: Container(
             padding: const EdgeInsets.all(5.0),
             margin: const EdgeInsets.all(10.0),
             height: 50.0,

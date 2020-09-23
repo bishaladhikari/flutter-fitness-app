@@ -1,4 +1,5 @@
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
 
@@ -20,10 +21,15 @@ class Body extends StatelessWidget {
                   left: 25,
                   child: ProfileImage(),
                 ),
-                Positioned(right: 25, bottom: 25, child: GestureDetector(child: LoginSignup(),
-                onTap: () {
-              Navigator.of(context).pushNamed('/login-page');},
-                ),
+                Positioned(
+                  right: 25,
+                  bottom: 25,
+                  child: GestureDetector(
+                    child: LoginSignup(),
+                    onTap: () {
+                      _bottomLoginDialog(context);
+                    },
+                  ),
                 )
               ],
             ),
@@ -106,6 +112,25 @@ class Body extends StatelessWidget {
       ),
     );
   }
+
+_bottomLoginDialog(context) {
+  return showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 500),
+      barrierColor: Colors.black.withOpacity(0.1),
+      pageBuilder: (context, animation1, animation2) {
+        return Align(alignment: Alignment(0,0), child: Loginpage());
+      },
+      transitionBuilder: (context, animation1, animation2, child) {
+        return SlideTransition(
+            position: Tween(begin: Offset(0, 1), end: Offset(0, 0))
+                .animate(animation1),
+            child: child);
+      });
+}
+
+
 }
 
 class AppBarIconText extends StatelessWidget {
@@ -170,9 +195,17 @@ class LoginSignup extends StatelessWidget {
             color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Center(child: Text("LOG IN/ SIGN UP",style: TextStyle(fontSize: 11, color: Colors.white),)),
+          child: Center(
+              child: Text(
+            "LOG IN/ SIGN UP",
+            style: TextStyle(fontSize: 11, color: Colors.white),
+          )),
         ),
       ),
     );
   }
+
+
+
+
 }
