@@ -69,21 +69,8 @@ class _CategoryListState extends State<CategoryList>
             ),
             body: TabBarView(
               controller: _tabController,
-              physics: NeverScrollableScrollPhysics(),
               children: categories.map((Category category) {
                 return ProductsByCategory(category: category.slug,);
-                // return Container(
-                //   margin: EdgeInsets.all(10),
-                //   child: new StaggeredGridView.countBuilder(
-                //       crossAxisCount: 4,
-                //       crossAxisSpacing: 12,
-                //       mainAxisSpacing: 12,
-                //       itemCount: categories.length + 5,
-                //       itemBuilder: (BuildContext context, int index) =>
-                //           _buildProduct(context),
-                //       staggeredTileBuilder: (int index) =>
-                //           StaggeredTile.fit(2)),
-                // );
               }).toList(),
             )),
       ),
