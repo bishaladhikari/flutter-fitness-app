@@ -16,14 +16,15 @@ class _CategoryPageState extends State<CategoryPage>
     return Scaffold(
       bottomNavigationBar: Row(children: <Widget>[
         Container(
-          height: 35,
+          height: 50,
           width: MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(color: Colors.white),
           child: FlatButton.icon(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.sort),
             label: Flexible(
                 fit: FlexFit.loose,
                 child: Container(
+                  color: Colors.white,
                   child: Text(
                     "SORT BY",
                     overflow: TextOverflow.ellipsis,
@@ -35,11 +36,11 @@ class _CategoryPageState extends State<CategoryPage>
           ),
         ),
         Container(
-          height: 35,
+          height: 50,
           width: MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(color: Colors.white),
           child: FlatButton.icon(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.filter_list),
             label: Flexible(
                 fit: FlexFit.loose,
                 child: Container(
