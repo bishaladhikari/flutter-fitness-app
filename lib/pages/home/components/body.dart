@@ -45,7 +45,7 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "products_for_you".tr().toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15, color: kTextColor),
             ),
           ),
           Padding(

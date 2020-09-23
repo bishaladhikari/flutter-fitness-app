@@ -208,6 +208,7 @@ class _CartBodyState extends State<CartBody> {
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: Container(
           width: double.infinity,
+          height: 50,
           child: RaisedButton(
           color: NPrimaryColor,
             onPressed: () {
