@@ -30,6 +30,26 @@ class CategoryList extends StatelessWidget {
             title: "Snacks & Sides",
             press: () {},
           ),
+          CategoryItem(
+            title: "Snacks & Sides",
+            press: () {},
+          ),
+          CategoryItem(
+            title: "Snacks & Sides",
+            press: () {},
+          ),
+          CategoryItem(
+            title: "Snacks & Sides",
+            press: () {},
+          ),
+          CategoryItem(
+            title: "Snacks & Sides",
+            press: () {},
+          ),
+          CategoryItem(
+            title: "Snacks & Sides",
+            press: () {},
+          ),
         ],
       ),
     );

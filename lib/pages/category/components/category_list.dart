@@ -1,4 +1,6 @@
+import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
 import 'package:ecapp/models/category.dart';
+import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -26,7 +28,7 @@ class _CategoryListState extends State<CategoryList>
     _tabController = TabController(vsync: this, length: categories.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        // moviesByGenreBloc..drainStream();
+        productsByCategoryBloc..drainStream();
       }
     });
   }
@@ -61,24 +63,27 @@ class _CategoryListState extends State<CategoryList>
                             style: new TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.bold)));
                   }).toList(),
+                  labelPadding: EdgeInsets.all(6.0),
                 ),
               ),
             ),
             body: TabBarView(
               controller: _tabController,
+              physics: NeverScrollableScrollPhysics(),
               children: categories.map((Category category) {
-                return Container(
-                  margin: EdgeInsets.all(10),
-                  child: new StaggeredGridView.countBuilder(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      itemCount: categories.length + 5,
-                      itemBuilder: (BuildContext context, int index) =>
-                          _buildProduct(context),
-                      staggeredTileBuilder: (int index) =>
-                          StaggeredTile.fit(2)),
-                );
+                return ProductsByCategory(category: category.slug,);
+                // return Container(
+                //   margin: EdgeInsets.all(10),
+                //   child: new StaggeredGridView.countBuilder(
+                //       crossAxisCount: 4,
+                //       crossAxisSpacing: 12,
+                //       mainAxisSpacing: 12,
+                //       itemCount: categories.length + 5,
+                //       itemBuilder: (BuildContext context, int index) =>
+                //           _buildProduct(context),
+                //       staggeredTileBuilder: (int index) =>
+                //           StaggeredTile.fit(2)),
+                // );
               }).toList(),
             )),
       ),
@@ -133,7 +138,7 @@ class _CategoryListState extends State<CategoryList>
             SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: Text("T-shirt with Blade print",
+              child: Text("T-shirt with Blade print  T-shirt with Blade print ",
                   style: Theme.of(context).textTheme.caption),
             ),
           ],

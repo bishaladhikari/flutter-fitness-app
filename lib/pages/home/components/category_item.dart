@@ -5,6 +5,7 @@ class CategoryItem extends StatelessWidget {
   final String title;
   final bool isActive;
   final Function press;
+
   const CategoryItem({
     Key key,
     this.title,
@@ -14,6 +15,19 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(6.0),
+      child: Chip(
+        labelPadding: EdgeInsets.all(5.0),
+        label: Text(title),
+        elevation: 6.0,
+        padding: EdgeInsets.all(6.0)
+      ),
+    );
+  }
+
+  @override
+  Widget build1(BuildContext context) {
     return GestureDetector(
       onTap: press,
       child: Padding(
