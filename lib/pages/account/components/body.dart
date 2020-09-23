@@ -14,7 +14,7 @@ class Body extends StatelessWidget {
             color: Color(0xFFFFFFFF),
             child: Stack(
               children: [
-                Container(height: 100, color: Color(0xFF525462)),
+                Container(height: 100, color: kPrimaryColor),
                 Positioned(
                   bottom: 25,
                   left: 25,
