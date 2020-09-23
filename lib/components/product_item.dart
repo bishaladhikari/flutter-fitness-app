@@ -86,7 +86,7 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             imageUrl:
-                "https://i.insider.com/5d8ca1222e22af53447766c2?width=900&format=jpeg&auto=webp",
+                product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
