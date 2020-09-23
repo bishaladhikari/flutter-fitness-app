@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/product.dart';
+import 'package:ecapp/pages/product-details/product-details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/ionicons.dart';
@@ -31,7 +32,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-//            width: trendCardWidth,
+            width: trendCardWidth,
             child: Card(
               elevation: 0,
               color: Colors.white,
@@ -59,13 +60,13 @@ class ProductItem extends StatelessWidget {
         ],
       ),
       onTap: () {
-//        Navigator.of(context).push(
-//          MaterialPageRoute(
-//            builder: (context) => ProductPage(
-//              product: product,
-//            ),
-//          ),
-//        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetails(
+              product: product,
+            ),
+          ),
+        );
       },
     );
   }
@@ -75,19 +76,38 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Center(
           child: CachedNetworkImage(
-            placeholder: (context, url) => CircularProgressIndicator(),
-            imageUrl: "https://i.insider.com/5d8ca1222e22af53447766c2?width=900&format=jpeg&auto=webp",
+            placeholder: (context, url) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
+            imageUrl:
+                product.imageThumbnail,
+//            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
               height: 100,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                )
+                  image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              )),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
-            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),
 //        Positioned(
@@ -119,13 +139,12 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Text(
           product.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         Text(
           product.category.name,
           style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
         ),
-
         SizedBox(height: 10),
         Row(
           children: <Widget>[

@@ -13,11 +13,11 @@ class CategoryBody extends StatefulWidget {
 }
 
 class _CategoryBodyState extends State<CategoryBody> {
-  @override
-  void initState() {
-    super.initState();
-    categoryBloc..getCategories();
-  }
+//  @override
+//  void initState() {
+//    super.initState();
+//    categoryBloc..getCategories();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _CategoryBodyState extends State<CategoryBody> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(snapshot.data);
+          return _buildCategoryListWidget(snapshot.data);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -65,7 +65,7 @@ class _CategoryBodyState extends State<CategoryBody> {
         ));
   }
 
-  Widget _buildHomeWidget(CategoryResponse data) {
+  Widget _buildCategoryListWidget(CategoryResponse data) {
     List<Category> categories = data.categories;
     return CategoryList(categories: categories);
   }

@@ -14,13 +14,17 @@ class Body extends StatelessWidget {
             color: Color(0xFFFFFFFF),
             child: Stack(
               children: [
-                Container(height: 100, color: Color(0xFF525462)),
+                Container(height: 100, color: kPrimaryColor),
                 Positioned(
                   bottom: 25,
                   left: 25,
                   child: ProfileImage(),
                 ),
-                Positioned(right: 25, bottom: 25, child: LoginSignup())
+                Positioned(right: 25, bottom: 25, child: GestureDetector(child: LoginSignup(),
+                onTap: () {
+              Navigator.of(context).pushNamed('/login-page');},
+                ),
+                )
               ],
             ),
           ),
@@ -163,10 +167,10 @@ class LoginSignup extends StatelessWidget {
         height: 50.0,
         width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
-            color: Color(0xFFFE3C6A), borderRadius: BorderRadius.circular(5.0)),
+            color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Center(child: Text("LOG IN/ SIGN UP")),
+          child: Center(child: Text("LOG IN/ SIGN UP",style: TextStyle(fontSize: 11, color: Colors.white),)),
         ),
       ),
     );

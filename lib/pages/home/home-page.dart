@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+//      backgroundColor: Color(0xFFF4F5F5),
       appBar: homeAppBar(context),
 //      bottomNavigationBar: BottomNavBar(),
       body: Body(),
