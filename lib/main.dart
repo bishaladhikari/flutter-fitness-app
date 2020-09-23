@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/pages/main_page.dart';
+import 'package:ecapp/routes.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/constants.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-
+      onGenerateRoute: Routes.materialPageRoute,
       home: MainPage(),
     );
   }

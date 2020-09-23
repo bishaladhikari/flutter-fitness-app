@@ -5,7 +5,6 @@ import 'components/app_bar.dart';
 import 'components/body.dart';
 
 class AccountPage extends StatefulWidget {
-
   @override
   _AccountPageState createState() => _AccountPageState();
 }
@@ -17,9 +16,9 @@ class _AccountPageState extends State<AccountPage>
     super.build(context);
 
     return Scaffold(
-//      backgroundColor: Svg.picture,
+     backgroundColor: Color(0xFFF6F6F6),
       appBar: AccountAppBar(context),
-      body: Body(),
+      body: Body()
     );
   }
 
