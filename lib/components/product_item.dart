@@ -31,7 +31,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-//            width: trendCardWidth,
+            width: trendCardWidth,
             child: Card(
               elevation: 0,
               color: Colors.white,
@@ -138,7 +138,7 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Text(
           product.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         Text(
           product.category.name,
