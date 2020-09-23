@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ecapp/models/category_response.dart';
+import 'package:ecapp/models/featured_product_response.dart';
 import 'dart:developer';
 
 import 'package:ecapp/models/product_response.dart';
@@ -13,6 +14,7 @@ class Repository {
 
   var getCategoriesUrl = '$appUrl/categories';
   var getProductsUrl = '$appUrl/products';
+  var getFeaturedProductsUrl = '$appUrl/products?type=new_arrivals';
 
   Future<CategoryResponse> getCategories() async {
     try {
@@ -33,6 +35,16 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ProductResponse.withError("$error");
+    }
+  }
+  Future<FeaturedProductResponse> getFeaturedProducts() async {
+    try {
+      _dio.options.headers = {"locale": "jp"};
+      Response response = await _dio.get(getFeaturedProductsUrl);
+      return FeaturedProductResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return FeaturedProductResponse.withError("$error");
     }
   }
 
