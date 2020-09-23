@@ -53,9 +53,9 @@ class _CategoryListState extends State<CategoryList>
                 elevation: 0.0,
                 bottom: TabBar(
                   isScrollable: true,
-                  unselectedLabelColor: Colors.black,
-                  labelColor: kPrimaryColor,
-                  indicatorColor: kPrimaryColor,
+                  unselectedLabelColor: Colors.black38,
+                  labelColor: NPrimaryColor,
+                  indicatorColor: NPrimaryColor,
                   indicatorSize: TabBarIndicatorSize.tab,
                   controller: _tabController,
                   tabs: categories.map((Category category) {

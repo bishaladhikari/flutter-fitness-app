@@ -58,6 +58,10 @@ class _CategoryPageState extends State<CategoryPage>
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {},
+        ),
         title: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           decoration: BoxDecoration(
@@ -74,13 +78,13 @@ class _CategoryPageState extends State<CategoryPage>
                   size: 20,
                 ),
                 border: InputBorder.none,
-                hintText: "What are you looking for",
+                hintText: "Search",
                 hintStyle: TextStyle(color: Colors.grey, fontSize: 20.0)),
           ),
         ),
         actions: <Widget>[
           IconButton(
-            icon: SvgPicture.asset("assets/icons/CartOutBold.svg"),
+            icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
             color: Colors.black,
             onPressed: () {},
           ),
@@ -98,14 +102,17 @@ class _CategoryPageState extends State<CategoryPage>
           return Container(
             height: MediaQuery.of(context).size.height * .60,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text("SORT BY",
-                          style: TextStyle(fontSize: 18, color: Colors.black)),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text("SORT BY",
+                            style: TextStyle(fontSize: 18, color: Colors.black)),
+                      ],
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
