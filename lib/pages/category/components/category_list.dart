@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,12 +54,13 @@ class _CategoryListState extends State<CategoryList>
                 bottom: TabBar(
                   isScrollable: true,
                   unselectedLabelColor: Colors.black,
-                  labelColor: Color(0xfff29f39),
-                  indicatorColor: Color(0xfff29f39),
+                  labelColor: kPrimaryColor,
+                  indicatorColor: kPrimaryColor,
                   indicatorSize: TabBarIndicatorSize.tab,
                   controller: _tabController,
                   tabs: categories.map((Category category) {
                     return Container(
+                      padding: const EdgeInsets.all(6.0),
                         child: new Text(category.name.toUpperCase(),
                             style: new TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.bold)));
