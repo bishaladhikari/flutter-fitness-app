@@ -1,4 +1,4 @@
-import 'package:ecapp/model/category.dart';
+import 'package:ecapp/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -44,7 +44,7 @@ class _CategoryListState extends State<CategoryList>
         length: categories.length,
         child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(40.0),
+              preferredSize: Size.fromHeight(48.0),
               child: AppBar(
                 backgroundColor: Colors.white,
                 elevation: 0.0,

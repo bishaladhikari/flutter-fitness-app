@@ -1,7 +1,10 @@
+// import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/details/components/add-address.dart';
+import 'package:ecapp/pages/details/components/add_location.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/search_box.dart';
+// import 'package:ecapp/components/search_box.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -16,7 +19,14 @@ class _BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ListTile(title: Text('Account Information')),
-          ListTile(title: Text('Address Book')),
+          ListTile(
+              title: Text('Address Book'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocationPage()),
+                );
+              }),
           ListTile(
               title: Text('Language'),
               subtitle:
