@@ -88,7 +88,7 @@ class _ProductsListState extends State<ProductsList> {
             itemCount: products.length,
             itemBuilder: (context, index) {
               return Center(
-                child: ProductItem(product: products[index]),
+                child: ProductItem(product: products[index],width: 200.0),
               );
             })
     );

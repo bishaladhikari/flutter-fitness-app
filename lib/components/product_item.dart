@@ -9,12 +9,13 @@ import 'package:flutter_icons/ionicons.dart';
 class ProductItem extends StatelessWidget {
   final Product product;
   final List<Color> gradientColors;
+  final width;
 
-  ProductItem({this.product, this.gradientColors});
+  ProductItem({this.product, this.gradientColors, this.width = 150.0});
 
   @override
   Widget build(BuildContext context) {
-    double trendCardWidth = 180;
+    double trendCardWidth = width;
 
     return GestureDetector(
       child: Stack(
@@ -86,8 +87,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ),
             ),
-            imageUrl:
-                product.imageThumbnail,
+            imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
