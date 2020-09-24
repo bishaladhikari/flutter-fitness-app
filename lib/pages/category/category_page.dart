@@ -1,3 +1,5 @@
+import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,7 +33,7 @@ class _CategoryPageState extends State<CategoryPage>
                   ),
                 )),
             onPressed: () {
-              _sortProduct(context);
+              _showSortProduct(context);
             },
           ),
         ),
@@ -95,12 +97,12 @@ class _CategoryPageState extends State<CategoryPage>
     );
   }
 
-  void _sortProduct(context) {
+  void _showSortProduct(context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
           return Container(
-            height: MediaQuery.of(context).size.height * .60,
+            height: MediaQuery.of(context).size.height * .70,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -110,19 +112,39 @@ class _CategoryPageState extends State<CategoryPage>
                     child: Row(
                       children: <Widget>[
                         Text("SORT BY",
-                            style: TextStyle(fontSize: 18, color: Colors.black)),
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.black)),
                       ],
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ListTile(title: Text("What's New")),
-                      ListTile(title: Text("Price - high to low")),
-                      ListTile(title: Text("Popularity")),
-                      ListTile(title: Text("Discount")),
-                      ListTile(title: Text("Price - low to high")),
-                      ListTile(title: Text('Customer Rating')),
+                      ListTile(
+                          title: Text("Default"),
+                          onTap: () {
+                            _sortProducts('default');
+                          }),
+                      ListTile(
+                          title: Text("Popularity"),
+                          onTap: () {
+                            _sortProducts('popularity');
+                          }),
+                      ListTile(
+                          title: Text("Low - High Price"),
+                          onTap: () {
+                            _sortProducts('price_asc');
+                          }),
+                      ListTile(
+                          title: Text("High - Low Price"),
+                          onTap: () {
+                            _sortProducts('price_desc');
+                          }),
+                      ListTile(
+                          title: Text("Average Rating"),
+                          onTap: () {
+                            _sortProducts('average_rating');
+                          }),
                     ],
                   ),
                 ],
@@ -200,6 +222,10 @@ class _CategoryPageState extends State<CategoryPage>
             ),
           );
         });
+  }
+
+  void _sortProducts(String sortBy) {
+    productsByCategoryBloc..getCategoryProducts(category, sortBy);
   }
 
   @override

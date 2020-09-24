@@ -37,6 +37,7 @@ class Repository {
       return ProductResponse.withError("$error");
     }
   }
+
   Future<FeaturedProductResponse> getFeaturedProducts() async {
     try {
       _dio.options.headers = {"locale": "jp"};
@@ -48,10 +49,9 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getCategoryProducts(String category) async {
-    var params = {
-      "category": category,
-    };
+  Future<ProductResponse> getCategoryProducts(
+      String category, String sortBy) async {
+    var params = {"category": category, "sort_by": sortBy};
 
     try {
       _dio.options.headers = {"locale": "jp"};

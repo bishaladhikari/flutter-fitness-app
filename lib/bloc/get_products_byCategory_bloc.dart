@@ -9,8 +9,9 @@ class ProductsListByCategoryBloc {
   final BehaviorSubject<ProductResponse> _subject =
       BehaviorSubject<ProductResponse>();
 
-  getCategoryProducts(String category) async {
-    ProductResponse response = await _repository.getCategoryProducts(category);
+  getCategoryProducts(String category, String sortBy) async {
+    ProductResponse response =
+        await _repository.getCategoryProducts(category, sortBy);
     _subject.sink.add(response);
   }
 

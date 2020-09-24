@@ -7,22 +7,27 @@ import 'package:flutter/material.dart';
 
 class ProductsByCategory extends StatefulWidget {
   final String category;
+  final String sortBy;
 
-  ProductsByCategory({Key key, @required this.category}) : super(key: key);
+  ProductsByCategory({Key key, @required this.category, @required this.sortBy})
+      : super(key: key);
 
   @override
-  _ProductsByCategoryState createState() => _ProductsByCategoryState(category);
+  _ProductsByCategoryState createState() =>
+      _ProductsByCategoryState(category, sortBy);
 }
 
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final String category;
+  final String sortBy;
 
-  _ProductsByCategoryState(this.category);
+  _ProductsByCategoryState(this.category, this.sortBy);
 
   @override
   void initState() {
     super.initState();
-    productsByCategoryBloc..getCategoryProducts(category);
+    print(sortBy);
+    productsByCategoryBloc..getCategoryProducts(category, sortBy);
   }
 
   @override
@@ -47,48 +52,43 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occured: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occured: $error"),
+      ],
+    ));
   }
 
   Widget _buildHomeWidget(ProductResponse data) {
-    var size = MediaQuery
-        .of(context)
-        .size;
+    var size = MediaQuery.of(context).size;
 
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
-    final orientation = MediaQuery
-        .of(context)
-        .orientation;
+    final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-                childAspectRatio: (itemWidth / itemHeight) * 1.1
-            ),
+                childAspectRatio: (itemWidth / itemHeight) * 1.1),
             controller: ScrollController(keepScrollOffset: false),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
@@ -97,7 +97,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               return Center(
                 child: ProductItem(product: products[index]),
               );
-            })
-    );
+            }));
   }
 }

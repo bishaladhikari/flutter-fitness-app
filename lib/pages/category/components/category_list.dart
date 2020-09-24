@@ -4,7 +4,6 @@ import 'package:ecapp/models/category.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class CategoryList extends StatefulWidget {
   final List<Category> categories;
@@ -78,59 +77,4 @@ class _CategoryListState extends State<CategoryList>
       ),
     );
   }
-
-  @override
-  Widget _buildProduct(BuildContext context) => Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset("assets/images/oil.png", fit: BoxFit.cover),
-              ),
-            ],
-          ),
-          _buildProductInfo(context),
-        ],
-      );
-
-  Widget _buildProductInfo(BuildContext context) => Container(
-        // margin: EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 4),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text("\$469",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                          decoration: TextDecoration.lineThrough)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text("\$469",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.green)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text("10\% Off",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.red)),
-                ),
-              ],
-            ),
-            SizedBox(height: 4),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text("T-shirt with Blade print  T-shirt with Blade print ",
-                  style: Theme.of(context).textTheme.caption),
-            ),
-          ],
-        ),
-      );
 }
