@@ -16,7 +16,8 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Stack(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),

@@ -83,7 +83,7 @@ class _ProductsListState extends State<ProductsList> {
 //              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
 ////                childAspectRatio: (itemWidth / itemHeight)
 //            ),
-            crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
+            crossAxisCount:4,
             staggeredTileBuilder: (int index) =>
             StaggeredTile.fit(2),
 //            mainAxisSpacing: 4.0,
@@ -93,7 +93,7 @@ class _ProductsListState extends State<ProductsList> {
             scrollDirection: Axis.vertical,
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return ProductItem(product: products[index],width: 150.0);
+              return ProductItem(product: products[index],width: 200.0);
             })
     );
   }
