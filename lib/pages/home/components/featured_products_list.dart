@@ -77,9 +77,7 @@ class _ProductsListState extends State<FeaturedProductsList> {
 //    final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
-    print("hello boss"+ products[0].name);
 //    return Text(products[0].name);
-
 
     return Container(
         padding: EdgeInsets.only(top: 18),
