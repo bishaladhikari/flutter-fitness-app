@@ -15,8 +15,6 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double trendCardWidth = width;
-
     return GestureDetector(
       child: Stack(
         children: <Widget>[
@@ -33,7 +31,8 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-            width: trendCardWidth,
+            width: width,
+//            height: 205,
             child: Card(
               elevation: 0,
               color: Colors.white,
