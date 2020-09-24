@@ -51,7 +51,7 @@ class Repository {
 
   Future<ProductResponse> getCategoryProducts(
       String category, String sortBy) async {
-    var params = {"category": category, "sort_by": sortBy};
+    var params = {"categories": category, "sort_by": sortBy};
 
     try {
       _dio.options.headers = {"locale": "jp"};
