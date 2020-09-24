@@ -225,7 +225,7 @@ class _CategoryPageState extends State<CategoryPage>
   }
 
   void _sortProducts(String sortBy) {
-    productsByCategoryBloc..getCategoryProducts(category, sortBy);
+//    productsByCategoryBloc..getCategoryProducts(category, sortBy);
   }
 
   @override
