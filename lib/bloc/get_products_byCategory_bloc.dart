@@ -33,6 +33,7 @@ class ProductsListByCategoryBloc {
   }
 
   BehaviorSubject<ProductResponse> get subject => _subject;
+  BehaviorSubject<String> get category => _category;
 }
 
 final productsByCategoryBloc = ProductsListByCategoryBloc();

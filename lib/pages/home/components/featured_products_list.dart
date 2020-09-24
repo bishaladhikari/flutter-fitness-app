@@ -77,23 +77,19 @@ class _ProductsListState extends State<FeaturedProductsList> {
 //    final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
-    print("hello boss"+ products[0].name);
 //    return Text(products[0].name);
-
 
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: SizedBox(
-          height: 250,
+          height: 240,
           child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return Center(
-                  child: ProductItem(product: products[index]),
-                );
+                return ProductItem(product: products[index]);
               }),
         )
     );

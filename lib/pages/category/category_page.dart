@@ -65,7 +65,7 @@ class _CategoryPageState extends State<CategoryPage>
           onPressed: () {},
         ),
         title: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          margin: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             color: Color(0xFFE0E0E0),
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -225,7 +225,7 @@ class _CategoryPageState extends State<CategoryPage>
   }
 
   void _sortProducts(String sortBy) {
-//    productsByCategoryBloc..getCategoryProducts(category, sortBy);
+    productsByCategoryBloc..getCategoryProducts( productsByCategoryBloc.stream.category.toString(), sortBy);
   }
 
   @override

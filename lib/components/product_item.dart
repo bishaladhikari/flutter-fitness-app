@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/product.dart';
+import 'package:ecapp/pages/product-details/product-details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/ionicons.dart';
@@ -8,15 +9,17 @@ import 'package:flutter_icons/ionicons.dart';
 class ProductItem extends StatelessWidget {
   final Product product;
   final List<Color> gradientColors;
+  final width;
 
-  ProductItem({this.product, this.gradientColors});
+  ProductItem({this.product, this.gradientColors, this.width = 150.0});
 
   @override
   Widget build(BuildContext context) {
-    double trendCardWidth = 180;
+    double trendCardWidth = width;
 
     return GestureDetector(
-      child: Stack(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
@@ -31,7 +34,8 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-            width: trendCardWidth,
+            width: width,
+//            height: 205,
             child: Card(
               elevation: 0,
               color: Colors.white,
@@ -59,13 +63,13 @@ class ProductItem extends StatelessWidget {
         ],
       ),
       onTap: () {
-//        Navigator.of(context).push(
-//          MaterialPageRoute(
-//            builder: (context) => ProductPage(
-//              product: product,
-//            ),
-//          ),
-//        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetails(
+              product: product,
+            ),
+          ),
+        );
       },
     );
   }
@@ -85,8 +89,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ),
             ),
-            imageUrl:
-                product.imageThumbnail,
+            imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
