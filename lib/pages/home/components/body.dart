@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
             ),
           ),
           FeaturedProductsList(),
-          SizedBox(height: 20),
+          SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
