@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/pages/category/components/filter_list.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -163,61 +164,7 @@ class _CategoryPageState extends State<CategoryPage>
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text("SORT BY",
-                          style: TextStyle(fontSize: 18, color: Colors.black)),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ListTile(title: Text("What's New")),
-                      ListTile(title: Text("Price - high to low")),
-                      ListTile(title: Text("Popularity")),
-                      ListTile(title: Text("Discount")),
-                      ListTile(title: Text("Price - low to high")),
-                      ListTile(title: Text('Customer Rating')),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      RaisedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 10),
-                        color: Color(0xfff29f39),
-                        textColor: Colors.white,
-                        child: Text("APPLY"),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50.0, vertical: 10),
-                        color: Color(0xfff29f39),
-                        textColor: Colors.white,
-                        child: Text("CANCEL"),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                children: <Widget>[FilterList()],
               ),
             ),
           );
@@ -225,7 +172,9 @@ class _CategoryPageState extends State<CategoryPage>
   }
 
   void _sortProducts(String sortBy) {
-    productsByCategoryBloc..getCategoryProducts( productsByCategoryBloc.category.value, sortBy);
+    productsByCategoryBloc
+      ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy);
+    Navigator.of(context).pop();
   }
 
   @override

@@ -27,7 +27,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
-    print(sortBy);
     productsByCategoryBloc..getCategoryProducts(category, sortBy);
   }
 
