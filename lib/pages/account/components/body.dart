@@ -120,7 +120,7 @@ _bottomLoginDialog(context) {
       transitionDuration: Duration(milliseconds: 500),
       barrierColor: Colors.black.withOpacity(0.1),
       pageBuilder: (context, animation1, animation2) {
-        return Align(alignment: Alignment(0,0), child: Loginpage());
+        return Align(alignment: Alignment(0,0), child: LoginPage());
       },
       transitionBuilder: (context, animation1, animation2, child) {
         return SlideTransition(

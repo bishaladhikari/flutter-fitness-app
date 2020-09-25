@@ -2,15 +2,26 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/widgets/widgets-index.dart';
 import 'package:flutter/material.dart';
 
-class Loginpage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _LoginpageState createState() => _LoginpageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginpageState extends State<Loginpage>
+class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
+  bool _isLoading = false;
+  final _formKey = GlobalKey<FormState>();
+  var email;
+  var password;
+  bool _obscureText = true;
+
   AnimationController _controller;
 
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -26,26 +37,7 @@ class _LoginpageState extends State<Loginpage>
   @override
   Widget build(BuildContext context) {
     return Material(
-          child: ListView(children: [
-        // Container(
-        //   height: 200,
-        //   color: NPrimaryColor,
-        //   child: Center(
-        //     child: Column(
-        //       mainAxisSize: MainAxisSize.max,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       children: [
-        //         Text(
-        //           "E-Capp",
-        //           style: TextStyle(color: Colors.white, fontSize: 40.0),
-        //         ),
-        //         Text("Shopping Made Easy!",
-        //             style: TextStyle(color: Colors.white))
-        //       ],
-        //     ),
-        //   ),
-        // ),
+      child: ListView(children: [
         Center(
           child: Padding(
             padding: EdgeInsets.all(16.0),
@@ -56,8 +48,59 @@ class _LoginpageState extends State<Loginpage>
                     fontSize: 20.0)),
           ),
         ),
-        AppTextField(hintText: "Email"),
-        AppTextField(hintText: "Password"),
+//        AppTextField(hintText: "Email"),
+//        AppTextField(hintText: "Password"),
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  style: TextStyle(color: Color(0xFF000000)),
+                  cursorColor: Color(0xFF9b9b9b),
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.mail_outline),
+                      border: OutlineInputBorder(),
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Email"),
+                  validator: (emailValue) {
+                    if (emailValue.isEmpty) {
+                      return 'Please enter email';
+                    }
+                    email = emailValue;
+                    return null;
+                  },
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  style: TextStyle(color: Color(0xFF000000)),
+                  cursorColor: Color(0xFF9b9b9b),
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      suffixIcon: const Icon(Icons.visibility),
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Password"),
+                  obscureText: true,
+                  validator: (emailValue) {
+                    if (emailValue.isEmpty) {
+                      return 'Please enter password';
+                    }
+                    email = emailValue;
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
         Container(
           alignment: Alignment.centerRight,
           child: Padding(

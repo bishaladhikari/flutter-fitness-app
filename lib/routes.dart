@@ -14,7 +14,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => SettingsPage());
         break;
       case '/login-page':
-        return MaterialPageRoute(builder: (context) => Loginpage());
+        return MaterialPageRoute(builder: (context) => LoginPage());
         break;
       case '/register-page':
         return MaterialPageRoute(builder: (context) => Registerpage());
