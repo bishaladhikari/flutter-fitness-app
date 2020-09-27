@@ -23,8 +23,13 @@ class Repository {
 
     try {
       _dio.options.headers = {"locale": "jp"};
-      Response response =
-          await _dio.post(loginUrl, data: {email: email, password: password});
+      Response response = await _dio.post(loginUrl,
+          data: {email: email, password: password},
+          options: Options(
+              followRedirects: false,
+              validateStatus: (status) {
+                return status < 500;
+              }));
       print(response.data);
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
