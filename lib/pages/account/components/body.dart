@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,13 @@ class Body extends StatelessWidget {
             color: Color(0xFFFFFFFF),
             child: Stack(
               children: [
+
                 Container(height: 100, color: kPrimaryColor),
+                Positioned(
+                  bottom: 25,
+                  left: 50,
+                  child: Text(authBloc.user.toString()),
+                ),
                 Positioned(
                   bottom: 25,
                   left: 25,

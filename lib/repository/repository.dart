@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecapp/models/category_response.dart';
 import 'package:ecapp/models/featured_product_response.dart';
+import 'package:ecapp/models/login_response.dart';
 import 'dart:developer';
 
 import 'package:ecapp/models/product_response.dart';
@@ -12,9 +13,21 @@ class Repository {
 
   final Dio _dio = Dio();
 
+  var loginUrl = '$appUrl/customer-login';
   var getCategoriesUrl = '$appUrl/categories';
   var getProductsUrl = '$appUrl/products';
   var getFeaturedProductsUrl = '$appUrl/products?type=new_arrivals';
+
+  Future<LoginResponse> login(credentials) async {
+    try {
+      _dio.options.headers = {"locale": "jp"};
+      Response response = await _dio.post(loginUrl,data: credentials);
+      return LoginResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return LoginResponse.withError("$error");
+    }
+  }
 
   Future<CategoryResponse> getCategories() async {
     try {
