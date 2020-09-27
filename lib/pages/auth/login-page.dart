@@ -88,13 +88,15 @@ class _LoginPageState extends State<LoginPage>
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock_outline),
-                          suffixIcon: const Icon(Icons.visibility),
+                          suffixIcon: IconButton(icon: Icon(_obscureText?Icons.visibility:Icons.visibility_off),
+                            onPressed: _toggle,
+                          ),
                           contentPadding: new EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
                           border: OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey),
                           hintText: "Password"),
-                      obscureText: true,
+                      obscureText: _obscureText,
                       validator: (emailValue) {
                         if (emailValue.isEmpty) {
                           return 'Please enter password';
