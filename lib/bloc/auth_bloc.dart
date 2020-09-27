@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ecapp/models/login_response.dart';
+import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -13,13 +13,10 @@ class AuthBloc {
       BehaviorSubject<LoginResponse>();
 //  final BehaviorSubject<bool> _isLoggedIn = BehaviorSubject<bool>();
 
-  login(email,password) async {
-    LoginResponse response = await _repository.login(email,password);
+  login(credentials) async {
+    LoginResponse response = await _repository.login(credentials);
     _subject.sink.add(response);
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("token", json.encode(response.token));
-    pref.setString("user", json.encode(response.user));
-    print(response.user);
+
   }
 
   dispose() {

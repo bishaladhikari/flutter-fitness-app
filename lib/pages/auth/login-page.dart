@@ -12,10 +12,10 @@ class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-//  var email="actionbishal98130@gmail.com";
-//  var password="Password123";
-  var email="";
-  var password="";
+  var email="actionbishal98130@gmail.com";
+  var password="Password123";
+//  var email="";
+//  var password="";
   bool _obscureText = true;
 
   AnimationController _controller;
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               GestureDetector(
-                onTap: () => {authBloc.login("actionbishal98130@gmail.com","Password123")},
+                onTap: () => {authBloc.login({"email": email, "password": password})},
                 child: InkWell(
                   child: Container(
 //              padding: const EdgeInsets.all(5.0),

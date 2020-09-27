@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:ecapp/models/category_response.dart';
-import 'package:ecapp/models/featured_product_response.dart';
-import 'package:ecapp/models/login_response.dart';
 import 'dart:developer';
 
 import 'package:ecapp/models/product_response.dart';
+import 'package:ecapp/models/response/category_response.dart';
+import 'package:ecapp/models/response/featured_product_response.dart';
+import 'package:ecapp/models/response/login_response.dart';
+import 'package:ecapp/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
   static String appUrl = "http://ecsite.eeeinnovation.com/api";
@@ -18,19 +22,16 @@ class Repository {
   var getProductsUrl = '$appUrl/products';
   var getFeaturedProductsUrl = '$appUrl/products?type=new_arrivals';
 
-  Future<LoginResponse> login(email, password) async {
-    print(email + password);
-
+  Future<LoginResponse> login(credentials) async {
+    print(credentials);
     try {
       _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.post(loginUrl,
-          data: {email: email, password: password},
-          options: Options(
-              followRedirects: false,
-              validateStatus: (status) {
-                return status < 500;
-              }));
-      print(response.data);
+          data: credentials);
+//      print(response.data);
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString("token", json.encode(response.data['token']));
+      pref.setString("user", json.encode(response.data['user']));
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");

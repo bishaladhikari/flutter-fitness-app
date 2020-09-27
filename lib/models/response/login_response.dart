@@ -8,7 +8,7 @@ class LoginResponse {
   LoginResponse(this.user, this.token, this.error);
 
   LoginResponse.fromJson(Map<String, dynamic> json)
-      : token = json["data"],
+      : token = json["token"],
         user = User.fromJson(json["user"]),
         error = "";
 

@@ -1,4 +1,4 @@
-import 'package:ecapp/models/category_response.dart';
+import 'file:///D:/projects/flutter%20projects/ecapp/lib/models/response/category_response.dart';
 import 'package:ecapp/models/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
