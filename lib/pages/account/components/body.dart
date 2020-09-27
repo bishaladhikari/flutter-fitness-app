@@ -46,7 +46,7 @@ class Body extends StatelessWidget {
           ),
           AppBarIconText(
             iconData: Icons.shopping_basket,
-            title: "Orders for" +authBloc.user.fullName,
+            title: "Orders for",
             subtitle: "Check your order status.",
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {},
