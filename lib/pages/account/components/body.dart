@@ -18,11 +18,11 @@ class Body extends StatelessWidget {
               children: [
 
                 Container(height: 100, color: kPrimaryColor),
-                Positioned(
-                  bottom: 25,
-                  left: 50,
-                  child: Text(authBloc.user.toString()),
-                ),
+//                Positioned(
+//                  bottom: 25,
+//                  left: 50,
+//                  child: Text(authBloc.user.toString()),
+//                ),
                 Positioned(
                   bottom: 25,
                   left: 25,

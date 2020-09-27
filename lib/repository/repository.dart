@@ -18,10 +18,14 @@ class Repository {
   var getProductsUrl = '$appUrl/products';
   var getFeaturedProductsUrl = '$appUrl/products?type=new_arrivals';
 
-  Future<LoginResponse> login(credentials) async {
+  Future<LoginResponse> login(email, password) async {
+    print(email + password);
+
     try {
       _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.post(loginUrl,data: credentials);
+      Response response =
+          await _dio.post(loginUrl, data: {email: email, password: password});
+      print(response.data);
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -50,6 +54,7 @@ class Repository {
       return ProductResponse.withError("$error");
     }
   }
+
   Future<FeaturedProductResponse> getFeaturedProducts() async {
     try {
       _dio.options.headers = {"locale": "jp"};

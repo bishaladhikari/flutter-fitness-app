@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               GestureDetector(
-                onTap: () => {authBloc.login({email:email,password:password})},
+                onTap: () => {authBloc.login("actionbishal98130@gmail.com","Password123")},
                 child: InkWell(
                   child: Container(
 //              padding: const EdgeInsets.all(5.0),
