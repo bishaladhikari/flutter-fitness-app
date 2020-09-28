@@ -74,9 +74,10 @@ class _RegisterPageState extends State<RegisterPage>
           height: 50.0,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: NPrimaryColor,
-              borderRadius: BorderRadius.circular(5.0)),
-          child: Center(child: Text("Create an Account",style: TextStyle(fontSize: 14, color: Colors.white))),
+              color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
+          child: Center(
+              child: Text("Create an Account",
+                  style: TextStyle(fontSize: 14, color: Colors.white))),
         ),
         Align(
             alignment: Alignment.center,
@@ -110,13 +111,14 @@ class _RegisterPageState extends State<RegisterPage>
               height: 50.0,
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
-                  top: BorderSide(color: NPrimaryColor, width: 1.0),
-                  right: BorderSide(color: NPrimaryColor, width: 1.0),
-                  left: BorderSide(color: NPrimaryColor, width: 1.0),
-                ),
-                  color: Color(0xFFFFFFFF), borderRadius: BorderRadius.circular(5.0)),
+                  border: Border(
+                    bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                    top: BorderSide(color: NPrimaryColor, width: 1.0),
+                    right: BorderSide(color: NPrimaryColor, width: 1.0),
+                    left: BorderSide(color: NPrimaryColor, width: 1.0),
+                  ),
+                  color: Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(5.0)),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -126,10 +128,13 @@ class _RegisterPageState extends State<RegisterPage>
                     "assets/icons/fb.png",
                     height: 25.0,
                   ),
-                  Expanded(child: Text("Facebook",textAlign: TextAlign.center, style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0))),
+                  Expanded(
+                      child: Text("Facebook",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0))),
                 ],
               ),
             ),
@@ -139,12 +144,12 @@ class _RegisterPageState extends State<RegisterPage>
               height: 50.0,
               width: MediaQuery.of(context).size.width / 2.1,
               decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: NPrimaryColor, width: 1.0),
-                  top: BorderSide(color: NPrimaryColor, width: 1.0),
-                  right: BorderSide(color: NPrimaryColor, width: 1.0),
-                  left: BorderSide(color: NPrimaryColor, width: 1.0),
-                ),
+                  border: Border(
+                    bottom: BorderSide(color: NPrimaryColor, width: 1.0),
+                    top: BorderSide(color: NPrimaryColor, width: 1.0),
+                    right: BorderSide(color: NPrimaryColor, width: 1.0),
+                    left: BorderSide(color: NPrimaryColor, width: 1.0),
+                  ),
                   color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(5.0)),
               child: Row(
@@ -156,10 +161,13 @@ class _RegisterPageState extends State<RegisterPage>
                     "assets/icons/google.png",
                     height: 25.0,
                   ),
-                  Expanded(child: Text("Google",textAlign: TextAlign.center, style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15.0))),
+                  Expanded(
+                      child: Text("Google",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0))),
                 ],
               ),
             ),
@@ -167,8 +175,10 @@ class _RegisterPageState extends State<RegisterPage>
         ),
         GestureDetector(
           onTap: () {
-              Navigator.of(context).pushNamed('/login-page');},
-                  child: Container(
+            Navigator.of(context, rootNavigator: true)
+                .pushReplacementNamed("loginPage");
+          },
+          child: Container(
             padding: const EdgeInsets.all(5.0),
             margin: const EdgeInsets.all(10.0),
             height: 50.0,

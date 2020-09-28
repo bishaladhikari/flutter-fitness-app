@@ -134,7 +134,7 @@ class _BodyState extends State<Body> {
                     child: _LoginSignup(),
                     onTap: () {
 //                      _bottomLoginDialog(context);
-                    Navigator.of(context,rootNavigator: true).pushNamed("loginPage");
+                      Navigator.of(context,rootNavigator: true).pushNamed("loginPage");
                     },
                   )):Container();
             }
