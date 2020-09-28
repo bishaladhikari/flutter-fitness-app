@@ -17,7 +17,7 @@ class User {
     lastName = json['last_name'];
     fullName = json['full_name'];
   }
-  Map<String, dynamic> toJson(user) {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['first_name'] = this.firstName;

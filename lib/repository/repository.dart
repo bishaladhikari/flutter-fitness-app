@@ -29,9 +29,9 @@ class Repository {
       Response response = await _dio.post(loginUrl,
           data: credentials);
 //      print(response.data);
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setString("token", json.encode(response.data['token']));
-      pref.setString("user", json.encode(response.data['user']));
+//      SharedPreferences pref = await SharedPreferences.getInstance();
+//      pref.setString("token", json.encode(response.data['token']));
+//      pref.setString("user", json.encode(response.data['user']));
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
