@@ -8,8 +8,8 @@ class ProductDetailBloc {
   final BehaviorSubject<ProductDetailResponse> _subject =
       BehaviorSubject<ProductDetailResponse>();
 
-  getProductDetail(int id) async {
-    ProductDetailResponse response = await _repository.getProductDetail(id);
+  getProductDetail(String slug) async {
+    ProductDetailResponse response = await _repository.getProductDetail(slug);
     _subject.sink.add(response);
   }
 
