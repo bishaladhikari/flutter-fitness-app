@@ -235,7 +235,7 @@ class _LoginPageState extends State<LoginPage>
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/register-page');
+                  Navigator.of(context,rootNavigator: true).pushNamed('registerPage');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(5.0),

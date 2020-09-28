@@ -133,7 +133,8 @@ class _BodyState extends State<Body> {
                   child: GestureDetector(
                     child: _LoginSignup(),
                     onTap: () {
-                      _bottomLoginDialog(context);
+//                      _bottomLoginDialog(context);
+                    Navigator.of(context,rootNavigator: true).pushNamed("loginPage");
                     },
                   )):Container();
             }
@@ -160,22 +161,22 @@ class _BodyState extends State<Body> {
     );
   }
 
-  _bottomLoginDialog(context) {
-    return showGeneralDialog(
-        context: context,
-        barrierDismissible: false,
-        transitionDuration: Duration(milliseconds: 100),
-        barrierColor: Colors.black.withOpacity(0.1),
-        pageBuilder: (context, animation1, animation2) {
-          return Align(alignment: Alignment(0, 0), child: LoginPage());
-        },
-        transitionBuilder: (context, animation1, animation2, child) {
-          return SlideTransition(
-              position: Tween(begin: Offset(0, 1), end: Offset(0, 0))
-                  .animate(animation1),
-              child: child);
-        });
-  }
+//  _bottomLoginDialog(context) {
+//    return showGeneralDialog(
+//        context: context,
+//        barrierDismissible: false,
+//        transitionDuration: Duration(milliseconds: 100),
+//        barrierColor: Colors.black.withOpacity(0.1),
+//        pageBuilder: (context, animation1, animation2) {
+//          return Align(alignment: Alignment(0, 0), child: LoginPage());
+//        },
+//        transitionBuilder: (context, animation1, animation2, child) {
+//          return SlideTransition(
+//              position: Tween(begin: Offset(0, 1), end: Offset(0, 0))
+//                  .animate(animation1),
+//              child: child);
+//        });
+//  }
 }
 
 class AppBarIconText extends StatelessWidget {

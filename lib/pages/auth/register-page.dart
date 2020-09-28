@@ -2,12 +2,12 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/widgets/widgets-index.dart';
 import 'package:flutter/material.dart';
 
-class Registerpage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _RegisterpageState createState() => _RegisterpageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _RegisterpageState extends State<Registerpage>
+class _RegisterPageState extends State<RegisterPage>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
