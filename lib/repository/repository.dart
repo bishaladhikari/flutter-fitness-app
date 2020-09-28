@@ -7,6 +7,7 @@ import 'package:ecapp/models/product_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
+import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,9 +19,9 @@ class Repository {
   final Dio _dio = Dio();
 
   var loginUrl = '$appUrl/customer-login';
-  var getCategoriesUrl = '$appUrl/categories';
-  var getProductsUrl = '$appUrl/products';
-  var getFeaturedProductsUrl = '$appUrl/products?type=new_arrivals';
+  var categoriesUrl = '$appUrl/categories';
+  var productsUrl = '$appUrl/products';
+  var featuredProductsUrl = '$appUrl/products?type=new_arrivals';
 
   Future<LoginResponse> login(credentials) async {
     print(credentials);
@@ -42,7 +43,7 @@ class Repository {
   Future<CategoryResponse> getCategories() async {
     try {
       _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.get(getCategoriesUrl);
+      Response response = await _dio.get(categoriesUrl);
       return CategoryResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -53,18 +54,27 @@ class Repository {
   Future<ProductResponse> getProducts() async {
     try {
       _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.get(getProductsUrl);
+      Response response = await _dio.get(productsUrl);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ProductResponse.withError("$error");
     }
   }
-
+  Future<ProductDetailResponse> getProductDetail(String slug) async {
+    try {
+      _dio.options.headers = {"locale": "jp"};
+      Response response = await _dio.get(productsUrl + "/$slug");
+      return ProductDetailResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return ProductDetailResponse.withError("$error");
+    }
+  }
   Future<FeaturedProductResponse> getFeaturedProducts() async {
     try {
       _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.get(getFeaturedProductsUrl);
+      Response response = await _dio.get(featuredProductsUrl);
       return FeaturedProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -76,11 +86,10 @@ class Repository {
     var params = {
       "category": category,
     };
-
     try {
       _dio.options.headers = {"locale": "jp"};
       Response response =
-          await _dio.get(getProductsUrl, queryParameters: params);
+          await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
