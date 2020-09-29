@@ -7,13 +7,64 @@ class WishListPage extends StatelessWidget {
 //    authBloc.isAuthenticated==false
 //        Navigator.of(context,rootNavigator: true).push("/loginPage")
   }
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Wish List"),),
-      body: Center(
-        child: Text("I am wish list page"),
-      ),
+      body: Card(
+  
+            child: Column(
+  
+              mainAxisSize: MainAxisSize.min,
+  
+              children: <Widget>[
+  
+                const ListTile(
+  
+                  leading: Icon(Icons.face),
+  
+                  title: Text('Local Chicken'),
+  
+                  subtitle: Text('Dashai Aayo, Chicken khayo'),
+  
+                ),
+  
+                ButtonBar(
+  
+                  children: <Widget>[
+  
+                    FlatButton(
+  
+                      child: const Text("Rs.500"),
+  
+                      onPressed: () {/* ... */},
+  
+                    ),
+  
+                    FlatButton(
+  
+                      child: const Text('Buy'),
+  
+                      onPressed: () {/* ... */},
+  
+                    ),
+  
+                  ],
+  
+                ),
+  
+              ],
+  
+            ),
+  
+          ),
+      // body: Center(
+      //   child: Text("I am wish list page"),
+      // ),
     );
   }
 }
+
+/// This is the stateless widget that the main application instantiates.
+
+  
