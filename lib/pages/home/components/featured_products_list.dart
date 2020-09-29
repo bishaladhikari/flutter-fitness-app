@@ -1,14 +1,15 @@
+import 'package:ecapp/bloc/featured_products_list_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_response.dart';
+import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'item_card.dart';
 
-class ProductsList extends StatefulWidget {
-  const ProductsList({
+class FeaturedProductsList extends StatefulWidget {
+  const FeaturedProductsList({
     Key key,
   }) : super(key: key);
 
@@ -16,18 +17,18 @@ class ProductsList extends StatefulWidget {
   _ProductsListState createState() => _ProductsListState();
 }
 
-class _ProductsListState extends State<ProductsList> {
+class _ProductsListState extends State<FeaturedProductsList> {
   @override
   void initState() {
     super.initState();
-    productsBloc..getProducts();
+    featuredProductsBloc..getFeaturedProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ProductResponse>(
-      stream: productsBloc.subject.stream,
-      builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
+    return StreamBuilder<FeaturedProductResponse>(
+      stream: featuredProductsBloc.subject.stream,
+      builder: (context, AsyncSnapshot<FeaturedProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
@@ -69,32 +70,28 @@ class _ProductsListState extends State<ProductsList> {
     ));
   }
 
-  Widget _buildProductsListWidget(ProductResponse data) {
+  Widget _buildProductsListWidget(FeaturedProductResponse data) {
     var size = MediaQuery.of(context).size;
 
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
+//    final double itemHeight = (size.height) / 2.5;
+//    final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
+//    return Text(products[0].name);
+
     return Container(
         padding: EdgeInsets.only(top: 18),
-        child: StaggeredGridView.countBuilder(
-//            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-////                childAspectRatio: (itemWidth / itemHeight)
-//            ),
-            crossAxisCount:4,
-            staggeredTileBuilder: (int index) =>
-            StaggeredTile.fit(2),
-//            mainAxisSpacing: 4.0,
-//            crossAxisSpacing: 4.0,
-            controller: ScrollController(keepScrollOffset: false),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return ProductItem(product: products[index],width: 200.0);
-            })
+        child: SizedBox(
+          height: 240,
+          child: ListView.builder(
+//            controller: ScrollController(keepScrollOffset: false),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return ProductItem(product: products[index]);
+              }),
+        )
     );
   }
 }

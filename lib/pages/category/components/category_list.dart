@@ -1,4 +1,7 @@
+import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/category.dart';
+import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -26,7 +29,7 @@ class _CategoryListState extends State<CategoryList>
     _tabController = TabController(vsync: this, length: categories.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        // moviesByGenreBloc..drainStream();
+        productsByCategoryBloc..drainStream();
       }
     });
   }
@@ -50,35 +53,26 @@ class _CategoryListState extends State<CategoryList>
                 elevation: 0.0,
                 bottom: TabBar(
                   isScrollable: true,
-                  unselectedLabelColor: Colors.black,
-                  labelColor: Color(0xfff29f39),
-                  indicatorColor: Color(0xfff29f39),
+                  unselectedLabelColor: Colors.black38,
+                  labelColor: NPrimaryColor,
+                  indicatorColor: NPrimaryColor,
                   indicatorSize: TabBarIndicatorSize.tab,
                   controller: _tabController,
                   tabs: categories.map((Category category) {
                     return Container(
+                      padding: const EdgeInsets.all(6.0),
                         child: new Text(category.name.toUpperCase(),
                             style: new TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.bold)));
                   }).toList(),
+                  labelPadding: EdgeInsets.all(6.0),
                 ),
               ),
             ),
             body: TabBarView(
               controller: _tabController,
               children: categories.map((Category category) {
-                return Container(
-                  margin: EdgeInsets.all(10),
-                  child: new StaggeredGridView.countBuilder(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      itemCount: categories.length + 5,
-                      itemBuilder: (BuildContext context, int index) =>
-                          _buildProduct(context),
-                      staggeredTileBuilder: (int index) =>
-                          StaggeredTile.fit(2)),
-                );
+                return ProductsByCategory(category: category.slug,);
               }).toList(),
             )),
       ),
@@ -133,7 +127,7 @@ class _CategoryListState extends State<CategoryList>
             SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: Text("T-shirt with Blade print",
+              child: Text("T-shirt with Blade print  T-shirt with Blade print ",
                   style: Theme.of(context).textTheme.caption),
             ),
           ],

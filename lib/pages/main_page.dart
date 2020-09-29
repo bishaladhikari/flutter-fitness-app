@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/get_categories_bloc.dart';
 import 'package:ecapp/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +13,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    categoryBloc..getCategories();
+  }
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomePage(),

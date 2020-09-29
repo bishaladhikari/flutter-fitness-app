@@ -9,6 +9,10 @@ AppBar AccountAppBar(BuildContext context) {
     automaticallyImplyLeading: false,
     backgroundColor: Colors.white,
     elevation: 0,
+    leading: IconButton(
+      icon: Icon(Icons.menu),
+      onPressed: () {},
+    ),
 //    leading: null,
 //    leading: ImageButton(
 //      image: SvgPicture.asset("assets/icons/menu.svg"),

@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'category_list.dart';
 import 'discount_card.dart';
+import 'featured_products_list.dart';
 import 'item_list.dart';
 
 class Body extends StatelessWidget {
@@ -21,26 +22,16 @@ class Body extends StatelessWidget {
           ),
           CategoryList(),
           DiscountCard(),
-//          Padding(
-//            padding: const EdgeInsets.symmetric(horizontal: 20),
-//            child: Text(
-//              "featured_products".tr().toString(),
-//              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-//            ),
-//          ),
-//          RaisedButton(
-//            child: Text('English'),
-//            onPressed:() {
-//              EasyLocalization.of(context).locale = Locale('en','US');
-//            },
-//          ),
-//          RaisedButton(
-//            child: Text('japanese'),
-//            onPressed:() {
-//              EasyLocalization.of(context).locale = Locale('vi','VN');
-//            },
-//          ),
-//          ItemList(),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "featured_products".tr().toString(),
+              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+            ),
+          ),
+          FeaturedProductsList(),
+          SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
@@ -51,7 +42,8 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal:10.0),
             child: ProductsList(),
-          )
+          ),
+
         ],
       ),
     );

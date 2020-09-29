@@ -13,11 +13,11 @@ abstract class Routes {
       case '/settings-page':
         return MaterialPageRoute(builder: (context) => SettingsPage());
         break;
-      case '/login-page':
-        return MaterialPageRoute(builder: (context) => Loginpage());
+      case 'loginPage':
+        return MaterialPageRoute(builder: (context) => LoginPage());
         break;
-      case '/register-page':
-        return MaterialPageRoute(builder: (context) => Registerpage());
+      case 'registerPage':
+        return MaterialPageRoute(builder: (context) => RegisterPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());

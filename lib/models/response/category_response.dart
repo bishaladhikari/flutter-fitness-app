@@ -1,4 +1,4 @@
-import 'category.dart';
+import '../category.dart';
 
 class CategoryResponse {
   final List<Category> categories;
