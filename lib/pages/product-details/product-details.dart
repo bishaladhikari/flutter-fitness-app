@@ -84,9 +84,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: MediaQuery.of(context).size.width / 2.9,
                   height: 60,
                   decoration: const BoxDecoration(
-                    gradient: LinearGradient(colors: [Colors.lightGreen, NPrimaryColor]
-//                      colors:
-                    ),
+                    color: NPrimaryColor,
                     borderRadius: BorderRadius.all(
                       Radius.circular(8.0),
                     ),
@@ -102,10 +100,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Icon(
-                        Icons.home,
-                        color: Colors.white,
-                      ),
                       new Text(
                         "Add to Cart",
                         style: TextStyle(color: Colors.white),
