@@ -15,4 +15,5 @@ class WishlistResponse {
   WishlistResponse.withError(String errorValue)
       : wishes = List(),
         error = errorValue;
+
 }
