@@ -18,6 +18,38 @@ class Repository {
 
   final Dio _dio = Dio();
 
+  getToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    return pref.getString("token");
+  }
+
+  Repository() {
+//    print("is called");
+    _dio.interceptors.addAll([
+      // Append authorization
+      InterceptorsWrapper(onRequest: (RequestOptions options) async {
+        _dio.lock();
+        await getToken().then((token) => {
+              if (token != null)
+                _dio.options.headers["authorization"] = 'Bearer ' + token
+            });
+
+        _dio.unlock();
+      }),
+      // Append language
+      InterceptorsWrapper(onRequest: (RequestOptions options) {
+        if (!options.headers.containsKey("locale")) {
+          _dio.lock();
+          options.headers = {"locale": "jp"};
+          _dio.unlock();
+        }
+      }),
+      // Debug request
+      LogInterceptor(requestBody: true, responseBody: true)
+    ]);
+  }
+
   var loginUrl = '$appUrl/customer-login';
   var categoriesUrl = '$appUrl/categories';
   var productsUrl = '$appUrl/products';
@@ -26,9 +58,8 @@ class Repository {
   Future<LoginResponse> login(credentials) async {
     print(credentials);
     try {
-      _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.post(loginUrl,
-          data: credentials);
+//      _dio.options.headers = {"locale": "jp"};
+      Response response = await _dio.post(loginUrl, data: credentials);
 //      print(response.data);
 //      SharedPreferences pref = await SharedPreferences.getInstance();
 //      pref.setString("token", json.encode(response.data['token']));
@@ -42,7 +73,7 @@ class Repository {
 
   Future<CategoryResponse> getCategories() async {
     try {
-      _dio.options.headers = {"locale": "jp"};
+//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(categoriesUrl);
       return CategoryResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -53,7 +84,7 @@ class Repository {
 
   Future<ProductResponse> getProducts() async {
     try {
-      _dio.options.headers = {"locale": "jp"};
+//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -61,6 +92,7 @@ class Repository {
       return ProductResponse.withError("$error");
     }
   }
+
   Future<ProductDetailResponse> getProductDetail(String slug) async {
     try {
       _dio.options.headers = {"locale": "jp"};
@@ -71,6 +103,7 @@ class Repository {
       return ProductDetailResponse.withError("$error");
     }
   }
+
   Future<FeaturedProductResponse> getFeaturedProducts() async {
     try {
       _dio.options.headers = {"locale": "jp"};
@@ -88,8 +121,7 @@ class Repository {
     };
     try {
       _dio.options.headers = {"locale": "jp"};
-      Response response =
-          await _dio.get(productsUrl, queryParameters: params);
+      Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
