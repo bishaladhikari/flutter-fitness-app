@@ -35,7 +35,7 @@ class _WishListPageState extends State<WishListPage> {
               if (snapshot.data.error != null && snapshot.data.error.length > 0) {
                 return _buildErrorWidget(snapshot.data.error);
               }
-              return _buildWishlistItemWidget(snapshot.data);
+              return _buildWishlistWidget(snapshot.data);
             } else if (snapshot.hasError) {
               return _buildErrorWidget(snapshot.error);
             } else {
@@ -48,40 +48,44 @@ class _WishListPageState extends State<WishListPage> {
     );
   }
 
-  Widget _buildWishlistItemWidget(WishlistResponse data ) {
+  Widget _buildWishlistWidget(WishlistResponse data ) {
     List<Wish> wishes = data.wishes;
     return ListView.builder(
       itemCount: wishes.length,
-      itemBuilder:(context,index)=> Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTileItem(
-              leading: wishes[index].imageThumbnail,
-              title: 'Local Chicken',
-              subtitle: 'Dashai Aayo, Chicken khayo',
-            ),
-            ButtonBar(
-              children: <Widget>[
-                FlatButton(
-                  child: const Text("Rs.500"),
-                  onPressed: () {
-                    /* ... */
-                  },
-                ),
-                FlatButton(
-                  child: const Text('Buy'),
-                  onPressed: () {
-                    /* ... */
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+      itemBuilder:(context,index)=> _buildWishItemWidget(wishes[index]),
+    );
+  }
+  Widget _buildWishItemWidget(Wish wish ) {
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTileItem(
+            leading: wish.imageThumbnail,
+            title: wish.productName,
+            subtitle: wish.variant,
+          ),
+          ButtonBar(
+            children: <Widget>[
+              FlatButton(
+                child: const Text("Rs.500"),
+                onPressed: () {
+                  /* ... */
+                },
+              ),
+              FlatButton(
+                child: const Text('Buy'),
+                onPressed: () {
+                  /* ... */
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
+
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
