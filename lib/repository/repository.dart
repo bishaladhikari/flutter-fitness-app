@@ -95,7 +95,7 @@ class Repository {
 
   Future<ProductDetailResponse> getProductDetail(String slug) async {
     try {
-      _dio.options.headers = {"locale": "jp"};
+//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl + "/$slug");
       return ProductDetailResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -106,7 +106,7 @@ class Repository {
 
   Future<FeaturedProductResponse> getFeaturedProducts() async {
     try {
-      _dio.options.headers = {"locale": "jp"};
+//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(featuredProductsUrl);
       return FeaturedProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -120,7 +120,7 @@ class Repository {
       "category": category,
     };
     try {
-      _dio.options.headers = {"locale": "jp"};
+//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
