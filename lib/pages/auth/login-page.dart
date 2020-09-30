@@ -12,8 +12,9 @@ class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  var email="actionbishal98130@gmail.com";
-  var password="password";
+  var email = "actionbishal98130@gmail.com";
+  var password = "password";
+
 //  var email="";
 //  var password="";
   bool _obscureText = true;
@@ -88,7 +89,10 @@ class _LoginPageState extends State<LoginPage>
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock_outline),
-                          suffixIcon: IconButton(icon: Icon(_obscureText?Icons.visibility:Icons.visibility_off),
+                          suffixIcon: IconButton(
+                            icon: Icon(_obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                             onPressed: _toggle,
                           ),
                           contentPadding: new EdgeInsets.symmetric(
@@ -121,7 +125,9 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               GestureDetector(
-                onTap: () => {authBloc.login({"email": email, "password": password})},
+                onTap: () => {
+                  authBloc.login({"email": email, "password": password})
+                },
                 child: InkWell(
                   child: Container(
 //              padding: const EdgeInsets.all(5.0),
@@ -235,7 +241,8 @@ class _LoginPageState extends State<LoginPage>
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context,rootNavigator: true).pushReplacementNamed('registerPage');
+                  Navigator.of(context, rootNavigator: true)
+                      .pushReplacementNamed('registerPage');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(5.0),

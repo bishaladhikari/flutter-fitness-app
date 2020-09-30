@@ -42,7 +42,7 @@ class AuthBloc {
   _setPref(response) async {
     print("setting pref");
     pref = await SharedPreferences.getInstance();
-    pref.setString("token", json.encode(response.token));
+    pref.setString("token", response.token);
     print(response.user.fullName);
     pref.setString("user", json.encode(response.user.toJson()));
     pref.commit();

@@ -57,7 +57,7 @@ class _WishListPageState extends State<WishListPage> {
       itemBuilder:(context,index)=> _buildWishItemWidget(wishes[index]),
     );
   }
-  Widget _buildWishItemWidget(Wish wish ) {
+  Widget _buildWishItemWidget(wish ) {
     return Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
