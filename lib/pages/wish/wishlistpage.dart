@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
+import 'package:ecapp/models/image.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/wish.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +132,7 @@ class ListTileItem extends StatelessWidget {
         Container(
           height: 50.0,
           width: 50.0,
-          child: Image.asset(leading),
+          child: CachedNetworkImage(imageUrl:leading),
         ),
         SizedBox(
           width: 10.0,
