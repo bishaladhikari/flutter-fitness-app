@@ -60,7 +60,7 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             iconData: Icons.loyalty,
-            title: "Wishlist ",
+            title: "Wishlist",
             subtitle: "Your Most Loved Styles.",
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
@@ -144,15 +144,15 @@ class _BodyState extends State<Body> {
             builder: (context, AsyncSnapshot snapshot) {
               return snapshot.data?.isAuthenticated == true?
               Positioned(
-                  left: 200,
-                  bottom: 100,
+                  left: 160,
+                  bottom: 60,
                   child: GestureDetector(
                       onTap: () {
                         authBloc.logout();
                       },
                       child: Text(
-                        snapshot.data.user.firstName,
-                        style: TextStyle(color: Colors.black38),
+                        snapshot.data.user.fullName,
+                        style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,fontSize: 18),
                       ))):Container();
             }
           ),

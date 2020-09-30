@@ -1,8 +1,9 @@
 // import 'package:ecapp/constants.dart';
-import 'package:ecapp/pages/details/components/add-address.dart';
-import 'package:ecapp/pages/details/components/add_location.dart';
+import 'package:ecapp/pages/address-book/add-address.dart';
+import 'package:ecapp/pages/address-book/add_location.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/review/review-page.dart';
 import 'package:flutter/material.dart';
 // import 'package:ecapp/components/search_box.dart';
 
@@ -36,6 +37,14 @@ class _BodyState extends State<Body> {
               onTap: () {
                 _languageChange(context);
               }),
+          ListTile(title: Text('Review'),
+           onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ReviewPage()),
+                );
+              }
+          ),
           ListTile(title: Text('Policies')),
           ListTile(title: Text('About')),
           ListTile(title: Text('Help')),
