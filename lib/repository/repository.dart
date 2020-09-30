@@ -8,6 +8,7 @@ import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
+import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,11 +19,11 @@ class Repository {
 
   final Dio _dio = Dio();
 
-  getToken() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-
-    return pref.getString("token");
-  }
+  var loginUrl = '$appUrl/customer-login';
+  var categoriesUrl = '$appUrl/categories';
+  var productsUrl = '$appUrl/products';
+  var wishlistsUrl = '$appUrl/wishlists';
+  var featuredProductsUrl = '$appUrl/products?type=new_arrivals';
 
   Repository() {
 //    print("is called");
@@ -31,9 +32,9 @@ class Repository {
       InterceptorsWrapper(onRequest: (RequestOptions options) async {
         _dio.lock();
         await getToken().then((token) => {
-              if (token != null)
-                _dio.options.headers["authorization"] = 'Bearer ' + token
-            });
+          if (token != null)
+            _dio.options.headers["authorization"] = 'Bearer ' + token
+        });
 
         _dio.unlock();
       }),
@@ -50,10 +51,13 @@ class Repository {
     ]);
   }
 
-  var loginUrl = '$appUrl/customer-login';
-  var categoriesUrl = '$appUrl/categories';
-  var productsUrl = '$appUrl/products';
-  var featuredProductsUrl = '$appUrl/products?type=new_arrivals';
+  getToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    return pref.getString("token");
+  }
+
+
 
   Future<LoginResponse> login(credentials) async {
     print(credentials);
@@ -90,6 +94,16 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ProductResponse.withError("$error");
+    }
+  }
+
+  Future<WishlistResponse> getWishlist() async {
+    try {
+      Response response = await _dio.get(wishlistsUrl);
+      return WishlistResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return WishlistResponse.withError("$error");
     }
   }
 

@@ -1,4 +1,4 @@
-import 'Brand.dart';
+import 'brand.dart';
 import 'attribute.dart';
 import 'category.dart';
 import 'variant.dart';
