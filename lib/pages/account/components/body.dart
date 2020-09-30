@@ -127,7 +127,8 @@ class _BodyState extends State<Body> {
           StreamBuilder<PrefsData>(
             stream: authBloc.preference,
             builder: (context,AsyncSnapshot snapshot) {
-              return snapshot.data?.isAuthenticated==false ? Positioned(
+              return snapshot.data?.isAuthenticated==false ?
+              Positioned(
                   right: 25,
                   bottom: 25,
                   child: GestureDetector(

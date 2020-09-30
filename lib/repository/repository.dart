@@ -63,7 +63,7 @@ class Repository {
     print(credentials);
     try {
 //      _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.post(loginUrl, data: credentials);
+      Response response = await _dio.post(loginUrl, queryParameters: credentials);
 //      print(response.data);
 //      SharedPreferences pref = await SharedPreferences.getInstance();
 //      pref.setString("token", json.encode(response.data['token']));
