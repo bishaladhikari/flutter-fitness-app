@@ -13,6 +13,7 @@ class WishListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Wish List"),
+        backgroundColor: Colors.white,
       ),
       body: Card(
         child: Column(
