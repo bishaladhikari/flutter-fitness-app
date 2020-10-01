@@ -4,7 +4,15 @@ class WishlistResponse {
    List<Wish> wishes;
   final String error;
 
-  WishlistResponse(this.wishes, this.error);
+  void removeWish(id) {
+    wishes.removeWhere((element) => element.id==id);
+  }
+//
+//   void addWish(Wish wish) {
+//     wishes.add(wish);
+//   }
+
+   WishlistResponse(this.wishes, this.error);
 
   WishlistResponse.fromJson(Map<String, dynamic> json)
       : wishes = (json["data"] as List)
