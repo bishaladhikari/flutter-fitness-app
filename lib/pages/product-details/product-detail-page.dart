@@ -3,6 +3,7 @@ import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
+import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -198,7 +199,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Column(
       children: [
         _buildInfo(context, productDetail), //Product Info
-        _buildExtra(context, productDetail),
+        _buildVariants(context, productDetail),
         _buildDescription(context, productDetail),
       ],
     );
@@ -371,7 +372,27 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  _buildExtra(BuildContext context, product) {
+  _buildVariants(BuildContext context, productDetail) {
+    List<Variant> variants = productDetail.variants;
+    final children = <Widget>[];
+    for (int i = 0; i < variants?.length ?? 0; i++) {
+      if (variants[i] == null) {
+        children.add(Center(child: CircularProgressIndicator()));
+      } else {
+        children.add(OutlineButton(
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(8.0)),
+          child: Text(variants[i].name),
+          onPressed: () {}, //callback when button is clicked
+          borderSide: BorderSide(
+            color: Colors.grey, //Color of the border
+            style: BorderStyle.solid, //Style of the border
+            width: 0.8, //width of the border
+          ),
+        ));
+        children.add(SizedBox(height: 8));
+      }
+    }
     return Container(
       decoration: BoxDecoration(
           border: Border(
@@ -384,91 +405,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Capacity"),
+          children: [
+            Text(productDetail.variantTitle),
             Row(
-              children: <Widget>[
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('64 GB'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.grey, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 0.8, //width of the border
-                  ),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('128 GB'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.red, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 1, //width of the border
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text("Color"),
-            Row(
-              children: <Widget>[
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('GOLD'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.orangeAccent, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 1.5, //width of the border
-                  ),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('SILVER'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.grey, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 0.8, //width of the border
-                  ),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                OutlineButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0)),
-                  child: Text('PINK'),
-                  onPressed: () {}, //callback when button is clicked
-                  borderSide: BorderSide(
-                    color: Colors.grey, //Color of the border
-                    style: BorderStyle.solid, //Style of the border
-                    width: 0.8, //width of the border
-                  ),
-                ),
-              ],
+              children: children,
             ),
           ],
         ),
       ),
     );
   }
-
   _buildDescription(BuildContext context, product) {
     return Container(
       width: MediaQuery.of(context).size.width,

@@ -118,7 +118,7 @@ class _BodyState extends State<Body> {
       color: Color(0xFFFFFFFF),
       child: Stack(
         children: [
-          Container(height: 100, color: kPrimaryColor),
+          Container(height: 100, color: ksecondaryColor),
           Positioned(
             bottom: 25,
             left: 25,
