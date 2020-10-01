@@ -6,6 +6,8 @@ import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -33,18 +35,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     super.initState();
     productDetailBloc.getProductDetail(product.slug);
   }
+
   @override
   void dispose() {
     super.dispose();
     productDetailBloc..drainStream();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        color: Theme.of(context).backgroundColor,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 11,
+        color: Theme
+            .of(context)
+            .backgroundColor,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height / 11,
         child: Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
@@ -98,7 +110,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 2.9,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 2.9,
                   height: 60,
                   decoration: const BoxDecoration(
                     color: NPrimaryColor,
@@ -144,7 +159,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   color: Colors.black, //change your color here
                 ),
                 backgroundColor: Colors.white,
-                expandedHeight: MediaQuery.of(context).size.height / 2.4,
+                expandedHeight: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 2.4,
                 floating: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
@@ -164,7 +182,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ];
         },
         body: Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,28 +229,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 25.0,
+              width: 25.0,
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 4.0,
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occurred: $error"),
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Error occurred: $error"),
+          ],
+        ));
   }
 
   showAlertDialog(BuildContext context) {
@@ -312,7 +333,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       width: double.infinity,
       decoration: BoxDecoration(
         image:
-            DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
+        DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
       ),
     );
   }
@@ -321,10 +342,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return StreamBuilder<ProductDetailResponse>(
         stream: productDetailBloc.subject.stream,
         builder: (context, snapshot) {
-
-          if(snapshot.hasData){
+          if (snapshot.hasData) {
             ProductDetail productDetail = snapshot.data.productDetail;
-            return  DottedSlider(
+            return DottedSlider(
               maxHeight: 200,
               children: <Widget>[
 //                _productSlideImage(
@@ -338,13 +358,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ],
             );
           }
-          return  Container();
+          return Container();
         });
   }
 
   _buildInfo(context, product) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -380,14 +403,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
         children.add(Padding(
-          padding: const EdgeInsets.fromLTRB(0,0,10,0),
+          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: OutlineButton(
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(8.0)),
             child: Text(variants[i].name),
             onPressed: () {}, //callback when button is clicked
             borderSide: BorderSide(
-              color:  Colors.grey.withOpacity(0.3), //Color of the border
+              color: Colors.grey.withOpacity(0.3), //Color of the border
               style: BorderStyle.solid, //Style of the border
               width: 0.8, //width of the border
             ),
@@ -398,12 +421,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Container(
       decoration: BoxDecoration(
           border: Border(
-        top: BorderSide(width: 1.0, color: Colors.black12),
-        bottom: BorderSide(width: 1.0, color: Colors.black12),
-      )),
+            top: BorderSide(width: 1.0, color: Colors.black12),
+            bottom: BorderSide(width: 1.0, color: Colors.black12),
+          )),
       padding: EdgeInsets.all(4.0),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 4,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height / 4,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -422,49 +451,66 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       ),
     );
   }
-  _buildDescription(BuildContext context, product) {
+
+  _buildDescription(BuildContext context, ProductDetail productDetail) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 3.8,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height / 3.8,
       child: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text(
-              "Description",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black45,
-                fontSize: 18,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text("description"),
-            SizedBox(
-              height: 8,
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  _settingModalBottomSheet(context);
-                },
-                child: Text(
-                  "View More",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
-                      fontSize: 16),
-                ),
-              ),
-            )
-          ],
+          Text(
+          "Description",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black45,
+            fontSize: 18,
+          ),
         ),
+        SizedBox(
+          height: 8,
+        ),
+        Html(
+          data: productDetail.description,
+          //Optional parameters:
+//          backgroundColor: Colors.white70,
+          onLinkTap: (url) {
+            // open url in a webview
+          },
+
+          onImageTap: (src) {
+            // Display the image in large form.
+          },
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              _settingModalBottomSheet(context);
+            },
+            child: Text(
+              "View More",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueGrey,
+                  fontSize: 16),
+            ),
+          ),
+        )
+        ],
       ),
-    );
+    ),);
   }
 
   _buildComments(BuildContext context) {
@@ -475,7 +521,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           bottom: BorderSide(width: 1.0, color: Colors.black12),
         ),
       ),
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       child: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -753,7 +802,10 @@ void _settingModalBottomSheet(context) {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: Container(
             padding: EdgeInsets.all(16.0),
             child: Column(
