@@ -1,4 +1,4 @@
-import 'product.dart';
+import '../product.dart';
 
 class FeaturedProductResponse {
   final List<Product> products;

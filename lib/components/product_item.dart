@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/components/star_rating.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/pages/product-details/product-details.dart';
+import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/ionicons.dart';
@@ -65,7 +66,7 @@ class ProductItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetails(
+            builder: (context) => ProductDetailPage(
               product: product,
             ),
           ),
@@ -154,7 +155,7 @@ class ProductItem extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepOrangeAccent)),
+                    color: NPrimaryColor)),
             Text(
               '#00.000',
               style: TextStyle(

@@ -14,7 +14,7 @@ class _CartBodyState extends State<CartBody> {
     {'name': 'Tomato', 'price': 'Rs 50', 'image': 'https://pngimg.com/uploads/burger_sandwich/burger_sandwich_PNG4135.png', 'count': 5},
     {'name': 'Potato', 'price': 'Rs 250', 'image': 'https://lh3.googleusercontent.com/proxy/RmSFgLUs1MO_dQxup3bjAo9SCeo5kBup11gBI5Kqm-269CCqKfMouHQET1RULWXV1j6Nia5tzt4-dxzKoXI2CpG5e2N0W-zoRXG3vfKBJ6R-c5w6VAHCJDbssQ', 'count':2},
   ];
-  @override
+  // @override
   subCount(i){
     setState((){
       cart[i]['count']--;
@@ -28,7 +28,6 @@ class _CartBodyState extends State<CartBody> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     print(cart.length);
   }

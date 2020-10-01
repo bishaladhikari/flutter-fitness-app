@@ -1,4 +1,3 @@
-import 'package:ecapp/models/category_response.dart';
 import 'package:ecapp/models/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../constants.dart';
 // import 'pattern_validation_container.dart';
 
 void main() => runApp(MaterialApp(
@@ -14,6 +15,7 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
+  FocusNode _focusNode;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   void validate() {
     if (formkey.currentState.validate()) {
@@ -32,17 +34,34 @@ class _AddressPageState extends State<AddressPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _focusNode = new FocusNode();
+    _focusNode.addListener(requestFocus);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void requestFocus() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
           // * leading: new Padding(
-              // padding: const EdgeInsets.only(top: 16.0, left: 10.0),
-              // child: new Text(
-                // 'Cancel',
-                // style: TextStyle(color: Colors.black, fontSize: 15),
-              // )),*
+          // padding: const EdgeInsets.only(top: 16.0, left: 10.0),
+          // child: new Text(
+          // 'Cancel',
+          // style: TextStyle(color: Colors.black, fontSize: 15),
+          // )),*
           title: new Text(
             'Add New Address',
             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -57,10 +76,22 @@ class _AddressPageState extends State<AddressPage> {
               key: formkey,
               child: Column(children: <Widget>[
                 TextFormField(
+                  focusNode: _focusNode,
                   decoration: InputDecoration(
-                      hintText: "Full Name",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "Name"),
+                    fillColor: NPrimaryColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: NPrimaryColor),
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey),
+                    ),
+                    labelText: "Name",
+                    labelStyle: TextStyle(
+                        color:
+                            _focusNode.hasFocus ? NPrimaryColor : Colors.grey),
+                    hintText: "Full Name",
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                   validator: validatepass,
                 ),
                 TextFormField(
