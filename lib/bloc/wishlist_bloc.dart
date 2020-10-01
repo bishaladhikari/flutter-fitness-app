@@ -14,6 +14,11 @@ class WishListBloc {
     _subject.sink.add(response);
   }
 
+  deleteWishList(id) async {
+    final response = await _repository.deleteWishlist(id);
+    print("response:"+response.toString());
+  }
+
   dispose() {
     _subject.close();
   }

@@ -5,6 +5,8 @@ import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/wish.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
+
 class WishListPage extends StatefulWidget {
   WishListPage() {
 //    authBloc.isAuthenticated==false
@@ -54,40 +56,10 @@ class _WishListPageState extends State<WishListPage> {
     List<Wish> wishes = data.wishes;
     return ListView.builder(
       itemCount: wishes.length,
-      itemBuilder:(context,index)=> _buildWishItemWidget(wishes[index]),
+      itemBuilder:(context,index)=> WishlistItemView(item:wishes[index]),
     );
   }
-  Widget _buildWishItemWidget(wish ) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTileItem(
-            leading: wish.imageThumbnail,
-            title: wish.productName,
-            subtitle: wish.variant,
-          ),
-          ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                child: const Text("Rs.500"),
-                onPressed: () {
-                  /* ... */
-                },
-              ),
-              FlatButton(
-                child: const Text('Buy'),
-                onPressed: () {
-                  /* ... */
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
+ 
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
@@ -146,4 +118,69 @@ class ListTileItem extends StatelessWidget {
       ]),
     );
   }
+}
+class WishlistItemView extends StatelessWidget{
+  final item;
+  WishlistItemView({this.item});
+  @override
+  Widget build(BuildContext context) {
+    print("Item:"+item.toJson().toString());
+       return Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(bottom: 1),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height:83.5,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              item.image
+                            ),
+                            fit: BoxFit.fitHeight,
+//                            image: Image.asset(cart[i]['image']),
+                          ),
+                        ),
+//                        child: Image.asset(cart[i]['image']),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+//                        padding:
+//                            EdgeInsets.symmetric(horizontal: 10, vertical: 23),
+//                        height: 100,
+                        width: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(item.productName,
+                                style: TextStyle(
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
+                            SizedBox(height: 10),
+                            Text(item.sellingPrice, style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey))
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),onPressed: (){
+                      wishListBloc.deleteWishList(item.id);
+                    },))
+                    ],
+                ),
+              );
+           
+  }
+
+
+  
 }
