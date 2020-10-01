@@ -387,7 +387,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             child: Text(variants[i].name),
             onPressed: () {}, //callback when button is clicked
             borderSide: BorderSide(
-              color: kPrimaryColor, //Color of the border
+              color:  Colors.grey.withOpacity(0.3), //Color of the border
               style: BorderStyle.solid, //Style of the border
               width: 0.8, //width of the border
             ),
