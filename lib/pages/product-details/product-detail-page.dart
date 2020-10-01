@@ -361,7 +361,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             Text(
               "\$ 3.800",
               style: TextStyle(
-                  color: NPrimaryColor,
+                  color: kTextLightColor,
                   fontSize: 20,
                   fontWeight: FontWeight.w700),
             )
