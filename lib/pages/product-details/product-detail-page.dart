@@ -497,7 +497,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         Center(
           child: GestureDetector(
             onTap: () {
-              _settingModalBottomSheet(context);
+              _settingModalBottomSheet(context,productDetail.description);
             },
             child: Text(
               "View More",
@@ -797,7 +797,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 }
 
-void _settingModalBottomSheet(context) {
+void _settingModalBottomSheet(context,description) {
   showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -823,8 +823,8 @@ void _settingModalBottomSheet(context) {
                 SizedBox(
                   height: 8,
                 ),
-                Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."),
+                Html( data: productDetail.description
+                    ),
                 SizedBox(
                   height: 8,
                 ),
