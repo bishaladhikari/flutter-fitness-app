@@ -1,24 +1,38 @@
+import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/product.dart';
+import 'package:ecapp/models/product_detail.dart';
+import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
 
-class ProductDetails extends StatefulWidget {
-  final Product product;
+class ProductDetailPage extends StatefulWidget {
+  final product;
 
-  const ProductDetails({Key key, this.product}) : super(key: key);
+  const ProductDetailPage({Key key, this.product}) : super(key: key);
 
 //  ProductPage({this.product});
   @override
-  _ProductDetailsState createState() => _ProductDetailsState();
+  _ProductDetailPageState createState() => _ProductDetailPageState(product);
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
+  Product product;
+
+  _ProductDetailPageState(this.product);
+
+  @override
+  void initState() {
+    super.initState();
+    productDetailBloc.getProductDetail(product.slug);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +44,6 @@ class _ProductDetailsState extends State<ProductDetails> {
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             color: Colors.white,
-
-
             border: Border.all(width: 0.5, color: Colors.black12),
           ),
           child: Row(
@@ -101,7 +113,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       new Text(
-                        "Add to Cart",
+                        "Checkout",
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
@@ -116,61 +128,34 @@ class _ProductDetailsState extends State<ProductDetails> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              actions: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                  },
-                  child: Icon(
-                    Icons.home,
+                actions: <Widget>[
+                  IconButton(
+                    icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
                     color: Colors.black,
+                    onPressed: () {},
                   ),
+                ],
+                iconTheme: IconThemeData(
+                  color: Colors.black, //change your color here
                 ),
-                Stack(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        Icons.home,
-                      ),
+                backgroundColor: Colors.white,
+                expandedHeight: MediaQuery.of(context).size.height / 2.4,
+                floating: true,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+//                centerTitle: true,
+                  title: Text(
+                    product.name,
+                    style: TextStyle(
                       color: Colors.black,
-                      onPressed: () {
-                      },
+                      fontSize: 16.0,
                     ),
-                    isClicked
-                        ? Positioned(
-                      left: 9,
-                      bottom: 13,
-                      child: Icon(
-                        Icons.looks_one,
-                        size: 14,
-                        color: Colors.red,
-                      ),
-                    )
-                        : Text(""),
-                  ],
-                ),
-              ],
-              iconTheme: IconThemeData(
-                color: Colors.black, //change your color here
-              ),
-              backgroundColor: Colors.white,
-              expandedHeight: MediaQuery.of(context).size.height / 2.4,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text(
-                   widget.product.name,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
                   ),
-                ),
-                background: Padding(
-                  padding: EdgeInsets.only(top: 48.0),
-                  child: dottedSlider(),
-                ),
-              ),
-            ),
+                  background: Padding(
+                    padding: EdgeInsets.only(top: 48.0),
+                    child: dottedSlider(),
+                  ),
+                )),
           ];
         },
         body: Container(
@@ -179,9 +164,21 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                _buildInfo(context), //Product Info
-                _buildExtra(context),
-                _buildDescription(context),
+                StreamBuilder<ProductDetailResponse>(
+                    stream: productDetailBloc.subject.stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data.error != null &&
+                            snapshot.data.error.length > 0) {
+                          return _buildErrorWidget(snapshot.data.error);
+                        }
+                        return _buildProductDetailWidget(snapshot.data);
+                      } else if (snapshot.hasError) {
+                        return _buildErrorWidget(snapshot.error);
+                      } else {
+                        return _buildLoadingWidget();
+                      }
+                    }),
                 _buildComments(context),
                 _buildProducts(context),
               ],
@@ -190,6 +187,44 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       ),
     );
+  }
+
+  Widget _buildProductDetailWidget(ProductDetailResponse data) {
+    ProductDetail productDetail = data.productDetail;
+    return Column(
+      children: [
+        _buildInfo(context, productDetail), //Product Info
+        _buildExtra(context, productDetail),
+        _buildDescription(context, productDetail),
+      ],
+    );
+  }
+
+  Widget _buildLoadingWidget() {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
+  }
+
+  Widget _buildErrorWidget(String error) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   showAlertDialog(BuildContext context) {
@@ -272,75 +307,73 @@ class _ProductDetailsState extends State<ProductDetails> {
       width: double.infinity,
       decoration: BoxDecoration(
         image:
-        DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
+            DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
       ),
     );
   }
 
   dottedSlider() {
-    return DottedSlider(
-      maxHeight: 200,
-      children: <Widget>[
-        _productSlideImage(widget.product.imageThumbnail),
-        _productSlideImage(widget.product.image),
-        _productSlideImage(widget.product.image),
-        _productSlideImage(widget.product.imageThumbnail),
-      ],
-    );
+    return StreamBuilder<ProductDetailResponse>(
+        stream: productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+
+          if(snapshot.hasData){
+            ProductDetail productDetail = snapshot.data.productDetail;
+            return  DottedSlider(
+              maxHeight: 200,
+              children: <Widget>[
+//                _productSlideImage(
+//                    productDetail.attributes[0].images[0].imageThumbnail),
+//                _productSlideImage(
+//                    productDetail.attributes[0].images[0].imageThumbnail),
+//                _productSlideImage(
+//                    productDetail.attributes[0].images[0].imageThumbnail),
+//                _productSlideImage(
+//                    productDetail.attributes[0].images[0].imageThumbnail),
+              ],
+            );
+          }
+          return  Container();
+        });
   }
 
-  _buildInfo(context) {
+  _buildInfo(context, product) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(width: 130, child: Text("Front Camera")),
-                SizedBox(
-                  width: 48,
-                ),
-                Text("16 MP"),
-              ],
+        child: Row(
+          children: [
+            Text(
+              "\$ 5.674",
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 18,
+                  decoration: TextDecoration.lineThrough),
             ),
             SizedBox(
-              height: 8,
+              width: 6,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(width: 130, child: Text("Internal Storage")),
-                SizedBox(
-                  width: 48,
-                ),
-                Text("128 GB"),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                "Tüm Özellikler >",
-                style: TextStyle(color: Colors.black45),
-              ),
-            ),
+            Text(
+              "\$ 3.800",
+              style: TextStyle(
+                  color: NPrimaryColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
+            )
           ],
         ),
       ),
     );
   }
 
-  _buildExtra(BuildContext context) {
+  _buildExtra(BuildContext context, product) {
     return Container(
       decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(width: 1.0, color: Colors.black12),
-            bottom: BorderSide(width: 1.0, color: Colors.black12),
-          )),
+        top: BorderSide(width: 1.0, color: Colors.black12),
+        bottom: BorderSide(width: 1.0, color: Colors.black12),
+      )),
       padding: EdgeInsets.all(4.0),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 4,
@@ -432,7 +465,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  _buildDescription(BuildContext context) {
+  _buildDescription(BuildContext context, product) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 3.8,
@@ -453,8 +486,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             SizedBox(
               height: 8,
             ),
-            Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."),
+            Text("description"),
             SizedBox(
               height: 8,
             ),
@@ -793,4 +825,3 @@ void _settingModalBottomSheet(context) {
         );
       });
 }
-
