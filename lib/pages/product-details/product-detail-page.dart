@@ -32,7 +32,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     super.initState();
     productDetailBloc.getProductDetail(product.slug);
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+    productDetailBloc..drainStream();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
