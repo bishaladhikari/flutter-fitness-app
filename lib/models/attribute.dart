@@ -1,3 +1,5 @@
+import 'package:ecapp/models/variant.dart';
+
 import 'image.dart';
 
 class Attribute {
@@ -12,7 +14,7 @@ class Attribute {
   String weight;
   String unit;
   int actualQuantity;
-  String variant;
+  Variant variant;
   String slug;
   bool saved;
 
@@ -49,7 +51,7 @@ class Attribute {
     weight = json['weight'];
     unit = json['unit'];
     actualQuantity = json['actual_quantity'];
-    variant = json['variant'];
+    variant = Variant.fromJson(json['variant']);
     slug = json['slug'];
     saved = json['saved'];
   }
