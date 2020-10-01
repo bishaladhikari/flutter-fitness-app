@@ -1,7 +1,7 @@
 import 'package:ecapp/models/wish.dart';
 
 class WishlistResponse {
-  final List<Wish> wishes;
+   List<Wish> wishes;
   final String error;
 
   WishlistResponse(this.wishes, this.error);
