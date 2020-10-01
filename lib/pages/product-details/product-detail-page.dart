@@ -379,18 +379,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       if (variants[i] == null) {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
-        children.add(OutlineButton(
-          shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(8.0)),
-          child: Text(variants[i].name),
-          onPressed: () {}, //callback when button is clicked
-          borderSide: BorderSide(
-            color: Colors.grey, //Color of the border
-            style: BorderStyle.solid, //Style of the border
-            width: 0.8, //width of the border
+        children.add(Padding(
+          padding: const EdgeInsets.fromLTRB(0,0,10,0),
+          child: OutlineButton(
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(8.0)),
+            child: Text(variants[i].name),
+            onPressed: () {}, //callback when button is clicked
+            borderSide: BorderSide(
+              color: kPrimaryColor, //Color of the border
+              style: BorderStyle.solid, //Style of the border
+              width: 0.8, //width of the border
+            ),
           ),
         ));
-        children.add(SizedBox(height: 8));
       }
     }
     return Container(
@@ -409,8 +411,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(productDetail.variantTitle),
-            Row(
-              children: children,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: children,
+              ),
             ),
           ],
         ),
