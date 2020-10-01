@@ -9,11 +9,9 @@ class WishListBloc {
   final BehaviorSubject<WishlistResponse> _subject =
       BehaviorSubject<WishlistResponse>();
   WishlistResponse response;
-  List<Wish> wishes;
 
   getWishlist() async {
     response = await _repository.getWishlist();
-    if (response.wishes.length > 0) wishes = response.wishes;
     _subject.sink.add(response);
   }
 
