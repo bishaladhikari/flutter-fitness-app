@@ -150,8 +150,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             SliverAppBar(
                 actions: <Widget>[
                   IconButton(
-                    icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-                    color: Colors.black,
+                    icon: Icon(Icons.favorite_border),
+                    color: Colors.black26,
                     onPressed: () {},
                   ),
                 ],
@@ -439,7 +439,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(productDetail.variantTitle),
+            Text("Available "+productDetail.variantTitle),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
