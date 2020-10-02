@@ -16,24 +16,27 @@ import '../../constants.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final product;
+  Variant selectedVariant;
 
-  const ProductDetailPage({Key key, this.product}) : super(key: key);
+  ProductDetailPage({Key key, this.product, this.selectedVariant})
+      : super(key: key);
 
 //  ProductPage({this.product});
   @override
-  _ProductDetailPageState createState() => _ProductDetailPageState(product);
+  _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
-  Product product;
 
-  _ProductDetailPageState(this.product);
+//  Product product;
+
+  _ProductDetailPageState();
 
   @override
   void initState() {
     super.initState();
-    productDetailBloc.getProductDetail(product.slug);
+    productDetailBloc.getProductDetail(widget.product.slug);
   }
 
   @override
@@ -46,17 +49,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        color: Theme
-            .of(context)
-            .backgroundColor,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height / 11,
+        color: Theme.of(context).backgroundColor,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 11,
         child: Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
@@ -110,10 +105,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 2.9,
+                  width: MediaQuery.of(context).size.width / 2.9,
                   height: 60,
                   decoration: const BoxDecoration(
                     color: NPrimaryColor,
@@ -159,16 +151,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   color: Colors.black, //change your color here
                 ),
                 backgroundColor: Colors.white,
-                expandedHeight: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 2.4,
+                expandedHeight: MediaQuery.of(context).size.height / 2.4,
                 floating: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
 //                centerTitle: true,
                   title: Text(
-                    product.name,
+                    widget.product.name,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16.0,
@@ -182,10 +171,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ];
         },
         body: Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,6 +184,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             snapshot.data.error.length > 0) {
                           return _buildErrorWidget(snapshot.data.error);
                         }
+
                         return _buildProductDetailWidget(snapshot.data);
                       } else if (snapshot.hasError) {
                         return _buildErrorWidget(snapshot.error);
@@ -217,6 +204,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   Widget _buildProductDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
+    if (widget.selectedVariant == null)
+      widget.selectedVariant = productDetail.variants[0];
+    print("here rebuilded as well");
     return Column(
       children: [
         _buildInfo(context, productDetail), //Product Info
@@ -229,28 +219,28 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   showAlertDialog(BuildContext context) {
@@ -333,7 +323,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       width: double.infinity,
       decoration: BoxDecoration(
         image:
-        DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
+            DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
       ),
     );
   }
@@ -364,10 +354,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildInfo(context, product) {
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -395,23 +382,36 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  _buildVariants(BuildContext context, productDetail) {
+  Widget _buildVariants(BuildContext context, productDetail) {
     List<Variant> variants = productDetail.variants;
     final children = <Widget>[];
     for (int i = 0; i < variants?.length ?? 0; i++) {
       if (variants[i] == null) {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
+        bool isVariantSelected = widget.selectedVariant.id == variants[i].id;
+
+        print('selecting' + widget.selectedVariant.id.toString());
         children.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: OutlineButton(
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(8.0)),
-            child: Text(variants[i].name),
-            onPressed: () {}, //callback when button is clicked
+            child: Text(variants[i].name,
+                style: TextStyle(
+                    color: isVariantSelected ? kPrimaryColor : kTextColor)),
+            onPressed: () {
+              setState(() {
+                widget.selectedVariant = variants[i];
+              });
+            }, //callback when button is clicked
             borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3), //Color of the border
-              style: BorderStyle.solid, //Style of the border
+              color: isVariantSelected
+                  ? kPrimaryColor
+                  : Colors.grey.withOpacity(0.3),
+              //Color of the border
+              style: BorderStyle.solid,
+              //Style of the border
               width: 0.8, //width of the border
             ),
           ),
@@ -421,25 +421,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Container(
       decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(width: 1.0, color: Colors.black12),
-            bottom: BorderSide(width: 1.0, color: Colors.black12),
-          )),
+        top: BorderSide(width: 1.0, color: Colors.black12),
+        bottom: BorderSide(width: 1.0, color: Colors.black12),
+      )),
       padding: EdgeInsets.all(4.0),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height / 4,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 4,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Available "+productDetail.variantTitle),
+            Text("Available " + productDetail.variantTitle),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -454,63 +448,58 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDescription(BuildContext context, ProductDetail productDetail) {
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height / 3.8,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 3.8,
       child: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-          Text(
-          "Description",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black45,
-            fontSize: 18,
-          ),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Html(
-          data: productDetail.description,
-          //Optional parameters:
-//          backgroundColor: Colors.white70,
-          onLinkTap: (url) {
-            // open url in a webview
-          },
-
-          onImageTap: (src) {
-            // Display the image in large form.
-          },
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Center(
-          child: GestureDetector(
-            onTap: () {
-              _settingModalBottomSheet(context,productDetail.description);
-            },
-            child: Text(
-              "View More",
+            Text(
+              "Description",
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey,
-                  fontSize: 16),
+                fontWeight: FontWeight.bold,
+                color: Colors.black45,
+                fontSize: 18,
+              ),
             ),
-          ),
-        )
-        ],
+            SizedBox(
+              height: 8,
+            ),
+            Html(
+              data: productDetail.description,
+              //Optional parameters:
+//          backgroundColor: Colors.white70,
+              onLinkTap: (url) {
+                // open url in a webview
+              },
+
+              onImageTap: (src) {
+                // Display the image in large form.
+              },
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  _settingModalBottomSheet(context, productDetail.description);
+                },
+                child: Text(
+                  "View More",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey,
+                      fontSize: 16),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
-    ),);
+    );
   }
 
   _buildComments(BuildContext context) {
@@ -521,10 +510,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           bottom: BorderSide(width: 1.0, color: Colors.black12),
         ),
       ),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       child: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -797,15 +783,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 }
 
-void _settingModalBottomSheet(context,description) {
+void _settingModalBottomSheet(context, description) {
   showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          width: MediaQuery.of(context).size.width,
           child: Container(
             padding: EdgeInsets.all(16.0),
             child: Column(
@@ -823,8 +806,7 @@ void _settingModalBottomSheet(context,description) {
                 SizedBox(
                   height: 8,
                 ),
-                Html( data: description
-                    ),
+                Html(data: description),
                 SizedBox(
                   height: 8,
                 ),
