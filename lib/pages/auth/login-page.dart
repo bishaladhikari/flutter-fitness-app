@@ -13,7 +13,7 @@ class _LoginPageState extends State<LoginPage>
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   var email = "actionbishal98130@gmail.com";
-  var password = "password";
+  var password = "Password123";
 
 //  var email="";
 //  var password="";

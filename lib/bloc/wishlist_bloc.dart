@@ -2,6 +2,7 @@ import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/wish.dart';
 import 'package:ecapp/repository/repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
 class WishListBloc {
@@ -15,7 +16,7 @@ class WishListBloc {
     _subject.sink.add(response);
   }
 
-  deleteWishList(id) async {
+  deleteFromWishList(id) async {
     await _repository.deleteWishlist(id);
     response.removeWish(id);
     _subject.sink.add(response);
@@ -23,7 +24,10 @@ class WishListBloc {
     print("response:" + response.toString());
   }
 
-  dispose() {
+  void drainStream(){ _subject.value = null; }
+  @mustCallSuper
+  void dispose() async{
+    await _subject.drain();
     _subject.close();
   }
 
