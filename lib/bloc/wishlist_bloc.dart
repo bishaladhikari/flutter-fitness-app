@@ -18,7 +18,7 @@ class WishListBloc {
 
   deleteFromWishList(id) async {
     await _repository.deleteWishlist(id);
-    response.removeWish(id);
+    response.deleteFromWishList(id);
     _subject.sink.add(response);
 
     print("response:" + response.toString());
