@@ -4,19 +4,26 @@ import 'package:rxdart/rxdart.dart';
 
 class ProductsListBloc {
   final Repository _repository = Repository();
-  final BehaviorSubject<ProductResponse> _subject =
+  final BehaviorSubject<ProductResponse> _forYou =
       BehaviorSubject<ProductResponse>();
-
+  final BehaviorSubject<ProductResponse> _featured =
+  BehaviorSubject<ProductResponse>();
   getProducts() async {
     ProductResponse response = await _repository.getProducts();
-    _subject.sink.add(response);
+    _forYou.sink.add(response);
+  }
+  getFeaturedProducts() async {
+    ProductResponse response = await _repository.getFeaturedProducts();
+    _featured.sink.add(response);
   }
 
   dispose() {
-    _subject.close();
+    _forYou.close();
+    _featured.close();
   }
 
-  BehaviorSubject<ProductResponse> get subject => _subject;
+  BehaviorSubject<ProductResponse> get forYou => _forYou;
+  BehaviorSubject<ProductResponse> get featured => _featured;
 }
 
 final productsBloc = ProductsListBloc();

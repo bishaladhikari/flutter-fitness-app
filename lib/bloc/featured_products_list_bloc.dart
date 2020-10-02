@@ -8,8 +8,8 @@ class FeaturedProductsListBloc {
       BehaviorSubject<FeaturedProductResponse>();
 
   getFeaturedProducts() async {
-    FeaturedProductResponse response = await _repository.getFeaturedProducts();
-    _subject.sink.add(response);
+//    FeaturedProductResponse response = await _repository.getFeaturedProducts();
+//    _subject.sink.add(response);
   }
 
   dispose() {

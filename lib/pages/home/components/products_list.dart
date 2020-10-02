@@ -20,13 +20,12 @@ class _ProductsListState extends State<ProductsList> {
   @override
   void initState() {
     super.initState();
-    productsBloc..getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.subject.stream,
+      stream: productsBloc.forYou.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

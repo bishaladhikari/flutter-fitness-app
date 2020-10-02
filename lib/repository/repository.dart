@@ -137,14 +137,22 @@ class Repository {
     }
   }
 
-  Future<FeaturedProductResponse> getFeaturedProducts() async {
+  Future<ProductResponse> getFeaturedProducts() async {
+//    try {
+////      _dio.options.headers = {"locale": "jp"};
+//      Response response = await _dio.get(featuredProductsUrl);
+//      return FeaturedProductResponse.fromJson(response.data);
+//    } catch (error, stacktrace) {
+//      print("Exception occurred: $error stackTrace: $stacktrace");
+//      return FeaturedProductResponse.withError("$error");
+//    }
     try {
 //      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(featuredProductsUrl);
-      return FeaturedProductResponse.fromJson(response.data);
+      return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return FeaturedProductResponse.withError("$error");
+      return ProductResponse.withError("$error");
     }
   }
 

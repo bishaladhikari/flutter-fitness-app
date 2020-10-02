@@ -21,14 +21,14 @@ class _ProductsListState extends State<FeaturedProductsList> {
   @override
   void initState() {
     super.initState();
-    featuredProductsBloc..getFeaturedProducts();
+//    featuredProductsBloc..getFeaturedProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<FeaturedProductResponse>(
-      stream: featuredProductsBloc.subject.stream,
-      builder: (context, AsyncSnapshot<FeaturedProductResponse> snapshot) {
+    return StreamBuilder<ProductResponse>(
+      stream: productsBloc.featured.stream,
+      builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
@@ -70,7 +70,7 @@ class _ProductsListState extends State<FeaturedProductsList> {
     ));
   }
 
-  Widget _buildProductsListWidget(FeaturedProductResponse data) {
+  Widget _buildProductsListWidget(ProductResponse data) {
     var size = MediaQuery.of(context).size;
 
 //    final double itemHeight = (size.height) / 2.5;
