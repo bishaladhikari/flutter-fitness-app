@@ -823,7 +823,7 @@ void _settingModalBottomSheet(context,description) {
                 SizedBox(
                   height: 8,
                 ),
-                Html( data: productDetail.description
+                Html( data: description
                     ),
                 SizedBox(
                   height: 8,
