@@ -9,6 +9,8 @@ import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
+import 'package:ecapp/models/related_product_response.dart';
+import 'package:ecapp/models/same_seller_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,6 +99,26 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ProductResponse.withError("$error");
+    }
+  }
+   Future<RelatedProductResponse> getRelatedProduct() async {
+    try {
+//      _dio.options.headers = {"locale": "jp"};
+      Response response = await _dio.get(productsUrl);
+      return RelatedProductResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return RelatedProductResponse.withError("$error");
+    }
+  }
+  Future<SameSellerResponse> getSameSellerProduct() async {
+    try {
+//      _dio.options.headers = {"locale": "jp"};
+      Response response = await _dio.get(productsUrl);
+      return SameSellerResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return SameSellerResponse.withError("$error");
     }
   }
 

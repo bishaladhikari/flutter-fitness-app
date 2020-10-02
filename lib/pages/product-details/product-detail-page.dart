@@ -4,6 +4,9 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/variant.dart';
+import 'package:ecapp/pages/home/components/featured_products_list.dart';
+import 'package:ecapp/pages/home/components/related_products_list.dart';
+import 'package:ecapp/pages/home/components/same_seller_list.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -207,6 +210,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     }),
                 _buildComments(context),
                 _buildProducts(context),
+                _buildSameSellerProducts(context),
               ],
             ),
           ),
@@ -659,7 +663,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             children: <Widget>[
               Expanded(
                 child: Text(
-                  "Similar Items",
+                  "Related Products",
                   style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,
@@ -682,11 +686,51 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ),
-        buildTrending()
+         RelatedProductsList(),
+        // buildTrending()
       ],
     );
   }
 
+  _buildSameSellerProducts(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  "Same Seller Products",
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    print("Clicked");
+                  },
+                  child: Text(
+                    "View All",
+                    style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+         SameSellerList(),
+        // buildTrending()
+      ],
+    );
+  }
+
+  
   Column buildTrending() {
     return Column(
       children: <Widget>[
@@ -823,7 +867,7 @@ void _settingModalBottomSheet(context,description) {
                 SizedBox(
                   height: 8,
                 ),
-                Html( data: productDetail.description
+                Html( data:description
                     ),
                 SizedBox(
                   height: 8,
