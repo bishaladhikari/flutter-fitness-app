@@ -172,7 +172,7 @@ class WishlistItemView extends StatelessWidget{
                         ),
                       ),
                     ),
-                    Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),onPressed: (){
+                    Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),color:Colors.black26,onPressed: (){
                       wishListBloc.deleteWishList(item.id);
                     },))
                     ],
