@@ -6,8 +6,6 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/variant.dart';
-import 'package:ecapp/pages/home/components/related_products_list.dart';
-import 'package:ecapp/pages/home/components/same_seller_list.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -18,6 +16,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
 import 'components/detail_widget.dart';
+import 'components/related_products_list.dart';
+import 'components/same_seller_list.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final product;
