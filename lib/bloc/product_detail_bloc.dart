@@ -10,6 +10,9 @@ class ProductDetailBloc {
 
   getProductDetail(String slug) async {
     ProductDetailResponse response = await _repository.getProductDetail(slug);
+//    this.selectedAttribute = this.product.attributes[0]
+//    this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
+//    this.selectedVariant = this.selectedAttribute.variant
     _subject.sink.add(response);
   }
 

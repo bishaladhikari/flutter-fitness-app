@@ -16,27 +16,31 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
+import 'components/detail_widget.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final product;
+  Variant selectedVariant;
 
-  const ProductDetailPage({Key key, this.product}) : super(key: key);
+  ProductDetailPage({Key key, this.product, this.selectedVariant})
+      : super(key: key);
 
 //  ProductPage({this.product});
   @override
-  _ProductDetailPageState createState() => _ProductDetailPageState(product);
+  _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
-  Product product;
 
-  _ProductDetailPageState(this.product);
+//  Product product;
+
+  _ProductDetailPageState();
 
   @override
   void initState() {
     super.initState();
-    productDetailBloc.getProductDetail(product.slug);
+    productDetailBloc.getProductDetail(widget.product.slug);
   }
 
   @override
@@ -153,8 +157,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             SliverAppBar(
                 actions: <Widget>[
                   IconButton(
-                    icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-                    color: Colors.black,
+                    icon: Icon(Icons.favorite_border),
+                    color: Colors.black26,
                     onPressed: () {},
                   ),
                 ],
@@ -171,7 +175,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 flexibleSpace: FlexibleSpaceBar(
 //                centerTitle: true,
                   title: Text(
-                    product.name,
+                    widget.product.name,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16.0,
@@ -201,7 +205,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             snapshot.data.error.length > 0) {
                           return _buildErrorWidget(snapshot.data.error);
                         }
-                        return _buildProductDetailWidget(snapshot.data);
+
+                        return _buildDetailWidget(snapshot.data);
                       } else if (snapshot.hasError) {
                         return _buildErrorWidget(snapshot.error);
                       } else {
@@ -219,15 +224,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  Widget _buildProductDetailWidget(ProductDetailResponse data) {
+  _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
-    return Column(
-      children: [
-        _buildInfo(context, productDetail), //Product Info
-        _buildVariants(context, productDetail),
-        _buildDescription(context, productDetail),
-      ],
-    );
+    if (widget.selectedVariant == null)
+      widget.selectedVariant = productDetail.variants[0];
+    return DetailWidget(productDetail);
   }
 
   Widget _buildLoadingWidget() {
@@ -364,157 +365,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           }
           return Container();
         });
-  }
-
-  _buildInfo(context, product) {
-    return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Text(
-              "\$ 5.674",
-              style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 18,
-                  decoration: TextDecoration.lineThrough),
-            ),
-            SizedBox(
-              width: 6,
-            ),
-            Text(
-              "\$ 3.800",
-              style: TextStyle(
-                  color: kTextLightColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildVariants(BuildContext context, productDetail) {
-    List<Variant> variants = productDetail.variants;
-    final children = <Widget>[];
-    for (int i = 0; i < variants?.length ?? 0; i++) {
-      if (variants[i] == null) {
-        children.add(Center(child: CircularProgressIndicator()));
-      } else {
-        children.add(Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-          child: OutlineButton(
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(8.0)),
-            child: Text(variants[i].name),
-            onPressed: () {}, //callback when button is clicked
-            borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3), //Color of the border
-              style: BorderStyle.solid, //Style of the border
-              width: 0.8, //width of the border
-            ),
-          ),
-        ));
-      }
-    }
-    return Container(
-      decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 1.0, color: Colors.black12),
-            bottom: BorderSide(width: 1.0, color: Colors.black12),
-          )),
-      padding: EdgeInsets.all(4.0),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height / 4,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(productDetail.variantTitle),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: children,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _buildDescription(BuildContext context, ProductDetail productDetail) {
-    return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height / 3.8,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-          Text(
-          "Description",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black45,
-            fontSize: 18,
-          ),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Html(
-          data: productDetail.description,
-          //Optional parameters:
-//          backgroundColor: Colors.white70,
-          onLinkTap: (url) {
-            // open url in a webview
-          },
-
-          onImageTap: (src) {
-            // Display the image in large form.
-          },
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Center(
-          child: GestureDetector(
-            onTap: () {
-              _settingModalBottomSheet(context,productDetail.description);
-            },
-            child: Text(
-              "View More",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey,
-                  fontSize: 16),
-            ),
-          ),
-        )
-        ],
-      ),
-    ),);
   }
 
   _buildComments(BuildContext context) {
@@ -730,7 +580,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  
+
   Column buildTrending() {
     return Column(
       children: <Widget>[
@@ -841,40 +691,3 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 }
 
-void _settingModalBottomSheet(context,description) {
-  showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
-          child: Container(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  "Description",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black45,
-                    fontSize: 18,
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Html( data:description
-                    ),
-                SizedBox(
-                  height: 8,
-                ),
-              ],
-            ),
-          ),
-        );
-      });
-}

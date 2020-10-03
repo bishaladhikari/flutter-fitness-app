@@ -17,21 +17,26 @@ class ProductDetail {
   String description;
   String slug;
   bool saved;
+  Attribute selectedAttribute;
+  Variant selectedVariant;
 
-  ProductDetail(
-      {this.id,
-      this.category,
-      this.brand,
-      this.soldBy,
-      this.storeSlug,
-      this.variantTitle,
-      this.variants,
-      this.attributes,
-      this.tags,
-      this.name,
-      this.description,
-      this.slug,
-      this.saved});
+  ProductDetail({
+    this.id,
+    this.category,
+    this.brand,
+    this.soldBy,
+    this.storeSlug,
+    this.variantTitle,
+    this.variants,
+    this.attributes,
+    this.tags,
+    this.name,
+    this.description,
+    this.slug,
+    this.saved,
+    this.selectedAttribute,
+    this.selectedVariant
+  });
 
   ProductDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -47,7 +52,8 @@ class ProductDetail {
       json['variants'].forEach((v) {
         variants.add(new Variant.fromJson(v));
       });
-    };
+    }
+    ;
     if (json['attributes'] != null) {
       attributes = new List<Attribute>();
       json['attributes'].forEach((v) {
@@ -59,6 +65,9 @@ class ProductDetail {
     description = json['description'];
     slug = json['slug'];
     saved = json['saved'];
+
+    selectedAttribute = attributes[0];
+    selectedVariant = selectedAttribute.variant;
   }
 
   Map<String, dynamic> toJson() {

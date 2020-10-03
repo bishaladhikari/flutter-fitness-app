@@ -24,6 +24,11 @@ class _WishListPageState extends State<WishListPage> {
     super.initState();
     wishListBloc.getWishlist();
   }
+  @override
+  void dispose() {
+    super.dispose();
+    wishListBloc..drainStream();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,15 +177,12 @@ class WishlistItemView extends StatelessWidget{
                         ),
                       ),
                     ),
-                    Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),onPressed: (){
-                      wishListBloc.deleteWishList(item.id);
+                    Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),color:Colors.black26,onPressed: (){
+                      wishListBloc.deleteFromWishList(item.id);
                     },))
                     ],
                 ),
               );
            
   }
-
-
-  
 }
