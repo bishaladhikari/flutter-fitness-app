@@ -140,13 +140,13 @@ class WishlistItemView extends StatelessWidget{
                         height:83.5,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              wish.imageThumbnail
-                            ),
-                            fit: BoxFit.fitHeight,
-//                            image: Image.asset(cart[i]['image']),
-                          ),
+//                          image: DecorationImage(
+//                            image: NetworkImage(
+//                              wish.imageThumbnail
+//                            ),
+//                            fit: BoxFit.fitHeight,
+////                            image: Image.asset(cart[i]['image']),
+//                          ),
                         ),
 //                        child: Image.asset(cart[i]['image']),
                       ),
@@ -162,13 +162,13 @@ class WishlistItemView extends StatelessWidget{
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(wish.productName,
+                            Text(wish.attribute!=null?wish.attribute.productName:wish.combo.title,
                                 style: TextStyle(
                                     fontFamily: 'Quicksand',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black)),
                             SizedBox(height: 10),
-                            Text(wish.price, style: TextStyle(
+                            Text("250", style: TextStyle(
                                 fontFamily: 'Quicksand',
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey))

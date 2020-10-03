@@ -10,11 +10,7 @@ class Wish {
   String imageThumbnail;
   String price;
 
-  Wish({this.id, this.quantity, this.attribute, this.combo}) {
-    productName = this.attribute!=null?this.attribute.productName:this.combo.title;
-    imageThumbnail = this.attribute!=null?this.attribute.imageThumbnail:this.combo.imageThumbnail;
-    price = this.attribute!=null?this.attribute.sellingPrice:this.combo.price;
-  }
+  Wish({this.id, this.quantity, this.attribute, this.combo});
 
   Wish.fromJson(Map<String, dynamic> json) {
     id = json['id'];
