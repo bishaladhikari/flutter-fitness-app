@@ -21,20 +21,20 @@ class Attribute {
 
   Attribute(
       {this.id,
-        this.availability,
-        this.productName,
-        this.sellingPrice,
-        this.discountPrice,
-        this.discountPercentage,
-        this.images,
-        String imageThumbnail,
-        this.soldBy,
-        this.weight,
-        this.unit,
-        this.actualQuantity,
-        this.variant,
-        this.slug,
-        this.saved});
+      this.availability,
+      this.productName,
+      this.sellingPrice,
+      this.discountPrice,
+      this.discountPercentage,
+      this.images,
+      String imageThumbnail,
+      this.soldBy,
+      this.weight,
+      this.unit,
+      this.actualQuantity,
+      this.variant,
+      this.slug,
+      this.saved});
 
   Attribute.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -49,14 +49,13 @@ class Attribute {
         images.add(new Image.fromJson(v));
       });
     }
-    imageThumbnail = json['images_thumbnail'];
+    imageThumbnail = json['images_thumbnail'] ?? null;
     soldBy = json['sold_by'];
     weight = json['weight'];
     unit = json['unit'];
     actualQuantity = json['actual_quantity'];
-    variant =json['variant'] != null
-        ? new  Variant.fromJson(json['variant'])
-        : null;
+    variant =
+        json['variant'] != null ? new Variant.fromJson(json['variant']) : null;
     slug = json['slug'];
     saved = json['saved'];
   }
