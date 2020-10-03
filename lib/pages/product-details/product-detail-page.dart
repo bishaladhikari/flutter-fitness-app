@@ -1,5 +1,6 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
+import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
@@ -27,12 +28,33 @@ class ProductDetailPage extends StatefulWidget {
 //  ProductPage({this.product});
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
+
+  static _ProductDetailPageState of(BuildContext context) {
+    final _ProductDetailPageState navigator =
+    context.ancestorStateOfType(const TypeMatcher<_ProductDetailPageState>());
+
+    assert(() {
+      if (navigator == null) {
+        throw new FlutterError(
+            'Operation requested with a context that does '
+                'not include a ProductDetailPage.');
+      }
+      return true;
+    }());
+
+    return navigator;
+  }
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
+  Attribute _selectedAttribute;
 
-//  Product product;
+  set selectedAttribute(Attribute value) {
+   setState(() {
+     _selectedAttribute = value;
+   });
+  } //  Product product;
 
   _ProductDetailPageState();
 
@@ -51,6 +73,77 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.favorite_border),
+                    color: Colors.black26,
+                    onPressed: () {},
+                  ),
+                ],
+                iconTheme: IconThemeData(
+                  color: Colors.black, //change your color here
+                ),
+                backgroundColor: Colors.white,
+                expandedHeight: MediaQuery
+                    .of(context)
+                    .size
+                    .height / 2.4,
+                floating: true,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+//                centerTitle: true,
+                  title: Text(
+                    widget.product.name,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  background: Padding(
+                    padding: EdgeInsets.only(top: 48.0),
+                    child: dottedSlider(),
+                  ),
+                )),
+          ];
+        },
+        body: Container(
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                StreamBuilder<ProductDetailResponse>(
+                    stream: productDetailBloc.subject.stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data.error != null &&
+                            snapshot.data.error.length > 0) {
+                          return _buildErrorWidget(snapshot.data.error);
+                        }
+
+                        return _buildDetailWidget(snapshot.data);
+                      } else if (snapshot.hasError) {
+                        return _buildErrorWidget(snapshot.error);
+                      } else {
+                        return _buildLoadingWidget();
+                      }
+                    }),
+                SizedBox(height: 10,),
+                _buildProducts(context),
+                _buildSameSellerProducts(context),
+                _buildComments(context),
+              ],
+            ),
+          ),
+        ),
+      ),
       bottomNavigationBar: Container(
         color: Theme
             .of(context)
@@ -150,84 +243,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
         ),
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.favorite_border),
-                    color: Colors.black26,
-                    onPressed: () {},
-                  ),
-                ],
-                iconTheme: IconThemeData(
-                  color: Colors.black, //change your color here
-                ),
-                backgroundColor: Colors.white,
-                expandedHeight: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 2.4,
-                floating: true,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-//                centerTitle: true,
-                  title: Text(
-                    widget.product.name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  background: Padding(
-                    padding: EdgeInsets.only(top: 48.0),
-                    child: dottedSlider(),
-                  ),
-                )),
-          ];
-        },
-        body: Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                StreamBuilder<ProductDetailResponse>(
-                    stream: productDetailBloc.subject.stream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data.error != null &&
-                            snapshot.data.error.length > 0) {
-                          return _buildErrorWidget(snapshot.data.error);
-                        }
-
-                        return _buildDetailWidget(snapshot.data);
-                      } else if (snapshot.hasError) {
-                        return _buildErrorWidget(snapshot.error);
-                      } else {
-                        return _buildLoadingWidget();
-                      }
-                    }),
-                SizedBox(height: 10,),
-                _buildProducts(context),
-                _buildSameSellerProducts(context),
-                _buildComments(context),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
-    if (widget.selectedVariant == null)
-      widget.selectedVariant = productDetail.variants[0];
+//    if (widget.selectedVariant == null)
+//      widget.selectedVariant = productDetail.variants[0];
     return DetailWidget(productDetail);
   }
 
