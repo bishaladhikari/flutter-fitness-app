@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product.dart';
@@ -62,6 +63,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   void initState() {
     super.initState();
     productDetailBloc.getProductDetail(widget.product.slug);
+    productDetailBloc..getSameSellerProduct(widget.product.slug);
+    productDetailBloc..getRelatedProduct(widget.product.slug);
   }
 
   @override

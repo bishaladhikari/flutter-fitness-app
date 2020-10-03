@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
@@ -17,13 +18,12 @@ class _ProductsListState extends State<RelatedProductsList> {
   @override
   void initState() {
     super.initState();
-    productsBloc..getRelatedProduct();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.related.stream,
+      stream: productDetailBloc.related.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

@@ -51,7 +51,9 @@ class Attribute {
     weight = json['weight'];
     unit = json['unit'];
     actualQuantity = json['actual_quantity'];
-    variant = Variant.fromJson(json['variant']);
+    variant =json['variant'] != null
+        ? new  Variant.fromJson(json['variant'])
+        : null;;
     slug = json['slug'];
     saved = json['saved'];
   }

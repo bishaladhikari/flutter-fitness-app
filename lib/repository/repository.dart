@@ -105,20 +105,24 @@ class Repository {
       return ProductResponse.withError("$error");
     }
   }
-   Future<ProductResponse> getRelatedProduct() async {
+
+  Future<ProductResponse> getRelatedProduct(slug) async {
     try {
 //      _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.get(productsUrl);
+      Response response = await _dio.get(productsUrl,
+          queryParameters: {"products_from_same_seller": slug});
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ProductResponse.withError("$error");
     }
   }
-  Future<ProductResponse> getSameSellerProduct() async {
+
+  Future<ProductResponse> getSameSellerProduct(slug) async {
     try {
 //      _dio.options.headers = {"locale": "jp"};
-      Response response = await _dio.get(productsUrl);
+      Response response = await _dio.get(productsUrl,
+          queryParameters: {"products_from_same_seller": slug});
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
