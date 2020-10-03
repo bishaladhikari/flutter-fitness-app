@@ -4,7 +4,6 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/variant.dart';
-import 'package:ecapp/pages/home/components/featured_products_list.dart';
 import 'package:ecapp/pages/home/components/related_products_list.dart';
 import 'package:ecapp/pages/home/components/same_seller_list.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
@@ -213,9 +212,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         return _buildLoadingWidget();
                       }
                     }),
-                _buildComments(context),
+                SizedBox(height: 10,),
                 _buildProducts(context),
                 _buildSameSellerProducts(context),
+                _buildComments(context),
               ],
             ),
           ),
@@ -508,14 +508,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.symmetric(horizontal:16.0),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Text(
                   "Related Products",
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: Colors.black54),
                   textAlign: TextAlign.start,
@@ -528,7 +528,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   },
                   child: Text(
                     "View All",
-                    style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
                     textAlign: TextAlign.end,
                   ),
                 ),
@@ -546,14 +546,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.symmetric(horizontal:16.0),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Text(
-                  "Products from same seller",
+                  "From same seller",
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: Colors.black54),
                   textAlign: TextAlign.start,
@@ -566,7 +566,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   },
                   child: Text(
                     "View All",
-                    style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
                     textAlign: TextAlign.end,
                   ),
                 ),
