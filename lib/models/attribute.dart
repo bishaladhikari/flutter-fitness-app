@@ -53,7 +53,7 @@ class Attribute {
     actualQuantity = json['actual_quantity'];
     variant =json['variant'] != null
         ? new  Variant.fromJson(json['variant'])
-        : null;;
+        : null;
     slug = json['slug'];
     saved = json['saved'];
   }
