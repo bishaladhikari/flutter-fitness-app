@@ -1,5 +1,6 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/models/variant.dart';
@@ -10,9 +11,12 @@ import 'package:flutter_html/flutter_html.dart';
 
 class DetailWidget extends StatefulWidget {
   Variant selectedVariant;
+  Attribute selectedAttribute;
   ProductDetail productDetail;
-  DetailWidget(this.productDetail){
-    selectedVariant = productDetail.variants[0];
+
+  DetailWidget(this.productDetail) {
+    selectedAttribute = productDetail.attributes[0];
+    selectedVariant = selectedAttribute.variant;
   }
 
   @override
@@ -20,7 +24,6 @@ class DetailWidget extends StatefulWidget {
 }
 
 class _DetailWidgetState extends State<DetailWidget> {
-
 //  _ProductInfoState(productDetail);
 
   @override
@@ -59,7 +62,7 @@ class _DetailWidgetState extends State<DetailWidget> {
               width: 6,
             ),
             Text(
-              "\$ 3.800",
+              "\$ "+ widget.selectedAttribute.sellingPrice,
               style: TextStyle(
                   color: kTextLightColor,
                   fontSize: 20,
@@ -92,6 +95,12 @@ class _DetailWidgetState extends State<DetailWidget> {
             onPressed: () {
               setState(() {
                 widget.selectedVariant = variants[i];
+                int index = widget.productDetail.attributes.indexWhere((x)=>x.variant.id == widget.selectedVariant.id);
+                if (index > -1) {
+                  widget.selectedAttribute = widget.productDetail.attributes[index];
+//                  this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
+                }
+
               });
             }, //callback when button is clicked
             borderSide: BorderSide(
