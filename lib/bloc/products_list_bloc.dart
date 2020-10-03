@@ -9,9 +9,9 @@ class ProductsListBloc {
       BehaviorSubject<ProductResponse>();
   final BehaviorSubject<ProductResponse> _featured =
   BehaviorSubject<ProductResponse>();
-  final BehaviorSubject<ProductResponse> _relatedProduct =
+  final BehaviorSubject<ProductResponse> _related =
       BehaviorSubject<ProductResponse>();
-  final BehaviorSubject<ProductResponse> _sameSellerProduct =
+  final BehaviorSubject<ProductResponse> _fromSameSeller =
       BehaviorSubject<ProductResponse>();
 
   getProducts() async {
@@ -24,24 +24,24 @@ class ProductsListBloc {
   }
   getRelatedProduct() async {
     ProductResponse response = await _repository.getRelatedProduct();
-    _relatedProduct.sink.add(response);
+    _related.sink.add(response);
   }
   getSameSellerProduct() async {
     ProductResponse response = await _repository.getSameSellerProduct();
-    _sameSellerProduct.sink.add(response);
+    _fromSameSeller.sink.add(response);
   }
 
   dispose() {
     _forYou.close();
     _featured.close();
-    _relatedProduct.close();
-    _sameSellerProduct.close();
+    _related.close();
+    _fromSameSeller.close();
   }
 
   BehaviorSubject<ProductResponse> get forYou => _forYou;
   BehaviorSubject<ProductResponse> get featured => _featured;
-  BehaviorSubject<ProductResponse> get relatedProduct => _relatedProduct;
-  BehaviorSubject<ProductResponse> get sameSellerProduct => _sameSellerProduct;
+  BehaviorSubject<ProductResponse> get related => _related;
+  BehaviorSubject<ProductResponse> get fromSameSeller => _fromSameSeller;
 }
 
 final productsBloc = ProductsListBloc();

@@ -24,7 +24,7 @@ class _ProductsListState extends State<SameSellerList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.sameSellerProduct.stream,
+      stream: productsBloc.fromSameSeller.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

@@ -23,7 +23,7 @@ class _ProductsListState extends State<RelatedProductsList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.relatedProduct.stream,
+      stream: productsBloc.related.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
