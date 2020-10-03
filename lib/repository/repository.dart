@@ -20,8 +20,7 @@ class Repository {
 
 //  static String appUrl = "http://ecsite-dashboard.test/api";
 
-  final Dio _dio = Dio();
-
+  Dio _dio;
   var loginUrl = '$appUrl/customer-login';
   var categoriesUrl = '$appUrl/categories';
   var productsUrl = '$appUrl/products';
@@ -30,6 +29,9 @@ class Repository {
   var removeUrl = '$appUrl/remove-from-wishlist';
 
   Repository() {
+    BaseOptions options =
+        BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
+    _dio = Dio(options);
 //    print("is called");
     _dio.interceptors.addAll([
       InterceptorsWrapper(onRequest: (Options options) async {
@@ -213,14 +215,14 @@ class Repository {
           break;
         case DioErrorType.DEFAULT:
           errorDescription =
-          "Connection to API server failed due to internet connection";
+              "Connection to API server failed due to internet connection";
           break;
         case DioErrorType.RECEIVE_TIMEOUT:
           errorDescription = "Receive timeout in connection with API server";
           break;
         case DioErrorType.RESPONSE:
           errorDescription =
-          "Received invalid status code: ${dioError.response.statusCode}";
+              "Received invalid status code: ${dioError.response.statusCode}";
           break;
         case DioErrorType.SEND_TIMEOUT:
           errorDescription = "Send timeout in connection with API server";
