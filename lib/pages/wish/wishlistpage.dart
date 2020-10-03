@@ -61,7 +61,7 @@ class _WishListPageState extends State<WishListPage> {
     List<Wish> wishes = data.wishes;
     return ListView.builder(
       itemCount: wishes.length,
-      itemBuilder:(context,index)=> WishlistItemView(item:wishes[index]),
+      itemBuilder:(context,index)=> WishlistItemView(wish:wishes[index]),
     );
   }
  
@@ -125,11 +125,10 @@ class ListTileItem extends StatelessWidget {
   }
 }
 class WishlistItemView extends StatelessWidget{
-  final item;
-  WishlistItemView({this.item});
+  final Wish wish;
+  WishlistItemView({this.wish});
   @override
   Widget build(BuildContext context) {
-    print("Item:"+item.toJson().toString());
        return Container(
                 color: Colors.white,
                 padding: EdgeInsets.only(bottom: 1),
@@ -143,7 +142,7 @@ class WishlistItemView extends StatelessWidget{
                           color: Colors.white,
                           image: DecorationImage(
                             image: NetworkImage(
-                              item.image
+                              wish.imageThumbnail
                             ),
                             fit: BoxFit.fitHeight,
 //                            image: Image.asset(cart[i]['image']),
@@ -163,13 +162,13 @@ class WishlistItemView extends StatelessWidget{
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.productName,
+                            Text(wish.productName,
                                 style: TextStyle(
                                     fontFamily: 'Quicksand',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black)),
                             SizedBox(height: 10),
-                            Text(item.sellingPrice, style: TextStyle(
+                            Text(wish.price, style: TextStyle(
                                 fontFamily: 'Quicksand',
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey))
@@ -178,7 +177,7 @@ class WishlistItemView extends StatelessWidget{
                       ),
                     ),
                     Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),color:Colors.black26,onPressed: (){
-                      wishListBloc.deleteFromWishList(item.id);
+                      wishListBloc.deleteFromWishList(wish.id);
                     },))
                     ],
                 ),

@@ -10,6 +10,7 @@ class Attribute {
   String discountPrice;
   int discountPercentage;
   List<Image> images;
+  String imageThumbnail;
   String soldBy;
   String weight;
   String unit;
@@ -26,6 +27,7 @@ class Attribute {
         this.discountPrice,
         this.discountPercentage,
         this.images,
+        String imageThumbnail,
         this.soldBy,
         this.weight,
         this.unit,
@@ -47,6 +49,7 @@ class Attribute {
         images.add(new Image.fromJson(v));
       });
     }
+    imageThumbnail = json['images_thumbnail'];
     soldBy = json['sold_by'];
     weight = json['weight'];
     unit = json['unit'];
