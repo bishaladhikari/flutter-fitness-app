@@ -1,8 +1,7 @@
-import 'package:ecapp/bloc/related_products_bloc.dart';
-import 'package:ecapp/bloc/same_seller_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/models/related_product_response.dart';
+import 'package:ecapp/models/product_response.dart';
 import 'package:ecapp/models/same_seller_response.dart';
 import 'package:flutter/material.dart';
 
@@ -19,14 +18,14 @@ class _ProductsListState extends State<SameSellerList> {
   @override
   void initState() {
     super.initState();
-    sameSellerBloc..getSameSellerProduct();
+    productsBloc..getSameSellerProduct();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<SameSellerResponse>(
-      stream: sameSellerBloc.subject.stream,
-      builder: (context, AsyncSnapshot<SameSellerResponse> snapshot) {
+    return StreamBuilder<ProductResponse>(
+      stream: productsBloc.sameSellerProduct.stream,
+      builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
@@ -68,7 +67,7 @@ class _ProductsListState extends State<SameSellerList> {
     ));
   }
 
-  Widget _buildProductsListWidget(SameSellerResponse data) {
+  Widget _buildProductsListWidget(ProductResponse data) {
     var size = MediaQuery.of(context).size;
 
 //    final double itemHeight = (size.height) / 2.5;

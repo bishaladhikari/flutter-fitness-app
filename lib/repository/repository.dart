@@ -101,24 +101,24 @@ class Repository {
       return ProductResponse.withError("$error");
     }
   }
-   Future<RelatedProductResponse> getRelatedProduct() async {
+   Future<ProductResponse> getRelatedProduct() async {
     try {
 //      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl);
-      return RelatedProductResponse.fromJson(response.data);
+      return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return RelatedProductResponse.withError("$error");
+      return ProductResponse.withError("$error");
     }
   }
-  Future<SameSellerResponse> getSameSellerProduct() async {
+  Future<ProductResponse> getSameSellerProduct() async {
     try {
 //      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl);
-      return SameSellerResponse.fromJson(response.data);
+      return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return SameSellerResponse.withError("$error");
+      return ProductResponse.withError("$error");
     }
   }
 

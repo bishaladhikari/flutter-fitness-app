@@ -6,6 +6,7 @@ import 'account/account-page.dart';
 import 'cart/cart_page.dart';
 import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,6 +19,13 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     categoryBloc..getCategories();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    productsBloc..dispose();
+  }
+
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomePage(),
@@ -40,7 +48,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(child : leftDrawerMenu()),
+      drawer: Drawer(child: leftDrawerMenu()),
       body: PageView(
         controller: _pageController,
         children: _screens,
@@ -144,8 +152,7 @@ leftDrawerMenu() {
                 size: 28,
               ),
               subtitle: GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Text(
                   "See Profile",
                   style: TextStyle(
@@ -179,10 +186,11 @@ leftDrawerMenu() {
           title: Text(
             'Home',
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: kPrimaryColor),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: kPrimaryColor),
           ),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           trailing: Icon(
@@ -196,8 +204,7 @@ leftDrawerMenu() {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: blackColor)),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           leading: Icon(Icons.home, color: ksecondaryColor),
@@ -206,8 +213,7 @@ leftDrawerMenu() {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: blackColor)),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           trailing: Icon(
@@ -221,9 +227,7 @@ leftDrawerMenu() {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: blackColor)),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
 //        ListTile(
 //          trailing: Icon(
@@ -326,4 +330,3 @@ leftDrawerMenu() {
     ),
   );
 }
-
