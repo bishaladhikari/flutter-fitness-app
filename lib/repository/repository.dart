@@ -110,7 +110,7 @@ class Repository {
     try {
 //      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl,
-          queryParameters: {"products_from_same_seller": slug});
+          queryParameters: {"you_may_also_like": slug, "combo": false});
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -122,7 +122,7 @@ class Repository {
     try {
 //      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl,
-          queryParameters: {"products_from_same_seller": slug});
+          queryParameters: {"products_from_same_seller": slug, "combo": false});
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");

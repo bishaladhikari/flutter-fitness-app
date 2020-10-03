@@ -538,7 +538,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             children: <Widget>[
               Expanded(
                 child: Text(
-                  "Related Products",
+                  "You may also like",
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
