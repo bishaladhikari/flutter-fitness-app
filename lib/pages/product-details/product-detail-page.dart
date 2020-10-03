@@ -551,7 +551,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             children: <Widget>[
               Expanded(
                 child: Text(
-                  "Same Seller Products",
+                  "Products from same seller",
                   style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,
