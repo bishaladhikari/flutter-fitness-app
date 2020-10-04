@@ -52,10 +52,7 @@ class _SearchPageState extends State<SearchPage> {
             color: Colors.grey,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MainPage()),
-            );
+            Navigator.pop(context);
           }),
     ));
   }

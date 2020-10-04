@@ -23,6 +23,9 @@ abstract class Routes {
       case 'searchPage':
         return MaterialPageRoute(builder: (context) => SearchPage());
         break;
+//      case 'searchPage':
+//        return MaterialPageRoute(builder: (context) => SearchPage());
+//        break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
     }
