@@ -440,12 +440,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   "Comments",
                   style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black54),
                 ),
                 Text(
                   "View All",
-                  style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
                   textAlign: TextAlign.end,
                 ),
               ],
