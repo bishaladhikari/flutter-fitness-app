@@ -21,26 +21,29 @@ class SearchBox extends StatelessWidget {
           color: ksecondaryColor.withOpacity(0.32),
         ),
       ),
-      child: TextField(
-        autofocus: false,
+      child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, "searchPage");
         },
-        decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.menu),
-          suffixIcon: IconButton(
-            icon:  SvgPicture.asset("assets/icons/search.svg"), onPressed: () {  },
-          ),
-          contentPadding: new EdgeInsets.symmetric(
-              vertical: 15.0),
-          border: InputBorder.none,
+        child: TextField(
+          autofocus: false,
+          enabled: false,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.menu),
+            suffixIcon: IconButton(
+              icon:  SvgPicture.asset("assets/icons/search.svg"), onPressed: () {  },
+            ),
+            contentPadding: new EdgeInsets.symmetric(
+                vertical: 15.0),
+            border: InputBorder.none,
 //          icon: SvgPicture.asset("assets/icons/search.svg"),
 //          icon:  IconButton(
 //      icon: Icon(Icons.menu),
 //            onPressed: () {},
 //          ),
-          hintText: "Search Here",
-          hintStyle: TextStyle(color: ksecondaryColor),
+            hintText: "Search Here",
+            hintStyle: TextStyle(color: ksecondaryColor),
+          ),
         ),
       ),
     );
