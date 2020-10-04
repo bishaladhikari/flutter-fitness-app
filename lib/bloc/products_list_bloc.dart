@@ -1,5 +1,4 @@
-import 'package:ecapp/models/product_response.dart';
-import 'package:ecapp/models/related_product_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 

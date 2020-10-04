@@ -1,8 +1,8 @@
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/models/product_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
 import 'item_card.dart';

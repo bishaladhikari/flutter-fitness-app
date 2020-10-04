@@ -3,15 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'dart:developer';
 
-import 'package:ecapp/models/product_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/models/related_product_response.dart';
-import 'package:ecapp/models/same_seller_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';

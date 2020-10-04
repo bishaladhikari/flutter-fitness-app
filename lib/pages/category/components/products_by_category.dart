@@ -1,7 +1,7 @@
 import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/models/product_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';

@@ -1,18 +1,18 @@
-import 'product.dart';
+import '../product.dart';
 
-class ProductResponse {
+class RelatedProductResponse {
   final List<Product> products;
   final String error;
 
-  ProductResponse(this.products, this.error);
+  RelatedProductResponse(this.products, this.error);
 
-  ProductResponse.fromJson(Map<String, dynamic> json)
+  RelatedProductResponse.fromJson(Map<String, dynamic> json)
       : products = (json["data"] as List)
             .map((i) => new Product.fromJson(i))
             .toList(),
         error = "";
 
-  ProductResponse.withError(String errorValue)
+  RelatedProductResponse.withError(String errorValue)
       : products = List(),
         error = errorValue;
 }
