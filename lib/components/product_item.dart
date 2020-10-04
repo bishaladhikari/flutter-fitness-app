@@ -144,6 +144,7 @@ class ProductItem extends StatelessWidget {
           product.name,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,color: kTextColor),
         ),
+        SizedBox(height: 8,),
         Text(
           product.category.name,
           style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
