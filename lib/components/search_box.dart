@@ -24,10 +24,7 @@ class SearchBox extends StatelessWidget {
       child: TextField(
         autofocus: false,
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SearchPage()),
-          );
+          Navigator.pushNamed(context, "searchPage");
         },
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.menu),

@@ -1,5 +1,6 @@
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
+import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ abstract class Routes {
         break;
       case 'registerPage':
         return MaterialPageRoute(builder: (context) => RegisterPage());
+        break;
+      case 'searchPage':
+        return MaterialPageRoute(builder: (context) => SearchPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
