@@ -177,29 +177,54 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                     height: 24,
                   ),
-                  Text(
-                    "\$ 5.674",
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 18,
-                        decoration: TextDecoration.lineThrough),
+                  IconButton(
+                    icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
+                    color: Colors.black26,
+                    onPressed: () {},
                   ),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    "\$ 3.800",
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
+
+                  FlatButton(
+                      child: Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 2.9,
+                        height: 60,
+                        decoration: const BoxDecoration(
+                          color: ksecondaryColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8.0),
+                          ),
+//                    boxShadow: [
+//                      BoxShadow(
+//                        color: Colors.green,
+//                        blurRadius: 4.0,
+//                        spreadRadius: 2.0,
+//                        offset: Offset(0.0, 0.0),
+//                      )
+//                    ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            new Text(
+                              "Add to cart",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ), onPressed: () {  },
                   )
                 ],
               ),
               SizedBox(
                 width: 6,
               ),
-              RaisedButton(
+              FlatButton(
                 onPressed: () {
                   _alert(context);
                   setState(() {
@@ -222,14 +247,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(8.0),
                     ),
-                    boxShadow: [
+//                    boxShadow: [
 //                      BoxShadow(
-////                        color: Colors.green,
-//                        blurRadius: 15.0,
-//                        spreadRadius: 7.0,
+//                        color: Colors.green,
+//                        blurRadius: 4.0,
+//                        spreadRadius: 2.0,
 //                        offset: Offset(0.0, 0.0),
 //                      )
-                    ],
+//                    ],
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

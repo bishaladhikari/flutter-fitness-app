@@ -129,7 +129,7 @@ class _DetailWidgetState extends State<DetailWidget> {
       )),
       padding: EdgeInsets.all(4.0),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 4,
+//      height: MediaQuery.of(context).size.height / 4,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
