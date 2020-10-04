@@ -52,7 +52,9 @@ class _DetailWidgetState extends State<DetailWidget> {
         child: Row(
           children: [
             Text(
-              "\$ 5.674",
+              "\$" + widget.selectedAttribute.discountPrice != null
+                  ? widget.selectedAttribute.discountPrice
+                  : widget.selectedAttribute.sellingPrice,
               style: TextStyle(
                   color: Colors.black54,
                   fontSize: 18,
@@ -61,13 +63,15 @@ class _DetailWidgetState extends State<DetailWidget> {
             SizedBox(
               width: 6,
             ),
-            Text(
-              "\$ "+ widget.selectedAttribute.sellingPrice,
-              style: TextStyle(
-                  color: kTextLightColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700),
-            )
+            widget.selectedAttribute.discountPrice != null
+                ? Text(
+                    "\$ " + widget.selectedAttribute.sellingPrice,
+                    style: TextStyle(
+                        color: kTextLightColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  )
+                : Container()
           ],
         ),
       ),
@@ -95,12 +99,13 @@ class _DetailWidgetState extends State<DetailWidget> {
             onPressed: () {
               setState(() {
                 widget.selectedVariant = variants[i];
-                int index = widget.productDetail.attributes.indexWhere((x)=>x.variant.id == widget.selectedVariant.id);
+                int index = widget.productDetail.attributes.indexWhere(
+                    (x) => x.variant.id == widget.selectedVariant.id);
                 if (index > -1) {
-                  widget.selectedAttribute = widget.productDetail.attributes[index];
+                  widget.selectedAttribute =
+                      widget.productDetail.attributes[index];
 //                  this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
                 }
-
               });
             }, //callback when button is clicked
             borderSide: BorderSide(

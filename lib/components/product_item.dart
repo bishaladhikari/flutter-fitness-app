@@ -159,16 +159,14 @@ class ProductItem extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: NPrimaryColor)),
+            SizedBox(width: 8),
             product.discountPrice != null
-                ? Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                    child: Text(
-                      "\$" + product.sellingPrice,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10,
-                          decoration: TextDecoration.lineThrough),
-                    ),
+                ? Text(
+                    "\$" + product.sellingPrice,
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10,
+                        decoration: TextDecoration.lineThrough),
                   )
                 : Container()
           ],
