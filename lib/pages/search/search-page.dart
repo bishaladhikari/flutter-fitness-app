@@ -1,5 +1,8 @@
 import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../constants.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -16,36 +19,33 @@ class _SearchPageState extends State<SearchPage> {
       elevation: 0,
       backgroundColor: Colors.white,
       title: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-          decoration: BoxDecoration(
-            color: Color.fromARGB(50, 255, 255, 255),
-            borderRadius: BorderRadius.all(Radius.circular(22.0)),
+//        margin: EdgeInsets.all(5),
+//      padding: EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: ksecondaryColor.withOpacity(0.32),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Search Here",
-//                    hintStyle: TextStyle(color: Colors.white),
-                    icon: Icon(Icons.search, color: Colors.grey),
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 0,
-                  child: Row(children: <Widget>[
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.mic, color: Colors.white),
-                    ),
-                  ]))
-            ],
-          )),
+        ),
+        child: TextField(
+          autofocus: true,
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon:  SvgPicture.asset("assets/icons/search.svg"), onPressed: () {  },
+            ),
+            contentPadding: new EdgeInsets.symmetric(
+                vertical: 15.0,horizontal: 15),
+            border: InputBorder.none,
+//          icon: SvgPicture.asset("assets/icons/search.svg"),
+//          icon:  IconButton(
+//      icon: Icon(Icons.menu),
+//            onPressed: () {},
+//          ),
+            hintText: "Search Here",
+            hintStyle: TextStyle(color: ksecondaryColor),
+          ),
+        ),
+      ),
       leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
