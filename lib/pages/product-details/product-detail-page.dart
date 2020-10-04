@@ -103,7 +103,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     widget.product.name,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                     ),
                   ),
                   background: Padding(

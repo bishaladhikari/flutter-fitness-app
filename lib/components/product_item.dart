@@ -142,7 +142,7 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Text(
           product.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,color: kTextColor),
         ),
         Text(
           product.category.name,
