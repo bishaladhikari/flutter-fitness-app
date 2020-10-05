@@ -56,55 +56,60 @@ class AddressPage extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (_,index){
                     final item = snapshot.data.addresses[index];
-                   return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Icon(
-                              Icons.add_location,
-                              color: Colors.orange,
-                            ),
-                            Text(
-                              item.name,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 17),
-                            ),
-                            Spacer(),
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
-                              child: Text(
-                                "Edit",
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: Colors.blue,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ]));
+                   return Column(
+                     children: [
+                       Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.add_location,
+                                  color: Colors.orange,
+                                ),
+                                Text(
+                                  item.name,
+                                  style:
+                                      TextStyle(color: Colors.black, fontSize: 17),
+                                ),
+                                Spacer(),
+                                FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
+                                  child: Text(
+                                    "Edit",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blue,
+                                        fontSize: 15),
+                                  ),
+                                ),
+                              ])),
+                       Container(
+                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                         child: Column(
+                             mainAxisSize: MainAxisSize.max,
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: <Widget>[
+                               Text('9806050253',
+                                   style: TextStyle(color: Colors.black, fontSize: 17)),
+                               Text('Bagmati,Kathmandu,New Baneshwor',
+                                   style: TextStyle(color: Colors.black, fontSize: 17)),
+                               Text('Area, Buddhanagar',
+                                   style: TextStyle(color: Colors.black, fontSize: 17)),
+                             ]),
+                       ),
+                     ],
+                   );
                   });
                           return Container();
               }),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('9806050253',
-                      style: TextStyle(color: Colors.black, fontSize: 17)),
-                  Text('Bagmati,Kathmandu,New Baneshwor',
-                      style: TextStyle(color: Colors.black, fontSize: 17)),
-                  Text('Area, Buddhanagar',
-                      style: TextStyle(color: Colors.black, fontSize: 17)),
-                ]),
-          ),
+
         ]));
   }
 }
