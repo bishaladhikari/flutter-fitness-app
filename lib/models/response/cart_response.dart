@@ -3,11 +3,11 @@ import 'package:ecapp/models/wish.dart';
 import '../cart.dart';
 
 class CartResponse {
-  List<Cart> Carts;
+  List<Cart> carts;
   final String error;
 
   void deleteFromCarts(id) {
-    Carts.removeWhere((element) => element.id == id);
+    carts.removeWhere((element) => element.id == id);
   }
 
 //
@@ -15,14 +15,14 @@ class CartResponse {
 //     wishes.add(wish);
 //   }
 
-  CartResponse(this.Carts, this.error);
+  CartResponse(this.carts, this.error);
 
   CartResponse.fromJson(Map<String, dynamic> json)
-      : Carts =
+      : carts =
             (json["data"] as List).map((i) => new Cart.fromJson(i)).toList(),
         error = "";
 
   CartResponse.withError(String errorValue)
-      : Carts = List(),
+      : carts = List(),
         error = errorValue;
 }

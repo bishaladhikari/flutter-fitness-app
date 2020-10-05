@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/CartBody.dart';
+import 'components/body.dart';
 
 class CartPage extends StatefulWidget {
   @override

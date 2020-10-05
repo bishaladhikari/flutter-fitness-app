@@ -30,4 +30,8 @@ class CartItem {
     }
     return data;
   }
+
+  get name {
+    return attribute != null ? attribute.productName : combo.title;
+  }
 }
