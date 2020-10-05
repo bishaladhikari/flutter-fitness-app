@@ -7,13 +7,13 @@ import 'package:rxdart/rxdart.dart';
 
 class AddressBloc {
   final Repository _repository = Repository();
-  final BehaviorSubject<AddressResponse> _addressFetcher =
+  final BehaviorSubject<AddressResponse> _subject =
       BehaviorSubject<AddressResponse>();
   AddressResponse response;
 
   getAddress() async {
     response = await _repository.getAddress();
-    _addressFetcher.sink.add(response);
+    _subject.sink.add(response);
   }
 
   // deleteFromCart(id) async {
@@ -24,14 +24,14 @@ class AddressBloc {
   //   print("response:" + response.toString());
   // }
 
-  void drainStream(){ _addressFetcher.value = null; }
+  void drainStream(){ _subject.value = null; }
   @mustCallSuper
   void dispose() async{
-    await _addressFetcher.drain();
-    _addressFetcher.close();
+    await _subject.drain();
+    _subject.close();
   }
 
-  BehaviorSubject<AddressResponse> get address => _addressFetcher.stream;
+  BehaviorSubject<AddressResponse> get addresses => _subject.stream;
 }
 
 final AddressBloc addressBloc = AddressBloc();

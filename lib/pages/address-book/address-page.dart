@@ -48,7 +48,7 @@ class AddressPage extends StatelessWidget {
             ),
           ),
           StreamBuilder(
-              stream: addressBloc.address,
+              stream: addressBloc.addresses,
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data.addresses.isNotEmpty)
                   return ListView.builder(
