@@ -28,6 +28,9 @@ class _AddressPageState extends State<AddressPage> {
       print("Validated");
     } else {
       print("Not Validated");
+      setState(() {
+        _autoValidate = true;
+      });
     }
   }
 
@@ -74,6 +77,8 @@ class _AddressPageState extends State<AddressPage> {
     setState(() {});
   }
 
+  bool _autoValidate = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +101,7 @@ class _AddressPageState extends State<AddressPage> {
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             child: SingleChildScrollView(
                 child: Form(
-              autovalidate: true,
+              autovalidate: _autoValidate,
               key: formkey,
               child: Column(children: <Widget>[
                 TextFormField(
