@@ -24,7 +24,7 @@ class AddressPage extends StatelessWidget {
               strokeWidth: 1,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamed(context,'addressFormPage');
                 },
                 child: Container(
                   // width: 310.0,
@@ -77,7 +77,7 @@ class AddressPage extends StatelessWidget {
                                 Spacer(),
                                 FlatButton(
                                   onPressed: () {
-                                    Navigator.pushNamed(context,'addressPage');
+                                    Navigator.pushNamed(context,'addressFormPage');
                                   },
                                   // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
                                   child: Text(
