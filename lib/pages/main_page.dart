@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/get_categories_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/pages/home/home-page.dart';
@@ -21,6 +22,7 @@ class _MainPageState extends State<MainPage> {
     categoryBloc..getCategories();
     productsBloc..getFeaturedProducts();
     productsBloc..getProducts();
+    cartBloc..getCart();
   }
 
   @override

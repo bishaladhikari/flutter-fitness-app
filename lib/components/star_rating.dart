@@ -19,10 +19,10 @@ class StarRating extends StatelessWidget {
       color = Colors.grey;
     } else if (index > rating - 1 && index < rating) {
       icon = Icons.star_half;
-      color = kPrimaryColor;
+      color = Colors.yellow;
     } else {
       icon = Icons.star;
-      color = kPrimaryColor;
+      color = Colors.yellow;
     }
     return Icon(
       icon,

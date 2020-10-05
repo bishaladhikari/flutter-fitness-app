@@ -150,28 +150,28 @@ class ProductItem extends StatelessWidget {
           style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
         ),
         SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            Text(
-                "\$" + product.discountPrice != null
-                    ? product.discountPrice
-                    : product.sellingPrice,
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: NPrimaryColor)),
-            SizedBox(width: 8),
-            product.discountPrice != null
-                ? Text(
-                    "\$" + product.sellingPrice,
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 10,
-                        decoration: TextDecoration.lineThrough),
-                  )
-                : Container()
-          ],
-        ),
+//        Row(
+//          children: <Widget>[
+//            Text(
+//                "\$" + product.discountPrice != null
+//                    ? product.discountPrice
+//                    : product.sellingPrice,
+//                style: TextStyle(
+//                    fontSize: 15,
+//                    fontWeight: FontWeight.bold,
+//                    color: NPrimaryColor)),
+//            SizedBox(width: 8),
+//            product.discountPrice != null
+//                ? Text(
+//                    "\$" + product.sellingPrice,
+//                    style: TextStyle(
+//                        color: Colors.grey,
+//                        fontSize: 10,
+//                        decoration: TextDecoration.lineThrough),
+//                  )
+//                : Container()
+//          ],
+//        ),
         SizedBox(height: 10),
         StarRating(rating: product.avgRating, size: 10),
       ],

@@ -21,25 +21,26 @@ class Product {
   bool saved;
   int attributeId;
 
-  Product({this.id,
-    this.name,
-    this.category,
-    this.discountPercentage,
-    this.availability,
-    this.sellingPrice,
-    this.discountPrice,
-    this.image,
-    this.imageThumbnail,
-    this.soldBy,
-    this.weight,
-    this.unit,
-    this.variant,
-    this.variantTitle,
-    this.actualQuantity,
-    this.slug,
-    this.avgRating,
-    this.saved,
-    this.attributeId});
+  Product(
+      {this.id,
+      this.name,
+      this.category,
+      this.discountPercentage,
+      this.availability,
+      this.sellingPrice,
+      this.discountPrice,
+      this.image,
+      this.imageThumbnail,
+      this.soldBy,
+      this.weight,
+      this.unit,
+      this.variant,
+      this.variantTitle,
+      this.actualQuantity,
+      this.slug,
+      this.avgRating,
+      this.saved,
+      this.attributeId});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,7 +51,7 @@ class Product {
     discountPercentage = json['discount_percentage'];
     availability = json['availability'];
     sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'];
+    discountPrice = json['discount_price'] != null ? json['discount_price'] : null;
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
     soldBy = json['sold_by'];
