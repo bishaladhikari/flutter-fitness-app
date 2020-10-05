@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 // import 'pattern_validation_container.dart';
 
@@ -15,13 +14,23 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  FocusNode _focusNode;
+  bool state = true;
+  FocusNode _nameFocus = FocusNode();
+  FocusNode _mobileFocus = FocusNode();
+  FocusNode _emailFocus = FocusNode();
+  FocusNode _zipFocus = FocusNode();
+  FocusNode _houseFocus = FocusNode();
+  FocusNode _cityFocus = FocusNode();
+  FocusNode _addressFocus = FocusNode();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   void validate() {
     if (formkey.currentState.validate()) {
       print("Validated");
     } else {
       print("Not Validated");
+      setState(() {
+        _autoValidate = true;
+      });
     }
   }
 
@@ -36,19 +45,39 @@ class _AddressPageState extends State<AddressPage> {
   @override
   void initState() {
     super.initState();
-    _focusNode = new FocusNode();
-    _focusNode.addListener(requestFocus);
+    _nameFocus = new FocusNode();
+    _nameFocus.addListener(requestFocus);
+    _mobileFocus = new FocusNode();
+    _mobileFocus.addListener(requestFocus);
+    _emailFocus = new FocusNode();
+    _emailFocus.addListener(requestFocus);
+    _zipFocus = new FocusNode();
+    _zipFocus.addListener(requestFocus);
+    _houseFocus = new FocusNode();
+    _houseFocus.addListener(requestFocus);
+    _cityFocus = new FocusNode();
+    _cityFocus.addListener(requestFocus);
+    _addressFocus = new FocusNode();
+    _addressFocus.addListener(requestFocus);
   }
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    _nameFocus.dispose();
+    _mobileFocus.dispose();
+    _emailFocus.dispose();
+    _zipFocus.dispose();
+    _houseFocus.dispose();
+    _cityFocus.dispose();
+    _addressFocus.dispose();
     super.dispose();
   }
 
   void requestFocus() {
     setState(() {});
   }
+
+  bool _autoValidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +101,11 @@ class _AddressPageState extends State<AddressPage> {
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
             child: SingleChildScrollView(
                 child: Form(
-              autovalidate: true,
+              autovalidate: _autoValidate,
               key: formkey,
               child: Column(children: <Widget>[
                 TextFormField(
-                  focusNode: _focusNode,
+                  focusNode: _nameFocus,
                   decoration: InputDecoration(
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
@@ -88,139 +117,199 @@ class _AddressPageState extends State<AddressPage> {
                     labelText: "Name",
                     labelStyle: TextStyle(
                         color:
-                            _focusNode.hasFocus ? NPrimaryColor : Colors.grey),
+                            _nameFocus.hasFocus ? NPrimaryColor : Colors.grey),
                     hintText: "Full Name",
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
                   validator: validatepass,
                 ),
+                SizedBox(
+                  height: 25.0,
+                ),
                 TextFormField(
+                    focusNode: _mobileFocus,
                     decoration: InputDecoration(
-                        hintText: "Mobile",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        labelText: "Contact*"),
+                      fillColor: NPrimaryColor,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: NPrimaryColor),
+                      ),
+                      border: new OutlineInputBorder(
+                        borderSide: new BorderSide(color: Colors.grey),
+                      ),
+                      labelText: "Contact",
+                      labelStyle: TextStyle(
+                          color: _mobileFocus.hasFocus
+                              ? NPrimaryColor
+                              : Colors.grey),
+                      hintText: "Mobile Number",
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
                     validator: MultiValidator([
                       PatternValidator(
                           r'(^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$)',
                           errorText: 'Not A Valid  Mobile Number')
                     ])),
+                SizedBox(
+                  height: 25.0,
+                ),
                 TextFormField(
+                  focusNode: _emailFocus,
                   decoration: InputDecoration(
-                      hintText: "Email Address",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "Email"),
+                    fillColor: NPrimaryColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: NPrimaryColor),
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey),
+                    ),
+                    labelText: "Email",
+                    labelStyle: TextStyle(
+                        color:
+                            _emailFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                    hintText: "Email Address",
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                   validator: MultiValidator([
                     RequiredValidator(errorText: "Required*"),
                     EmailValidator(errorText: "Not A Valid Email"),
                   ]),
                 ),
+                SizedBox(
+                  height: 25.0,
+                ),
                 TextFormField(
+                    focusNode: _zipFocus,
                     decoration: InputDecoration(
-                        hintText: "Zip-Code",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        labelText: "Zipcode"),
+                      fillColor: NPrimaryColor,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: NPrimaryColor),
+                      ),
+                      border: new OutlineInputBorder(
+                        borderSide: new BorderSide(color: Colors.grey),
+                      ),
+                      labelText: "Zipcode",
+                      labelStyle: TextStyle(
+                          color:
+                              _zipFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                      hintText: "Zip-Code",
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
                     validator: MultiValidator([
                       PatternValidator(
                           r'(^[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$)',
                           errorText: 'Not A Valid Code Number')
                     ])),
-                TextFormField(
-                  decoration: InputDecoration(
-                      hintText: " House",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "House"),
-                  validator: validatepass,
+                SizedBox(
+                  height: 25.0,
                 ),
                 TextFormField(
+                  focusNode: _houseFocus,
                   decoration: InputDecoration(
-                      hintText: "City",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "city"),
+                    fillColor: NPrimaryColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: NPrimaryColor),
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey),
+                    ),
+                    labelText: "House",
+                    labelStyle: TextStyle(
+                        color:
+                            _houseFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                    hintText: "House",
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                   validator: validatepass,
                 ),
+                SizedBox(
+                  height: 25.0,
+                ),
                 TextFormField(
+                  focusNode: _cityFocus,
                   decoration: InputDecoration(
-                      hintText: "Address",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      labelText: "Address"),
+                    fillColor: NPrimaryColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: NPrimaryColor),
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey),
+                    ),
+                    labelText: "City",
+                    labelStyle: TextStyle(
+                        color:
+                            _cityFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                    hintText: "City",
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
                   validator: validatepass,
+                ),
+                SizedBox(
+                  height: 25.0,
+                ),
+                TextFormField(
+                  focusNode: _addressFocus,
+                  decoration: InputDecoration(
+                    fillColor: NPrimaryColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: NPrimaryColor),
+                    ),
+                    border: new OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey),
+                    ),
+                    labelText: "Address",
+                    labelStyle: TextStyle(
+                        color: _addressFocus.hasFocus
+                            ? NPrimaryColor
+                            : Colors.grey),
+                    hintText: "Address",
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  validator: validatepass,
+                ),
+                SizedBox(
+                  height: 25.0,
                 ),
                 PrefectureDropdown(),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 120, 20),
-                  child: Text(
-                    "Select a label for effective delivery",
-                    style: TextStyle(color: Colors.black, fontSize: 17),
-                  ),
-                ),
-                Row(children: <Widget>[
-                  Container(
-                      margin: new EdgeInsets.symmetric(horizontal: 50.0),
-                      height: 50,
-                      width: 80,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white),
-                      child: Center(
-                          child: Row(children: <Widget>[
-                        Container(
-                          height: 30.0,
-                          child: SvgPicture.asset("assets/icons/home.svg"),
-                          // width: MediaQuery.of(context).size.width*0.15
-                          width: 15.0,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        ),
-                        Text(
-                          'Home',
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                        )
-                      ]))),
-                  Expanded(
-                    child: Container(
-                        margin: new EdgeInsets.symmetric(horizontal: 50.0),
-                        width: 100,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
-                        child: Center(
-                            child: Row(children: <Widget>[
-                          Container(
-                            height: 30.0,
-                            child: SvgPicture.asset("assets/icons/menu.svg"),
-                            // width: MediaQuery.of(context).size.width*0.15
-                            width: 15.0,
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          ),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
                           Text(
-                            'Office',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          )
-                        ]))),
-                  ),
-                ]),
+                            'Make a Default Shipping Address',
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+                          Switch(
+                              value: true,
+                              onChanged: (bool s) {
+                                setState(() {
+                                  state = s;
+                                  print(state);
+                                });
+                              }),
+                        ])),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 133, 0),
-                  child: Text(
-                    "Make a default shipping address",
-                    style: TextStyle(color: Colors.black, fontSize: 17),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 157, 20),
-                  child: Text(
-                    "Make a default biling address",
-                    style: TextStyle(color: Colors.black, fontSize: 17),
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Text(
+                            'Make a Default Billing Address',
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+                          Switch(
+                              value: true,
+                              onChanged: (bool s) {
+                                setState(() {
+                                  state = s;
+                                  print(state);
+                                });
+                              }),
+                        ])),
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                 ),
@@ -258,6 +347,7 @@ class _PrefectureDropdownState extends State<PrefectureDropdown> {
       decoration: InputDecoration(
           hintText: "Prefecture",
           hintStyle: TextStyle(color: Colors.grey),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
           labelText: "Prefecture"),
       value: dropdownValue,
       icon: Icon(Icons.arrow_downward),
