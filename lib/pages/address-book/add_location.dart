@@ -2,12 +2,7 @@ import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import '../../constants.dart';
-import '../details/components/../../address-book/add-address.dart';
-
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LocationPage(),
-    ));
+import '../details/components/../../address-book/address-form-page.dart';
 
 class LocationPage extends StatelessWidget {
   @override
@@ -31,8 +26,7 @@ class LocationPage extends StatelessWidget {
               strokeWidth: 1,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddressPage()));
+                  Navigator.pop(context);
                 },
                 child: Container(
                   // width: 310.0,
@@ -83,10 +77,7 @@ class LocationPage extends StatelessWidget {
                             Spacer(),
                             FlatButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AddressPage()));
+                                Navigator.pop(context);
                               },
                               // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
                               child: Text(

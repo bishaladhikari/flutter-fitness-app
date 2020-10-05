@@ -3,17 +3,12 @@ import 'package:form_field_validator/form_field_validator.dart';
 import '../../constants.dart';
 // import 'pattern_validation_container.dart';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AddressPage(),
-    ));
-
-class AddressPage extends StatefulWidget {
+class AddressFormPage extends StatefulWidget {
   @override
-  _AddressPageState createState() => _AddressPageState();
+  _AddressFormPageState createState() => _AddressFormPageState();
 }
 
-class _AddressPageState extends State<AddressPage> {
+class _AddressFormPageState extends State<AddressFormPage> {
   bool state = true;
   FocusNode _nameFocus = FocusNode();
   FocusNode _mobileFocus = FocusNode();

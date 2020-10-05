@@ -5,7 +5,7 @@ import 'package:ecapp/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'account/account-page.dart';
-import 'cart/cart_page.dart';
+import 'cart/cart-page.dart';
 import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
