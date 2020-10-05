@@ -14,6 +14,7 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
+  bool state = true;
   FocusNode _nameFocus = FocusNode();
   FocusNode _mobileFocus = FocusNode();
   FocusNode _emailFocus = FocusNode();
@@ -265,19 +266,45 @@ class _AddressPageState extends State<AddressPage> {
                 ),
                 PrefectureDropdown(),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 133, 0),
-                  child: Text(
-                    "Make a default shipping address",
-                    style: TextStyle(color: Colors.black, fontSize: 17),
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Text(
+                            'Make a Default Shipping Address',
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+                          Switch(
+                              value: true,
+                              onChanged: (bool s) {
+                                setState(() {
+                                  state = s;
+                                  print(state);
+                                });
+                              }),
+                        ])),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 157, 20),
-                  child: Text(
-                    "Make a default biling address",
-                    style: TextStyle(color: Colors.black, fontSize: 17),
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Text(
+                            'Make a Default Billing Address',
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+                          Switch(
+                              value: true,
+                              onChanged: (bool s) {
+                                setState(() {
+                                  state = s;
+                                  print(state);
+                                });
+                              }),
+                        ])),
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                 ),
