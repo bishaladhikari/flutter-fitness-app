@@ -41,7 +41,7 @@ class Attribute {
     availability = json['availability'];
     productName = json['product_name'];
     sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'];
+    discountPrice = json['discount_price'] != null ? json['discount_price'] : null;
     discountPercentage = json['discount_percentage'];
     if (json['images'] != null) {
       images = new List<Image>();
