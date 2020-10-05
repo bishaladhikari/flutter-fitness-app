@@ -1,3 +1,4 @@
+import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
@@ -23,9 +24,9 @@ abstract class Routes {
       case 'searchPage':
         return MaterialPageRoute(builder: (context) => SearchPage());
         break;
-//      case 'searchPage':
-//        return MaterialPageRoute(builder: (context) => SearchPage());
-//        break;
+      case 'addressPage':
+        return MaterialPageRoute(builder: (context) => AddressPage());
+        break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
     }

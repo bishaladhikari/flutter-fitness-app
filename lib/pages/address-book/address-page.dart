@@ -77,7 +77,7 @@ class AddressPage extends StatelessWidget {
                                 Spacer(),
                                 FlatButton(
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    Navigator.pushNamed(context,'addressPage');
                                   },
                                   // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
                                   child: Text(
