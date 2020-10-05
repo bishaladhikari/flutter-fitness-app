@@ -1,6 +1,6 @@
 // import 'package:ecapp/constants.dart';
 import 'package:ecapp/pages/address-book/address-form-page.dart';
-import 'package:ecapp/pages/address-book/add_location.dart';
+import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/pages/review/review-page.dart';
@@ -25,7 +25,7 @@ class _BodyState extends State<Body> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LocationPage()),
+                  MaterialPageRoute(builder: (context) => AddressPage()),
                 );
               }),
           ListTile(

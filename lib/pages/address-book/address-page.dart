@@ -1,10 +1,8 @@
 import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
-import '../../constants.dart';
-import '../details/components/../../address-book/address-form-page.dart';
 
-class LocationPage extends StatelessWidget {
+class AddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     addressBloc.getAddress();
