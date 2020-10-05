@@ -18,9 +18,9 @@ class CartBloc {
     _subject.sink.add(response);
   }
 
-  deleteFromCart(id) async {
+  deleteFromCartList(id) async {
     await _repository.deleteWishlist(id);
-    response.deleteFromWishList(id);
+    response.deleteFromCarts(id);
     _subject.sink.add(response);
 
     print("response:" + response.toString());
@@ -34,7 +34,7 @@ class CartBloc {
   }
 
   BehaviorSubject<CartResponse> get subject => _subject;
-  ValueStream<CartResponse> get cart => _subject.stream;
+//  ValueStream<CartResponse> get cartList => _subject.stream;
 }
 
 final CartBloc cartBloc = CartBloc();

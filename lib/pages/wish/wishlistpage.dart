@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
+import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/image.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/wish.dart';
@@ -58,7 +59,7 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   Widget _buildWishlistWidget(WishlistResponse data ) {
-    List<Wish> wishes = data.wishes;
+    List<Cart> wishes = data.wishes;
     return ListView.builder(
       itemCount: wishes.length,
       itemBuilder:(context,index)=> WishlistItemView(wish:wishes[index]),
@@ -125,7 +126,7 @@ class ListTileItem extends StatelessWidget {
   }
 }
 class WishlistItemView extends StatelessWidget{
-  final Wish wish;
+  final wish;
   WishlistItemView({this.wish});
   @override
   Widget build(BuildContext context) {
