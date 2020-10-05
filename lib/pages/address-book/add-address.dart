@@ -315,6 +315,7 @@ class _PrefectureDropdownState extends State<PrefectureDropdown> {
       decoration: InputDecoration(
           hintText: "Prefecture",
           hintStyle: TextStyle(color: Colors.grey),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
           labelText: "Prefecture"),
       value: dropdownValue,
       icon: Icon(Icons.arrow_downward),
