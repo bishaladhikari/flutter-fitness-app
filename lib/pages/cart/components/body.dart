@@ -59,87 +59,84 @@ class _CartBodyState extends State<CartBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFF4F5F5),
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          StreamBuilder<CartResponse>(
-              stream: cartBloc.subject.stream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.error != null &&
-                      snapshot.data.error.length > 0) {
-                    return _buildErrorWidget(snapshot.data.error);
+    return SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            StreamBuilder<CartResponse>(
+                stream: cartBloc.subject.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0) {
+                      return _buildErrorWidget(snapshot.data.error);
+                    }
+                    return _buildCartWidget(snapshot.data);
+                  } else if (snapshot.hasError) {
+                    return _buildErrorWidget(snapshot.error);
+                  } else {
+                    return _buildLoadingWidget();
                   }
-                  return _buildCartWidget(snapshot.data);
-                } else if (snapshot.hasError) {
-                  return _buildErrorWidget(snapshot.error);
-                } else {
-                  return _buildLoadingWidget();
-                }
-              }),
-          Container(
-            padding: EdgeInsets.only(bottom: 1),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 83.5,
-                    color: Colors.white,
-                    child: Center(
-                      child: Text('Total',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
+                }),
+            Container(
+              padding: EdgeInsets.only(bottom: 1),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 83.5,
+                      color: Colors.white,
+                      child: Center(
+                        child: Text('Total',
+                            style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 27),
+                  Expanded(
+                    child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 27),
 //                          height: 50,
-                      color: Colors.white,
-                      width: 200,
-                      child: Stack(
-                        children: [
-                          Container(
+                        color: Colors.white,
+                        width: 200,
+                        child: Stack(
+                          children: [
+                            Container(
 //                                height: 50,
-                            width: double.infinity,
+                              width: double.infinity,
 //                        decoration: ,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 4),
-                            child: Center(
-                              child: Text('Rs ' + '1',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 4),
+                              child: Center(
+                                child: Text('Rs ' + '1',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15)),
+                              ),
                             ),
-                          ),
-                        ],
-                      )),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            child: Container(
-              width: double.infinity,
-              height: 50,
-              child: RaisedButton(
-                color: NPrimaryColor,
-                onPressed: () {},
-                child: Text('Checkout', style: TextStyle(color: Colors.white)),
+                          ],
+                        )),
+                  )
+                ],
               ),
             ),
-          )
-        ],
-      ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                child: RaisedButton(
+                  color: NPrimaryColor,
+                  onPressed: () {},
+                  child: Text('Checkout', style: TextStyle(color: Colors.white)),
+                ),
+              ),
+            )
+          ],
+        ),
     );
   }
 
@@ -151,16 +148,32 @@ class _CartBodyState extends State<CartBody> {
       itemCount: carts.length,
       itemBuilder: (context, i) {
         List<CartItem> cartItems = carts[i].items;
+        int itemCount = cartItems.length;
         return Column(
           children: [
-            Card(
-              child: Text(carts[i].soldBy),
+            SizedBox(
+              width: double.infinity,
+              child: Container(
+                color: Colors.white,
+//                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Sold By: " + carts[i].soldBy + " ($itemCount items)",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ),
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: cartItems.length,
-              itemBuilder: (context, index) =>
-                  CartItemView(cartItem: cartItems[index]),
+              itemCount: itemCount,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: CartItemView(cartItem: cartItems[index]),
+              ),
             ),
           ],
         );
