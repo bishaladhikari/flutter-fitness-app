@@ -13,6 +13,7 @@ class CartItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
+      width: double.infinity,
       padding: EdgeInsets.only(bottom: 1),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -56,67 +57,67 @@ class CartItemView extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 26.5),
-//                          height: 50,
-                color: Colors.white,
-                width: 200,
-                child: Stack(
-                  children: [
-                    Container(
-//                                height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(color: kForeGroundColor)),
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: Center(
-                        child: Text(
-                          cartItem.quantity.toString(),
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-//                        subCount(i);
-                      },
-                      child: Container(
-//                                width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: kForeGroundColor)),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                        child: Text(
-                          '-',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-//                        incCount(i);
-                      },
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(color: kForeGroundColor)),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          child: Text(
-                            '+',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-          )
+//          Expanded(
+//            child: Container(
+//                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 26.5),
+////                          height: 50,
+//                color: Colors.white,
+//                width: 200,
+//                child: Row(
+//                  children: [
+//                    Container(
+////                                height: 50,
+////                      width: double.infinity,
+//                      decoration: BoxDecoration(
+//                          borderRadius: BorderRadius.circular(50),
+//                          border: Border.all(color: kForeGroundColor)),
+//                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+//                      child: Center(
+//                        child: Text(
+//                          cartItem.quantity.toString(),
+//                          style: TextStyle(color: Colors.black),
+//                        ),
+//                      ),
+//                    ),
+//                    GestureDetector(
+//                      onTap: () {
+////                        subCount(i);
+//                      },
+//                      child: Container(
+////                                width: double.infinity,
+//                        decoration: BoxDecoration(
+//                            borderRadius: BorderRadius.circular(50),
+//                            border: Border.all(color: kForeGroundColor)),
+//                        padding:
+//                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+//                        child: Text(
+//                          '-',
+//                          style: TextStyle(color: Colors.black),
+//                        ),
+//                      ),
+//                    ),
+//                    GestureDetector(
+//                      onTap: () {
+////                        incCount(i);
+//                      },
+//                      child: Container(
+//                        alignment: Alignment.centerRight,
+//                        child: Container(
+//                          decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.circular(50),
+//                              border: Border.all(color: kForeGroundColor)),
+//                          padding:
+//                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//                          child: Text(
+//                            '+',
+//                            style: TextStyle(color: Colors.black),
+//                          ),
+//                        ),
+//                      ),
+//                    )
+//                  ],
+//                )),
+//          )
         ],
       ),
     );
