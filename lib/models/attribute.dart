@@ -49,7 +49,7 @@ class Attribute {
         images.add(new Image.fromJson(v));
       });
     }
-    imageThumbnail = json['images_thumbnail'] ?? null;
+    imageThumbnail = json['image_thumbnail'] ?? null;
     soldBy = json['sold_by'];
     weight = json['weight'];
     unit = json['unit'];

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-class CartItemView extends StatelessWidget{
+class CartItemView extends StatelessWidget {
   CartItem cartItem;
+
   CartItemView({this.cartItem});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +23,7 @@ class CartItemView extends StatelessWidget{
               decoration: BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                  image: NetworkImage(cartItem.attribute?.imageThumbnail),
+                  image: NetworkImage(cartItem.imageThumbnail),
                   fit: BoxFit.fitHeight,
 //                            image: Image.asset(cart[i]['image']),
                 ),
@@ -31,8 +33,7 @@ class CartItemView extends StatelessWidget{
           ),
           Expanded(
             child: Container(
-//                        padding:
-//                            EdgeInsets.symmetric(horizontal: 10, vertical: 23),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 23),
 //                        height: 100,
               width: 200,
               child: Column(
@@ -57,8 +58,7 @@ class CartItemView extends StatelessWidget{
           ),
           Expanded(
             child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 25, vertical: 26.5),
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 26.5),
 //                          height: 50,
                 color: Colors.white,
                 width: 200,
@@ -69,10 +69,8 @@ class CartItemView extends StatelessWidget{
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          border:
-                          Border.all(color: kForeGroundColor)),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
+                          border: Border.all(color: kForeGroundColor)),
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                       child: Center(
                         child: Text(
                           cartItem.quantity.toString(),
@@ -88,10 +86,9 @@ class CartItemView extends StatelessWidget{
 //                                width: double.infinity,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            border:
-                            Border.all(color: kForeGroundColor)),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 5),
+                            border: Border.all(color: kForeGroundColor)),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         child: Text(
                           '-',
                           style: TextStyle(color: Colors.black),
@@ -107,10 +104,9 @@ class CartItemView extends StatelessWidget{
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                  color: kForeGroundColor)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
+                              border: Border.all(color: kForeGroundColor)),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           child: Text(
                             '+',
                             style: TextStyle(color: Colors.black),

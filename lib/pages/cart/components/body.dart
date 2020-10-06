@@ -64,7 +64,7 @@ class _CartBodyState extends State<CartBody> {
       width: double.infinity,
       height: double.infinity,
       child: Column(
-//        mainAxisSize: Main,
+        mainAxisSize: MainAxisSize.min,
         children: [
           StreamBuilder<CartResponse>(
               stream: cartBloc.subject.stream,
@@ -157,7 +157,8 @@ class _CartBodyState extends State<CartBody> {
               child: Text(carts[i].soldBy),
             ),
             ListView.builder(
-              itemCount: carts.length,
+              shrinkWrap: true,
+              itemCount: cartItems.length,
               itemBuilder: (context, index) =>
                   CartItemView(cartItem: cartItems[index]),
             ),
