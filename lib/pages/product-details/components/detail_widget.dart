@@ -150,6 +150,7 @@ class _DetailWidgetState extends State<DetailWidget> {
   }
 
   _buildDescription(BuildContext context) {
+    String description = widget.productDetail.description;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 3.8,
@@ -170,17 +171,19 @@ class _DetailWidgetState extends State<DetailWidget> {
             SizedBox(
               height: 8,
             ),
-            Html(
-              data: widget.productDetail.description,
-              //Optional parameters:
+            OverflowBox(
+              child: Html(
+                data: description,
+                //Optional parameters:
 //          backgroundColor: Colors.white70,
-              onLinkTap: (url) {
-                // open url in a webview
-              },
+                onLinkTap: (url) {
+                  // open url in a webview
+                },
 
-              onImageTap: (src) {
-                // Display the image in large form.
-              },
+                onImageTap: (src) {
+                  // Display the image in large form.
+                },
+              ),
             ),
             SizedBox(
               height: 8,
