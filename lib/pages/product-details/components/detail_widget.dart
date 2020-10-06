@@ -52,9 +52,9 @@ class _DetailWidgetState extends State<DetailWidget> {
         child: Row(
           children: [
             Text(
-              "\$" + widget.selectedAttribute.discountPrice != null
-                  ? widget.selectedAttribute.discountPrice
-                  : widget.selectedAttribute.sellingPrice,
+              widget.selectedAttribute.discountPrice != null
+                  ? "\$" + widget.selectedAttribute.discountPrice
+                  : "\$" + widget.selectedAttribute.sellingPrice,
               style: TextStyle(
                   color: Colors.black54,
                   fontSize: 18,

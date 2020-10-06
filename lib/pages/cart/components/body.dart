@@ -153,17 +153,20 @@ class _CartBodyState extends State<CartBody> {
           children: [
             SizedBox(
               width: double.infinity,
-              child: Container(
-                color: Colors.white,
-//                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Sold By: " + carts[i].soldBy + " ($itemCount items)",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontFamily: 'Quicksand',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal:8.0),
+                child: Row(
+                  children:[
+                    Text(
+                      "Sold By: " + carts[i].soldBy + " ($itemCount items)",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    IconButton(icon:Icon(Icons.chevron_right,color: Colors.grey,), onPressed: () {  },)
+                  ]
                 ),
               ),
             ),
