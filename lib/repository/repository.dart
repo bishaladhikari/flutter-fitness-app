@@ -13,6 +13,7 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/theme.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
@@ -158,15 +159,52 @@ class Repository {
       return CartResponse.withError(_handleError(error));
     }
   }
-   Future<AddressResponse> getAddress() async {
+
+  Future<AddressResponse> getAddress() async {
     try {
 //      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
 //      _dio.options.headers["locale"] = "jp";
 //
       Response response = await _dio.get(addressUrl);
-            print("Response:" + response.toString());
+      print("Response:" + response.toString());
 
       return AddressResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return AddressResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<dynamic> addAddress(
+      {@required name,
+      phone,
+      email,
+      house,
+      zipCode,
+      city,
+      address,
+      prefecture}) async {
+    try {
+//      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
+//      _dio.options.headers["locale"] = "jp";
+//
+print("jell");
+      final data = {
+        "name": "$name",
+        "phone": "$phone",
+        "email": "$email",
+        "house": "$house",
+        "zip_code": "$zipCode",
+        "address_type": "Shipping Address",
+        "address": "$address",
+        "city": "$city",
+        "prefecture": "$prefecture",
+      };
+      print("name:" + name.toString());
+      Response response = await _dio.post(addressUrl, queryParameters: data);
+      print("Response:" + response.toString());
+
+      return response;
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return AddressResponse.withError(_handleError(error));

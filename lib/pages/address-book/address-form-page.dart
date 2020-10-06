@@ -1,3 +1,4 @@
+import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../../constants.dart';
@@ -18,15 +19,37 @@ class _AddressFormPageState extends State<AddressFormPage> {
   FocusNode _cityFocus = FocusNode();
   FocusNode _addressFocus = FocusNode();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  void validate() {
-    if (formkey.currentState.validate()) {
-      print("Validated");
-    } else {
-      print("Not Validated");
-      setState(() {
-        _autoValidate = true;
-      });
-    }
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController houseController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController zipController = TextEditingController();
+  TextEditingController prefectureController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
+  validate() {
+    print("hi");
+    Repository()
+        .addAddress(
+            name: nameController.text,
+            email: emailController.text,
+            house: houseController.text,
+            city: cityController.text,
+            address: addressController.text,
+            zipCode: zipController.text,
+            prefecture: prefectureController.text,
+            phone: phoneController.text)
+        .then((value) => print("value:" + value.toString()));
+    // if (formkey.currentState.validate()) {
+    //   print("Validated");
+    // } else {
+    //   print("Not Validated");
+    //   setState(() {
+    //     _autoValidate = true;
+    //   });
+    // }
   }
 
   String validatepass(value) {
@@ -80,12 +103,6 @@ class _AddressFormPageState extends State<AddressFormPage> {
         appBar: new AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          // * leading: new Padding(
-          // padding: const EdgeInsets.only(top: 16.0, left: 10.0),
-          // child: new Text(
-          // 'Cancel',
-          // style: TextStyle(color: Colors.black, fontSize: 15),
-          // )),*
           title: new Text(
             'Add New Address',
             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -100,6 +117,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
               key: formkey,
               child: Column(children: <Widget>[
                 TextFormField(
+                  controller: nameController,
                   focusNode: _nameFocus,
                   decoration: InputDecoration(
                     fillColor: NPrimaryColor,
@@ -123,6 +141,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 ),
                 TextFormField(
                     focusNode: _mobileFocus,
+                    controller: phoneController,
                     decoration: InputDecoration(
                       fillColor: NPrimaryColor,
                       focusedBorder: OutlineInputBorder(
@@ -149,6 +168,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 ),
                 TextFormField(
                   focusNode: _emailFocus,
+                  controller: emailController,
                   decoration: InputDecoration(
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
@@ -174,6 +194,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 ),
                 TextFormField(
                     focusNode: _zipFocus,
+                    controller: zipController,
                     decoration: InputDecoration(
                       fillColor: NPrimaryColor,
                       focusedBorder: OutlineInputBorder(
@@ -198,6 +219,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   height: 25.0,
                 ),
                 TextFormField(
+                  controller: houseController,
                   focusNode: _houseFocus,
                   decoration: InputDecoration(
                     fillColor: NPrimaryColor,
@@ -221,6 +243,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 ),
                 TextFormField(
                   focusNode: _cityFocus,
+                  controller: cityController,
                   decoration: InputDecoration(
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
@@ -243,6 +266,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 ),
                 TextFormField(
                   focusNode: _addressFocus,
+                  controller: addressController,
                   decoration: InputDecoration(
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
@@ -308,18 +332,15 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                 ),
-                GestureDetector(
-                  onTap: validate,
-                  child: Container(
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.orange),
-                      child: Center(
-                          child: Text(
-                        'Save',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ))),
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: RaisedButton(
+                    color: NPrimaryColor,
+                    onPressed:validate,
+                    child:
+                        Text('Save', style: TextStyle(color: Colors.white)),
+                  ),
                 )
               ]),
             ))));

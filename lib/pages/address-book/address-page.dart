@@ -24,16 +24,13 @@ class AddressPage extends StatelessWidget {
               strokeWidth: 1,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context,'addressFormPage');
+                  Navigator.pushNamed(context, 'addressFormPage');
                 },
                 child: Container(
                   // width: 310.0,
                   height: 100.0,
                   decoration: BoxDecoration(
                     color: const Color(0XFFB3E5FC),
-                    // border:
-                    //     Border.all(color: Colors.blue, style: BorderStyle.solid),
-                    // borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
                     " + Add address",
@@ -52,64 +49,75 @@ class AddressPage extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data.addresses.isNotEmpty)
                   return ListView.builder(
-                    itemCount: snapshot.data.addresses.length,
-                    shrinkWrap: true,
-                    itemBuilder: (_,index){
-                    final item = snapshot.data.addresses[index];
-                   return Column(
-                     children: [
-                       Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.add_location,
-                                  color: Colors.orange,
-                                ),
-                                Text(
-                                  item.name,
-                                  style:
-                                      TextStyle(color: Colors.black, fontSize: 17),
-                                ),
-                                Spacer(),
-                                FlatButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context,'addressFormPage');
-                                  },
-                                  // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
-                                  child: Text(
-                                    "Edit",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Colors.blue,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ])),
-                       Container(
-                         padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                         child: Column(
-                             mainAxisSize: MainAxisSize.max,
-                             mainAxisAlignment: MainAxisAlignment.start,
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: <Widget>[
-                               Text('9806050253',
-                                   style: TextStyle(color: Colors.black, fontSize: 17)),
-                               Text('Bagmati,Kathmandu,New Baneshwor',
-                                   style: TextStyle(color: Colors.black, fontSize: 17)),
-                               Text('Area, Buddhanagar',
-                                   style: TextStyle(color: Colors.black, fontSize: 17)),
-                             ]),
-                       ),
-                     ],
-                   );
-                  });
-                          return Container();
-              }),
+                      itemCount: snapshot.data.addresses.length,
+                      shrinkWrap: true,
+                      itemBuilder: (_, index) {
+                        final item = snapshot.data.addresses[index];
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.add_location,
+                                        color: Colors.orange,
+                                      ),
+                                      Text(
+                                        item.name.toString(),
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 17),
+                                      ),
+                                      Spacer(),
+                                      FlatButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, 'addressFormPage');
+                                        },
+                                        // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
+                                        child: Text(
+                                          "Edit",
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Colors.blue,
+                                              fontSize: 15),
+                                        ),
+                                      ),
+                                    ])),
+                           
+                                    Padding(
+                                      padding: const EdgeInsets.only(left:20.0),
+                                      child: Text(item.phone.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 17)),
+                                    ),
 
+                                    Padding(
+                                      padding: const EdgeInsets.only(left:20.0),
+                                      child: Text(item.house.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 17)),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left:20.0),
+                                      child: Text(item.city.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 17)),
+                                    ),
+                                 
+                          ],
+                        );
+                      });
+                return Container();
+              }),
         ]));
   }
 }
