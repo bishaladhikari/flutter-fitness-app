@@ -37,7 +37,7 @@ class _CartPageState extends State<CartPage> {
           ),
         ],
       ),
-      body: CartBody(),
+      body: SingleChildScrollView(child: CartBody()),
     );
   }
 }

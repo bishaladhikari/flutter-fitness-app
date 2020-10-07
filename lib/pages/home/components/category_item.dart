@@ -17,6 +17,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(6.0),
+      height: 45,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey.withOpacity(0.3))),

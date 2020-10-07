@@ -9,6 +9,7 @@ import 'package:flutter_icons/ionicons.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
+
 //  final List<Color> gradientColors;
   final width;
 
@@ -66,9 +67,10 @@ class ProductItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetailPage(
-              product: product,
-            ),
+            builder: (context) =>
+                ProductDetailPage(
+                  product: product,
+                ),
           ),
         );
       },
@@ -80,37 +82,40 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Center(
           child: CachedNetworkImage(
-            placeholder: (context, url) => Center(
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
+            placeholder: (context, url) =>
+                Center(
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/placeholder.png"),
+                          fit: BoxFit.cover),
+                    ),
+                  ),
                 ),
-              ),
-            ),
             imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
-            imageBuilder: (context, imageProvider) => Container(
+            imageBuilder: (context, imageProvider) =>
+                Container(
 //              width: 75,
-              height: 100,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              )),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
+                  height: 100,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      )),
                 ),
-              ),
-            ),
+            errorWidget: (context, url, error) =>
+                Center(
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/placeholder.png"),
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                ),
           ),
         ),
 //        Positioned(
@@ -142,36 +147,37 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Text(
           product.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14,color: kTextColor),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
         ),
-        SizedBox(height: 8,),
+        SizedBox(
+          height: 8,
+        ),
         Text(
           product.category.name,
           style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
         ),
         SizedBox(height: 10),
-//        Row(
-//          children: <Widget>[
-//            Text(
-//                "\$" + product.discountPrice != null
-//                    ? product.discountPrice
-//                    : product.sellingPrice,
-//                style: TextStyle(
-//                    fontSize: 15,
-//                    fontWeight: FontWeight.bold,
-//                    color: NPrimaryColor)),
-//            SizedBox(width: 8),
-//            product.discountPrice != null
-//                ? Text(
-//                    "\$" + product.sellingPrice,
-//                    style: TextStyle(
-//                        color: Colors.grey,
-//                        fontSize: 10,
-//                        decoration: TextDecoration.lineThrough),
-//                  )
-//                : Container()
-//          ],
-//        ),
+        Row(
+          children: <Widget>[
+            Text(
+                product.discountPrice != null? "\$" +product.discountPrice
+                    : "\$" +product.sellingPrice,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: NPrimaryColor)),
+            SizedBox(width: 8),
+            product.discountPrice != null ?
+            Text(
+              "\$" + product.sellingPrice,
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 10,
+                  decoration: TextDecoration.lineThrough),
+            ) : Container()
+          ],
+        ),
         SizedBox(height: 10),
         StarRating(rating: product.avgRating, size: 10),
       ],

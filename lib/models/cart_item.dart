@@ -34,4 +34,8 @@ class CartItem {
   get name {
     return attribute != null ? attribute.productName : combo.title;
   }
+
+  get imageThumbnail {
+    return attribute != null ? attribute.imageThumbnail : combo.imageThumbnail;
+  }
 }

@@ -59,111 +59,120 @@ class _CartBodyState extends State<CartBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFF4F5F5),
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-//        mainAxisSize: Main,
-        children: [
-          StreamBuilder<CartResponse>(
-              stream: cartBloc.subject.stream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.error != null &&
-                      snapshot.data.error.length > 0) {
-                    return _buildErrorWidget(snapshot.data.error);
-                  }
-                  return _buildCartWidget(snapshot.data);
-                } else if (snapshot.hasError) {
-                  return _buildErrorWidget(snapshot.error);
-                } else {
-                  return _buildLoadingWidget();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        StreamBuilder<CartResponse>(
+            stream: cartBloc.subject.stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.error != null &&
+                    snapshot.data.error.length > 0) {
+                  return _buildErrorWidget(snapshot.data.error);
                 }
-              }),
-          Container(
-            padding: EdgeInsets.only(bottom: 1),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 83.5,
-                    color: Colors.white,
-                    child: Center(
-                      child: Text('Total',
-                          style: TextStyle(
-                              fontFamily: 'Quicksand',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                    ),
-                  ),
+                return _buildCartWidget(snapshot.data);
+              } else if (snapshot.hasError) {
+                return _buildErrorWidget(snapshot.error);
+              } else {
+                return _buildLoadingWidget();
+              }
+            }),
+        Container(
+          padding: EdgeInsets.only(bottom: 1),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 83.5,
+                color: Colors.white,
+                child: Center(
+                  child: Text('Total',
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
                 ),
-                Expanded(
-                  child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25, vertical: 27),
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 27),
 //                          height: 50,
-                      color: Colors.white,
-                      width: 200,
-                      child: Stack(
-                        children: [
-                          Container(
+                  color: Colors.white,
+                  width: 200,
+                  child: Container(
 //                                height: 50,
-                            width: double.infinity,
+                    width: double.infinity,
 //                        decoration: ,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 4),
-                            child: Center(
-                              child: Text('Rs ' + '1',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15)),
-                            ),
-                          ),
-                        ],
-                      )),
-                )
-              ],
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+                    child: Center(
+                      child: Text('Rs ' + '1',
+                          style: TextStyle(color: Colors.black, fontSize: 15)),
+                    ),
+                  ))
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+          child: Container(
+            width: double.infinity,
+            height: 50,
+            child: RaisedButton(
+              color: NPrimaryColor,
+              onPressed: () {},
+              child: Text('Checkout', style: TextStyle(color: Colors.white)),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            child: Container(
-              width: double.infinity,
-              height: 50,
-              child: RaisedButton(
-                color: NPrimaryColor,
-                onPressed: () {},
-                child: Text('Checkout', style: TextStyle(color: Colors.white)),
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 
   Widget _buildCartWidget(CartResponse data) {
     List<Cart> carts = data.carts;
-    return ListView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: 10),
-      itemCount: carts.length,
-      itemBuilder: (context, i) {
-        List<CartItem> cartItems = carts[i].items;
-        return Column(
-          children: [
-            Card(
-              child: Text(carts[i].soldBy),
+    final cartChildren = <Widget>[];
+    for (int i = 0; i < carts?.length ?? 0; i++) {
+      List<CartItem> cartItems = carts[i].items;
+      int itemCount = cartItems.length;
+      final itemChildren = <Widget>[];
+      for (int i = 0; i < cartItems?.length ?? 0; i++) {
+        itemChildren.add(CartItemView(cartItem: cartItems[i]));
+      }
+      cartChildren.add(Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(children: [
+                Text(
+                  "Sold By: " + carts[i].soldBy + " ($itemCount items)",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {},
+                )
+              ]),
             ),
-            ListView.builder(
-              itemCount: carts.length,
-              itemBuilder: (context, index) =>
-                  CartItemView(cartItem: cartItems[index]),
-            ),
-          ],
-        );
-      },
+          ),
+          Container(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: itemChildren),
+          ),
+        ],
+      ));
+    }
+    return Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
     );
   }
 
