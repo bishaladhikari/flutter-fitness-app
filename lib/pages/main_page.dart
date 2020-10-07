@@ -101,29 +101,10 @@ class _MainPageState extends State<MainPage> {
               onPressed: () => {_changePage(1)},
             ),
             IconButton(
-              icon: Stack(
-                children: [
-                  currentPage == 2
-                      ? SvgPicture.asset("assets/icons/Cart_03.svg",
-                          color: NPrimaryColor)
-                      : SvgPicture.asset("assets/icons/Cart_02.svg"),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.orange),
-                      child: Text(
-                        cart_count.toString(),
-                        style: TextStyle(fontSize: 10, color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              icon: currentPage == 2
+                  ? SvgPicture.asset("assets/icons/Cart_03.svg",
+                      color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/Cart_02.svg"),
               padding: EdgeInsets.all(10),
               onPressed: () => {_changePage(2)},
             ),
@@ -140,6 +121,23 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+//Expanded(
+//child: Container(
+//alignment: Alignment.center,
+//margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
+//width: 15,
+//height: 15,
+//decoration: BoxDecoration(
+//borderRadius: BorderRadius.circular(10),
+//color: Colors.orange),
+//child: Text(
+//cart_count.toString(),
+//style: TextStyle(fontSize: 10, color: Colors.white),
+//),
+//),
+//)
+
 
 leftDrawerMenu() {
   Color blackColor = Colors.black.withOpacity(0.6);
