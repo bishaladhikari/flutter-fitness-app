@@ -94,8 +94,7 @@ class _CartBodyState extends State<CartBody> {
                 ),
               ),
               Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 25, vertical: 27),
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 27),
 //                          height: 50,
                   color: Colors.white,
                   width: 200,
@@ -103,12 +102,10 @@ class _CartBodyState extends State<CartBody> {
 //                                height: 50,
                     width: double.infinity,
 //                        decoration: ,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 5, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                     child: Center(
                       child: Text('Rs ' + '1',
-                          style: TextStyle(
-                              color: Colors.black, fontSize: 15)),
+                          style: TextStyle(color: Colors.black, fontSize: 15)),
                     ),
                   ))
             ],
@@ -132,47 +129,50 @@ class _CartBodyState extends State<CartBody> {
 
   Widget _buildCartWidget(CartResponse data) {
     List<Cart> carts = data.carts;
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: 10),
-      itemCount: carts.length,
-      itemBuilder: (context, i) {
-        List<CartItem> cartItems = carts[i].items;
-        int itemCount = cartItems.length;
-        return Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal:8.0),
-                child: Row(
-                  children:[
-                    Text(
-                      "Sold By: " + carts[i].soldBy + " ($itemCount items)",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                    IconButton(icon:Icon(Icons.chevron_right,color: Colors.grey,), onPressed: () {  },)
-                  ]
+    final cartChildren = <Widget>[];
+    for (int i = 0; i < carts?.length ?? 0; i++) {
+      List<CartItem> cartItems = carts[i].items;
+      int itemCount = cartItems.length;
+      final itemChildren = <Widget>[];
+      for (int i = 0; i < cartItems?.length ?? 0; i++) {
+        itemChildren.add(CartItemView(cartItem: cartItems[i]));
+      }
+      cartChildren.add(Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(children: [
+                Text(
+                  "Sold By: " + carts[i].soldBy + " ($itemCount items)",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
-              ),
+                IconButton(
+                  icon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {},
+                )
+              ]),
             ),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: itemCount,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: CartItemView(cartItem: cartItems[index]),
-              ),
-            ),
-          ],
-        );
-      },
+          ),
+          Container(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: itemChildren),
+          ),
+        ],
+      ));
+    }
+    return Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
     );
   }
 
