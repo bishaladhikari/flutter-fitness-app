@@ -13,9 +13,10 @@ class CartItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Row(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+//      mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
+        Flexible(
           child: Container(
             height: 83.5,
             decoration: BoxDecoration(
@@ -29,7 +30,7 @@ class CartItemView extends StatelessWidget {
 //                        child: Image.asset(cart[i]['image']),
           ),
         ),
-        Expanded(
+        Flexible(
           child: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -42,7 +43,9 @@ class CartItemView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.black)),
                 SizedBox(height: 10,),
-                Row(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                   Text("Rs 250",
                       style: TextStyle(
                           fontFamily: 'Quicksand',
@@ -50,21 +53,6 @@ class CartItemView extends StatelessWidget {
                           color: Colors.grey)),
                   Row(
                     children: [
-                      Container(
-//                                height: 50,
-//                      width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: kForeGroundColor)),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        child: Center(
-                          child: Text(
-                            cartItem.quantity.toString(),
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
                       GestureDetector(
                         onTap: () {
 //                        subCount(i);
@@ -79,6 +67,21 @@ class CartItemView extends StatelessWidget {
                               horizontal: 12, vertical: 5),
                           child: Text(
                             '-',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      Container(
+//                                height: 50,
+//                      width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: kForeGroundColor)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
+                        child: Center(
+                          child: Text(
+                            cartItem.quantity.toString(),
                             style: TextStyle(color: Colors.black),
                           ),
                         ),

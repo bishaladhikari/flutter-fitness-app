@@ -7,7 +7,7 @@ class CartPage extends StatefulWidget {
   _CartPageState createState() => _CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
+class _CartPageState extends State<CartPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,4 +40,7 @@ class _CartPageState extends State<CartPage> {
       body: SingleChildScrollView(child: CartBody()),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
