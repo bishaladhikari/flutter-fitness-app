@@ -40,6 +40,15 @@ class _AddressFormPageState extends State<AddressFormPage> {
     if (formkey.currentState.validate()) {
       if (widget.address != null)
         print(widget.address.name);
+//        Repository().updateAddress(
+//            name: nameController.text,
+//            email: emailController.text,
+//            house: houseController.text,
+//            city: cityController.text,
+//            address: addressController.text,
+//            zipCode: zipController.text,
+//            prefecture: prefectureController.text,
+//            phone: phoneController.text);
       else
         Repository().addAddress(
             name: nameController.text,

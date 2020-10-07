@@ -175,6 +175,9 @@ class Repository {
     }
   }
 
+  updateAddress(){
+
+  }
   Future<dynamic> addAddress(
       {@required name,
       phone,
