@@ -29,6 +29,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     super.initState();
     productsByCategoryBloc..getCategoryProducts(category, sortBy);
   }
+//
+//  @override
+//  void dispose() {
+//    super.dispose();
+//    productsByCategoryBloc..drainStream();
+//  }
 
   @override
   Widget build(BuildContext context) {
