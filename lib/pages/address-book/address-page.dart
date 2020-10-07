@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/address_bloc.dart';
+import 'package:ecapp/models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -48,7 +49,8 @@ class AddressPage extends StatelessWidget {
             StreamBuilder(
                 stream: addressBloc.addresses,
                 builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data.addresses.isNotEmpty)
+                  if (snapshot.hasData && snapshot.data.addresses.isNotEmpty){
+                    List<Address> addresses  = snapshot.data.addresses;
                     return ListView.builder(
                         itemCount: snapshot.data.addresses.length,
                         shrinkWrap: true,
@@ -65,7 +67,7 @@ class AddressPage extends StatelessWidget {
                                       horizontal: 5.0),
                                   child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       // crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.max,
                                       children: <Widget>[
@@ -83,14 +85,15 @@ class AddressPage extends StatelessWidget {
                                         FlatButton(
                                           onPressed: () {
                                             Navigator.pushNamed(
-                                                context, 'addressFormPage');
+                                                context, 'addressFormPage',
+                                              arguments: addresses[index]);
                                           },
                                           // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
                                           child: Text(
                                             "Edit",
                                             style: TextStyle(
                                                 decoration:
-                                                    TextDecoration.underline,
+                                                TextDecoration.underline,
                                                 color: Colors.blue,
                                                 fontSize: 15),
                                           ),
@@ -117,6 +120,8 @@ class AddressPage extends StatelessWidget {
                             ],
                           );
                         });
+
+                  }
                   return Container();
                 }),
           ]),

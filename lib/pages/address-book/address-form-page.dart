@@ -8,7 +8,10 @@ import '../../constants.dart';
 
 class AddressFormPage extends StatefulWidget {
   // final Address addressResponse;
-  // AddressFormPage({this.addressResponse});
+  Address address;
+
+  AddressFormPage({this.address = null});
+
   @override
   _AddressFormPageState createState() => _AddressFormPageState();
 }
@@ -24,7 +27,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
   FocusNode _addressFocus = FocusNode();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  TextEditingController nameController =TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController houseController = TextEditingController();
@@ -63,6 +66,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
   @override
   void initState() {
     super.initState();
+    print(widget.address?.name);
     _nameFocus = new FocusNode();
     _nameFocus.addListener(requestFocus);
     _mobileFocus = new FocusNode();
@@ -79,7 +83,6 @@ class _AddressFormPageState extends State<AddressFormPage> {
     _addressFocus.addListener(requestFocus);
 
 // nameController  = TextEditingController(text: widget.addressResponse==null?"":widget.addressResponse.name);
-
   }
 
   @override
@@ -123,6 +126,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   controller: nameController,
                   focusNode: _nameFocus,
                   decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: NPrimaryColor),
@@ -140,12 +145,14 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   validator: validatepass,
                 ),
                 SizedBox(
-                  height: 25.0,
+                  height: 14.0,
                 ),
                 TextFormField(
                     focusNode: _mobileFocus,
                     controller: phoneController,
                     decoration: InputDecoration(
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
                       fillColor: NPrimaryColor,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: NPrimaryColor),
@@ -167,12 +174,14 @@ class _AddressFormPageState extends State<AddressFormPage> {
                           errorText: 'Not A Valid  Mobile Number')
                     ])),
                 SizedBox(
-                  height: 25.0,
+                  height: 14.0,
                 ),
                 TextFormField(
                   focusNode: _emailFocus,
                   controller: emailController,
                   decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: NPrimaryColor),
@@ -193,12 +202,14 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   ]),
                 ),
                 SizedBox(
-                  height: 25.0,
+                  height: 14.0,
                 ),
                 TextFormField(
                     focusNode: _zipFocus,
                     controller: zipController,
                     decoration: InputDecoration(
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
                       fillColor: NPrimaryColor,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: NPrimaryColor),
@@ -225,6 +236,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   controller: houseController,
                   focusNode: _houseFocus,
                   decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: NPrimaryColor),
@@ -248,6 +261,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   focusNode: _cityFocus,
                   controller: cityController,
                   decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: NPrimaryColor),
@@ -271,6 +286,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   focusNode: _addressFocus,
                   controller: addressController,
                   decoration: InputDecoration(
+                    contentPadding: new EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
                     fillColor: NPrimaryColor,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: NPrimaryColor),
@@ -362,8 +379,9 @@ class _PrefectureDropdownState extends State<PrefectureDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
-      
       decoration: InputDecoration(
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           hintText: "Prefecture",
           hintStyle: TextStyle(color: Colors.grey),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),

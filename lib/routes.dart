@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 abstract class Routes {
   static MaterialPageRoute materialPageRoute(RouteSettings routeSettings) {
-    final argument = routeSettings.arguments;
+    final arguments = routeSettings.arguments;
     switch (routeSettings.name) {
       case '/wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
@@ -30,7 +30,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => AddressPage());
         break;
       case 'addressFormPage':
-        return MaterialPageRoute(builder: (context) => AddressFormPage());
+        return MaterialPageRoute(builder: (context) => AddressFormPage(address:arguments));
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
