@@ -34,8 +34,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
   TextEditingController nameController;
   TextEditingController phoneController;
   TextEditingController emailController = TextEditingController();
-  TextEditingController houseController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
+  TextEditingController houseController;
+  TextEditingController cityController;
   TextEditingController zipController = TextEditingController();
   TextEditingController prefectureController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -83,7 +83,11 @@ class _AddressFormPageState extends State<AddressFormPage> {
               prefecture: prefectureController.text,
               phone: phoneController.text)
           .then((value) {
+        _loadingController.sink.add(false);
         addressBloc.getAddress();
+        Navigator.of(context).pop();
+      }).catchError((value) {
+        _loadingController.sink.add(false);
       });
     }
   }
@@ -119,7 +123,10 @@ class _AddressFormPageState extends State<AddressFormPage> {
         text: widget.address == null ? "" : widget.address.name);
     phoneController = TextEditingController(
         text: widget.address == null ? "" : widget.address.phone);
-
+    houseController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.house);
+    cityController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.city);
     _loadingController = BehaviorSubject<bool>();
   }
 
