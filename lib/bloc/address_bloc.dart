@@ -16,6 +16,16 @@ class AddressBloc {
     _subject.sink.add(response);
   }
 
+
+//   addAddress(item) async{
+//     await repository.addAddress(item);
+// response.add(id)
+// _subject.sink.add(response);
+
+//   }
+
+
+
   // deleteFromCart(id) async {
   //   await _repository.deleteWishlist(id);
   //   response.deleteFromWishList(id);

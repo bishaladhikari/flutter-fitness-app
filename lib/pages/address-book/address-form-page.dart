@@ -1,14 +1,18 @@
+import 'package:async_loader/async_loader.dart';
+import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/repository/repository.dart';
+import 'package:ecapp/widgets/loadingIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../constants.dart';
+import 'package:flutter/services.dart';
 // import 'pattern_validation_container.dart';
 
 class AddressFormPage extends StatefulWidget {
-  // final Address addressResponse;
-  Address address;
+  final Address address;
 
   AddressFormPage({this.address = null});
 
@@ -27,8 +31,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
   FocusNode _addressFocus = FocusNode();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController;
+  TextEditingController phoneController;
   TextEditingController emailController = TextEditingController();
   TextEditingController houseController = TextEditingController();
   TextEditingController cityController = TextEditingController();
@@ -36,33 +40,50 @@ class _AddressFormPageState extends State<AddressFormPage> {
   TextEditingController prefectureController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
+  BehaviorSubject _loadingController;
+
   validate() {
-    if (formkey.currentState.validate()) {
-      if (widget.address != null)
-        print(widget.address.name);
-//        Repository().updateAddress(
-//            name: nameController.text,
-//            email: emailController.text,
-//            house: houseController.text,
-//            city: cityController.text,
-//            address: addressController.text,
-//            zipCode: zipController.text,
-//            prefecture: prefectureController.text,
-//            phone: phoneController.text);
-      else
-        Repository().addAddress(
-            name: nameController.text,
-            email: emailController.text,
-            house: houseController.text,
-            city: cityController.text,
-            address: addressController.text,
-            zipCode: zipController.text,
-            prefecture: prefectureController.text,
-            phone: phoneController.text);
+    _loadingController.sink.add(true);
+    if (widget.address == null) {
+      if (formkey.currentState.validate()) {
+        Repository()
+            .addAddress(
+                name: nameController.text,
+                email: emailController.text,
+                house: houseController.text,
+                city: cityController.text,
+                address: addressController.text,
+                zipCode: zipController.text,
+                prefecture: prefectureController.text,
+                phone: phoneController.text)
+            .then((value) {
+          _loadingController.sink.add(false);
+          addressBloc.getAddress();
+          Navigator.of(context).pop();
+        }).catchError((value) {
+          _loadingController.sink.add(false);
+        });
+      } else {
+        print("Not Validated");
+        _loadingController.sink.add(false);
+        setState(() {
+          _autoValidate = true;
+        });
+      }
     } else {
-      print("Not Validated");
-      setState(() {
-        _autoValidate = true;
+      Repository()
+          .updateAddress(
+              id: widget.address.id,
+              name: nameController.text,
+              email: emailController.text,
+              house: houseController.text,
+              city: cityController.text,
+              address: addressController.text,
+              zipCode: zipController.text,
+              prefecture: prefectureController.text,
+              phone: phoneController.text)
+          .then((value) {
+        addressBloc.getAddress();
       });
     }
   }
@@ -94,7 +115,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
     _addressFocus = new FocusNode();
     _addressFocus.addListener(requestFocus);
 
-// nameController  = TextEditingController(text: widget.addressResponse==null?"":widget.addressResponse.name);
+    nameController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.name);
+    phoneController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.phone);
+
+    _loadingController = BehaviorSubject<bool>();
   }
 
   @override
@@ -106,6 +132,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
     _houseFocus.dispose();
     _cityFocus.dispose();
     _addressFocus.dispose();
+    _loadingController.close();
     super.dispose();
   }
 
@@ -126,11 +153,16 @@ class _AddressFormPageState extends State<AddressFormPage> {
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
         ),
-        body: Container(
-            padding:
-            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-            child: SingleChildScrollView(
-                child: Form(
+        body: StreamBuilder(
+          stream: _loadingController.stream,
+          initialData: false,
+          builder: (_, snap) => LoadingIndicator(
+            isAsyncCall: snap.data,
+            child: Container(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 16.0),
+                child: SingleChildScrollView(
+                    child: Form(
                   autovalidate: _autoValidate,
                   key: formkey,
                   child: Column(children: <Widget>[
@@ -149,8 +181,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         ),
                         labelText: "Name",
                         labelStyle: TextStyle(
-                            color:
-                            _nameFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                            color: _nameFocus.hasFocus
+                                ? NPrimaryColor
+                                : Colors.grey),
                         hintText: "Full Name",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
@@ -162,6 +195,10 @@ class _AddressFormPageState extends State<AddressFormPage> {
                     TextFormField(
                         focusNode: _mobileFocus,
                         controller: phoneController,
+                        keyboardType: TextInputType.phone,
+                        // inputFormatters: [
+                        //   WhitelistingTextInputFormatter.digitsOnly
+                        // ],
                         decoration: InputDecoration(
                           contentPadding: new EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
@@ -203,8 +240,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         ),
                         labelText: "Email",
                         labelStyle: TextStyle(
-                            color:
-                            _emailFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                            color: _emailFocus.hasFocus
+                                ? NPrimaryColor
+                                : Colors.grey),
                         hintText: "Email Address",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
@@ -231,8 +269,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
                           ),
                           labelText: "Zipcode",
                           labelStyle: TextStyle(
-                              color:
-                              _zipFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                              color: _zipFocus.hasFocus
+                                  ? NPrimaryColor
+                                  : Colors.grey),
                           hintText: "Zip-Code",
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
@@ -259,8 +298,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         ),
                         labelText: "House",
                         labelStyle: TextStyle(
-                            color:
-                            _houseFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                            color: _houseFocus.hasFocus
+                                ? NPrimaryColor
+                                : Colors.grey),
                         hintText: "House",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
@@ -284,8 +324,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         ),
                         labelText: "City",
                         labelStyle: TextStyle(
-                            color:
-                            _cityFocus.hasFocus ? NPrimaryColor : Colors.grey),
+                            color: _cityFocus.hasFocus
+                                ? NPrimaryColor
+                                : Colors.grey),
                         hintText: "City",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
@@ -329,10 +370,11 @@ class _AddressFormPageState extends State<AddressFormPage> {
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Text(
-                                'Make a Default Shipping Address',
+                                'Make a Default Address',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 17),
                               ),
+                              Spacer(),
                               Switch(
                                   value: true,
                                   onChanged: (bool s) {
@@ -342,27 +384,27 @@ class _AddressFormPageState extends State<AddressFormPage> {
                                     });
                                   }),
                             ])),
-                    Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              Text(
-                                'Make a Default Billing Address',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 17),
-                              ),
-                              Switch(
-                                  value: true,
-                                  onChanged: (bool s) {
-                                    setState(() {
-                                      state = s;
-                                      print(state);
-                                    });
-                                  }),
-                            ])),
+                    // Container(
+                    //     padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    //     child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.start,
+                    //         crossAxisAlignment: CrossAxisAlignment.center,
+                    //         mainAxisSize: MainAxisSize.max,
+                    //         children: <Widget>[
+                    //           Text(
+                    //             'Make a Default Billing Address',
+                    //             style: TextStyle(
+                    //                 color: Colors.black, fontSize: 17),
+                    //           ),
+                    //           Switch(
+                    //               value: true,
+                    //               onChanged: (bool s) {
+                    //                 setState(() {
+                    //                   state = s;
+                    //                   print(state);
+                    //                 });
+                    //               }),
+                    //         ])),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                     ),
@@ -372,12 +414,14 @@ class _AddressFormPageState extends State<AddressFormPage> {
                       child: RaisedButton(
                         color: NPrimaryColor,
                         onPressed: validate,
-                        child: Text(
-                            'Save', style: TextStyle(color: Colors.white)),
+                        child:
+                            Text('Save', style: TextStyle(color: Colors.white)),
                       ),
                     )
                   ]),
-                ))));
+                ))),
+          ),
+        ));
   }
 }
 
@@ -396,7 +440,7 @@ class _PrefectureDropdownState extends State<PrefectureDropdown> {
     return DropdownButtonFormField(
       decoration: InputDecoration(
           contentPadding:
-          new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           hintText: "Prefecture",
           hintStyle: TextStyle(color: Colors.grey),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -408,7 +452,7 @@ class _PrefectureDropdownState extends State<PrefectureDropdown> {
       style: TextStyle(color: Colors.black),
       onChanged: (String newValue) {
         setState(
-              () {
+          () {
             dropdownValue = newValue;
           },
         );
