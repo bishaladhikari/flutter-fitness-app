@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 abstract class Routes {
   static MaterialPageRoute materialPageRoute(RouteSettings routeSettings) {
+    final argument = routeSettings.arguments;
     switch (routeSettings.name) {
       case '/wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());

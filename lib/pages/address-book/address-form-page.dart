@@ -1,3 +1,5 @@
+import 'package:ecapp/models/address.dart';
+import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -5,6 +7,8 @@ import '../../constants.dart';
 // import 'pattern_validation_container.dart';
 
 class AddressFormPage extends StatefulWidget {
+  // final Address addressResponse;
+  // AddressFormPage({this.addressResponse});
   @override
   _AddressFormPageState createState() => _AddressFormPageState();
 }
@@ -20,7 +24,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
   FocusNode _addressFocus = FocusNode();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  TextEditingController nameController = TextEditingController();
+  TextEditingController nameController =TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController houseController = TextEditingController();
@@ -30,26 +34,22 @@ class _AddressFormPageState extends State<AddressFormPage> {
   TextEditingController addressController = TextEditingController();
 
   validate() {
-    print("hi");
-    Repository()
-        .addAddress(
-            name: nameController.text,
-            email: emailController.text,
-            house: houseController.text,
-            city: cityController.text,
-            address: addressController.text,
-            zipCode: zipController.text,
-            prefecture: prefectureController.text,
-            phone: phoneController.text)
-        .then((value) => print("value:" + value.toString()));
-    // if (formkey.currentState.validate()) {
-    //   print("Validated");
-    // } else {
-    //   print("Not Validated");
-    //   setState(() {
-    //     _autoValidate = true;
-    //   });
-    // }
+    if (formkey.currentState.validate()) {
+      Repository().addAddress(
+          name: nameController.text,
+          email: emailController.text,
+          house: houseController.text,
+          city: cityController.text,
+          address: addressController.text,
+          zipCode: zipController.text,
+          prefecture: prefectureController.text,
+          phone: phoneController.text);
+    } else {
+      print("Not Validated");
+      setState(() {
+        _autoValidate = true;
+      });
+    }
   }
 
   String validatepass(value) {
@@ -77,6 +77,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
     _cityFocus.addListener(requestFocus);
     _addressFocus = new FocusNode();
     _addressFocus.addListener(requestFocus);
+
+// nameController  = TextEditingController(text: widget.addressResponse==null?"":widget.addressResponse.name);
+
   }
 
   @override
@@ -337,9 +340,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                   height: 50,
                   child: RaisedButton(
                     color: NPrimaryColor,
-                    onPressed:validate,
-                    child:
-                        Text('Save', style: TextStyle(color: Colors.white)),
+                    onPressed: validate,
+                    child: Text('Save', style: TextStyle(color: Colors.white)),
                   ),
                 )
               ]),
@@ -360,6 +362,7 @@ class _PrefectureDropdownState extends State<PrefectureDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+      
       decoration: InputDecoration(
           hintText: "Prefecture",
           hintStyle: TextStyle(color: Colors.grey),

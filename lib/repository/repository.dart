@@ -190,7 +190,7 @@ class Repository {
 //
 print("jell");
       final data = {
-        "name": "$name",
+        "full_name": "$name",
         "phone": "$phone",
         "email": "$email",
         "house": "$house",
