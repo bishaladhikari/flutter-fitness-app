@@ -8,59 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
 import 'cart_item_view.dart';
 
-class CartBody extends StatefulWidget {
-  @override
-  _CartBodyState createState() => _CartBodyState();
-}
-
-class _CartBodyState extends State<CartBody> {
-  List cart = [
-    {
-      'name': 'Cabbage goes the long way',
-      'price': 'Rs 100',
-      'image':
-          'https://img2.pngio.com/cheese-pizza-png-clip-art-library-plain-pizza-png-920_805.png',
-      'count': 1
-    },
-    {
-      'name': 'Tomato',
-      'price': 'Rs 50',
-      'image':
-          'https://pngimg.com/uploads/burger_sandwich/burger_sandwich_PNG4135.png',
-      'count': 5
-    },
-    {
-      'name': 'Potato',
-      'price': 'Rs 250',
-      'image':
-          'https://lh3.googleusercontent.com/proxy/RmSFgLUs1MO_dQxup3bjAo9SCeo5kBup11gBI5Kqm-269CCqKfMouHQET1RULWXV1j6Nia5tzt4-dxzKoXI2CpG5e2N0W-zoRXG3vfKBJ6R-c5w6VAHCJDbssQ',
-      'count': 2
-    },
-  ];
-
-  // @override
-  subCount(i) {
-    setState(() {
-      cart[i]['count']--;
-    });
-  }
-
-  incCount(i) {
-    setState(() {
-      cart[i]['count']++;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print(cart.length);
-  }
-
+class CartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
       children: [
         StreamBuilder<CartResponse>(
             stream: cartBloc.subject.stream,
@@ -78,7 +30,7 @@ class _CartBodyState extends State<CartBody> {
               }
             }),
         Container(
-          padding: EdgeInsets.only(bottom: 1),
+          padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -104,7 +56,7 @@ class _CartBodyState extends State<CartBody> {
 //                        decoration: ,
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                     child: Center(
-                      child: Text('Rs ' + '1',
+                      child: Text('Rs ' + '1000',
                           style: TextStyle(color: Colors.black, fontSize: 15)),
                     ),
                   ))
@@ -142,10 +94,10 @@ class _CartBodyState extends State<CartBody> {
           SizedBox(
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Row(children: [
                 Text(
-                  "Sold By: " + carts[i].soldBy + " ($itemCount items)",
+                  carts[i].soldBy + " ($itemCount items)",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontFamily: 'Quicksand',
