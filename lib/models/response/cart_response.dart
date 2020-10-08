@@ -3,7 +3,7 @@ import '../cart.dart';
 class CartResponse {
   List<Cart> carts;
   int totalItems;
-  int totalAmount;
+  double totalAmount;
   double totalWeight;
   int shippingDiscountCost;
   int bulkDiscountCost;
@@ -26,12 +26,12 @@ class CartResponse {
       : carts = (json["data"]["data"] as List)
             .map((i) => new Cart.fromJson(i))
             .toList(),
-        totalItems = json['total_items'],
-        totalAmount = json['total_amount'],
-        totalWeight = json['total_weight'],
-        shippingDiscountCost = json['shipping_discount_cost'],
-        bulkDiscountCost = json['bulk_discount_cost'],
-        shippingCost = json['shipping_cost'],
+        totalItems = json["data"]['total_items'],
+        totalAmount = json["data"]['total_amount'].toDouble(),
+        totalWeight = json["data"]['total_weight'],
+        shippingDiscountCost = json["data"]['shipping_discount_cost'],
+        bulkDiscountCost = json["data"]['bulk_discount_cost'],
+        shippingCost = json["data"]['shipping_cost'],
         error = "";
 
   CartResponse.withError(String errorValue)

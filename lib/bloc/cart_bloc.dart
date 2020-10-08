@@ -16,6 +16,8 @@ class CartBloc {
   getCart() async {
     response = await _repository.getCart();
     _subject.sink.add(response);
+    print("response:" + response.totalAmount.toString());
+
   }
 
   deleteFromCartList(id) async {
