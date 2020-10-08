@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
     AccountPage()
   ];
 
-  void _onPageChanged(int index) {}
+  void _onPageChanged(int index) {if(index==2)cartBloc.getCart();}
   int currentPage = 0;
   int cart_count = 0;
 
