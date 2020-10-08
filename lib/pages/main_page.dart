@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
     productsBloc..getFeaturedProducts();
     productsBloc..getProducts();
     cartBloc..getCart();
+//    comboBloc.getComboProducts();
   }
 
   @override
