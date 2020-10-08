@@ -54,6 +54,7 @@ class CartItemView extends StatelessWidget {
                           fontFamily: 'Quicksand',
                           fontWeight: FontWeight.w700,
                           color: NPrimaryColor)),
+                  Spacer(),
                   Row(
                     children: [
                       GestureDetector(
