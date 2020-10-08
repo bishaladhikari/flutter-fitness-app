@@ -1,4 +1,5 @@
 import 'package:ecapp/models/attribute.dart';
+import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/wish.dart';
@@ -15,6 +16,13 @@ class CartBloc {
 
   getCart() async {
     response = await _repository.getCart();
+    _subject.sink.add(response);
+    print("response:" + response.totalAmount.toString());
+
+  }
+
+  updateCart(CartItem cartItem) async {
+    response = await _repository.updateCart(cartItem);
     _subject.sink.add(response);
     print("response:" + response.totalAmount.toString());
 
