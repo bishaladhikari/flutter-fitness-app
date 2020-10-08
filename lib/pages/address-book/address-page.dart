@@ -116,7 +116,7 @@ class AddressPage extends StatelessWidget {
                                             style: TextStyle(
 //                                                decoration:
 //                                                TextDecoration.underline,
-                                                color: Colors.black38,
+                                                color: Colors.lightBlue,
                                                 fontSize: 15),
                                           ),
                                         ),
