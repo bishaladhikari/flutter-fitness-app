@@ -12,9 +12,8 @@ class AuthBloc {
   final BehaviorSubject<LoginResponse> _subject =
       BehaviorSubject<LoginResponse>();
 
-//  final BehaviorSubject<bool> _isAuthenticated = BehaviorSubject<bool>();
-//  final BehaviorSubject<User> _currentUser = BehaviorSubject<User>();
-  final BehaviorSubject<PrefsData> _currentPreference = BehaviorSubject<PrefsData>();
+  final BehaviorSubject<PrefsData> _currentPreference =
+      BehaviorSubject<PrefsData>();
 
 //  Function(PrefsData) get changePrefs => _changePreference.sink.add;
   AuthBloc() {
@@ -27,10 +26,13 @@ class AuthBloc {
   Future<void> _loadSharedPreferences() async {
     print("loaded sharedpref");
     pref = await SharedPreferences.getInstance();
-    final user = pref.getString("user")!=null?User.fromJson(json.decode(pref.getString("user"))):User();
+    final user = pref.getString("user") != null
+        ? User.fromJson(json.decode(pref.getString("user")))
+        : User();
     print(pref.getString("user"));
     final token = pref.getString("token");
-    _currentPreference.sink.add(PrefsData(user, token, token!=null?true:false));
+    _currentPreference.sink
+        .add(PrefsData(user, token, token != null ? true : false));
   }
 
   login(credentials) async {
@@ -46,7 +48,8 @@ class AuthBloc {
     print(response.user.fullName);
     pref.setString("user", json.encode(response.user.toJson()));
     pref.commit();
-    _currentPreference.sink.add(PrefsData(response.user, response.token,response.token!=null?true:false));
+    _currentPreference.sink.add(PrefsData(
+        response.user, response.token, response.token != null ? true : false));
   }
 
   dispose() {
@@ -75,11 +78,11 @@ class AuthBloc {
 //    SharedPreferences pref = await SharedPreferences.getInstance();
 //    return json.decode(pref.getString("token"));
 //  }
-  void logout() async{
+  void logout() async {
     print("logging out");
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("token",null) ;
-    pref.setString("user",null) ;
+    pref.setString("token", null);
+    pref.setString("user", null);
   }
 }
 
@@ -90,5 +93,5 @@ class PrefsData {
   final String token;
   final bool isAuthenticated;
 
-  PrefsData(this.user, this.token,this.isAuthenticated);
+  PrefsData(this.user, this.token, this.isAuthenticated);
 }
