@@ -17,15 +17,11 @@ class CartBloc {
   getCart() async {
     response = await _repository.getCart();
     _subject.sink.add(response);
-    print("response:" + response.totalAmount.toString());
-
   }
 
   updateCart(CartItem cartItem) async {
     response = await _repository.updateCart(cartItem);
     _subject.sink.add(response);
-    print("response:" + response.totalAmount.toString());
-
   }
 
   deleteFromCartList(id) async {
@@ -36,9 +32,12 @@ class CartBloc {
     print("response:" + response.toString());
   }
 
-  void drainStream(){ _subject.value = null; }
+  void drainStream() {
+    _subject.value = null;
+  }
+
   @mustCallSuper
-  void dispose() async{
+  void dispose() async {
     await _subject.drain();
     _subject.close();
   }
