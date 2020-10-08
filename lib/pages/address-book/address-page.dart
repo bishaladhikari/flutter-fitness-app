@@ -64,26 +64,44 @@ class AddressPage extends StatelessWidget {
                             children: [
                               Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 5.0),
+                                      horizontal: 5.0,vertical: 5),
                                   child: Row(
                                       mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                      // crossAxisAlignment: CrossAxisAlignment.center,
+                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.max,
+
                                       children: <Widget>[
                                         Padding(
-                                          padding: const EdgeInsets.all(18.0),
+                                          padding: const EdgeInsets.symmetric(horizontal:10.0),
                                           child: Icon(
                                             Icons.add_location,
                                             color: Colors.orange,
                                           ),
                                         ),
 
-                                        Text(
-                                          item.name.toString(),
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 16),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              item.name.toString(),
+                                              style: TextStyle(
+                                                  color: Colors.black87,
+                                                  fontSize: 16),
+                                            ),
+                                            Text(item.phone.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black38,
+                                                    fontSize: 14)),
+                                            Text(item.house.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black38,
+                                                    fontSize: 14)),
+                                            Text(item.city.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black38,
+                                                    fontSize: 14)),
+                                          ],
                                         ),
                                         Spacer(),
                                         FlatButton(
@@ -103,27 +121,6 @@ class AddressPage extends StatelessWidget {
                                           ),
                                         ),
                                       ])),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Text(item.phone.toString(),
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        fontSize: 14)),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Text(item.house.toString(),
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        fontSize: 14)),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Text(item.city.toString(),
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        fontSize: 14)),
-                              ),
                             ],
                           );
                         });
