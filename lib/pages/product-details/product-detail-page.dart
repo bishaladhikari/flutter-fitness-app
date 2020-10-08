@@ -57,6 +57,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
    });
   } //  Product product;
 
+  get selectedAttribute => _selectedAttribute;
   _ProductDetailPageState();
 
   @override
@@ -399,11 +400,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             ProductDetail productDetail = snapshot.data.productDetail;
+            print("selectedAttribute"+selectedAttribute?.toString());
             return DottedSlider(
               maxHeight: 200,
               children: <Widget>[
-//                _productSlideImage(
-//                    productDetail.attributes[0].images[0].imageThumbnail),
+                _productSlideImage(
+                    selectedAttribute?.images[0].imageThumbnail),
 //                _productSlideImage(
 //                    productDetail.attributes[0].images[0].imageThumbnail),
 //                _productSlideImage(

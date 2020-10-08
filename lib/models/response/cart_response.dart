@@ -1,9 +1,14 @@
-import 'package:ecapp/models/wish.dart';
-
 import '../cart.dart';
 
 class CartResponse {
   List<Cart> carts;
+  int totalItems;
+  int totalAmount;
+  double totalWeight;
+  int shippingDiscountCost;
+  int bulkDiscountCost;
+  List<Null> achievedPromotions;
+  int shippingCost;
   final String error;
 
   void deleteFromCarts(id) {
@@ -18,8 +23,15 @@ class CartResponse {
   CartResponse(this.carts, this.error);
 
   CartResponse.fromJson(Map<String, dynamic> json)
-      : carts =
-            (json["data"] as List).map((i) => new Cart.fromJson(i)).toList(),
+      : carts = (json["data"]["data"] as List)
+            .map((i) => new Cart.fromJson(i))
+            .toList(),
+        totalItems = json['total_items'],
+        totalAmount = json['total_amount'],
+        totalWeight = json['total_weight'],
+        shippingDiscountCost = json['shipping_discount_cost'],
+        bulkDiscountCost = json['bulk_discount_cost'],
+        shippingCost = json['shipping_cost'],
         error = "";
 
   CartResponse.withError(String errorValue)
