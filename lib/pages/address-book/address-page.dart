@@ -67,19 +67,23 @@ class AddressPage extends StatelessWidget {
                                       horizontal: 5.0),
                                   child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                      MainAxisAlignment.spaceAround,
                                       // crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.max,
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.add_location,
-                                          color: Colors.orange,
+                                        Padding(
+                                          padding: const EdgeInsets.all(18.0),
+                                          child: Icon(
+                                            Icons.add_location,
+                                            color: Colors.orange,
+                                          ),
                                         ),
+
                                         Text(
                                           item.name.toString(),
                                           style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 17),
+                                              color: Colors.black54,
+                                              fontSize: 16),
                                         ),
                                         Spacer(),
                                         FlatButton(
@@ -92,9 +96,9 @@ class AddressPage extends StatelessWidget {
                                           child: Text(
                                             "Edit",
                                             style: TextStyle(
-                                                decoration:
-                                                TextDecoration.underline,
-                                                color: Colors.blue,
+//                                                decoration:
+//                                                TextDecoration.underline,
+                                                color: Colors.black38,
                                                 fontSize: 15),
                                           ),
                                         ),
@@ -103,19 +107,22 @@ class AddressPage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Text(item.phone.toString(),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 17)),
+                                        color: Colors.black38,
+                                        fontSize: 14)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Text(item.house.toString(),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 17)),
+                                        color: Colors.black38,
+                                        fontSize: 14)),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
                                 child: Text(item.city.toString(),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 17)),
+                                        color: Colors.black38,
+                                        fontSize: 14)),
                               ),
                             ],
                           );
