@@ -22,7 +22,7 @@ class AddressPage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: DottedBorder(
                 // padding: EdgeInsets.all(20.0),
-                color: Colors.black,
+                color: Colors.black26,
                 strokeWidth: 1,
                 child: GestureDetector(
                   onTap: () {
