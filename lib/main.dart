@@ -22,7 +22,7 @@ void main() {
     saveLocale: true,
     supportedLocales: [
       Locale('en', "US"),
-      Locale('jp', "JP"),
+      Locale('ja', "JP"),
     ],
     fallbackLocale: Locale('en', 'US'),
   ));
