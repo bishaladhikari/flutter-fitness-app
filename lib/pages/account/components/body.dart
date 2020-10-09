@@ -143,18 +143,14 @@ class _BodyState extends State<Body> {
           StreamBuilder<PrefsData>(
             stream: authBloc.preference,
             builder: (context, AsyncSnapshot snapshot) {
-              return snapshot.data?.isAuthenticated == true?
+              return snapshot.data.isAuthenticated == true?
               Positioned(
                   left: 160,
                   bottom: 60,
-                  child: GestureDetector(
-                      onTap: () {
-                        authBloc.logout();
-                      },
-                      child: Text(
-                        snapshot.data.user.fullName,
-                        style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,fontSize: 18),
-                      ))):Container();
+                  child: Text(
+                    snapshot.data.user.fullName,
+                    style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,fontSize: 18),
+                  )):Container();
             }
           ),
         ],

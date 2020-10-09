@@ -12,12 +12,14 @@ class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   var email = "actionbishal98130@gmail.com";
   var password = "Password123";
 
-//  var email="";
-//  var password="";
   bool _obscureText = true;
+  bool _validate = false;
 
   AnimationController _controller;
 
@@ -33,10 +35,25 @@ class _LoginPageState extends State<LoginPage>
     _controller = AnimationController(vsync: this);
   }
 
+  validateLogin() {
+    if (_formKey.currentState.validate()) {
+      // print("email:" + emailController.text.toString());
+      // print("password:" + passwordController.text.toString());
+      authBloc.login({
+        "email": "${emailController.text.trim()}",
+        "password": "${passwordController.text.trim()}"
+      }).then((value) => Navigator.of(context).pop());
+    } else {
+      setState(() => _validate = true);
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -53,17 +70,17 @@ class _LoginPageState extends State<LoginPage>
                     fontSize: 20.0)),
           ),
         ),
-//        AppTextField(hintText: "Email"),
-//        AppTextField(hintText: "Password"),
         Container(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
               Form(
                 key: _formKey,
+                autovalidate: _validate,
                 child: Column(
                   children: [
                     TextFormField(
+                      controller: emailController,
                       style: TextStyle(color: Color(0xFF000000)),
                       cursorColor: Color(0xFF9b9b9b),
                       keyboardType: TextInputType.text,
@@ -78,12 +95,12 @@ class _LoginPageState extends State<LoginPage>
                         if (emailValue.isEmpty) {
                           return 'Please enter email';
                         }
-                        email = emailValue;
                         return null;
                       },
                     ),
                     SizedBox(height: 10),
                     TextFormField(
+                      controller: passwordController,
                       style: TextStyle(color: Color(0xFF000000)),
                       cursorColor: Color(0xFF9b9b9b),
                       keyboardType: TextInputType.visiblePassword,
@@ -105,17 +122,12 @@ class _LoginPageState extends State<LoginPage>
                         if (emailValue.isEmpty) {
                           return 'Please enter password';
                         }
-                        email = emailValue;
                         return null;
                       },
                     ),
                   ],
                 ),
               ),
-//            Container(
-//              padding: const EdgeInsets.all(20),
-//              child:
-//            ),
               Container(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -125,24 +137,20 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               GestureDetector(
-                onTap: () => {
-                  authBloc.login({"email": email, "password": password})
-                },
-                child: InkWell(
-                  child: Container(
+                onTap: validateLogin,
+                child: Container(
 //              padding: const EdgeInsets.all(5.0),
 //              margin: const EdgeInsets.all(20.0),
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: NPrimaryColor,
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: Center(
-                        child: Text(
-                      "SIGN IN",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
-                  ),
+                  height: 50.0,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: NPrimaryColor,
+                      borderRadius: BorderRadius.circular(5.0)),
+                  child: Center(
+                      child: Text(
+                    "SIGN IN",
+                    style: TextStyle(fontSize: 14, color: Colors.white),
+                  )),
                 ),
               ),
               Align(

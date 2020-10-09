@@ -84,7 +84,7 @@ class Repository {
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return LoginResponse.withError(_handleError(error));
+      return  LoginResponse.withError(_handleError(error));
     }
   }
 

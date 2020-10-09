@@ -36,9 +36,14 @@ class AuthBloc {
   }
 
   login(credentials) async {
+    try{
     LoginResponse response = await _repository.login(credentials);
+    print("Response:"+response.toString());
     _setPref(response);
     _subject.sink.add(response);
+    }catch(error){
+      print("Error:"+error.toString());
+    }
   }
 
   _setPref(response) async {
@@ -83,6 +88,10 @@ class AuthBloc {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("token", null);
     pref.setString("user", null);
+    User user = null;
+   _currentPreference.sink.add(PrefsData(
+        user, "",  false));
+  
   }
 }
 
