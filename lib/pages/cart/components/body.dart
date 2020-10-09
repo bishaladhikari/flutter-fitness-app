@@ -20,11 +20,11 @@ class CartBody extends StatelessWidget {
               if (snapshot.hasData) {
                 if (snapshot.data.error != null &&
                     snapshot.data.error.length > 0) {
-                  return _buildErrorWidget(snapshot.data.error);
+                  return _buildErrorWidget(context,snapshot.data.error);
                 }
                 return _buildCartWidget(snapshot.data);
               } else if (snapshot.hasError) {
-                return _buildErrorWidget(snapshot.error);
+                return _buildErrorWidget(context,snapshot.error);
               } else {
                 return _buildLoadingWidget();
               }
@@ -145,13 +145,16 @@ class CartBody extends StatelessWidget {
     ));
   }
 
-  Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occurred: $error"),
-      ],
+  Widget _buildErrorWidget(context,String error) {
+//    return Center(
+//        child: Column(
+//      mainAxisAlignment: MainAxisAlignment.center,
+//      children: [
+//        Text("Error occurred: $error"),
+//      ],
+//    ));
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text("$error"),
     ));
   }
 }
