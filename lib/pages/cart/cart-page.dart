@@ -73,7 +73,7 @@ class _CartPageState extends State<CartPage>
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                     Text('¥ ' + totalAmount.toString(),
-                        style: TextStyle(color: Colors.black, fontSize: 15)),
+                        style: TextStyle(color: NPrimaryColor, fontSize: 15)),
                     RaisedButton(
                       color: NPrimaryColor,
                       onPressed: () {},

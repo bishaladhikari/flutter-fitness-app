@@ -23,7 +23,7 @@ class CartItemView extends StatelessWidget {
         children: [
           Flexible(
             child: Container(
-              height: 80,
+              height: 60,
               width: width / 3,
               decoration: BoxDecoration(
                 color: Colors.white,
