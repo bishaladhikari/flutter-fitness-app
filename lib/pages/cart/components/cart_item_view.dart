@@ -62,16 +62,16 @@ class CartItemView extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            cartItem.quantity--;
-                            cartBloc.updateCart(cartItem);
+//                            cartItem.quantity--;
+                            cartBloc.updateCart(cartItem, "remove");
                           },
                           child: Container(
 //                                width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(color: kForeGroundColor)),
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 5),
                             child: Text(
                               '-',
                               style: TextStyle(color: Colors.black),
@@ -95,8 +95,8 @@ class CartItemView extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            cartItem.quantity++;
-                            cartBloc.updateCart(cartItem);
+//                            cartItem.quantity++;
+                            cartBloc.updateCart(cartItem, "add");
                           },
                           child: Container(
                             alignment: Alignment.centerRight,
