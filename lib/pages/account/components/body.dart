@@ -143,7 +143,8 @@ class _BodyState extends State<Body> {
           StreamBuilder<PrefsData>(
             stream: authBloc.preference,
             builder: (context, AsyncSnapshot snapshot) {
-              return snapshot.data.isAuthenticated == true?
+//              if(!snapshot.hasData) return Container();
+              return snapshot.data?.isAuthenticated == true?
               Positioned(
                   left: 160,
                   bottom: 60,

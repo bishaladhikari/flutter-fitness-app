@@ -40,13 +40,15 @@ class AuthBloc {
   }
 
   login(credentials) async {
-    try{
-    LoginResponse response = await _repository.login(credentials);
-    print("Response:"+response.toString());
-    _setPref(response);
-    _subject.sink.add(response);
-    }catch(error){
-      print("Error:"+error.toString());
+    try {
+      LoginResponse response = await _repository.login(credentials);
+      print("Response:" + response.toString());
+      _subject.sink.add(response);
+      if (response.token != null) {
+        _setPref(response);
+      }
+    } catch (error) {
+      print("Error:" + error.toString());
     }
   }
 
@@ -67,6 +69,7 @@ class AuthBloc {
   }
 
   BehaviorSubject<LoginResponse> get subject => _subject;
+
   BehaviorSubject<PrefsData> get currentPreference => _currentPreference;
 
 //  BehaviorSubject<User> get currentUser => _currentUser;
@@ -93,9 +96,7 @@ class AuthBloc {
     pref.setString("token", null);
     pref.setString("user", null);
     User user = null;
-   _currentPreference.sink.add(PrefsData(
-        user, "",  false));
-  
+    _currentPreference.sink.add(PrefsData(user, "", false));
   }
 }
 

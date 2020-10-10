@@ -48,27 +48,29 @@ class _LoginPageState extends State<LoginPage>
     emailController.dispose();
     passwordController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       body: StreamBuilder<LoginResponse>(
         stream: authBloc.subject.stream,
-        builder: (context,snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.error != null && snapshot.data.error.length > 0) {
               print("this is called twice");
-              WidgetsBinding.instance.addPostFrameCallback((_) => _buildErrorWidget(context,snapshot.data.error));
+              WidgetsBinding.instance.addPostFrameCallback(
+                  (_) => _buildErrorWidget(context, snapshot.data.error));
               return _buildLoginFormWidget(snapshot.data);
             }
-            _loginSuccess(context);
           }
           return _buildLoginFormWidget(snapshot.data);
         },
       ),
     );
   }
-  void _buildErrorWidget(context,String message){
+
+  void _buildErrorWidget(context, String message) {
 //    _scaffoldKey.currentState.showSnackBar(SnackBar(
 //      content: Text(message),
 //    ));
@@ -76,13 +78,17 @@ class _LoginPageState extends State<LoginPage>
       content: Text(message),
     ));
   }
+
   void _loginSuccess(BuildContext context) {
-    Navigator.pop(context);
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text("Successfully Logged In"),
-    ));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.pop(context);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("Successfully Logged In"),
+      ));
+    });
   }
-  Widget _buildLoginFormWidget(LoginResponse response){
+
+  Widget _buildLoginFormWidget(LoginResponse response) {
     return ListView(children: [
       Center(
         child: Padding(
@@ -172,9 +178,9 @@ class _LoginPageState extends State<LoginPage>
                     borderRadius: BorderRadius.circular(5.0)),
                 child: Center(
                     child: Text(
-                      "SIGN IN",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
+                  "SIGN IN",
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                )),
               ),
             ),
             Align(
@@ -296,7 +302,6 @@ class _LoginPageState extends State<LoginPage>
         ),
       ),
     ]);
-
   }
 
   validateLogin(context) async {
@@ -308,14 +313,10 @@ class _LoginPageState extends State<LoginPage>
           "email": "${emailController.text.trim()}",
           "password": "${passwordController.text.trim()}"
         });
-//        var stream = authBloc.subject.stream;
-//        stream.listen((snapshot) {
-//          print("snapshot data");
-//          final snackbar = SnackBar(content: Text(snapshot.error));
-////          Scaffold.of(context).showSnackBar(snackbar);
-//          _scaffoldKey.currentState.showSnackBar(snackbar);
-//          print("snapshot login error" + snapshot.error);
-//        });
+        var stream = authBloc.subject.stream;
+        stream.listen((data) {
+          if (data.token != null) _loginSuccess(context);
+        });
 //      StreamBuilder(
 //        stream:authBloc.subject.stream,
 //        builder:(context,snapshot){
@@ -331,5 +332,4 @@ class _LoginPageState extends State<LoginPage>
       setState(() => _validate = true);
     }
   }
-
 }
