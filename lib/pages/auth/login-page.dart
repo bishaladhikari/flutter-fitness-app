@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:ecapp/bloc/auth_bloc.dart';
@@ -52,43 +53,45 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      body: StreamBuilder<LoginResponse>(
-        stream: authBloc.subject.stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-              print("this is called twice");
-              WidgetsBinding.instance.addPostFrameCallback(
-                  (_) => _buildErrorWidget(context, snapshot.data.error));
-              return _buildLoginFormWidget(snapshot.data);
-            }
-          }
-          return _buildLoginFormWidget(snapshot.data);
-        },
-      ),
-    );
+        key: _scaffoldKey,
+        body:
+//      StreamBuilder<LoginResponse>(
+//        stream: authBloc.subject.stream,
+//        builder: (context, snapshot) {
+//          if (snapshot.hasData) {
+//            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+//              WidgetsBinding.instance.addPostFrameCallback(
+//                  (_) => _buildErrorWidget(context, snapshot.data.error));
+//              return _buildLoginFormWidget(snapshot.data);
+//            }
+//          }
+//          return _buildLoginFormWidget(snapshot.data);
+//        },
+//      ),
+            _buildLoginFormWidget());
   }
 
-  void _buildErrorWidget(context, String message) {
-//    _scaffoldKey.currentState.showSnackBar(SnackBar(
-//      content: Text(message),
-//    ));
-    Scaffold.of(context).showSnackBar(SnackBar(
+  void _showErrorMessage(context, String message) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(message),
     ));
+    authBloc..drainStream();
+
+//    Scaffold.of(context).showSnackBar(SnackBar(
+//      content: Text(message),
+//    ));
   }
 
   void _loginSuccess(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.pop(context);
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("Successfully Logged In"),
-      ));
+//      _scaffoldKey.currentState.showSnackBar(SnackBar(
+//        content: Text("Successfully Logged In"),
+//      ));
     });
   }
 
-  Widget _buildLoginFormWidget(LoginResponse response) {
+  Widget _buildLoginFormWidget() {
     return ListView(children: [
       Center(
         child: Padding(
@@ -314,20 +317,14 @@ class _LoginPageState extends State<LoginPage>
           "password": "${passwordController.text.trim()}"
         });
         var stream = authBloc.subject.stream;
-        stream.listen((data) {
-          if(data!=null){
-            print("data here"+data.toString());
-            if (data.token != null) _loginSuccess(context);
-          }
-
+//        StreamSubscription<LoginResponse> subscription;
+        final subscription = stream.listen(null);
+        subscription.onData((response) {
+          if (response.error != null)
+            _showErrorMessage(context, response.error);
+          if (response.token != null) _loginSuccess(context);
+          subscription.cancel();
         });
-//      StreamBuilder(
-//        stream:authBloc.subject.stream,
-//        builder:(context,snapshot){
-//          final snackbar = SnackBar(content: Text('Yay! A SnackBar!'));
-//           Scaffold.of(context).showSnackBar(snackbar);
-//        }
-//      );
       } catch (error) {
         print("here is login error" + error);
 //        Scaffold.of(context).s

@@ -95,7 +95,7 @@ class AuthBloc {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("token", null);
     pref.setString("user", null);
-    User user = null;
+    User user;
     _currentPreference.sink.add(PrefsData(user, "", false));
   }
 }
