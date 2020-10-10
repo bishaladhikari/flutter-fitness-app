@@ -23,6 +23,10 @@ class AuthBloc {
 //    _changePreference.stream.listen(logout);
   }
 
+  void drainStream() {
+    _subject.value = null;
+  }
+
   Future<void> _loadSharedPreferences() async {
     print("loaded sharedpref");
     pref = await SharedPreferences.getInstance();
@@ -36,9 +40,16 @@ class AuthBloc {
   }
 
   login(credentials) async {
-    LoginResponse response = await _repository.login(credentials);
-    _setPref(response);
-    _subject.sink.add(response);
+    try {
+      LoginResponse response = await _repository.login(credentials);
+      print("Response:" + response.toString());
+      _subject.sink.add(response);
+      if (response.token != null) {
+        _setPref(response);
+      }
+    } catch (error) {
+      print("Error:" + error.toString());
+    }
   }
 
   _setPref(response) async {
@@ -58,6 +69,7 @@ class AuthBloc {
   }
 
   BehaviorSubject<LoginResponse> get subject => _subject;
+
   BehaviorSubject<PrefsData> get currentPreference => _currentPreference;
 
 //  BehaviorSubject<User> get currentUser => _currentUser;
@@ -83,6 +95,8 @@ class AuthBloc {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("token", null);
     pref.setString("user", null);
+    User user;
+    _currentPreference.sink.add(PrefsData(user, "", false));
   }
 }
 

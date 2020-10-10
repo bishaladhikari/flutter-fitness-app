@@ -1,4 +1,5 @@
 // import 'package:ecapp/constants.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -48,6 +49,10 @@ class _BodyState extends State<Body> {
           ListTile(title: Text('Policies')),
           ListTile(title: Text('About')),
           ListTile(title: Text('Help')),
+          ListTile(title: Text('Logout'),onTap: (){
+            authBloc.logout();
+            Navigator.of(context).pop();
+          },),
         ],
       ),
     );

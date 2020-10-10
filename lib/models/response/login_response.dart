@@ -10,10 +10,10 @@ class LoginResponse {
   LoginResponse.fromJson(Map<String, dynamic> json)
       : token = json["token"],
         user = User.fromJson(json["user"]),
-        error = "";
+        error = null;
 
   LoginResponse.withError(String errorValue)
       : error = errorValue,
-        user = "",
-        token = "";
+        user = null,
+        token = null;
 }

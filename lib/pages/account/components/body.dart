@@ -135,7 +135,7 @@ class _BodyState extends State<Body> {
                     child: _LoginSignup(),
                     onTap: () {
 //                      _bottomLoginDialog(context);
-                      Navigator.of(context,rootNavigator: true).pushNamed("loginPage");
+                      Navigator.of(context,rootNavigator: false).pushNamed("loginPage");
                     },
                   )):Container();
             }
@@ -143,18 +143,15 @@ class _BodyState extends State<Body> {
           StreamBuilder<PrefsData>(
             stream: authBloc.preference,
             builder: (context, AsyncSnapshot snapshot) {
+//              if(!snapshot.hasData) return Container();
               return snapshot.data?.isAuthenticated == true?
               Positioned(
                   left: 160,
                   bottom: 60,
-                  child: GestureDetector(
-                      onTap: () {
-                        authBloc.logout();
-                      },
-                      child: Text(
-                        snapshot.data.user.fullName,
-                        style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,fontSize: 18),
-                      ))):Container();
+                  child: Text(
+                    snapshot.data.user.fullName,
+                    style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,fontSize: 18),
+                  )):Container();
             }
           ),
         ],
@@ -229,27 +226,23 @@ class ProfileImage extends StatelessWidget {
 }
 
 class _LoginSignup extends StatelessWidget {
-  final onPressed;
 
-  _LoginSignup({this.onPressed});
+  _LoginSignup();
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        height: 50.0,
-        width: MediaQuery.of(context).size.width / 2,
-        decoration: BoxDecoration(
-            color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
-              child: Text(
-            "LOG IN/ SIGN UP",
-            style: TextStyle(fontSize: 11, color: Colors.white),
-          )),
-        ),
+    return Container(
+      height: 50.0,
+      width: MediaQuery.of(context).size.width / 2,
+      decoration: BoxDecoration(
+          color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Center(
+            child: Text(
+          "LOG IN/ SIGN UP",
+          style: TextStyle(fontSize: 11, color: Colors.white),
+        )),
       ),
     );
   }
