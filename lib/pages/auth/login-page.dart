@@ -54,6 +54,18 @@ class _LoginPageState extends State<LoginPage>
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: ()=>{},
+            icon: Icon(Icons.close),
+          ),
+          title: Text('Sign In!',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0)),
+          backgroundColor: Colors.white,
+        ),
         body:
 //      StreamBuilder<LoginResponse>(
 //        stream: authBloc.subject.stream,
@@ -74,6 +86,7 @@ class _LoginPageState extends State<LoginPage>
   void _showErrorMessage(context, String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(message),
+      backgroundColor: Colors.redAccent,
     ));
     authBloc..drainStream();
 
@@ -93,16 +106,6 @@ class _LoginPageState extends State<LoginPage>
 
   Widget _buildLoginFormWidget() {
     return ListView(children: [
-      Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('Sign In!',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0)),
-        ),
-      ),
       Container(
         padding: const EdgeInsets.all(20.0),
         child: Column(

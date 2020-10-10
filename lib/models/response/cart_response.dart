@@ -4,7 +4,7 @@ class CartResponse {
   List<Cart> carts;
   int totalItems;
   double totalAmount;
-  double totalWeight;
+  String totalWeight;
   int shippingDiscountCost;
   int bulkDiscountCost;
   List<Null> achievedPromotions;
@@ -28,7 +28,7 @@ class CartResponse {
             .toList(),
         totalItems = json["data"]['total_items'],
         totalAmount = json["data"]['total_amount'].toDouble(),
-        totalWeight = json["data"]['total_weight'],
+        totalWeight = json["data"]['total_weight'].toString(),
         shippingDiscountCost = json["data"]['shipping_discount_cost'],
         bulkDiscountCost = json["data"]['bulk_discount_cost'],
         shippingCost = json["data"]['shipping_cost'],
