@@ -23,6 +23,10 @@ class AuthBloc {
 //    _changePreference.stream.listen(logout);
   }
 
+  void drainStream() {
+    _subject.value = null;
+  }
+
   Future<void> _loadSharedPreferences() async {
     print("loaded sharedpref");
     pref = await SharedPreferences.getInstance();

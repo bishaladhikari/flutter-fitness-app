@@ -323,7 +323,55 @@ class Repository {
       return ProductResponse.withError(_handleError(error));
     }
   }
-
+//
+//  String _handleAuthError(error){
+//    String errorDescription = "";
+//    if (error is DioError) {
+//      DioError dioError = error;
+//      switch(dioError.response.statusCode) {
+//        case 401:
+//          errorDescription = "unauthorized";
+//          break;
+//      }
+//      switch (dioError.type) {
+//        case DioErrorType.CANCEL:
+//          errorDescription = "Request to API server was cancelled";
+//          break;
+//        case DioErrorType.CONNECT_TIMEOUT:
+//          errorDescription = "Connection timeout with API server";
+//          break;
+//        case DioErrorType.DEFAULT:
+//          errorDescription =
+//          "Connection to API server failed due to internet connection";
+//          break;
+//        case DioErrorType.RECEIVE_TIMEOUT:
+//          errorDescription = "Receive timeout in connection with API server";
+//          break;
+//        case DioErrorType.RESPONSE:
+//          switch(dioError.response.statusCode) {
+//            case 401:
+//              errorDescription = "Unauthenticated";
+//              break;
+//            case 422:
+//              if(dioError.response.data["errors"]!=null) {
+//                print("it has errors"+dioError.response?.data["errors"].toString());
+//                errorDescription = dioError.response?.data["errors"].toString();
+//              }
+//              else errorDescription = dioError.response.statusMessage;
+//              break;
+//          }
+////          errorDescription =
+////              "Received invalid status code: ${dioError.response.statusCode}";
+//          break;
+//        case DioErrorType.SEND_TIMEOUT:
+//          errorDescription = "Send timeout in connection with API server";
+//          break;
+//      }
+//    } else {
+//      errorDescription = "Unexpected error occurred";
+//    }
+//    return errorDescription;
+//  }
   String _handleError(error) {
     String errorDescription = "";
     if (error is DioError) {
@@ -353,7 +401,11 @@ class Repository {
               errorDescription = "Unauthenticated";
               break;
             case 422:
-              errorDescription = "Invalid credentials";
+              if(dioError.response.data["errors"]!=null) {
+                print("it has errors"+dioError.response?.data["errors"].toString());
+                errorDescription = dioError.response?.data["errors"].toString();
+              }
+              else errorDescription = dioError.response.statusMessage;
               break;
           }
 //          errorDescription =

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
@@ -13,6 +15,8 @@ class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -39,135 +43,166 @@ class _LoginPageState extends State<LoginPage>
   @override
   void dispose() {
     super.dispose();
+    authBloc..drainStream();
     _controller.dispose();
     emailController.dispose();
     passwordController.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(
-        builder: (context) => ListView(children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Sign In!',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0)),
+      key: _scaffoldKey,
+      body: StreamBuilder<LoginResponse>(
+        stream: authBloc.subject.stream,
+        builder: (context,snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+              print("this is called twice");
+              WidgetsBinding.instance.addPostFrameCallback((_) => _buildErrorWidget(context,snapshot.data.error));
+              return _buildLoginFormWidget(snapshot.data);
+            }
+            _loginSuccess(context);
+          }
+          return _buildLoginFormWidget(snapshot.data);
+        },
+      ),
+    );
+  }
+  void _buildErrorWidget(context,String message){
+//    _scaffoldKey.currentState.showSnackBar(SnackBar(
+//      content: Text(message),
+//    ));
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+    ));
+  }
+  void _loginSuccess(BuildContext context) {
+    Navigator.pop(context);
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text("Successfully Logged In"),
+    ));
+  }
+  Widget _buildLoginFormWidget(LoginResponse response){
+    return ListView(children: [
+      Center(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text('Sign In!',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0)),
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            Form(
+              key: _formKey,
+              autovalidate: _validate,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailController,
+                    style: TextStyle(color: Color(0xFF000000)),
+                    cursorColor: Color(0xFF9b9b9b),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.mail_outline),
+                        border: OutlineInputBorder(),
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: "Email"),
+                    validator: (emailValue) {
+                      if (emailValue.isEmpty) {
+                        return 'Please enter email';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: passwordController,
+                    style: TextStyle(color: Color(0xFF000000)),
+                    cursorColor: Color(0xFF9b9b9b),
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                          icon: Icon(_obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: _toggle,
+                        ),
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: "Password"),
+                    obscureText: _obscureText,
+                    validator: (emailValue) {
+                      if (emailValue.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Form(
-                  key: _formKey,
-                  autovalidate: _validate,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: emailController,
-                        style: TextStyle(color: Color(0xFF000000)),
-                        cursorColor: Color(0xFF9b9b9b),
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.mail_outline),
-                            border: OutlineInputBorder(),
-                            contentPadding: new EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            hintStyle: TextStyle(color: Colors.grey),
-                            hintText: "Email"),
-                        validator: (emailValue) {
-                          if (emailValue.isEmpty) {
-                            return 'Please enter email';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: passwordController,
-                        style: TextStyle(color: Color(0xFF000000)),
-                        cursorColor: Color(0xFF9b9b9b),
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            suffixIcon: IconButton(
-                              icon: Icon(_obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: _toggle,
-                            ),
-                            contentPadding: new EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            border: OutlineInputBorder(),
-                            hintStyle: TextStyle(color: Colors.grey),
-                            hintText: "Password"),
-                        obscureText: _obscureText,
-                        validator: (emailValue) {
-                          if (emailValue.isEmpty) {
-                            return 'Please enter password';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('Forget Password?',
-                        style: TextStyle(color: Colors.black, fontSize: 15.0)),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => validateLogin(context),
-                  child: Container(
+            Container(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('Forget Password?',
+                    style: TextStyle(color: Colors.black, fontSize: 15.0)),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => validateLogin(context),
+              child: Container(
 //              padding: const EdgeInsets.all(5.0),
 //              margin: const EdgeInsets.all(20.0),
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: NPrimaryColor,
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: Center(
-                        child: Text(
+                height: 50.0,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: NPrimaryColor,
+                    borderRadius: BorderRadius.circular(5.0)),
+                child: Center(
+                    child: Text(
                       "SIGN IN",
                       style: TextStyle(fontSize: 14, color: Colors.white),
                     )),
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                            flex: 2,
-                            child: Divider(
-                              color: Colors.grey,
-                              height: 1.0,
-                            )),
-                        Flexible(
-                          flex: 1,
-                          child: Text("or"),
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: Divider(
-                              color: Colors.grey,
-                              height: 1.0,
-                            ))
-                      ],
-                    )),
-                Row(
+              ),
+            ),
+            Align(
+                alignment: Alignment.center,
+                child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Expanded(
+                        flex: 2,
+                        child: Divider(
+                          color: Colors.grey,
+                          height: 1.0,
+                        )),
+                    Flexible(
+                      flex: 1,
+                      child: Text("or"),
+                    ),
+                    Expanded(
+                        flex: 2,
+                        child: Divider(
+                          color: Colors.grey,
+                          height: 1.0,
+                        ))
+                  ],
+                )),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
 //                  Container(
 //                    padding: const EdgeInsets.all(4.0),
 //                    margin: const EdgeInsets.all(4.0),
@@ -234,35 +269,34 @@ class _LoginPageState extends State<LoginPage>
 //                      ],
 //                    ),
 //                  ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushReplacementNamed('registerPage');
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    margin: const EdgeInsets.all(10.0),
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.grey, width: 1.0),
-                          top: BorderSide(color: Colors.grey, width: 1.0),
-                          right: BorderSide(color: Colors.grey, width: 1.0),
-                          left: BorderSide(color: Colors.grey, width: 1.0),
-                        ),
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Center(child: Text("New? Create an Account")),
-                  ),
-                )
               ],
             ),
-          ),
-        ]),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushReplacementNamed('registerPage');
+              },
+              child: Container(
+                padding: const EdgeInsets.all(5.0),
+                margin: const EdgeInsets.all(10.0),
+                height: 50.0,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.grey, width: 1.0),
+                      top: BorderSide(color: Colors.grey, width: 1.0),
+                      right: BorderSide(color: Colors.grey, width: 1.0),
+                      left: BorderSide(color: Colors.grey, width: 1.0),
+                    ),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Center(child: Text("New? Create an Account")),
+              ),
+            )
+          ],
+        ),
       ),
-    );
+    ]);
+
   }
 
   validateLogin(context) async {
@@ -274,15 +308,14 @@ class _LoginPageState extends State<LoginPage>
           "email": "${emailController.text.trim()}",
           "password": "${passwordController.text.trim()}"
         });
-        var stream = authBloc.subject.stream;
-        stream.listen((snapshot) {
-          print("snapshot data");
-          final snackbar = SnackBar(content: Text(snapshot.error));
-          Scaffold.of(context).showSnackBar(snackbar);
-          print("snapshot login error" + snapshot.error);
-        }, onError: (snapshot) {
-          print("snapshot error");
-        });
+//        var stream = authBloc.subject.stream;
+//        stream.listen((snapshot) {
+//          print("snapshot data");
+//          final snackbar = SnackBar(content: Text(snapshot.error));
+////          Scaffold.of(context).showSnackBar(snackbar);
+//          _scaffoldKey.currentState.showSnackBar(snackbar);
+//          print("snapshot login error" + snapshot.error);
+//        });
 //      StreamBuilder(
 //        stream:authBloc.subject.stream,
 //        builder:(context,snapshot){
