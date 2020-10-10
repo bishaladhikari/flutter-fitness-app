@@ -324,11 +324,16 @@ class Repository {
     }
   }
 
-  String _handleError(Error error) {
+  String _handleError(error) {
     String errorDescription = "";
     if (error is DioError) {
-      DioError dioError = error as DioError;
-      switch (dioError.type) {
+      DioError dioError = error;
+      switch(dioError.response.statusCode) {
+        case 401:
+          errorDescription = "unauthorized";
+          break;
+      }
+        switch (dioError.type) {
         case DioErrorType.CANCEL:
           errorDescription = "Request to API server was cancelled";
           break;
@@ -343,15 +348,23 @@ class Repository {
           errorDescription = "Receive timeout in connection with API server";
           break;
         case DioErrorType.RESPONSE:
-          errorDescription =
-              "Received invalid status code: ${dioError.response.statusCode}";
+          switch(dioError.response.statusCode) {
+            case 401:
+              errorDescription = "Unauthenticated";
+              break;
+            case 422:
+              errorDescription = dioError.response.data.message;
+              break;
+          }
+//          errorDescription =
+//              "Received invalid status code: ${dioError.response.statusCode}";
           break;
         case DioErrorType.SEND_TIMEOUT:
           errorDescription = "Send timeout in connection with API server";
           break;
       }
     } else {
-      errorDescription = "Unexpected error occured";
+      errorDescription = "Unexpected error occurred";
     }
     return errorDescription;
   }

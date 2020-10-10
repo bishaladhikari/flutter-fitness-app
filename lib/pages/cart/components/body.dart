@@ -79,7 +79,7 @@ class CartBody extends StatelessWidget {
     );
   }
 
-  Widget _buildCartWidget(CartResponse data) {
+   Widget _buildCartWidget(CartResponse data) {
     List<Cart> carts = data.carts;
     final cartChildren = <Widget>[];
     for (int i = 0; i < carts?.length ?? 0; i++) {
