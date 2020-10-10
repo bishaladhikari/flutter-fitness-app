@@ -353,7 +353,7 @@ class Repository {
               errorDescription = "Unauthenticated";
               break;
             case 422:
-              errorDescription = dioError.response.data.message;
+              errorDescription = "Invalid credentials";
               break;
           }
 //          errorDescription =
