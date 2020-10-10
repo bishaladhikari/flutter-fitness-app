@@ -315,7 +315,11 @@ class _LoginPageState extends State<LoginPage>
         });
         var stream = authBloc.subject.stream;
         stream.listen((data) {
-          if (data.token != null) _loginSuccess(context);
+          if(data!=null){
+            print("data here"+data.toString());
+            if (data.token != null) _loginSuccess(context);
+          }
+
         });
 //      StreamBuilder(
 //        stream:authBloc.subject.stream,
