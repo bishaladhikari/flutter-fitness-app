@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage>
         key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: ()=>{},
+            onPressed: () => {},
             icon: Icon(Icons.close),
           ),
           title: Text('Sign In!',
@@ -314,24 +314,22 @@ class _LoginPageState extends State<LoginPage>
     if (_formKey.currentState.validate()) {
       // print("email:" + emailController.text.toString());
       // print("password:" + passwordController.text.toString());
-      try {
-        await authBloc.login({
-          "email": "${emailController.text.trim()}",
-          "password": "${passwordController.text.trim()}"
-        });
-        var stream = authBloc.subject.stream;
-//        StreamSubscription<LoginResponse> subscription;
-        final subscription = stream.listen(null);
-        subscription.onData((response) {
-          if (response.error != null)
-            _showErrorMessage(context, response.error);
-          if (response.token != null) _loginSuccess(context);
-          subscription.cancel();
-        });
-      } catch (error) {
-        print("here is login error" + error);
-//        Scaffold.of(context).s
-      }
+      LoginResponse response = await authBloc.login({
+        "email": "${emailController.text.trim()}",
+        "password": "${passwordController.text.trim()}"
+      });
+//      var stream = authBloc.subject.stream;
+////        StreamSubscription<LoginResponse> subscription;
+//      final subscription = stream.listen(null);
+//      subscription.onData((response) {
+//        if (response.error != null) _showErrorMessage(context, response.error);
+//        if (response.token != null) _loginSuccess(context);
+//        subscription.cancel();
+//      });
+      if (response.token != null)
+        _loginSuccess(context);
+      else
+        _showErrorMessage(context, response.error);
     } else {
       setState(() => _validate = true);
     }

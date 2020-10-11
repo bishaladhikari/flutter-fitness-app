@@ -19,8 +19,8 @@ class CartBloc {
     _subject.sink.add(response);
   }
 
-  updateCart(CartItem cartItem,type) async {
-    response = await _repository.updateCart(cartItem,type);
+  updateCart(CartItem cartItem, type) async {
+    response = await _repository.updateCart(cartItem, type);
     _subject.sink.add(response);
   }
 

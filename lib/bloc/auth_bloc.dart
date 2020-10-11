@@ -40,16 +40,13 @@ class AuthBloc {
   }
 
   login(credentials) async {
-    try {
-      LoginResponse response = await _repository.login(credentials);
-      print("Response:" + response.toString());
-      _subject.sink.add(response);
-      if (response.token != null) {
-        _setPref(response);
-      }
-    } catch (error) {
-      print("Error:" + error.toString());
+    LoginResponse response = await _repository.login(credentials);
+    print("Response:" + response.toString());
+    _subject.sink.add(response);
+    if (response.token != null) {
+      _setPref(response);
     }
+    return response;
   }
 
   _setPref(response) async {

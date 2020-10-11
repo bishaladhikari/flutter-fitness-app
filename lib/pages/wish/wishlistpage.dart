@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/image.dart';
@@ -23,6 +24,8 @@ class _WishListPageState extends State<WishListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    if(authBloc.isAuthenticated==false)
+
     wishListBloc.getWishlist();
   }
   @override
