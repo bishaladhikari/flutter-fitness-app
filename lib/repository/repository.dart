@@ -84,7 +84,7 @@ class Repository {
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return  LoginResponse.withError(_handleError(error));
+      return LoginResponse.withError(_handleError(error));
     }
   }
 
@@ -136,9 +136,6 @@ class Repository {
 
   Future<WishlistResponse> getWishlist() async {
     try {
-//      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
-//      _dio.options.headers["locale"] = "jp";
-//
       Response response = await _dio.get(wishlistUrl);
       return WishlistResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -149,9 +146,6 @@ class Repository {
 
   Future<CartResponse> getCart() async {
     try {
-//      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
-//      _dio.options.headers["locale"] = "jp";
-//
       Response response = await _dio.get(cartUrl);
       return CartResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -172,9 +166,6 @@ class Repository {
       "quantity": qty
     };
     try {
-//      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
-//      _dio.options.headers["locale"] = "jp";
-//
       Response response = await _dio.put(cartUrl + "/" + cartItem.id.toString(),
           queryParameters: params);
       return CartResponse.fromJson(response.data);
@@ -186,9 +177,6 @@ class Repository {
 
   Future<AddressResponse> getAddress() async {
     try {
-//      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
-//      _dio.options.headers["locale"] = "jp";
-//
       Response response = await _dio.get(addressUrl);
       print("Response:" + response.toString());
 
@@ -210,10 +198,6 @@ class Repository {
       address,
       prefecture}) async {
     try {
-//      _dio.options.headers["Authorization"]= "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c";
-//      _dio.options.headers["locale"] = "jp";
-//
-      print("jell");
       final data = {
         "full_name": "$name",
         "phone": "$phone",
@@ -225,11 +209,8 @@ class Repository {
         "city": "$city",
         "prefecture": "$prefecture",
       };
-      print("name:" + name.toString());
       Response response =
           await _dio.put(addressUrl + "/$id", queryParameters: data);
-      print("Response:" + response.toString());
-
       return response;
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -329,6 +310,7 @@ class Repository {
       return ProductResponse.withError(_handleError(error));
     }
   }
+
 //
 //  String _handleAuthError(error){
 //    String errorDescription = "";
@@ -365,7 +347,7 @@ class Repository {
     String errorDescription = "";
     if (error is DioError) {
       DioError dioError = error;
-        switch (dioError.type) {
+      switch (dioError.type) {
         case DioErrorType.CANCEL:
           errorDescription = "Request to API server was cancelled";
           break;
@@ -380,20 +362,21 @@ class Repository {
           errorDescription = "Receive timeout in connection with API server";
           break;
         case DioErrorType.RESPONSE:
-          switch(dioError.response.statusCode) {
+          errorDescription =
+              "Received invalid status code: ${dioError.response.statusCode}";
+          switch (dioError.response.statusCode) {
             case 401:
               errorDescription = "Invalid Credentials";
               break;
             case 422:
-              if(dioError.response.data["errors"]!=null) {
-                print("it has errors"+dioError.response?.data["errors"].toString());
-                errorDescription = dioError.response?.data["errors"].toString();
-              }
-              else errorDescription = dioError.response.statusMessage;
+              if (dioError.response.data["errors"] != null) {
+//                print("it has errors" +
+//                    dioError.response?.data["errors"].toString());
+                errorDescription = json.encode(dioError.response?.data["errors"]);
+              } else
+                errorDescription = dioError.response.statusMessage;
               break;
           }
-          errorDescription =
-              "Received invalid status code: ${dioError.response.statusCode}";
           break;
         case DioErrorType.SEND_TIMEOUT:
           errorDescription = "Send timeout in connection with API server";
