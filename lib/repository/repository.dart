@@ -370,8 +370,9 @@ class Repository {
               break;
             case 422:
               if (dioError.response.data["errors"] != null) {
-//                print("it has errors" +
-//                    dioError.response?.data["errors"].toString());
+//              var errors =
+//                '{"email": ["The email must be a valid email address.","second email error"],"password":["passoword error1","passoword error2"]}';
+//              errors = json.encode(errors);
                 var errors = json.encode(dioError.response?.data["errors"]);
                 errorDescription=json.decode(errors).values.toList().map((v)=>v.join("\n")).join("\n");
               } else
