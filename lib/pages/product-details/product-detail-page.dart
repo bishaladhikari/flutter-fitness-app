@@ -2,6 +2,7 @@ import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/attribute.dart';
+
 //import 'package:ecapp/models/attribute_image.dart' as Image;
 import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
@@ -17,30 +18,34 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
-import 'components/detail_widget.dart';
 import 'components/related_products_list.dart';
 import 'components/same_seller_list.dart';
 
+import 'components/detail_widget.dart';
 class ProductDetailPage extends StatefulWidget {
-  final product;
+  final Product product;
   Variant selectedVariant;
+  Attribute selectedAttribute;
+  List<AttributeImage> images=[];
 
   ProductDetailPage({Key key, this.product, this.selectedVariant})
-      : super(key: key);
+  {
+//    super(key: key);
+    this.images.add(AttributeImage.fromJson({"image_thumbnail":this.product.imageThumbnail}));
+  }
 
 //  ProductPage({this.product});
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
 
   static _ProductDetailPageState of(BuildContext context) {
-    final _ProductDetailPageState navigator =
-    context.ancestorStateOfType(const TypeMatcher<_ProductDetailPageState>());
+    final _ProductDetailPageState navigator = context
+        .ancestorStateOfType(const TypeMatcher<_ProductDetailPageState>());
 
     assert(() {
       if (navigator == null) {
-        throw new FlutterError(
-            'Operation requested with a context that does '
-                'not include a ProductDetailPage.');
+        throw new FlutterError('Operation requested with a context that does '
+            'not include a ProductDetailPage.');
       }
       return true;
     }());
@@ -51,15 +56,15 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
-  Attribute _selectedAttribute;
 
   set selectedAttribute(Attribute value) {
-   setState(() {
-     _selectedAttribute = value;
-   });
+    setState(() {
+      selectedAttribute = value;
+    });
   } //  Product product;
 
 //  get selectedAttribute => _selectedAttribute;
+
   _ProductDetailPageState();
 
   @override
@@ -111,7 +116,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   background: Padding(
                     padding: EdgeInsets.only(top: 48.0),
-                    child: dottedSlider(),
+                    child: dottedSlider(widget.images),
                   ),
                 )),
           ];
@@ -141,7 +146,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         return _buildLoadingWidget();
                       }
                     }),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 _buildProducts(context),
                 _buildSameSellerProducts(context),
                 _buildComments(context),
@@ -185,19 +192,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     color: Colors.black26,
                     onPressed: () {},
                   ),
-
                   FlatButton(
-                      child: Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 2.9,
-                        height: 60,
-                        decoration: const BoxDecoration(
-                          color: ksecondaryColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
+                    child: Container(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 2.9,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                        color: ksecondaryColor,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
 //                    boxShadow: [
 //                      BoxShadow(
 //                        color: Colors.green,
@@ -206,21 +212,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //                        offset: Offset(0.0, 0.0),
 //                      )
 //                    ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            new Text(
-                              "Add to cart",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
                       ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new Text(
+                            "Add to cart",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
                     textColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    ), onPressed: () {  },
+                    ),
+                    onPressed: () {},
                   )
                 ],
               ),
@@ -396,263 +403,243 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     );
   }
 
-  dottedSlider() {
-    return StreamBuilder<ProductDetailResponse>(
-        stream: productDetailBloc.subject.stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            ProductDetail productDetail = snapshot.data.productDetail;
-//            print("selectedAttribute"+widget.selectedAttribute?.toString());
-            List<AttributeImage> images = productDetail.selectedAttribute.images;
-            final children = <Widget>[];
-            for (int i = 0; i < images?.length ?? 0; i++) {
-              if (images[i] == null) {
-                children.add(Center(child: CircularProgressIndicator()));
-              } else {
-                children.add(_productSlideImage(
-                    images[i].imageThumbnail));
-              }
-            }
-            return DottedSlider(
-              maxHeight: 200,
-              children: <Widget>[
-                _productSlideImage(
-                    productDetail?.selectedAttribute?.images[0].imageThumbnail),
-//                _productSlideImage(
-//                    productDetail.attributes[0].images[0].imageThumbnail),
-//                _productSlideImage(
-//                    productDetail.attributes[0].images[0].imageThumbnail),
-//                _productSlideImage(
-//                    productDetail.attributes[0].images[0].imageThumbnail),
-              ],
-            );
-          }
-          return Container();
-        });
+  dottedSlider(images) {
+//    List<AttributeImage> images = images;
+    final children = <Widget>[];
+    for (int i = 0; i < images?.length ?? 0; i++) {
+      if (images[i] == null) {
+        children.add(Center(child: CircularProgressIndicator()));
+      } else {
+        children.add(_productSlideImage(images[i].imageThumbnail));
+      }
+    }
+    return DottedSlider(
+        maxHeight: 200,
+        children: children
+    );
   }
 
-  _buildComments(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(width: 1.0, color: Colors.black12),
-          bottom: BorderSide(width: 1.0, color: Colors.black12),
-        ),
+_buildComments(BuildContext context) {
+  return Container(
+    decoration: BoxDecoration(
+      border: Border(
+        top: BorderSide(width: 1.0, color: Colors.black12),
+        bottom: BorderSide(width: 1.0, color: Colors.black12),
       ),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Comments",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                ),
-                Text(
-                  "View All",
-                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                  textAlign: TextAlign.end,
-                ),
-              ],
+    ),
+    width: MediaQuery
+        .of(context)
+        .size
+        .width,
+    child: Container(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                "Comments",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black54),
+              ),
+              Text(
+                "View All",
+                style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                textAlign: TextAlign.end,
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              StarRating(rating: 4, size: 20),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                "1250 Comments",
+                style: TextStyle(color: Colors.black54),
+              )
+            ],
+          ),
+          SizedBox(
+            child: Divider(
+              color: Colors.black26,
+              height: 4,
             ),
-            SizedBox(height: 12),
-            Row(
+            height: 24,
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+            ),
+            subtitle: Text(
+                "Cats are good pets, for they are clean and are not noisy."),
+            title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                StarRating(rating: 4, size: 20),
+                StarRating(rating: 4, size: 15),
                 SizedBox(
                   width: 8,
                 ),
                 Text(
-                  "1250 Comments",
-                  style: TextStyle(color: Colors.black54),
-                )
+                  "12 Sep 2019",
+                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                ),
               ],
             ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
+          ),
+          SizedBox(
+            child: Divider(
+              color: Colors.black26,
+              height: 4,
             ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-              ),
-              subtitle: Text(
-                  "Cats are good pets, for they are clean and are not noisy."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "12 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
+            height: 24,
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://www.familiadejesusperu.org/images/avatar/john-doe-13.jpg"),
+            ),
+            subtitle: Text(
+                "There was no ice cream in the freezer, nor did they have money to go to the store."),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                StarRating(rating: 4, size: 15),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "15 Sep 2019",
+                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            child: Divider(
+              color: Colors.black26,
+              height: 4,
+            ),
+            height: 24,
+          ),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://pbs.twimg.com/profile_images/1020903668240052225/_6uVaH4c.jpg"),
+            ),
+            subtitle: Text(
+                "I think I will buy the red car, or I will lease the blue one."),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                StarRating(rating: 4, size: 15),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "25 Sep 2019",
+                  style: TextStyle(fontSize: 12, color: Colors.black54),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+_buildProducts(BuildContext context) {
+  return Column(
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                "You may also like",
+                style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black54),
+                textAlign: TextAlign.start,
               ),
             ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://www.familiadejesusperu.org/images/avatar/john-doe-13.jpg"),
-              ),
-              subtitle: Text(
-                  "There was no ice cream in the freezer, nor did they have money to go to the store."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "15 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://pbs.twimg.com/profile_images/1020903668240052225/_6uVaH4c.jpg"),
-              ),
-              subtitle: Text(
-                  "I think I will buy the red car, or I will lease the blue one."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "25 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  print("Clicked");
+                },
+                child: Text(
+                  "View All",
+                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                  textAlign: TextAlign.end,
+                ),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
+      RelatedProductsList(),
+      // buildTrending()
+    ],
+  );
+}
 
-  _buildProducts(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal:16.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
+_buildSameSellerProducts(BuildContext context) {
+  return Column(
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                "From same seller",
+                style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black54),
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  print("Clicked");
+                },
                 child: Text(
-                  "You may also like",
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                  textAlign: TextAlign.start,
+                  "View All",
+                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                  textAlign: TextAlign.end,
                 ),
               ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    print("Clicked");
-                  },
-                  child: Text(
-                    "View All",
-                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-         RelatedProductsList(),
-        // buildTrending()
-      ],
-    );
-  }
+      ),
+      SameSellerList(),
+      // buildTrending()
+    ],
+  );
+}
 
-  _buildSameSellerProducts(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal:16.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  "From same seller",
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    print("Clicked");
-                  },
-                  child: Text(
-                    "View All",
-                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-         SameSellerList(),
-        // buildTrending()
-      ],
-    );
-  }
-
-
-  Column buildTrending() {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 180,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
+Column buildTrending() {
+  return Column(
+    children: <Widget>[
+      Container(
+        height: 180,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
 //              TrendingItem(
 //                product: Product(
 //                    company: 'Apple',
@@ -747,11 +734,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //                    price: '\$2,890'),
 //                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
 //              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
+          ],
+        ),
+      )
+    ],
+  );
+}}
