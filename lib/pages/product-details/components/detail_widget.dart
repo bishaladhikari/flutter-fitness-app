@@ -28,7 +28,6 @@ class _DetailWidgetState extends State<DetailWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

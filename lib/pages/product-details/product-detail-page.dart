@@ -56,12 +56,17 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
-
-  set selectedAttribute(Attribute value) {
-    setState(() {
-      selectedAttribute = value;
+  setImages(value){
+        setState(() {
+          widget.images = value;
     });
-  } //  Product product;
+  }
+
+//  set selectedAttribute(Attribute value) {
+//    setState(() {
+//      selectedAttribute = value;
+//    });
+//  } //  Product product;
 
 //  get selectedAttribute => _selectedAttribute;
 
@@ -138,7 +143,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             snapshot.data.error.length > 0) {
                           return _buildErrorWidget(snapshot.data.error);
                         }
-
                         return _buildDetailWidget(snapshot.data);
                       } else if (snapshot.hasError) {
                         return _buildErrorWidget(snapshot.error);
@@ -288,7 +292,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     ProductDetail productDetail = data.productDetail;
 //    if (widget.selectedVariant == null)
 //      widget.selectedVariant = productDetail.variants[0];
-    return DetailWidget(productDetail);
+    return DetailWidget(productDetail,);
   }
 
   Widget _buildLoadingWidget() {
