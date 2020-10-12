@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage>
                       PatternValidator(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
                           errorText:
-                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                              'The Password must include a Lower case, \na Upper Case, \na digit, \na symbol and \nmore than 8 character')
                     ]),
                   ),
                 ],
