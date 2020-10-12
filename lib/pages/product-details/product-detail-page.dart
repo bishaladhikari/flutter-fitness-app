@@ -2,6 +2,8 @@ import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/attribute.dart';
+//import 'package:ecapp/models/attribute_image.dart' as Image;
+import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
@@ -57,7 +59,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
    });
   } //  Product product;
 
-  get selectedAttribute => _selectedAttribute;
+//  get selectedAttribute => _selectedAttribute;
   _ProductDetailPageState();
 
   @override
@@ -400,12 +402,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             ProductDetail productDetail = snapshot.data.productDetail;
-            print("selectedAttribute"+selectedAttribute?.toString());
+//            print("selectedAttribute"+widget.selectedAttribute?.toString());
+            List<AttributeImage> images = productDetail.selectedAttribute.images;
+            final children = <Widget>[];
+            for (int i = 0; i < images?.length ?? 0; i++) {
+              if (images[i] == null) {
+                children.add(Center(child: CircularProgressIndicator()));
+              } else {
+                children.add(_productSlideImage(
+                    images[i].imageThumbnail));
+              }
+            }
             return DottedSlider(
               maxHeight: 200,
               children: <Widget>[
                 _productSlideImage(
-                    selectedAttribute?.images[0].imageThumbnail),
+                    productDetail?.selectedAttribute?.images[0].imageThumbnail),
 //                _productSlideImage(
 //                    productDetail.attributes[0].images[0].imageThumbnail),
 //                _productSlideImage(

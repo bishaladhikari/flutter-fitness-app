@@ -1,6 +1,6 @@
 import 'package:ecapp/models/variant.dart';
 
-import 'image.dart';
+import 'attribute_image.dart';
 
 class Attribute {
   int id;
@@ -9,7 +9,7 @@ class Attribute {
   String sellingPrice;
   String discountPrice;
   int discountPercentage;
-  List<Image> images;
+  List<AttributeImage> images;
   String imageThumbnail;
   String soldBy;
   String weight;
@@ -44,9 +44,9 @@ class Attribute {
     discountPrice = json['discount_price'] != null ? json['discount_price'] : null;
     discountPercentage = json['discount_percentage'];
     if (json['images'] != null) {
-      images = new List<Image>();
+      images = new List<AttributeImage>();
       json['images'].forEach((v) {
-        images.add(new Image.fromJson(v));
+        images.add(new AttributeImage.fromJson(v));
       });
     }
     imageThumbnail = json['image_thumbnail'] ?? null;

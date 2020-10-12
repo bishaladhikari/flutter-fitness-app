@@ -61,7 +61,7 @@ class Product {
     variantTitle = json['variant_title'];
     actualQuantity = json['actual_quantity'];
     slug = json['slug'];
-    avgRating = json['avg_rating'];
+    avgRating = json['avg_rating'].toDouble();
     saved = json['saved'];
     attributeId = json['attribute_id'];
   }

@@ -1,10 +1,10 @@
-class Image {
+class AttributeImage {
   String image;
   String imageThumbnail;
 
-  Image({this.image, this.imageThumbnail});
+  AttributeImage({this.image, this.imageThumbnail});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  AttributeImage.fromJson(Map<String, dynamic> json) {
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
   }
