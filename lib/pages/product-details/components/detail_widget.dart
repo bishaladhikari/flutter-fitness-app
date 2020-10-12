@@ -100,7 +100,7 @@ class _DetailWidgetState extends State<DetailWidget> {
               setState(() {
                 widget.selectedVariant = variants[i];
                 int index = widget.productDetail.attributes.indexWhere(
-                    (x) => x.variant.id == widget.selectedVariant.id);
+                    (x) => x.variant?.id == widget.selectedVariant.id);
                 if (index > -1) {
                   widget.selectedAttribute =
                       widget.productDetail.attributes[index];
