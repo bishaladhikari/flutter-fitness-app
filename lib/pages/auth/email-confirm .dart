@@ -40,9 +40,12 @@ class _EmailConfirmState extends State<EmailConfirmPage>
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text(
-              "Please, enter Verifiction Code that we have sent you in your mail",
-              style: TextStyle(color: Colors.black87, fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  "Please, enter Verifiction Code that we have sent you in your mail",
+                  style: TextStyle(color: Colors.black87, fontSize: 16),
+                  textAlign: TextAlign.center),
             ),
             Form(
               key: _formKey,
@@ -80,15 +83,22 @@ class _EmailConfirmState extends State<EmailConfirmPage>
                 )),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("OR"),
+            ),
             Align(
                 child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "If you haven't received the Verifiction Code yet",
-                  style: TextStyle(color: Colors.black87),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "If you haven't received the Verifiction Code yet",
+                    style: TextStyle(color: Colors.black87),
+                  ),
                 )
               ],
             )),
