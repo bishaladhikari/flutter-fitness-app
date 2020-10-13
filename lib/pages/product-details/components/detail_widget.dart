@@ -14,10 +14,8 @@ class DetailWidget extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   ProductDetail productDetail;
-  Function onAttributeChanged;
 
-  DetailWidget(
-      {this.productDetail}) {
+  DetailWidget({this.productDetail}) {
     selectedAttribute = productDetail.selectedAttribute;
     selectedVariant = productDetail.selectedAttribute.variant;
   }
@@ -99,25 +97,13 @@ class _DetailWidgetState extends State<DetailWidget> {
                 style: TextStyle(
                     color: isVariantSelected ? kPrimaryColor : kTextColor)),
             onPressed: () {
-              var variant= variants[i];
-              int index = widget.productDetail.attributes.indexWhere(
-                    (x) => x.variant?.id == variant.id);
+              var variant = variants[i];
+              int index = widget.productDetail.attributes
+                  .indexWhere((x) => x.variant?.id == variant.id);
               if (index > -1) {
                 productDetailBloc.setSelectedAttribute(
                     widget.productDetail.attributes[index]);
               }
-//              setState(() {
-//                widget.selectedVariant = variants[i];
-//                int index = widget.productDetail.attributes.indexWhere(
-//                    (x) => x.variant?.id == widget.selectedVariant.id);
-//                if (index > -1) {
-//                  widget.selectedAttribute =
-//                      widget.productDetail.attributes[index];
-//                  widget.onAttributeChanged(widget.selectedAttribute);
-//
-////                  this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
-//                }
-//              });
             }, //callback when button is clicked
             borderSide: BorderSide(
               color: isVariantSelected
@@ -182,20 +168,20 @@ class _DetailWidgetState extends State<DetailWidget> {
             SizedBox(
               height: 8,
             ),
-            OverflowBox(
-              child: Html(
-                data: description,
-                //Optional parameters:
-//          backgroundColor: Colors.white70,
-                onLinkTap: (url) {
-                  // open url in a webview
-                },
-
-                onImageTap: (src) {
-                  // Display the image in large form.
-                },
-              ),
-            ),
+//            OverflowBox(
+//              child: Html(
+//                data: description,
+//                //Optional parameters:
+////          backgroundColor: Colors.white70,
+//                onLinkTap: (url) {
+//                  // open url in a webview
+//                },
+//
+//                onImageTap: (src) {
+//                  // Display the image in large form.
+//                },
+//              ),
+//            ),
             SizedBox(
               height: 8,
             ),

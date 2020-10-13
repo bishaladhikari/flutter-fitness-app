@@ -67,10 +67,9 @@ class ProductItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) =>
-                ProductDetailPage(
-                  product: product,
-                ),
+            builder: (context) => ProductDetailPage(
+              product: product,
+            ),
           ),
         );
       },
@@ -78,44 +77,46 @@ class ProductItem extends StatelessWidget {
   }
 
   _productImage() {
+    print("index is: " + product.heroTag.toString());
     return Stack(
       children: <Widget>[
         Center(
-          child: CachedNetworkImage(
-            placeholder: (context, url) =>
-                Center(
-                  child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/placeholder.png"),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
-            imageUrl: product.imageThumbnail,
-//            imageUrl: product.imageThumbnail,
-            imageBuilder: (context, imageProvider) =>
-                Container(
-//              width: 75,
+          child: Hero(
+            tag: product.heroTag,
+//            tag:product.imageThumbnail,
+            child: CachedNetworkImage(
+              placeholder: (context, url) => Center(
+                child: Container(
                   height: 100,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      )),
-                ),
-            errorWidget: (context, url, error) =>
-                Center(
-                  child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/placeholder.png"),
-                          fit: BoxFit.cover),
-                    ),
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/placeholder.png"),
+                        fit: BoxFit.cover),
                   ),
                 ),
+              ),
+              imageUrl: product.imageThumbnail,
+//            imageUrl: product.imageThumbnail,
+              imageBuilder: (context, imageProvider) => Container(
+//              width: 75,
+                height: 100,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                )),
+              ),
+              errorWidget: (context, url, error) => Center(
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/placeholder.png"),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
 //        Positioned(
@@ -161,21 +162,23 @@ class ProductItem extends StatelessWidget {
         Row(
           children: <Widget>[
             Text(
-                product.discountPrice != null? "\$" +product.discountPrice
-                    : "\$" +product.sellingPrice,
+                product.discountPrice != null
+                    ? "\$" + product.discountPrice
+                    : "\$" + product.sellingPrice,
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: NPrimaryColor)),
             SizedBox(width: 8),
-            product.discountPrice != null ?
-            Text(
-              "\$" + product.sellingPrice,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 10,
-                  decoration: TextDecoration.lineThrough),
-            ) : Container()
+            product.discountPrice != null
+                ? Text(
+                    "\$" + product.sellingPrice,
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10,
+                        decoration: TextDecoration.lineThrough),
+                  )
+                : Container()
           ],
         ),
         SizedBox(height: 10),

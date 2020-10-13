@@ -8,6 +8,7 @@ import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,12 @@ import 'components/detail_widget.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
+  final index;
   Variant selectedVariant;
   Attribute selectedAttribute;
   List<AttributeImage> images = [];
 
-  ProductDetailPage({Key key, this.product, this.selectedVariant}) {
+  ProductDetailPage({Key key, this.product, this.selectedVariant,this.index}) {
 //    super(key: key);
     this.images.add(AttributeImage.fromJson(
         {"image_thumbnail": this.product.imageThumbnail}));
@@ -120,7 +122,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   background: Padding(
                     padding: EdgeInsets.only(top: 48.0),
-                    child: dottedSlider(widget.images),
+                    child: StreamBuilder<ProductDetailResponse>(
+                        stream: productDetailBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData){
+                            ProductDetail productDetail = snapshot.data.productDetail;
+                            return dottedSlider(productDetail.selectedAttribute.images);
+                          }
+                          return dottedSlider(widget.images);
+                        }),
                   ),
                 )),
           ];
@@ -272,18 +282,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
-    widget.selectedAttribute = productDetail.selectedAttribute;
-//    if (widget.selectedVariant == null)
-//      widget.selectedVariant = productDetail.variants[0];
-    return DetailWidget(
-        productDetail: productDetail,
-//        selectedAttribute: widget.selectedAttribute,
-//        onAttributeChanged: (attribute) {
-//          setState(() {
-//            widget.selectedAttribute = attribute;
-//          });
-//        });
-    );
+    return DetailWidget(productDetail: productDetail);
   }
 
   Widget _buildLoadingWidget() {
@@ -387,18 +386,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     ).show();
   }
 
-  _productSlideImage(String imageUrl) {
-    return Container(
-      height: 200,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image:
-            DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
+  Widget _productSlideImage(String imageUrl) {
+    return Hero(
+      tag:widget.product.heroTag,
+      child: Container(
+        height: 200,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image:
+              DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
+        ),
       ),
     );
   }
 
-  dottedSlider(images) {
+  Widget dottedSlider(images) {
 //    List<AttributeImage> images = images;
     final children = <Widget>[];
     for (int i = 0; i < images?.length ?? 0; i++) {

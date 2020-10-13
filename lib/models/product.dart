@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'category.dart';
 
 class Product {
@@ -20,6 +22,7 @@ class Product {
   double avgRating;
   bool saved;
   int attributeId;
+  String heroTag;
 
   Product(
       {this.id,
@@ -40,6 +43,7 @@ class Product {
       this.slug,
       this.avgRating,
       this.saved,
+      this.heroTag,
       this.attributeId});
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -51,7 +55,8 @@ class Product {
     discountPercentage = json['discount_percentage'];
     availability = json['availability'];
     sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'] != null ? json['discount_price'] : null;
+    discountPrice =
+        json['discount_price'] != null ? json['discount_price'] : null;
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
     soldBy = json['sold_by'];
@@ -64,5 +69,6 @@ class Product {
     avgRating = json['avg_rating'].toDouble();
     saved = json['saved'];
     attributeId = json['attribute_id'];
+    heroTag = Uuid().v4();
   }
 }

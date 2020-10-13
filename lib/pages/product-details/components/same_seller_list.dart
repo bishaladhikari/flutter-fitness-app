@@ -85,7 +85,7 @@ class _ProductsListState extends State<SameSellerList> {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return ProductItem(product: products[index]);
+                return ProductItem(product: products[index],);
               }),
         )
     );

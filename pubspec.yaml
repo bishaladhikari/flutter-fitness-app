@@ -45,6 +45,8 @@ dependencies:
   form_field_validator: ^1.0.1
   dotted_border: ^1.0.6
   rflutter_alert: ^1.0.3
+  uuid: 2.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
