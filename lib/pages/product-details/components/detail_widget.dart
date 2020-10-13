@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product_detail.dart';
@@ -15,9 +16,10 @@ class DetailWidget extends StatefulWidget {
   ProductDetail productDetail;
   Function onAttributeChanged;
 
-  DetailWidget({this.productDetail,this.selectedAttribute,this.onAttributeChanged}) {
-//    selectedAttribute = productDetail.attributes[0];
-    selectedVariant = selectedAttribute.variant;
+  DetailWidget(
+      {this.productDetail}) {
+    selectedAttribute = productDetail.selectedAttribute;
+    selectedVariant = productDetail.selectedAttribute.variant;
   }
 
   @override
@@ -97,18 +99,25 @@ class _DetailWidgetState extends State<DetailWidget> {
                 style: TextStyle(
                     color: isVariantSelected ? kPrimaryColor : kTextColor)),
             onPressed: () {
-              setState(() {
-                widget.selectedVariant = variants[i];
-                int index = widget.productDetail.attributes.indexWhere(
-                    (x) => x.variant?.id == widget.selectedVariant.id);
-                if (index > -1) {
-                  widget.selectedAttribute =
-                      widget.productDetail.attributes[index];
-
-//                  this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
-
-                }
-              });
+              var variant= variants[i];
+              int index = widget.productDetail.attributes.indexWhere(
+                    (x) => x.variant?.id == variant.id);
+              if (index > -1) {
+                productDetailBloc.setSelectedAttribute(
+                    widget.productDetail.attributes[index]);
+              }
+//              setState(() {
+//                widget.selectedVariant = variants[i];
+//                int index = widget.productDetail.attributes.indexWhere(
+//                    (x) => x.variant?.id == widget.selectedVariant.id);
+//                if (index > -1) {
+//                  widget.selectedAttribute =
+//                      widget.productDetail.attributes[index];
+//                  widget.onAttributeChanged(widget.selectedAttribute);
+//
+////                  this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
+//                }
+//              });
             }, //callback when button is clicked
             borderSide: BorderSide(
               color: isVariantSelected

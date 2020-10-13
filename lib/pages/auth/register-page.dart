@@ -57,16 +57,18 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   void _registerSuccess(BuildContext context, message) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.green,
-    ));
-    Future.delayed(Duration(milliseconds: 100), () {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context);
-      });
-    });
+//    _scaffoldKey.currentState.showSnackBar(SnackBar(
+//      content: Text(message),
+//      backgroundColor: Colors.green,
+//    ));
+//    Future.delayed(Duration(milliseconds: 100), () {
+//      WidgetsBinding.instance.addPostFrameCallback((_) {
+//        Navigator.pop(context);
+//      });
+//    });
+    Navigator.pushNamed(context, "emailConfirmationPage");
   }
+
 
   void _showErrorMessage(context, String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(

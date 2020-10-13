@@ -12,9 +12,10 @@ class ProductDetailBloc {
       BehaviorSubject<ProductResponse>();
   final BehaviorSubject<ProductResponse> _fromSameSeller =
       BehaviorSubject<ProductResponse>();
+  ProductDetailResponse response;
 
   getProductDetail(String slug) async {
-    ProductDetailResponse response = await _repository.getProductDetail(slug);
+     response = await _repository.getProductDetail(slug);
     _subject.sink.add(response);
   }
 
@@ -26,6 +27,12 @@ class ProductDetailBloc {
   getSameSellerProduct(slug) async {
     ProductResponse response = await _repository.getSameSellerProduct(slug);
     _fromSameSeller.sink.add(response);
+  }
+
+  setSelectedAttribute(attribute) {
+//    response.productDetail.selectedAttribute =
+    response.productDetail.selectedAttribute = attribute;
+    _subject.sink.add(response);
   }
 
   void drainStream() {
