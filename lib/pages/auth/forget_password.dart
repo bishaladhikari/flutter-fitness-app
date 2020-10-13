@@ -1,5 +1,6 @@
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   @override
@@ -39,10 +40,14 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  "Rest your password with the help of code sent to your mail",
-                  style: TextStyle(color: Colors.black87, fontSize: 16),
-                  textAlign: TextAlign.center),
+              child: Shimmer.fromColors(
+                              child: Text(
+                    "Rest your password with the help of code sent to your mail",
+                    style: TextStyle(color: Colors.black87, fontSize: 16),
+                    textAlign: TextAlign.center),
+                    baseColor: Colors.grey[600],
+                    highlightColor: Colors.grey[100],
+              ),
             ),
             Form(
               key: _formKey,
