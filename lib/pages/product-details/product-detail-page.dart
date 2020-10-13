@@ -290,9 +290,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
+    widget.selectedAttribute = productDetail.selectedAttribute;
 //    if (widget.selectedVariant == null)
 //      widget.selectedVariant = productDetail.variants[0];
-    return DetailWidget(productDetail,);
+    return DetailWidget(productDetail:productDetail,selectedAttribute:widget.selectedAttribute,onAttributeChanged:(){
+      setState(() {
+          widget.images = widget.selectedAttribute.images;
+      });
+    });
   }
 
   Widget _buildLoadingWidget() {

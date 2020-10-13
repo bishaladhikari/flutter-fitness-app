@@ -13,9 +13,10 @@ class DetailWidget extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   ProductDetail productDetail;
+  Function onAttributeChanged;
 
-  DetailWidget(this.productDetail) {
-    selectedAttribute = productDetail.attributes[0];
+  DetailWidget({this.productDetail,this.selectedAttribute,this.onAttributeChanged}) {
+//    selectedAttribute = productDetail.attributes[0];
     selectedVariant = selectedAttribute.variant;
   }
 
@@ -50,27 +51,27 @@ class _DetailWidgetState extends State<DetailWidget> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
+            widget.selectedAttribute.discountPrice != null
+                ? Text(
+                    "\$" + widget.selectedAttribute.sellingPrice,
+                    style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 18,
+                        decoration: TextDecoration.lineThrough),
+                  )
+                : Container(),
+            SizedBox(
+              width: 6,
+            ),
             Text(
               widget.selectedAttribute.discountPrice != null
                   ? "\$" + widget.selectedAttribute.discountPrice
                   : "\$" + widget.selectedAttribute.sellingPrice,
               style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 18,
-                  decoration: TextDecoration.lineThrough),
-            ),
-            SizedBox(
-              width: 6,
-            ),
-            widget.selectedAttribute.discountPrice != null
-                ? Text(
-                    "\$ " + widget.selectedAttribute.sellingPrice,
-                    style: TextStyle(
-                        color: kTextLightColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
-                  )
-                : Container()
+                  color: kTextLightColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
+            )
           ],
         ),
       ),
@@ -103,7 +104,9 @@ class _DetailWidgetState extends State<DetailWidget> {
                 if (index > -1) {
                   widget.selectedAttribute =
                       widget.productDetail.attributes[index];
+
 //                  this.selectedImage = this.selectedAttribute.images[0].image_thumbnail
+
                 }
               });
             }, //callback when button is clicked
