@@ -6,6 +6,7 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/widgets/widgets-index.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -127,12 +128,10 @@ class _LoginPageState extends State<LoginPage>
                             vertical: 10.0, horizontal: 10.0),
                         hintStyle: TextStyle(color: Colors.grey),
                         hintText: "Email"),
-                    validator: (emailValue) {
-                      if (emailValue.isEmpty) {
-                        return 'Please enter email';
-                      }
-                      return null;
-                    },
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: "Required*"),
+                      EmailValidator(errorText: "Not A Valid Email"),
+                    ]),
                   ),
                   SizedBox(height: 10),
                   TextFormField(
@@ -154,12 +153,11 @@ class _LoginPageState extends State<LoginPage>
                         hintStyle: TextStyle(color: Colors.grey),
                         hintText: "Password"),
                     obscureText: _obscureText,
-                    validator: (emailValue) {
-                      if (emailValue.isEmpty) {
-                        return 'Please enter password';
-                      }
-                      return null;
-                    },
+                    validator: MultiValidator([
+                      PatternValidator(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                          errorText: 'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                    ]),
                   ),
                 ],
               ),
