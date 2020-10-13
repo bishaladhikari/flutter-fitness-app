@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage>
             cpassword: cpasswordController.text,
           );
           print("RegisterRes:" + response.toString());
-          _registerSuccess(context, response['message']);
+          _registerSuccess();
         } catch (error) {
           print("ErrorResponse:" + error.errorValue.toString());
           _showErrorMessage(context, error.errorValue);
@@ -56,16 +56,8 @@ class _RegisterPageState extends State<RegisterPage>
     }
   }
 
-  void _registerSuccess(BuildContext context, message) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.green,
-    ));
-    Future.delayed(Duration(milliseconds: 100), () {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context);
-      });
-    });
+  void _registerSuccess() {
+    Navigator.pushReplacementNamed(context, 'emailConfirmPage');
   }
 
   void _showErrorMessage(context, String message) {
