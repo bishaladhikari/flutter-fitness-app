@@ -404,7 +404,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
             ),
-            imageUrl: widget.product.imageThumbnail,
+            imageUrl: imageUrl,
 //            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
