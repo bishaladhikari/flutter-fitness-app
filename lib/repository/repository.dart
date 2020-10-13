@@ -6,6 +6,7 @@ import 'dart:developer';
 
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
+import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
@@ -269,14 +270,11 @@ class Repository {
         "password": "$password",
         "confirm_password": "$cpassword",
       };
-      print("name:" + email.toString());
-      Response response = await _dio.post(registerUrl, queryParameters: data);
-      print("Response:" + response.toString());
-
+    final response = await _dio.post(registerUrl, queryParameters: data);
       return response;
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return AddressResponse.withError(_handleError(error));
+      throw ErrorResponse.withError(_handleError(error));
     }
   }
 

@@ -28,25 +28,56 @@ class _RegisterPageState extends State<RegisterPage>
   bool _validate = false;
 
   AnimationController _controller;
-  validate() {
+  validate() async {
     {
       print("email" + emailController.text.toString());
       if (_formKey.currentState.validate()) {
-        Repository().registerCustomer(
-          fname: fnameController.text,
-          lname: lnameController.text,
-          email: emailController.text,
-          mobile: mobileController.text,
-          password: passwordController.text,
-          cpassword: cpasswordController.text,
-        );
-      }else {
+        try {
+          final response = await Repository().registerCustomer(
+            fname: fnameController.text,
+            lname: lnameController.text,
+            email: emailController.text,
+            mobile: mobileController.text,
+            password: passwordController.text,
+            cpassword: cpasswordController.text,
+          );
+          print("RegisterRes:" + response.toString());
+          _registerSuccess(context, response['message']);
+        } catch (error) {
+          print("ErrorResponse:" + error.errorValue.toString());
+          _showErrorMessage(context, error.errorValue);
+        }
+      } else {
         print("Not Validated");
         setState(() {
           _validate = true;
         });
       }
     }
+  }
+
+  void _registerSuccess(BuildContext context, message) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.green,
+    ));
+    Future.delayed(Duration(milliseconds: 100), () {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pop(context);
+      });
+    });
+  }
+
+  void _showErrorMessage(context, String message) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.redAccent,
+    ));
+    authBloc..drainStream();
+
+//    Scaffold.of(context).showSnackBar(SnackBar(
+//      content: Text(message),
+//    ));
   }
 
   void _toggle() {
@@ -100,20 +131,6 @@ class _RegisterPageState extends State<RegisterPage>
         ),
         body: _buildLoginFormWidget());
   }
-
-  // void _showErrorMessage(context, String message) {
-  //   _scaffoldKey.currentState.showSnackBar(SnackBar(
-  //     content: Text(message),
-  //     backgroundColor: Colors.redAccent,
-  //   ));
-  //   authBloc..drainStream();
-  // }
-
-  // void _loginSuccess(BuildContext context) {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     Navigator.pop(context);
-  //   });
-  // }
 
   Widget _buildLoginFormWidget() {
     return ListView(children: [
@@ -390,29 +407,4 @@ class _RegisterPageState extends State<RegisterPage>
       ),
     ]);
   }
-
-//   validateLogin(context) async {
-//     if (_formKey.currentState.validate()) {
-//       // print("email:" + emailController.text.toString());
-//       // print("password:" + passwordController.text.toString());
-//       LoginResponse response = await authBloc.login({
-//         "email": "${emailController.text.trim()}",
-//         "password": "${passwordController.text.trim()}"
-//       });
-// //      var stream = authBloc.subject.stream;
-// ////        StreamSubscription<LoginResponse> subscription;
-// //      final subscription = stream.listen(null);
-// //      subscription.onData((response) {
-// //        if (response.error != null) _showErrorMessage(context, response.error);
-// //        if (response.token != null) _loginSuccess(context);
-// //        subscription.cancel();
-// //      });
-//       if (response.token != null)
-//         _loginSuccess(context);
-//       else
-//         _showErrorMessage(context, response.error);
-//     } else {
-//       setState(() => _validate = true);
-//     }
-//   }
 }
