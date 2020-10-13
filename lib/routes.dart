@@ -1,6 +1,7 @@
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:ecapp/pages/auth/email-confirm%20.dart';
+import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
@@ -32,6 +33,9 @@ abstract class Routes {
         break;
         case 'emailConfirmPage':
         return MaterialPageRoute(builder: (context) => EmailConfirmPage());
+        break;
+        case 'forgetpasswordPage':
+        return MaterialPageRoute(builder: (context) => ForgetPasswordPage());
         break;
       case 'addressFormPage':
         return MaterialPageRoute(builder: (context) => AddressFormPage(address:arguments));

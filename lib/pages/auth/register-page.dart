@@ -256,14 +256,16 @@ class _RegisterPageState extends State<RegisterPage>
                 ],
               ),
             ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text('Forget Password?',
-                    style: TextStyle(color: Colors.black, fontSize: 15.0)),
-              ),
-            ),
+            SizedBox(height: 10),
+
+            // Container(
+            //   alignment: Alignment.centerRight,
+            //   child: Padding(
+            //     padding: EdgeInsets.all(16.0),
+            //     child: Text('Forget Password?',
+            //         style: TextStyle(color: Colors.black, fontSize: 15.0)),
+            //   ),
+            // ),
             GestureDetector(
               onTap: () => validate(),
               child: Container(

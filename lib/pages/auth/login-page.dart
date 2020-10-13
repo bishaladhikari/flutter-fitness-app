@@ -156,18 +156,25 @@ class _LoginPageState extends State<LoginPage>
                     validator: MultiValidator([
                       PatternValidator(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                          errorText: 'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                          errorText:
+                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
                     ]),
                   ),
                 ],
               ),
             ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text('Forget Password?',
-                    style: TextStyle(color: Colors.black, fontSize: 15.0)),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushReplacementNamed('forgetpasswordPage');
+              },
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Forget Password?',
+                      style: TextStyle(color: Colors.black, fontSize: 15.0)),
+                ),
               ),
             ),
             GestureDetector(
