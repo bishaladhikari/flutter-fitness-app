@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
@@ -8,6 +9,7 @@ import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
@@ -22,16 +24,18 @@ import 'components/related_products_list.dart';
 import 'components/same_seller_list.dart';
 
 import 'components/detail_widget.dart';
+
 class ProductDetailPage extends StatefulWidget {
   final Product product;
+  final index;
   Variant selectedVariant;
   Attribute selectedAttribute;
-  List<AttributeImage> images=[];
+  List<AttributeImage> images = [];
 
-  ProductDetailPage({Key key, this.product, this.selectedVariant})
-  {
+  ProductDetailPage({Key key, this.product, this.selectedVariant,this.index}) {
 //    super(key: key);
-    this.images.add(AttributeImage.fromJson({"image_thumbnail":this.product.imageThumbnail}));
+    this.images.add(AttributeImage.fromJson(
+        {"image_thumbnail": this.product.imageThumbnail}));
   }
 
 //  ProductPage({this.product});
@@ -56,9 +60,10 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
-  setImages(value){
-        setState(() {
-          widget.images = value;
+
+  setImages(value) {
+    setState(() {
+      widget.images = value;
     });
   }
 
@@ -104,10 +109,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   color: Colors.black, //change your color here
                 ),
                 backgroundColor: Colors.white,
-                expandedHeight: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 2.4,
+                expandedHeight: MediaQuery.of(context).size.height / 2.4,
                 floating: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
@@ -121,16 +123,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   background: Padding(
                     padding: EdgeInsets.only(top: 48.0),
-                    child: dottedSlider(widget.images),
+                    child: StreamBuilder<ProductDetailResponse>(
+                        stream: productDetailBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData){
+                            ProductDetail productDetail = snapshot.data.productDetail;
+                            return dottedSlider(productDetail.selectedAttribute.images);
+                          }
+                          return dottedSlider(widget.images);
+                        }),
                   ),
                 )),
           ];
         },
         body: Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,17 +169,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: Theme
-            .of(context)
-            .backgroundColor,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height / 11,
+        color: Theme.of(context).backgroundColor,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 11,
         child: Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
@@ -198,10 +197,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   FlatButton(
                     child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 2.9,
+                      width: MediaQuery.of(context).size.width / 2.9,
                       height: 60,
                       decoration: const BoxDecoration(
                         color: ksecondaryColor,
@@ -251,10 +247,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 2.9,
+                  width: MediaQuery.of(context).size.width / 2.9,
                   height: 60,
                   decoration: const BoxDecoration(
                     color: NPrimaryColor,
@@ -290,41 +283,34 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
-    widget.selectedAttribute = productDetail.selectedAttribute;
-//    if (widget.selectedVariant == null)
-//      widget.selectedVariant = productDetail.variants[0];
-    return DetailWidget(productDetail:productDetail,selectedAttribute:widget.selectedAttribute,onAttributeChanged:(){
-      setState(() {
-          widget.images = widget.selectedAttribute.images;
-      });
-    });
+    return DetailWidget(productDetail: productDetail);
   }
 
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   showAlertDialog(BuildContext context) {
@@ -401,18 +387,62 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     ).show();
   }
 
-  _productSlideImage(String imageUrl) {
-    return Container(
-      height: 200,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image:
-        DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
-      ),
-    );
+  Widget _productSlideImage(String imageUrl) {
+    return
+      Center(
+        child: Hero(
+          tag: widget.product.heroTag,
+//            tag:product.imageThumbnail,
+          child: CachedNetworkImage(
+            placeholder: (context, url) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
+            imageUrl: widget.product.imageThumbnail,
+//            imageUrl: product.imageThumbnail,
+            imageBuilder: (context, imageProvider) => Container(
+//              width: 75,
+              height: 200,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+//      Hero(
+//      tag:widget.product.heroTag,
+//      child: Container(
+//        height: 200,
+//        width: double.infinity,
+//        decoration: BoxDecoration(
+//          image:
+//              DecorationImage(image: CachedNetworkImage(imageUrl:imageUrl,placeholder: ,), fit: BoxFit.contain),
+//        ),
+//      ),
+//    );
   }
 
-  dottedSlider(images) {
+  Widget dottedSlider(images) {
 //    List<AttributeImage> images = images;
     final children = <Widget>[];
     for (int i = 0; i < images?.length ?? 0; i++) {
@@ -422,233 +452,227 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         children.add(_productSlideImage(images[i].imageThumbnail));
       }
     }
-    return DottedSlider(
-        maxHeight: 200,
-        children: children
+    return DottedSlider(maxHeight: 200, children: children);
+  }
+
+  _buildComments(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(width: 1.0, color: Colors.black12),
+          bottom: BorderSide(width: 1.0, color: Colors.black12),
+        ),
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Comments",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54),
+                ),
+                Text(
+                  "View All",
+                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                  textAlign: TextAlign.end,
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                StarRating(rating: 4, size: 20),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "1250 Comments",
+                  style: TextStyle(color: Colors.black54),
+                )
+              ],
+            ),
+            SizedBox(
+              child: Divider(
+                color: Colors.black26,
+                height: 4,
+              ),
+              height: 24,
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+              ),
+              subtitle: Text(
+                  "Cats are good pets, for they are clean and are not noisy."),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  StarRating(rating: 4, size: 15),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "12 Sep 2019",
+                    style: TextStyle(fontSize: 12, color: Colors.black54),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              child: Divider(
+                color: Colors.black26,
+                height: 4,
+              ),
+              height: 24,
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://www.familiadejesusperu.org/images/avatar/john-doe-13.jpg"),
+              ),
+              subtitle: Text(
+                  "There was no ice cream in the freezer, nor did they have money to go to the store."),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  StarRating(rating: 4, size: 15),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "15 Sep 2019",
+                    style: TextStyle(fontSize: 12, color: Colors.black54),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              child: Divider(
+                color: Colors.black26,
+                height: 4,
+              ),
+              height: 24,
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://pbs.twimg.com/profile_images/1020903668240052225/_6uVaH4c.jpg"),
+              ),
+              subtitle: Text(
+                  "I think I will buy the red car, or I will lease the blue one."),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  StarRating(rating: 4, size: 15),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "25 Sep 2019",
+                    style: TextStyle(fontSize: 12, color: Colors.black54),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-_buildComments(BuildContext context) {
-  return Container(
-    decoration: BoxDecoration(
-      border: Border(
-        top: BorderSide(width: 1.0, color: Colors.black12),
-        bottom: BorderSide(width: 1.0, color: Colors.black12),
-      ),
-    ),
-    width: MediaQuery
-        .of(context)
-        .size
-        .width,
-    child: Container(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  _buildProducts(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             children: <Widget>[
-              Text(
-                "Comments",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54),
+              Expanded(
+                child: Text(
+                  "You may also like",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54),
+                  textAlign: TextAlign.start,
+                ),
               ),
-              Text(
-                "View All",
-                style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                textAlign: TextAlign.end,
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    print("Clicked");
+                  },
+                  child: Text(
+                    "View All",
+                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                    textAlign: TextAlign.end,
+                  ),
+                ),
               ),
             ],
           ),
-          SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+        ),
+        RelatedProductsList(),
+        // buildTrending()
+      ],
+    );
+  }
+
+  _buildSameSellerProducts(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
             children: <Widget>[
-              StarRating(rating: 4, size: 20),
-              SizedBox(
-                width: 8,
+              Expanded(
+                child: Text(
+                  "From same seller",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54),
+                  textAlign: TextAlign.start,
+                ),
               ),
-              Text(
-                "1250 Comments",
-                style: TextStyle(color: Colors.black54),
-              )
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    print("Clicked");
+                  },
+                  child: Text(
+                    "View All",
+                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+              ),
             ],
           ),
-          SizedBox(
-            child: Divider(
-              color: Colors.black26,
-              height: 4,
-            ),
-            height: 24,
-          ),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-            ),
-            subtitle: Text(
-                "Cats are good pets, for they are clean and are not noisy."),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                StarRating(rating: 4, size: 15),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  "12 Sep 2019",
-                  style: TextStyle(fontSize: 12, color: Colors.black54),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            child: Divider(
-              color: Colors.black26,
-              height: 4,
-            ),
-            height: 24,
-          ),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://www.familiadejesusperu.org/images/avatar/john-doe-13.jpg"),
-            ),
-            subtitle: Text(
-                "There was no ice cream in the freezer, nor did they have money to go to the store."),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                StarRating(rating: 4, size: 15),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  "15 Sep 2019",
-                  style: TextStyle(fontSize: 12, color: Colors.black54),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            child: Divider(
-              color: Colors.black26,
-              height: 4,
-            ),
-            height: 24,
-          ),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://pbs.twimg.com/profile_images/1020903668240052225/_6uVaH4c.jpg"),
-            ),
-            subtitle: Text(
-                "I think I will buy the red car, or I will lease the blue one."),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                StarRating(rating: 4, size: 15),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  "25 Sep 2019",
-                  style: TextStyle(fontSize: 12, color: Colors.black54),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-_buildProducts(BuildContext context) {
-  return Column(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                "You may also like",
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  print("Clicked");
-                },
-                child: Text(
-                  "View All",
-                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-          ],
         ),
-      ),
-      RelatedProductsList(),
-      // buildTrending()
-    ],
-  );
-}
+        SameSellerList(),
+        // buildTrending()
+      ],
+    );
+  }
 
-_buildSameSellerProducts(BuildContext context) {
-  return Column(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                "From same seller",
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54),
-                textAlign: TextAlign.start,
-              ),
-            ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  print("Clicked");
-                },
-                child: Text(
-                  "View All",
-                  style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      SameSellerList(),
-      // buildTrending()
-    ],
-  );
-}
-
-Column buildTrending() {
-  return Column(
-    children: <Widget>[
-      Container(
-        height: 180,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: <Widget>[
+  Column buildTrending() {
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 180,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
 //              TrendingItem(
 //                product: Product(
 //                    company: 'Apple',
@@ -743,9 +767,10 @@ Column buildTrending() {
 //                    price: '\$2,890'),
 //                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
 //              ),
-          ],
-        ),
-      )
-    ],
-  );
-}}
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}

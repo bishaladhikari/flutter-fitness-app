@@ -60,6 +60,7 @@ class _RegisterPageState extends State<RegisterPage>
     Navigator.pushReplacementNamed(context, 'emailConfirmPage');
   }
 
+
   void _showErrorMessage(context, String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(message),
