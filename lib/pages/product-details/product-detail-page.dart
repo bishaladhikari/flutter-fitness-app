@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
@@ -387,17 +388,58 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _productSlideImage(String imageUrl) {
-    return Hero(
-      tag:widget.product.heroTag,
-      child: Container(
-        height: 200,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image:
-              DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.contain),
+    return
+      Center(
+        child: Hero(
+          tag: widget.product.heroTag,
+//            tag:product.imageThumbnail,
+          child: CachedNetworkImage(
+            placeholder: (context, url) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
+            imageUrl: widget.product.imageThumbnail,
+//            imageUrl: product.imageThumbnail,
+            imageBuilder: (context, imageProvider) => Container(
+//              width: 75,
+              height: 200,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
-    );
+      );
+
+//      Hero(
+//      tag:widget.product.heroTag,
+//      child: Container(
+//        height: 200,
+//        width: double.infinity,
+//        decoration: BoxDecoration(
+//          image:
+//              DecorationImage(image: CachedNetworkImage(imageUrl:imageUrl,placeholder: ,), fit: BoxFit.contain),
+//        ),
+//      ),
+//    );
   }
 
   Widget dottedSlider(images) {
