@@ -116,7 +116,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   color: Colors.black, //change your color here
                 ),
                 backgroundColor: Colors.white,
-                expandedHeight: MediaQuery.of(context).size.height / 2.4,
+                expandedHeight: MediaQuery.of(context).size.height / 2.6,
                 floating: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
