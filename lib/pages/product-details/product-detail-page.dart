@@ -309,49 +309,49 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    height: 25,
-                    width: width/1.2,
-                    color: Colors.black26
-                ),
-              ],
+            Container(
+                height: 25,
+                width: width/1.2,
+                color: Colors.black26
             ),
             SizedBox(height: 8,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    height: 25,
-                    width: width /1.5,
-                    color: Colors.black26
-                ),
-              ],
+            Container(
+                height: 25,
+                width: width /1.5,
+                color: Colors.black26
             ),
             SizedBox(height: 8,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    height: 25,
-                    width: width / 2,
-                    color: Colors.black26
-                ),
-              ],
+            Container(
+                height: 25,
+                width: width / 2,
+                color: Colors.black26
             ),
             SizedBox(height: 8,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    height: 100,
-                    width: width,
-                    color: Colors.black26
-                ),
-              ],
+
+            Container(
+                height: 100,
+                width: width,
+                color: Colors.black26
             ),
+            Container(
+                height: 25,
+                width: width,
+                color: Colors.black26
+            ),
+            SizedBox(height: 8,),
+            SizedBox(height: 8,),
+            Container(
+                height: 25,
+                width: width,
+                color: Colors.black26
+            ),
+            SizedBox(height: 8,),
+            Container(
+                height: 25,
+                width: width,
+                color: Colors.black26
+            ),
+            SizedBox(height: 8,),
 
           ],
         ),
