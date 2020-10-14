@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage>
                         hintStyle: TextStyle(color: Colors.grey),
                         hintText: "Email"),
                     validator: MultiValidator([
-                      RequiredValidator(errorText: "Required*"),
+                      RequiredValidator(errorText: "Email is required"),
                       EmailValidator(errorText: "Not A Valid Email"),
                     ]),
                   ),
@@ -154,10 +154,11 @@ class _LoginPageState extends State<LoginPage>
                         hintText: "Password"),
                     obscureText: _obscureText,
                     validator: MultiValidator([
-                      PatternValidator(
-                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                          errorText:
-                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                      RequiredValidator(errorText: "Password is Required"),
+//                      PatternValidator(
+//                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+//                          errorText:
+//                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
                     ]),
                   ),
                 ],
