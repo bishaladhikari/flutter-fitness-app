@@ -13,6 +13,7 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/svg.dart';
@@ -100,57 +101,67 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+    ));
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.favorite_border),
-                    color: Colors.black26,
-                    onPressed: () {},
-                  ),
-                ],
-                iconTheme: IconThemeData(
-                  color: Colors.black, //change your color here
-                ),
-                backgroundColor: Colors.white,
-                expandedHeight: MediaQuery.of(context).size.height / 2.6,
-                floating: true,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.favorite_border),
+                color: NPrimaryColor,
+                splashRadius: 50,
+                splashColor: Colors.white,
+                onPressed: () {},
+              ),
+            ],
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            backgroundColor: Colors.white,
+            expandedHeight: MediaQuery.of(context).size.height / 2.6,
+            floating: false,
+            pinned: true,
+            title: Text(widget.product.name),
+            flexibleSpace: FlexibleSpaceBar(
 //                centerTitle: true,
-                  title: Text(
-                    widget.product.name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  background: Padding(
-                    padding: EdgeInsets.only(top: 48.0),
-                    child: StreamBuilder<ProductDetailResponse>(
-                        stream: productDetailBloc.subject.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            ProductDetail productDetail =
-                                snapshot.data.productDetail;
-                            return dottedSlider(
-                                productDetail.selectedAttribute.images);
-                          }
-                          return dottedSlider(widget.images);
-                        }),
-                  ),
-                )),
-          ];
-        },
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            child: Column(
+//                  title: Expanded(
+//                    child: Text(
+//                      "I have a very long name which is "+widget.product.name,
+//                      style: TextStyle(
+//                        color: Colors.black,
+//                        fontSize: 14.0,
+//                      ),
+//                    ),
+//                  ),
+              background: StreamBuilder<ProductDetailResponse>(
+                  stream: productDetailBloc.subject.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      ProductDetail productDetail =
+                          snapshot.data.productDetail;
+                      return dottedSlider(
+                          productDetail.selectedAttribute.images);
+                    }
+                    return dottedSlider(widget.images);
+                  }),
+            )),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(widget.product.name,style:
+                      TextStyle(fontSize: 24,color: Colors.black,fontWeight: FontWeight.bold),),
+                    ],
+                  ),
+                ),
                 StreamBuilder<ProductDetailResponse>(
                     stream: productDetailBloc.subject.stream,
                     builder: (context, snapshot) {
@@ -174,10 +185,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 _buildSameSellerProducts(context),
                 _buildComments(context),
               ],
-            ),
-          ),
-        ),
-      ),
+            )
+          ]),
+        )
+      ]),
       bottomNavigationBar: Container(
         color: Theme.of(context).backgroundColor,
         width: MediaQuery.of(context).size.width,
@@ -461,7 +472,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 200,
+            height: 280,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
@@ -470,7 +481,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           errorWidget: (context, url, error) => Center(
             child: Container(
-              height: 100,
+              height: 260,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
@@ -505,7 +516,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         children.add(_productSlideImage(images[i].imageThumbnail));
       }
     }
-    return DottedSlider(maxHeight: 200, children: children);
+    return DottedSlider(maxHeight: 280, children: children,color: NPrimaryColor,);
   }
 
   _buildComments(BuildContext context) {
