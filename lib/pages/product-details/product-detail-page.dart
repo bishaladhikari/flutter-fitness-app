@@ -292,6 +292,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _buildLoadingWidget() {
+    print("loading data");
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,

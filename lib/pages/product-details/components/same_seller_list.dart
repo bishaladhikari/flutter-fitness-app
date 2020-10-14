@@ -27,6 +27,7 @@ class _ProductsListState extends State<SameSellerList> {
   @override
   void dispose() {
     productDetailBloc..drainStream();
+    super.dispose();
   }
 
   @override
