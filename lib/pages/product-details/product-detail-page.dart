@@ -18,6 +18,7 @@ import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../constants.dart';
 import 'components/related_products_list.dart';
@@ -31,7 +32,8 @@ class ProductDetailPage extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   List<AttributeImage> images = [];
-  ProductDetailPage({Key key, this.product, this.selectedVariant,this.index}) {
+
+  ProductDetailPage({Key key, this.product, this.selectedVariant, this.index}) {
 //    super(key: key);
     this.images.add(AttributeImage.fromJson(
         {"image_thumbnail": this.product.imageThumbnail}));
@@ -61,6 +63,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
+
   setImages(value) {
     setState(() {
       widget.images = value;
@@ -77,10 +80,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _ProductDetailPageState();
 
-
   @override
   void initState() {
-    productDetailBloc= ProductDetailBloc();
+    productDetailBloc = ProductDetailBloc();
 
     slug = widget.product.slug;
     productDetailBloc.getProductDetail(slug);
@@ -131,9 +133,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: StreamBuilder<ProductDetailResponse>(
                         stream: productDetailBloc.subject.stream,
                         builder: (context, snapshot) {
-                          if (snapshot.hasData){
-                            ProductDetail productDetail = snapshot.data.productDetail;
-                            return dottedSlider(productDetail.selectedAttribute.images);
+                          if (snapshot.hasData) {
+                            ProductDetail productDetail =
+                                snapshot.data.productDetail;
+                            return dottedSlider(
+                                productDetail.selectedAttribute.images);
                           }
                           return dottedSlider(widget.images);
                         }),
@@ -159,8 +163,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       } else if (snapshot.hasError) {
                         return _buildErrorWidget(snapshot.error);
                       } else {
-                        return _buildLoadingWidget();
+                        return _buildLoadingWidget(context);
                       }
+                      return _buildLoadingWidget(context);
                     }),
                 SizedBox(
                   height: 10,
@@ -288,11 +293,70 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
-    return DetailWidget(productDetail: productDetail,productDetailBloc:productDetailBloc);
+    return DetailWidget(
+        productDetail: productDetail, productDetailBloc: productDetailBloc);
   }
 
-  Widget _buildLoadingWidget() {
-    print("loading data");
+  Widget _buildLoadingWidget(BuildContext context) {
+    var width = MediaQuery.of(context).size.width-16;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.black26,
+        period: Duration(milliseconds: 1000),
+        highlightColor: Colors.white70,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    height: 25,
+                    width: width/1.2,
+                    color: Colors.black26
+                ),
+              ],
+            ),
+            SizedBox(height: 8,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    height: 25,
+                    width: width /1.5,
+                    color: Colors.black26
+                ),
+              ],
+            ),
+            SizedBox(height: 8,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    height: 25,
+                    width: width / 2,
+                    color: Colors.black26
+                ),
+              ],
+            ),
+            SizedBox(height: 8,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    height: 100,
+                    width: width,
+                    color: Colors.black26
+                ),
+              ],
+            ),
+
+          ],
+        ),
+      ),
+    );
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -301,7 +365,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           height: 25.0,
           width: 25.0,
           child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
             strokeWidth: 4.0,
           ),
         )
@@ -394,46 +458,45 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _productSlideImage(String imageUrl) {
-    return
-      Center(
-        child: Hero(
-          tag: widget.product.heroTag,
+    return Center(
+      child: Hero(
+        tag: widget.product.heroTag,
 //            tag:product.imageThumbnail,
-          child: CachedNetworkImage(
-            placeholder: (context, url) => Center(
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
-                ),
+        child: CachedNetworkImage(
+          placeholder: (context, url) => Center(
+            child: Container(
+              height: 100,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/placeholder.png"),
+                    fit: BoxFit.cover),
               ),
             ),
-            imageUrl: imageUrl,
+          ),
+          imageUrl: imageUrl,
 //            imageUrl: product.imageThumbnail,
-            imageBuilder: (context, imageProvider) => Container(
+          imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-              height: 200,
+            height: 200,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            )),
+          ),
+          errorWidget: (context, url, error) => Center(
+            child: Container(
+              height: 100,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  )),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
-                ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/placeholder.png"),
+                    fit: BoxFit.cover),
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
 
 //      Hero(
 //      tag:widget.product.heroTag,
@@ -627,7 +690,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ),
-        RelatedProductsList(slug:slug),
+        RelatedProductsList(slug: slug),
         // buildTrending()
       ],
     );
@@ -665,7 +728,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ),
-        SameSellerList(slug:slug),
+        SameSellerList(slug: slug),
         // buildTrending()
       ],
     );
