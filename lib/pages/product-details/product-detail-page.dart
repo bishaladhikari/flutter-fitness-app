@@ -298,7 +298,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   }
 
   Widget _buildLoadingWidget(BuildContext context) {
-    var width = MediaQuery.of(context).size.width-16;
+    var width = MediaQuery.of(context).size.width - 16;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Shimmer.fromColors(
@@ -309,50 +309,34 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-                height: 25,
-                width: width/1.2,
-                color: Colors.black26
+            Container(height: 25, width: width / 1.2, color: Colors.black26),
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
-            Container(
-                height: 25,
-                width: width /1.5,
-                color: Colors.black26
+            Container(height: 25, width: width / 1.5, color: Colors.black26),
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
-            Container(
-                height: 25,
-                width: width / 2,
-                color: Colors.black26
+            Container(height: 25, width: width / 2, color: Colors.black26),
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
-
-            Container(
-                height: 100,
-                width: width,
-                color: Colors.black26
+            Container(height: 100, width: width, color: Colors.black26),
+            Container(height: 25, width: width, color: Colors.black26),
+            SizedBox(
+              height: 8,
             ),
-            Container(
-                height: 25,
-                width: width,
-                color: Colors.black26
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
-            SizedBox(height: 8,),
-            Container(
-                height: 25,
-                width: width,
-                color: Colors.black26
+            Container(height: 25, width: width, color: Colors.black26),
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
-            Container(
-                height: 25,
-                width: width,
-                color: Colors.black26
+            Container(height: 25, width: width, color: Colors.black26),
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
-
           ],
         ),
       ),
