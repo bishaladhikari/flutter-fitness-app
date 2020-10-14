@@ -36,14 +36,7 @@ class ProductDetailBloc {
     _subject.sink.add(response);
   }
 
-  void drainStream(slug) async {
-    print(slug);
-//    await _subject.where((event) => event.productDetail.slug==slug).s;
-//    await _subject
-//        .singleWhere((element) => element.productDetail.slug == slug)
-//        .asStream()
-//        .drain();
-//    _subject.elementAt(index)
+  void drainStream() {
     _subject.value = null;
     _related.value = null;
     _fromSameSeller.value = null;

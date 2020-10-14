@@ -25,6 +25,12 @@ class _ProductsListState extends State<RelatedProductsList> {
     super.initState();
   }
 
+
+  @override
+  void dispose() {
+    productDetailBloc..drainStream();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(

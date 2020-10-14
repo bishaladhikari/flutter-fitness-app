@@ -24,6 +24,10 @@ class _ProductsListState extends State<SameSellerList> {
     productDetailBloc.getSameSellerProduct(widget.slug);
     super.initState();
   }
+  @override
+  void dispose() {
+    productDetailBloc..drainStream();
+  }
 
   @override
   Widget build(BuildContext context) {
