@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage>
                         hintText: "Password"),
                     obscureText: _obscureText,
                     validator: MultiValidator([
-                      RequiredValidator(errorText: "Password is Required"),
+                      RequiredValidator(errorText: "Password is required"),
 //                      PatternValidator(
 //                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
 //                          errorText:
