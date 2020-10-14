@@ -123,7 +123,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             expandedHeight: MediaQuery.of(context).size.height / 2.6,
             floating: false,
             pinned: true,
-            title: Text(widget.product.name),
             flexibleSpace: FlexibleSpaceBar(
 //                centerTitle: true,
 //                  title: Expanded(

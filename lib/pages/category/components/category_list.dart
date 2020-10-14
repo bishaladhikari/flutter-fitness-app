@@ -17,6 +17,7 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList>
     with SingleTickerProviderStateMixin {
   final List<Category> categories;
+  ProductsListByCategoryBloc productsListByCategoryBloc;
 
   _CategoryListState(this.categories);
 
@@ -28,7 +29,7 @@ class _CategoryListState extends State<CategoryList>
     _tabController = TabController(vsync: this, length: categories.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        productsByCategoryBloc..drainStream();
+        productsListByCategoryBloc..drainStream();
       }
     });
   }
