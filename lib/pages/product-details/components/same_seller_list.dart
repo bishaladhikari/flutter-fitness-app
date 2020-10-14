@@ -6,8 +6,10 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/material.dart';
 
 class SameSellerList extends StatefulWidget {
+  final String slug;
   const SameSellerList({
     Key key,
+    this.slug
   }) : super(key: key);
 
   @override
@@ -15,8 +17,11 @@ class SameSellerList extends StatefulWidget {
 }
 
 class _ProductsListState extends State<SameSellerList> {
+  ProductDetailBloc productDetailBloc;
   @override
   void initState() {
+    productDetailBloc = ProductDetailBloc();
+    productDetailBloc.getSameSellerProduct(widget.slug);
     super.initState();
   }
 

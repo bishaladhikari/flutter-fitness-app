@@ -15,8 +15,9 @@ class ProductDetailBloc {
   ProductDetailResponse response;
 
   getProductDetail(String slug) async {
-     response = await _repository.getProductDetail(slug);
+    response = await _repository.getProductDetail(slug);
     _subject.sink.add(response);
+    return response;
   }
 
   getRelatedProduct(slug) async {
@@ -35,7 +36,14 @@ class ProductDetailBloc {
     _subject.sink.add(response);
   }
 
-  void drainStream() {
+  void drainStream(slug) async {
+    print(slug);
+//    await _subject.where((event) => event.productDetail.slug==slug).s;
+//    await _subject
+//        .singleWhere((element) => element.productDetail.slug == slug)
+//        .asStream()
+//        .drain();
+//    _subject.elementAt(index)
     _subject.value = null;
     _related.value = null;
     _fromSameSeller.value = null;
@@ -56,4 +64,4 @@ class ProductDetailBloc {
   BehaviorSubject<ProductResponse> get fromSameSeller => _fromSameSeller;
 }
 
-final productDetailBloc = ProductDetailBloc();
+//final productDetailBloc = ProductDetailBloc();

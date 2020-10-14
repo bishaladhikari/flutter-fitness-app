@@ -31,8 +31,9 @@ class ProductDetailPage extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   List<AttributeImage> images = [];
-
+  ProductDetailBloc productDetailBloc;
   ProductDetailPage({Key key, this.product, this.selectedVariant,this.index}) {
+    productDetailBloc= ProductDetailBloc();
 //    super(key: key);
     this.images.add(AttributeImage.fromJson(
         {"image_thumbnail": this.product.imageThumbnail}));
@@ -60,7 +61,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isClicked = false;
-
+  String slug;
   setImages(value) {
     setState(() {
       widget.images = value;
@@ -77,18 +78,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _ProductDetailPageState();
 
+
   @override
   void initState() {
+    slug = widget.product.slug;
+    widget.productDetailBloc.getProductDetail(slug);
+    widget.productDetailBloc.getSameSellerProduct(slug);
+    widget.productDetailBloc.getRelatedProduct(slug);
     super.initState();
-    productDetailBloc.getProductDetail(widget.product.slug);
-    productDetailBloc..getSameSellerProduct(widget.product.slug);
-    productDetailBloc..getRelatedProduct(widget.product.slug);
   }
 
   @override
   void dispose() {
     super.dispose();
-    productDetailBloc..drainStream();
+//    print("disposed productDetail");
+    widget.productDetailBloc..drainStream(slug);
   }
 
   @override
@@ -124,7 +128,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   background: Padding(
                     padding: EdgeInsets.only(top: 48.0),
                     child: StreamBuilder<ProductDetailResponse>(
-                        stream: productDetailBloc.subject.stream,
+                        stream: widget.productDetailBloc.subject.stream,
                         builder: (context, snapshot) {
                           if (snapshot.hasData){
                             ProductDetail productDetail = snapshot.data.productDetail;
@@ -143,7 +147,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 StreamBuilder<ProductDetailResponse>(
-                    stream: productDetailBloc.subject.stream,
+                    stream: widget.productDetailBloc.subject.stream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.error != null &&
@@ -283,7 +287,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
-    return DetailWidget(productDetail: productDetail);
+    return DetailWidget(productDetail: productDetail,productDetailBloc:widget.productDetailBloc);
   }
 
   Widget _buildLoadingWidget() {
@@ -621,7 +625,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ),
-        RelatedProductsList(),
+        RelatedProductsList(slug:slug),
         // buildTrending()
       ],
     );
@@ -659,7 +663,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ),
-        SameSellerList(),
+        SameSellerList(slug:slug),
         // buildTrending()
       ],
     );

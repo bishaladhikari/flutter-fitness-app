@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
@@ -65,13 +66,8 @@ class ProductItem extends StatelessWidget {
         ],
       ),
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(
-              product: product,
-            ),
-          ),
-        );
+//        productDetailBloc..drainStream();
+        Navigator.of(context).pushNamed("productDetailPage",arguments: product);
       },
     );
   }

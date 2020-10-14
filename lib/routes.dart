@@ -4,6 +4,7 @@ import 'package:ecapp/pages/auth/email-confirm%20.dart';
 import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
+import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
@@ -21,6 +22,9 @@ abstract class Routes {
         break;
       case 'loginPage':
         return MaterialPageRoute(builder: (context) => LoginPage());
+        break;
+      case 'productDetailPage':
+        return MaterialPageRoute(builder: (context) => ProductDetailPage(product: arguments,));
         break;
       case 'registerPage':
         return MaterialPageRoute(builder: (context) => RegisterPage());

@@ -6,8 +6,10 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/material.dart';
 
 class RelatedProductsList extends StatefulWidget {
-  const RelatedProductsList({
+  final String slug;
+  RelatedProductsList({
     Key key,
+    this.slug,
   }) : super(key: key);
 
   @override
@@ -15,8 +17,11 @@ class RelatedProductsList extends StatefulWidget {
 }
 
 class _ProductsListState extends State<RelatedProductsList> {
+  ProductDetailBloc productDetailBloc;
   @override
   void initState() {
+    productDetailBloc=ProductDetailBloc();
+    productDetailBloc.getRelatedProduct(widget.slug);
     super.initState();
   }
 

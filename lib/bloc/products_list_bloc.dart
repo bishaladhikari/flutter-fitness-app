@@ -1,3 +1,4 @@
+import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,6 +15,7 @@ class ProductsListBloc {
     ProductResponse response = await _repository.getProducts();
     _forYou.sink.add(response);
   }
+
   getFeaturedProducts() async {
     ProductResponse response = await _repository.getFeaturedProducts();
     _featured.sink.add(response);

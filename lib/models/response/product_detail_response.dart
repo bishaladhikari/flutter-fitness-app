@@ -1,7 +1,7 @@
 import '../product_detail.dart';
 
 class ProductDetailResponse {
-  final ProductDetail productDetail;
+  ProductDetail productDetail;
   final String error;
 
   ProductDetailResponse(this.productDetail, this.error);

@@ -14,8 +14,9 @@ class DetailWidget extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   ProductDetail productDetail;
+  ProductDetailBloc productDetailBloc;
 
-  DetailWidget({this.productDetail}) {
+  DetailWidget({this.productDetail,this.productDetailBloc}) {
     selectedAttribute = productDetail.selectedAttribute;
     selectedVariant = productDetail.selectedAttribute.variant;
   }
@@ -101,7 +102,7 @@ class _DetailWidgetState extends State<DetailWidget> {
               int index = widget.productDetail.attributes
                   .indexWhere((x) => x.variant?.id == variant.id);
               if (index > -1) {
-                productDetailBloc.setSelectedAttribute(
+                widget.productDetailBloc.setSelectedAttribute(
                     widget.productDetail.attributes[index]);
               }
             }, //callback when button is clicked
