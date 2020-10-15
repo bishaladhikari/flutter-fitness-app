@@ -26,6 +26,7 @@ class _CategoryListState extends State<CategoryList>
   @override
   void initState() {
     super.initState();
+    productsListByCategoryBloc = ProductsListByCategoryBloc();
     _tabController = TabController(vsync: this, length: categories.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
