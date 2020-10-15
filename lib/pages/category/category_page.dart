@@ -242,7 +242,7 @@ class _CategoryPageState extends State<CategoryPage>
     productsByCategoryBloc
       ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy,
           minPrice, maxPrice, types);
-    Navigator.of(context).pop();
+//    Navigator.of(context).pop();
   }
 
   @override
