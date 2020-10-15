@@ -9,26 +9,42 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class ProductsByCategory extends StatefulWidget {
   final String category;
   final String sortBy;
+  final String minPrice;
+  final String maxPrice;
+  final String types;
 
-  ProductsByCategory({Key key, @required this.category, @required this.sortBy})
+  ProductsByCategory(
+      {Key key,
+      @required this.category,
+      @required this.sortBy,
+      @required this.minPrice,
+      @required this.maxPrice,
+      @required this.types})
       : super(key: key);
 
   @override
   _ProductsByCategoryState createState() =>
-      _ProductsByCategoryState(category, sortBy);
+      _ProductsByCategoryState(category, sortBy, minPrice, maxPrice, types);
 }
 
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final String category;
   final String sortBy;
+  final String minPrice;
+  final String maxPrice;
+  final String types;
+
   ProductsListByCategoryBloc productsByCategoryBloc;
-  _ProductsByCategoryState(this.category, this.sortBy);
+
+  _ProductsByCategoryState(
+      this.category, this.sortBy, this.minPrice, this.maxPrice, this.types);
 
   @override
   void initState() {
     super.initState();
     productsByCategoryBloc = ProductsListByCategoryBloc();
-    productsByCategoryBloc..getCategoryProducts(category, sortBy);
+    productsByCategoryBloc
+      ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
   }
 
   @override

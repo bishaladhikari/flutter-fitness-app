@@ -332,12 +332,19 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getCategoryProducts(
-      String category, String sortBy) async {
-    var params = {"category": category, "sort_by": sortBy};
+  Future<ProductResponse> getCategoryProducts(String category, String sortBy, String minPrice, String maxPrice, String types) async {
+    var params = {
+      "category": category,
+      "sort_by": sortBy,
+      "starting_price": minPrice,
+      "ending_price" :maxPrice,
+      "types": types
+    };
+
+    print(params);
 
     try {
-//      _dio.options.headers = {"locale": "jp"};
+     _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {

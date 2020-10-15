@@ -4,7 +4,9 @@ import 'package:ecapp/pages/category/components/filter_list.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../constants.dart';
 import 'components/body.dart';
 import 'package:ecapp/bloc/get_categories_bloc.dart';
 
@@ -16,11 +18,22 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
   ProductsListByCategoryBloc productsByCategoryBloc;
+
+  Map<String, bool> values = {
+    'featured': false,
+    'best_sellers': false,
+    'new_arrivals': false,
+    'top_rated': false,
+  };
+  TextEditingController minController = TextEditingController();
+  TextEditingController maxController = TextEditingController();
+
   @override
   void initState() {
     productsByCategoryBloc = ProductsListByCategoryBloc();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,12 +73,13 @@ class _CategoryPageState extends State<CategoryPage>
                   ),
                 )),
             onPressed: () {
-              _filterProduct(context);
+              _showFilterProduct(context);
             },
           ),
         ),
       ]),
-      appBar: AppBar(backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
         title: SearchBox(),
       ),
@@ -130,7 +144,7 @@ class _CategoryPageState extends State<CategoryPage>
         });
   }
 
-  void _filterProduct(context) {
+  void _showFilterProduct(context) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -139,7 +153,73 @@ class _CategoryPageState extends State<CategoryPage>
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                children: <Widget>[FilterList()],
+                children: <Widget>[
+                  Text(
+                    'Filter Products',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 20),
+                  ),
+                  Column(
+                    children: values.keys.map((String key) {
+                      return new CheckboxListTile(
+                        title: Text(key),
+                        value: values[key],
+                        onChanged: (bool value) {
+                          print(value);
+                          setState(() {
+                            values[key] = value;
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  TextFormField(
+                    controller: minController,
+                    style: TextStyle(color: Color(0xFF000000)),
+                    cursorColor: Color(0xFF9b9b9b),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: "Min"),
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: maxController,
+                    style: TextStyle(color: Color(0xFF000000)),
+                    cursorColor: Color(0xFF9b9b9b),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: "Max"),
+                  ),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.green)),
+                      onPressed: () {
+                        _filterProducts('sortBy', minController.text.trim(),
+                            maxController.text.trim(), 'types');
+                      },
+                      child:
+                          const Text('Filter', style: TextStyle(fontSize: 20)),
+                      color: Colors.green,
+                      textColor: Colors.white,
+                      elevation: 5,
+                    ),
+                  )
+                ],
               ),
             ),
           );
@@ -147,8 +227,21 @@ class _CategoryPageState extends State<CategoryPage>
   }
 
   void _sortProducts(String sortBy) {
+    const minPrice = '';
+    const maxPrice = '';
+    const types = '';
+
     productsByCategoryBloc
-      ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy);
+      ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy,
+          minPrice, maxPrice, types);
+    Navigator.of(context).pop();
+  }
+
+  void _filterProducts(
+      String sortBy, String minPrice, String maxPrice, String types) {
+    productsByCategoryBloc
+      ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy,
+          minPrice, maxPrice, types);
     Navigator.of(context).pop();
   }
 
