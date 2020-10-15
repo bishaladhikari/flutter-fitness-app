@@ -21,20 +21,21 @@ class ProductsByCategory extends StatefulWidget {
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final String category;
   final String sortBy;
-
+  ProductsListByCategoryBloc productsByCategoryBloc;
   _ProductsByCategoryState(this.category, this.sortBy);
 
   @override
   void initState() {
     super.initState();
+    productsByCategoryBloc = ProductsListByCategoryBloc();
     productsByCategoryBloc..getCategoryProducts(category, sortBy);
   }
-//
-//  @override
-//  void dispose() {
-//    super.dispose();
-//    productsByCategoryBloc..drainStream();
-//  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    productsByCategoryBloc..drainStream();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
           height: 25.0,
           width: 25.0,
           child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
             strokeWidth: 4.0,
           ),
         )

@@ -1,3 +1,4 @@
+import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 
 class StarRating extends StatelessWidget {
@@ -15,7 +16,7 @@ class StarRating extends StatelessWidget {
     Color color;
     if (index >= rating) {
       icon = Icons.star;
-      color = Colors.grey;
+      color = NPrimaryColor;
     } else if (index > rating - 1 && index < rating) {
       icon = Icons.star_half;
       color = Colors.yellow;

@@ -36,4 +36,4 @@ class ProductsListByCategoryBloc {
   BehaviorSubject<String> get category => _category;
 }
 
-final productsByCategoryBloc = ProductsListByCategoryBloc();
+//final productsByCategoryBloc = ProductsListByCategoryBloc();

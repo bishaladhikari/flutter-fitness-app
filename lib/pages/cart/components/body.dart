@@ -20,11 +20,11 @@ class CartBody extends StatelessWidget {
               if (snapshot.hasData) {
                 if (snapshot.data.error != null &&
                     snapshot.data.error.length > 0) {
-                  return _buildErrorWidget(context,snapshot.data.error);
+                  return _buildErrorWidget(context, snapshot.data.error);
                 }
                 return _buildCartWidget(snapshot.data);
               } else if (snapshot.hasError) {
-                return _buildErrorWidget(context,snapshot.error);
+                return _buildErrorWidget(context, snapshot.error);
               } else {
                 return _buildLoadingWidget();
               }
@@ -79,7 +79,7 @@ class CartBody extends StatelessWidget {
     );
   }
 
-   Widget _buildCartWidget(CartResponse data) {
+  Widget _buildCartWidget(CartResponse data) {
     List<Cart> carts = data.carts;
     final cartChildren = <Widget>[];
     for (int i = 0; i < carts?.length ?? 0; i++) {
@@ -122,6 +122,27 @@ class CartBody extends StatelessWidget {
         ],
       ));
     }
+    if (carts.length == 0)
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            margin: const EdgeInsets.only(top:50),
+            child: Column(
+              children: [
+                Text("There are no items in this cart"),
+                SizedBox(height: 8.0,),
+                FlatButton(
+                  onPressed: () {},
+                  color: NPrimaryColor,
+                  textColor: Colors.white,
+                  child: Text("CONTINUE SHOPPING"),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
     return Container(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
@@ -131,21 +152,21 @@ class CartBody extends StatelessWidget {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 25.0,
+              width: 25.0,
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 4.0,
+              ),
+            )
+          ],
+        ));
   }
 
-  Widget _buildErrorWidget(context,String error) {
+  Widget _buildErrorWidget(context, String error) {
 //    return Center(
 //        child: Column(
 //      mainAxisAlignment: MainAxisAlignment.center,

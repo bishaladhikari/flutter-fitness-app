@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'dart:developer';
 
@@ -177,6 +178,16 @@ class Repository {
     }
   }
 
+  Future<AddToCartResponse> addToCart(params) async {
+    try {
+      Response response = await _dio.post(cartUrl, queryParameters: params);
+      return AddToCartResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return AddToCartResponse.withError(_handleError(error));
+    }
+  }
+
   Future<AddressResponse> getAddress() async {
     try {
       Response response = await _dio.get(addressUrl);
@@ -270,7 +281,7 @@ class Repository {
         "password": "$password",
         "confirm_password": "$cpassword",
       };
-    final response = await _dio.post(registerUrl, queryParameters: data);
+      final response = await _dio.post(registerUrl, queryParameters: data);
       return response;
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -404,8 +415,13 @@ class Repository {
                     .toList()
                     .map((v) => v.join("\n"))
                     .join("\n");
-              } else
+              } else if (dioError.response.data["message"] != null)
+                errorDescription = dioError.response.data["message"];
+              else
                 errorDescription = dioError.response.statusMessage;
+              break;
+            case 500:
+              errorDescription = "something went wrong on server";
               break;
           }
           break;

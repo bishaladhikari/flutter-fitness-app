@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
@@ -8,11 +9,13 @@ import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/svg.dart';
@@ -59,7 +62,9 @@ class ProductDetailPage extends StatefulWidget {
   }
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailPageState extends State<ProductDetailPage>
+    with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
@@ -98,59 +103,98 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     productDetailBloc..drainStream();
   }
 
+  addToCart(context,params) async{
+
+    AddToCartResponse response = await cartBloc.addToCart(params);
+    if (response.error != null) {
+      var snackbar = SnackBar(content: Text(response.error),backgroundColor: Colors.redAccent,);
+      _scaffoldKey.currentState.showSnackBar(snackbar);
+    }else{
+      var snackbar = SnackBar(content: Text("Item added successfully"),backgroundColor: NPrimaryColor,);
+      _scaffoldKey.currentState.showSnackBar(snackbar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+    ));
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.favorite_border),
-                    color: Colors.black26,
-                    onPressed: () {},
-                  ),
-                ],
-                iconTheme: IconThemeData(
-                  color: Colors.black, //change your color here
-                ),
-                backgroundColor: Colors.white,
-                expandedHeight: MediaQuery.of(context).size.height / 2.6,
-                floating: true,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
+      key: _scaffoldKey,
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.favorite_border),
+                color: NPrimaryColor,
+                splashRadius: 50,
+                splashColor: Colors.white,
+                onPressed: () {},
+              ),
+            ],
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            backgroundColor: Colors.white,
+            expandedHeight: MediaQuery.of(context).size.height / 2.6,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
 //                centerTitle: true,
-                  title: Text(
-                    widget.product.name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  background: Padding(
-                    padding: EdgeInsets.only(top: 48.0),
-                    child: StreamBuilder<ProductDetailResponse>(
-                        stream: productDetailBloc.subject.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            ProductDetail productDetail =
-                                snapshot.data.productDetail;
-                            return dottedSlider(
-                                productDetail.selectedAttribute.images);
-                          }
-                          return dottedSlider(widget.images);
-                        }),
-                  ),
-                )),
-          ];
-        },
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                  title: Expanded(
+//                    child: Text(
+//                      "I have a very long name which is "+widget.product.name,
+//                      style: TextStyle(
+//                        color: Colors.black,
+//                        fontSize: 14.0,
+//                      ),
+//                    ),
+//                  ),
+              background: StreamBuilder<ProductDetailResponse>(
+                  stream: productDetailBloc.subject.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      ProductDetail productDetail = snapshot.data.productDetail;
+                      return dottedSlider(
+                          productDetail.selectedAttribute.images);
+                    }
+                    return dottedSlider(widget.images);
+                  }),
+            )),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.product.name,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      StarRating(rating: widget.product.avgRating, size: 10),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text("(3) reviews")
+                    ],
+                  ),
+                ),
                 StreamBuilder<ProductDetailResponse>(
                     stream: productDetailBloc.subject.stream,
                     builder: (context, snapshot) {
@@ -174,96 +218,51 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 _buildSameSellerProducts(context),
                 _buildComments(context),
               ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        color: Theme.of(context).backgroundColor,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 11,
-        child: Container(
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(width: 0.5, color: Colors.black12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    child: Divider(
-                      color: Colors.black26,
-                      height: 4,
-                    ),
-                    height: 24,
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-                    color: Colors.black26,
-                    onPressed: () {},
-                  ),
-                  FlatButton(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.9,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                        color: ksecondaryColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8.0),
-                        ),
-//                    boxShadow: [
-//                      BoxShadow(
-//                        color: Colors.green,
-//                        blurRadius: 4.0,
-//                        spreadRadius: 2.0,
-//                        offset: Offset(0.0, 0.0),
-//                      )
-//                    ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          new Text(
-                            "Add to cart",
-                            style: TextStyle(color: Colors.white),
+            )
+          ]),
+        )
+      ]),
+      bottomNavigationBar: StreamBuilder<ProductDetailResponse>(
+        stream: productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            var attribute_id = snapshot.data.productDetail.selectedAttribute.id;
+            return Container(
+              color: Theme.of(context).backgroundColor,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 11,
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        SizedBox(
+                          child: Divider(
+                            color: Colors.black26,
+                            height: 4,
                           ),
-                        ],
-                      ),
-                    ),
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-              SizedBox(
-                width: 6,
-              ),
-              FlatButton(
-                onPressed: () {
-                  _alert(context);
-                  setState(() {
-                    isClicked = !isClicked;
-                  });
-                },
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 2.9,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: NPrimaryColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.0),
-                    ),
+                          height: 24,
+                        ),
+                        IconButton(
+                          icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
+                          color: Colors.black26,
+                          onPressed: () {},
+                        ),
+                        FlatButton(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 2.9,
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 170, 192, 211),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
 //                    boxShadow: [
 //                      BoxShadow(
 //                        color: Colors.green,
@@ -272,27 +271,99 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //                        offset: Offset(0.0, 0.0),
 //                      )
 //                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new Text(
-                        "Checkout",
-                        style: TextStyle(color: Colors.white),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text(
+                                  "Add to cart",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          onPressed: () {
+                            var params = {"attribute_id": attribute_id, "combo_id": null, "quantity": 1};
+                            addToCart(context,params);
+                          },
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        _alert(context);
+                        setState(() {
+                          isClicked = !isClicked;
+                        });
+                      },
+                      textColor: Colors.white,
+                      padding: const EdgeInsets.all(0.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ],
-                  ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.9,
+                        height: 50,
+                        decoration: const BoxDecoration(
+                          color: NPrimaryColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
+//                    boxShadow: [
+//                      BoxShadow(
+//                        color: Colors.green,
+//                        blurRadius: 4.0,
+//                        spreadRadius: 2.0,
+//                        offset: Offset(0.0, 0.0),
+//                      )
+//                    ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            new Text(
+                              "Checkout",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+            );
+          }
+          return Container(
+            color: Colors.white70,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 11,
+            child: Shimmer.fromColors(baseColor:Colors.black26,
+                highlightColor: Colors.white70,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(height: 25,color: Colors.black26,),
+                )),
+          );
+        }
       ),
     );
   }
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
+//    final controller = AnimationController(
+//      vsync: this,
+//        duration: Duration(milliseconds: 500));
+//    final animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+//    controller.forward();
     return DetailWidget(
         productDetail: productDetail, productDetailBloc: productDetailBloc);
   }
@@ -461,7 +532,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 200,
+            height: 300,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
@@ -470,7 +541,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           errorWidget: (context, url, error) => Center(
             child: Container(
-              height: 100,
+              height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
@@ -505,7 +576,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         children.add(_productSlideImage(images[i].imageThumbnail));
       }
     }
-    return DottedSlider(maxHeight: 200, children: children);
+    return DottedSlider(
+      maxHeight: 280,
+      children: children,
+      color: NPrimaryColor,
+    );
   }
 
   _buildComments(BuildContext context) {
