@@ -2,6 +2,7 @@ import 'package:ecapp/bloc/get_categories_bloc.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'category_item.dart';
 
 class CategoryList extends StatelessWidget {
@@ -28,20 +29,28 @@ class CategoryList extends StatelessWidget {
   }
 
   Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
+    
+      return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.black26,
+        period: Duration(milliseconds: 1000),
+        highlightColor: Colors.white70,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              children: [
+            Container(height: 40,width: 330, color: Colors.black26),
+              ],
+            ),
+           
+          ],
+        ),
+      ),
+    );
+ 
   }
 
   Widget _buildErrorWidget(String error) {
