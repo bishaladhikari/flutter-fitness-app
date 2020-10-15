@@ -63,13 +63,18 @@ class _ProductsListState extends State<FeaturedProductsList> {
                   Container(height: 220, width: 150, color: Colors.black26),
                 ],
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 15),
               Column(
                 children: [
                   Container(height: 220, width: 150, color: Colors.black26),
                 ],
               ),
-              SizedBox(width: 20),
+              SizedBox(width:15 ),
+              Column(
+                children: [
+                  Container(height: 220, width: 10, color: Colors.black26),
+                ],
+              ),
             ],
           ),
         ),
