@@ -60,7 +60,8 @@ class ProductDetailPage extends StatefulWidget {
   }
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailPageState extends State<ProductDetailPage>
+    with TickerProviderStateMixin {
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
@@ -138,8 +139,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   stream: productDetailBloc.subject.stream,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      ProductDetail productDetail =
-                          snapshot.data.productDetail;
+                      ProductDetail productDetail = snapshot.data.productDetail;
                       return dottedSlider(
                           productDetail.selectedAttribute.images);
                     }
@@ -156,8 +156,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(widget.product.name,style:
-                      TextStyle(fontSize: 24,color: Colors.black,fontWeight: FontWeight.bold),),
+                      Text(
+                        widget.product.name,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      StarRating(rating: widget.product.avgRating, size: 10),
+                      SizedBox(width: 8,),
+                      Text("(3) reviews")
                     ],
                   ),
                 ),
@@ -218,11 +234,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   FlatButton(
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2.9,
-                      height: 60,
+                      height: 50,
                       decoration: const BoxDecoration(
-                        color: ksecondaryColor,
+                        color: Color.fromARGB(255, 170, 192, 211),
                         borderRadius: BorderRadius.all(
-                          Radius.circular(8.0),
+                          Radius.circular(5.0),
                         ),
 //                    boxShadow: [
 //                      BoxShadow(
@@ -268,11 +284,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 child: Container(
                   width: MediaQuery.of(context).size.width / 2.9,
-                  height: 60,
+                  height: 50,
                   decoration: const BoxDecoration(
                     color: NPrimaryColor,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(8.0),
+                      Radius.circular(5.0),
                     ),
 //                    boxShadow: [
 //                      BoxShadow(
@@ -303,6 +319,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   _buildDetailWidget(ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
+//    final controller = AnimationController(
+//      vsync: this,
+//        duration: Duration(milliseconds: 500));
+//    final animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+//    controller.forward();
     return DetailWidget(
         productDetail: productDetail, productDetailBloc: productDetailBloc);
   }
@@ -471,7 +492,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 280,
+            height: 300,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
@@ -480,7 +501,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           errorWidget: (context, url, error) => Center(
             child: Container(
-              height: 260,
+              height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
@@ -515,7 +536,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         children.add(_productSlideImage(images[i].imageThumbnail));
       }
     }
-    return DottedSlider(maxHeight: 280, children: children,color: NPrimaryColor,);
+    return DottedSlider(
+      maxHeight: 280,
+      children: children,
+      color: NPrimaryColor,
+    );
   }
 
   _buildComments(BuildContext context) {
