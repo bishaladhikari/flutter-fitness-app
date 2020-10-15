@@ -9,7 +9,7 @@ class BannerResponse {
 
   BannerResponse.fromJson(Map<String, dynamic> json)
       : banners =
-            (json["data"] as List).map((i) => new Address.fromJson(i)).toList(),
+            (json["data"] as List).map((i) => new Banner.fromJson(i)).toList(),
         error = null;
 
   BannerResponse.withError(String errorValue)
