@@ -12,16 +12,18 @@ class ProductsByCategory extends StatefulWidget {
   final String minPrice;
   final String maxPrice;
   final String types;
-  final ProductsListByCategoryBloc productsByCategoryBloc;
+  ProductsListByCategoryBloc _productsByCategoryBloc;
+
+  get productsByCategoryBloc => _productsByCategoryBloc;
 
   ProductsByCategory(
       {Key key,
-      this.productsByCategoryBloc,
-      @required this.category,
-      @required this.sortBy,
-      @required this.minPrice,
-      @required this.maxPrice,
-      @required this.types})
+//      this.productsByCategoryBloc,
+      this.category,
+      this.sortBy,
+      this.minPrice,
+      this.maxPrice,
+      this.types})
       : super(key: key);
 
   @override
@@ -44,8 +46,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   void initState() {
     super.initState();
 //    productsByCategoryBloc = ProductsListByCategoryBloc();
-    productsByCategoryBloc = widget.productsByCategoryBloc;
-    productsByCategoryBloc
+//    productsByCategoryBloc = widget._productsByCategoryBloc;
+    widget._productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
   }
 

@@ -231,7 +231,7 @@ class _CategoryPageState extends State<CategoryPage>
     const maxPrice = '';
     const types = '';
 
-    productsByCategoryBloc
+    ProductsByCategory().productsByCategoryBloc
       ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy,
           minPrice, maxPrice, types);
     Navigator.of(context).pop();

@@ -72,8 +72,7 @@ class _CategoryListState extends State<CategoryList>
             body: TabBarView(
               controller: _tabController,
               children: categories.map((Category category) {
-                productsByCategoryBloc = ProductsListByCategoryBloc();
-                return ProductsByCategory(category: category.slug,productsByCategoryBloc: productsByCategoryBloc,);
+                return ProductsByCategory(category: category.slug,);
               }).toList(),
             )),
       ),
