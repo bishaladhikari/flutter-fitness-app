@@ -117,9 +117,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-    ));
+//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//      statusBarColor: Colors.white,
+//    ));
     return Scaffold(
       key: _scaffoldKey,
       body: CustomScrollView(slivers: [
