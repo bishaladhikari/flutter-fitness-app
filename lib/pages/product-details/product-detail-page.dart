@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
@@ -8,6 +9,7 @@ import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/variant.dart';
@@ -62,6 +64,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage>
     with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
@@ -100,12 +103,25 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     productDetailBloc..drainStream();
   }
 
+  addToCart(context,params) async{
+
+    AddToCartResponse response = await cartBloc.addToCart(params);
+    if (response.error != null) {
+      var snackbar = SnackBar(content: Text(response.error),backgroundColor: Colors.redAccent,);
+      _scaffoldKey.currentState.showSnackBar(snackbar);
+    }else{
+      var snackbar = SnackBar(content: Text("Item added successfully"),backgroundColor: NPrimaryColor,);
+      _scaffoldKey.currentState.showSnackBar(snackbar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.white,
     ));
     return Scaffold(
+      key: _scaffoldKey,
       body: CustomScrollView(slivers: [
         SliverAppBar(
             actions: <Widget>[
@@ -172,7 +188,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   child: Row(
                     children: [
                       StarRating(rating: widget.product.avgRating, size: 10),
-                      SizedBox(width: 8,),
+                      SizedBox(
+                        width: 8,
+                      ),
                       Text("(3) reviews")
                     ],
                   ),
@@ -204,92 +222,47 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           ]),
         )
       ]),
-      bottomNavigationBar: Container(
-        color: Theme.of(context).backgroundColor,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 11,
-        child: Container(
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(width: 0.5, color: Colors.black12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    child: Divider(
-                      color: Colors.black26,
-                      height: 4,
-                    ),
-                    height: 24,
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-                    color: Colors.black26,
-                    onPressed: () {},
-                  ),
-                  FlatButton(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.9,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 170, 192, 211),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5.0),
-                        ),
-//                    boxShadow: [
-//                      BoxShadow(
-//                        color: Colors.green,
-//                        blurRadius: 4.0,
-//                        spreadRadius: 2.0,
-//                        offset: Offset(0.0, 0.0),
-//                      )
-//                    ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          new Text(
-                            "Add to cart",
-                            style: TextStyle(color: Colors.white),
+      bottomNavigationBar: StreamBuilder<ProductDetailResponse>(
+        stream: productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            var attribute_id = snapshot.data.productDetail.selectedAttribute.id;
+            return Container(
+              color: Theme.of(context).backgroundColor,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 11,
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 0.5, color: Colors.black12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        SizedBox(
+                          child: Divider(
+                            color: Colors.black26,
+                            height: 4,
                           ),
-                        ],
-                      ),
-                    ),
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-              SizedBox(
-                width: 6,
-              ),
-              FlatButton(
-                onPressed: () {
-                  _alert(context);
-                  setState(() {
-                    isClicked = !isClicked;
-                  });
-                },
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 2.9,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    color: NPrimaryColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
+                          height: 24,
+                        ),
+                        IconButton(
+                          icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
+                          color: Colors.black26,
+                          onPressed: () {},
+                        ),
+                        FlatButton(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 2.9,
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 170, 192, 211),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
 //                    boxShadow: [
 //                      BoxShadow(
 //                        color: Colors.green,
@@ -298,21 +271,88 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //                        offset: Offset(0.0, 0.0),
 //                      )
 //                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      new Text(
-                        "Checkout",
-                        style: TextStyle(color: Colors.white),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text(
+                                  "Add to cart",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          onPressed: () {
+                            var params = {"attribute_id": attribute_id, "combo_id": null, "quantity": 1};
+                            addToCart(context,params);
+                          },
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 6,
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        _alert(context);
+                        setState(() {
+                          isClicked = !isClicked;
+                        });
+                      },
+                      textColor: Colors.white,
+                      padding: const EdgeInsets.all(0.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ],
-                  ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.9,
+                        height: 50,
+                        decoration: const BoxDecoration(
+                          color: NPrimaryColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
+//                    boxShadow: [
+//                      BoxShadow(
+//                        color: Colors.green,
+//                        blurRadius: 4.0,
+//                        spreadRadius: 2.0,
+//                        offset: Offset(0.0, 0.0),
+//                      )
+//                    ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            new Text(
+                              "Checkout",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+            );
+          }
+          return Container(
+            color: Colors.white70,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 11,
+            child: Shimmer.fromColors(baseColor:Colors.black26,
+                highlightColor: Colors.white70,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(height: 25,color: Colors.black26,),
+                )),
+          );
+        }
       ),
     );
   }

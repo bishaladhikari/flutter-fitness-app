@@ -8,7 +8,7 @@ class ProductDetailResponse {
 
   ProductDetailResponse.fromJson(Map<String, dynamic> json)
       : productDetail = ProductDetail.fromJson(json["data"]),
-        error = "";
+        error = null;
 
   ProductDetailResponse.withError(String errorValue)
       : productDetail = ProductDetail(),
