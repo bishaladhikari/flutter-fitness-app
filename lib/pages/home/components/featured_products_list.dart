@@ -5,6 +5,7 @@ import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'item_card.dart';
 
 class FeaturedProductsList extends StatefulWidget {
@@ -43,20 +44,37 @@ class _ProductsListState extends State<FeaturedProductsList> {
   }
 
   Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
+    var width = MediaQuery.of(context).size.width - 16;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.black26,
+        period: Duration(milliseconds: 1000),
+        highlightColor: Colors.white70,
+        child: Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                children: [
+                  Container(height: 220, width: 150, color: Colors.black26),
+                ],
+              ),
+              SizedBox(width: 20),
+              Column(
+                children: [
+                  Container(height: 220, width: 150, color: Colors.black26),
+                ],
+              ),
+              SizedBox(width: 20),
+            ],
           ),
-        )
-      ],
-    ));
+        ),
+      ),
+    );
   }
 
   Widget _buildErrorWidget(String error) {
@@ -90,7 +108,6 @@ class _ProductsListState extends State<FeaturedProductsList> {
               itemBuilder: (context, index) {
                 return ProductItem(product: products[index]);
               }),
-        )
-    );
+        ));
   }
 }
