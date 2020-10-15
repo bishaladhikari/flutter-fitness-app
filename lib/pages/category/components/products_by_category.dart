@@ -78,8 +78,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 25.0,
-          width: 25.0,
+          height: 35.0,
+          width: 35.0,
           child: CircularProgressIndicator(
             valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
             strokeWidth: 4.0,
