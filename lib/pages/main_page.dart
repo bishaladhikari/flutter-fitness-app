@@ -1,11 +1,14 @@
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/get_categories_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'account/account-page.dart';
-import 'cart/cart_page.dart';
+import 'cart/cart-page.dart';
 import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -17,7 +20,18 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     categoryBloc..getCategories();
+    productsBloc..getFeaturedProducts();
+    productsBloc..getProducts();
+    cartBloc..getCart();
+//    comboBloc.getComboProducts();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    productsBloc..dispose();
+  }
+
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomePage(),
@@ -26,7 +40,7 @@ class _MainPageState extends State<MainPage> {
     AccountPage()
   ];
 
-  void _onPageChanged(int index) {}
+  void _onPageChanged(int index) {if(index==2)cartBloc.getCart();}
   int currentPage = 0;
   int cart_count = 0;
 
@@ -40,7 +54,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(child : leftDrawerMenu()),
+      drawer: Drawer(child: leftDrawerMenu()),
       body: PageView(
         controller: _pageController,
         children: _screens,
@@ -88,29 +102,10 @@ class _MainPageState extends State<MainPage> {
               onPressed: () => {_changePage(1)},
             ),
             IconButton(
-              icon: Stack(
-                children: [
-                  currentPage == 2
-                      ? SvgPicture.asset("assets/icons/Cart_03.svg",
-                          color: NPrimaryColor)
-                      : SvgPicture.asset("assets/icons/Cart_02.svg"),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.orange),
-                      child: Text(
-                        cart_count.toString(),
-                        style: TextStyle(fontSize: 10, color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              icon: currentPage == 2
+                  ? SvgPicture.asset("assets/icons/Cart_03.svg",
+                      color: NPrimaryColor)
+                  : SvgPicture.asset("assets/icons/Cart_02.svg"),
               padding: EdgeInsets.all(10),
               onPressed: () => {_changePage(2)},
             ),
@@ -128,6 +123,23 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
+//Expanded(
+//child: Container(
+//alignment: Alignment.center,
+//margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
+//width: 15,
+//height: 15,
+//decoration: BoxDecoration(
+//borderRadius: BorderRadius.circular(10),
+//color: Colors.orange),
+//child: Text(
+//cart_count.toString(),
+//style: TextStyle(fontSize: 10, color: Colors.white),
+//),
+//),
+//)
+
+
 leftDrawerMenu() {
   Color blackColor = Colors.black.withOpacity(0.6);
   return Container(
@@ -144,8 +156,7 @@ leftDrawerMenu() {
                 size: 28,
               ),
               subtitle: GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Text(
                   "See Profile",
                   style: TextStyle(
@@ -179,10 +190,11 @@ leftDrawerMenu() {
           title: Text(
             'Home',
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w600, color: kPrimaryColor),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: kPrimaryColor),
           ),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           trailing: Icon(
@@ -196,8 +208,7 @@ leftDrawerMenu() {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: blackColor)),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           leading: Icon(Icons.home, color: ksecondaryColor),
@@ -206,8 +217,7 @@ leftDrawerMenu() {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: blackColor)),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         ListTile(
           trailing: Icon(
@@ -221,9 +231,7 @@ leftDrawerMenu() {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: blackColor)),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
 //        ListTile(
 //          trailing: Icon(
@@ -326,4 +334,3 @@ leftDrawerMenu() {
     ),
   );
 }
-

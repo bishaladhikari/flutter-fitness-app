@@ -1,18 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/pages/product-details/product-details.dart';
+import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/ionicons.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-  final List<Color> gradientColors;
+
+//  final List<Color> gradientColors;
   final width;
 
-  ProductItem({this.product, this.gradientColors, this.width = 150.0});
+  ProductItem({this.product, this.width = 150.0});
 
   @override
   Widget build(BuildContext context) {
@@ -64,50 +66,50 @@ class ProductItem extends StatelessWidget {
         ],
       ),
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ProductDetails(
-              product: product,
-            ),
-          ),
-        );
+//        productDetailBloc..drainStream();
+        Navigator.of(context).pushNamed("productDetailPage",arguments: product);
       },
     );
   }
 
   _productImage() {
+    print("index is: " + product.heroTag.toString());
     return Stack(
       children: <Widget>[
         Center(
-          child: CachedNetworkImage(
-            placeholder: (context, url) => Center(
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
+          child: Hero(
+            tag: product.heroTag,
+//            tag:product.imageThumbnail,
+            child: CachedNetworkImage(
+              placeholder: (context, url) => Center(
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/placeholder.png"),
+                        fit: BoxFit.cover),
+                  ),
                 ),
               ),
-            ),
-            imageUrl: product.imageThumbnail,
+              imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
-            imageBuilder: (context, imageProvider) => Container(
+              imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-              height: 100,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              )),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Container(
                 height: 100,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
+                    image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                )),
+              ),
+              errorWidget: (context, url, error) => Center(
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/placeholder.png"),
+                        fit: BoxFit.cover),
+                  ),
                 ),
               ),
             ),
@@ -142,7 +144,11 @@ class ProductItem extends StatelessWidget {
       children: <Widget>[
         Text(
           product.name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
+        ),
+        SizedBox(
+          height: 8,
         ),
         Text(
           product.category.name,
@@ -151,18 +157,24 @@ class ProductItem extends StatelessWidget {
         SizedBox(height: 10),
         Row(
           children: <Widget>[
-            Text(product.sellingPrice,
+            Text(
+                product.discountPrice != null
+                    ? "\$" + product.discountPrice
+                    : "\$" + product.sellingPrice,
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: NPrimaryColor)),
-            Text(
-              '#00.000',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 10,
-                  decoration: TextDecoration.lineThrough),
-            )
+            SizedBox(width: 8),
+            product.discountPrice != null
+                ? Text(
+                    "\$" + product.sellingPrice,
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10,
+                        decoration: TextDecoration.lineThrough),
+                  )
+                : Container()
           ],
         ),
         SizedBox(height: 10),

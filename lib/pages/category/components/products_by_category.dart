@@ -1,7 +1,7 @@
 import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/models/product_response.dart';
+import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -21,13 +21,20 @@ class ProductsByCategory extends StatefulWidget {
 class _ProductsByCategoryState extends State<ProductsByCategory> {
   final String category;
   final String sortBy;
-
+  ProductsListByCategoryBloc productsByCategoryBloc;
   _ProductsByCategoryState(this.category, this.sortBy);
 
   @override
   void initState() {
     super.initState();
+    productsByCategoryBloc = ProductsListByCategoryBloc();
     productsByCategoryBloc..getCategoryProducts(category, sortBy);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    productsByCategoryBloc..drainStream();
   }
 
   @override
@@ -58,7 +65,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
           height: 25.0,
           width: 25.0,
           child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
             strokeWidth: 4.0,
           ),
         )

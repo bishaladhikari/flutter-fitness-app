@@ -17,9 +17,9 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SearchBox(
-            onChanged: (value) {},
-          ),
+//          SearchBox(
+//            onChanged: (value) {},
+//          ),
           CategoryList(),
           DiscountCard(),
           SizedBox(height: 20),

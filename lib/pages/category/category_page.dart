@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/components/search_box.dart';
 import 'package:ecapp/pages/category/components/filter_list.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,12 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
+  ProductsListByCategoryBloc productsByCategoryBloc;
+  @override
+  void initState() {
+    productsByCategoryBloc = ProductsListByCategoryBloc();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,41 +65,9 @@ class _CategoryPageState extends State<CategoryPage>
           ),
         ),
       ]),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
-        ),
-        title: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: BoxDecoration(
-            color: Color(0xFFE0E0E0),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          child: TextField(
-            cursorColor: Colors.grey,
-            style: TextStyle(fontSize: 16.0, color: Colors.black),
-            decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                  size: 20,
-                ),
-                border: InputBorder.none,
-                hintText: "Search",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 20.0)),
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-            color: Colors.black,
-            onPressed: () {},
-          ),
-          SizedBox(width: 20.0 / 2)
-        ],
+        title: SearchBox(),
       ),
       body: CategoryBody(),
     );

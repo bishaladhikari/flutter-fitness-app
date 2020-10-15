@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'category.dart';
 
 class Product {
@@ -20,26 +22,30 @@ class Product {
   double avgRating;
   bool saved;
   int attributeId;
+  String heroTag;
+  Product productDetail;
 
-  Product({this.id,
-    this.name,
-    this.category,
-    this.discountPercentage,
-    this.availability,
-    this.sellingPrice,
-    this.discountPrice,
-    this.image,
-    this.imageThumbnail,
-    this.soldBy,
-    this.weight,
-    this.unit,
-    this.variant,
-    this.variantTitle,
-    this.actualQuantity,
-    this.slug,
-    this.avgRating,
-    this.saved,
-    this.attributeId});
+  Product(
+      {this.id,
+      this.name,
+      this.category,
+      this.discountPercentage,
+      this.availability,
+      this.sellingPrice,
+      this.discountPrice,
+      this.image,
+      this.imageThumbnail,
+      this.soldBy,
+      this.weight,
+      this.unit,
+      this.variant,
+      this.variantTitle,
+      this.actualQuantity,
+      this.slug,
+      this.avgRating,
+      this.saved,
+      this.heroTag,
+      this.attributeId});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,7 +56,8 @@ class Product {
     discountPercentage = json['discount_percentage'];
     availability = json['availability'];
     sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'];
+    discountPrice =
+        json['discount_price'] != null ? json['discount_price'] : null;
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
     soldBy = json['sold_by'];
@@ -60,8 +67,9 @@ class Product {
     variantTitle = json['variant_title'];
     actualQuantity = json['actual_quantity'];
     slug = json['slug'];
-    avgRating = json['avg_rating'];
+    avgRating = json['avg_rating']!=null?json['avg_rating']:0;
     saved = json['saved'];
     attributeId = json['attribute_id'];
+    heroTag = Uuid().v4();
   }
 }
