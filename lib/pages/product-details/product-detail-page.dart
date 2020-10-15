@@ -165,7 +165,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         SliverList(
           delegate: SliverChildListDelegate([
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
