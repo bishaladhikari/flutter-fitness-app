@@ -43,6 +43,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
+//    productsByCategoryBloc = ProductsListByCategoryBloc();
     productsByCategoryBloc = widget.productsByCategoryBloc;
     productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
