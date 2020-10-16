@@ -70,13 +70,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
+  AnimationController _ColorAnimationController;
+  Animation _opacityTween, _iconColorTween;
 
   setImages(value) {
     setState(() {
       widget.images = value;
     });
   }
-
 
 //  set selectedAttribute(Attribute value) {
 //    setState(() {
@@ -90,6 +91,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   @override
   void initState() {
+    _ColorAnimationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 0));
+    _opacityTween = Tween(begin: 0.0, end: 1.0)
+        .animate(_ColorAnimationController);
     productDetailBloc = ProductDetailBloc();
 
     slug = widget.product.slug;
@@ -140,107 +145,165 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         children: [
           NotificationListener<ScrollUpdateNotification>(
             child: ListView(
+//              mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  height: 200,
-                  width: double.infinity,
-                  color: Colors.red,
-                  child: Stack(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          color: Colors.pink,
-                        ),
-                      ),
-                      Expanded(
-                        child: Opacity(
-                          opacity: myscroll <= 0 ? 0 : myscroll,
-                          child: Container(
-                            height: 80,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () => {
-                                    print(widget)
-                                  },
-                                  icon: Icon(Icons.arrow_back),
-                                  highlightColor: Colors.white,
-                                  color: Colors.black,
-                                  focusColor: Colors.white,
-                                ),
-                                SizedBox(
-                                  width: 250,
-                                ),
-                                IconButton(
-                                  onPressed: () => {},
-                                  icon: Icon(Icons.settings),
-                                  highlightColor: Colors.white,
-                                  color: Colors.black,
-                                  focusColor: Colors.white,
-                                ),
-                                IconButton(
-                                  onPressed: () => {},
-                                  icon: Icon(Icons.account_circle),
-                                  highlightColor: Colors.white,
-                                  color: Colors.black,
-                                  focusColor: Colors.white,
-                                ),
-                              ],
-                            ),
+                Stack(
+                  children: [
+                    StreamBuilder<ProductDetailResponse>(
+                        stream: productDetailBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            ProductDetail productDetail =
+                                snapshot.data.productDetail;
+                            return dottedSlider(
+                                productDetail.selectedAttribute.images);
+                          }
+                          return dottedSlider(widget.images);
+                        }),
+                    Container(
+                      height: 80,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () => {print(widget)},
+                            icon: Icon(Icons.arrow_back),
+                            highlightColor: Colors.white,
+                            color: Colors.black,
+                            focusColor: Colors.white,
                           ),
-                        ),
+                          Spacer(),
+                          IconButton(
+                            onPressed: () => {},
+                            icon: Icon(Icons.settings),
+                            highlightColor: Colors.white,
+                            color: Colors.black,
+                            focusColor: Colors.white,
+                          ),
+                          IconButton(
+                            onPressed: () => {},
+                            icon: Icon(Icons.account_circle),
+                            highlightColor: Colors.white,
+                            color: Colors.black,
+                            focusColor: Colors.white,
+                          ),
+                        ],
                       ),
-
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Container(height: 1000, width: double.infinity, color: Colors.blue)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.product.name,
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          StarRating(
+                              rating: widget.product.avgRating, size: 10),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text("(3) reviews")
+                        ],
+                      ),
+                    ),
+                    StreamBuilder<ProductDetailResponse>(
+                        stream: productDetailBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data.error != null &&
+                                snapshot.data.error.length > 0) {
+                              return _buildErrorWidget(
+                                  snapshot.data.error);
+                            }
+                            return _buildDetailWidget(snapshot.data);
+                          } else if (snapshot.hasError) {
+                            return _buildErrorWidget(snapshot.error);
+                          } else {
+                            return _buildLoadingWidget(context);
+                          }
+                          return _buildLoadingWidget(context);
+                        }),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _buildProducts(context),
+//                    _buildSameSellerProducts(context),
+                    _buildComments(context),
+                  ],
+                )
               ],
             ),
             onNotification: (notification) {
               //How many pixels scrolled from pervious frame
 //          print(notification.scrollDelta);
 
-
               //List scroll position
 //          print(notification.metrics.pixels);
-              setState(() {
-                myscroll = 100 - notification.metrics.pixels;
-                appBarV = (notification.metrics.pixels/ 100);
-                myscroll = ( myscroll / 100 );
-                print(myscroll);
-              });
+//              setState(() {
+//                myscroll = 100 - notification.metrics.pixels;
+//                appBarV = (notification.metrics.pixels / 100);
+//                myscroll = (myscroll / 100);
+//                print(myscroll);
+//              });
+//              return true;
+              if (notification.metrics.axis == Axis.vertical) {
+                _ColorAnimationController.animateTo(notification.metrics.pixels / 350);
+                return true;
+              }
+              return false;
             },
           ),
-          IgnorePointer(
-            ignoring: true,
-            child: Expanded(
-              child: Opacity(
-
-                opacity: appBarV >= 1 ? 1 : appBarV,
+          AnimatedBuilder(
+            animation: _ColorAnimationController,
+            builder: (BuildContext context, Widget child) {
+              return Opacity(
+                opacity: _opacityTween.value,
                 child: Container(
                   height: 100,
-                  padding: EdgeInsets.only(top:15),
+                  padding: EdgeInsets.only(top: 15),
                   width: double.infinity,
                   color: Colors.white,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
 //                    crossAxisAlignment: MainAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
 //                    crossAxisAlignment: Alignment.bottomCenter,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back, color:Colors.black),
+                        icon: Icon(Icons.arrow_back, color: Colors.black),
+                        onPressed: () {},
                       ),
-                      Text('Hay Its a New App', style: TextStyle(fontSize: 20, color: Colors.black),),
+                      Text(
+                        widget.product.name,
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                      Spacer(),
                       IconButton(
-                        icon: Icon(Icons.search)
+                        icon: Icon(Icons.favorite_border),
+                        onPressed: () {},
                       )
                     ],
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),
