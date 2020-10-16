@@ -232,7 +232,7 @@ class _CategoryPageState extends State<CategoryPage>
     const types = '';
 
     ProductsByCategory().productsByCategoryBloc
-      ..getCategoryProducts(productsByCategoryBloc.category.value, sortBy,
+      ..getCategoryProducts(ProductsByCategory().productsByCategoryBloc.category.value, sortBy,
           minPrice, maxPrice, types);
     Navigator.of(context).pop();
   }
