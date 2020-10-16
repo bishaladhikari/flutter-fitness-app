@@ -70,8 +70,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
-  AnimationController _ColorAnimationController;
-  Animation _opacityTween, _iconColorTween;
+  AnimationController _animationController;
+  Animation _opacityTween;
 
   setImages(value) {
     setState(() {
@@ -91,10 +91,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   @override
   void initState() {
-    _ColorAnimationController =
+    _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 0));
     _opacityTween = Tween(begin: 0.0, end: 1.0)
-        .animate(_ColorAnimationController);
+        .animate(_animationController);
     productDetailBloc = ProductDetailBloc();
 
     slug = widget.product.slug;
@@ -264,14 +264,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //              });
 //              return true;
               if (notification.metrics.axis == Axis.vertical) {
-                _ColorAnimationController.animateTo(notification.metrics.pixels / 350);
+                _animationController.animateTo(notification.metrics.pixels / 350);
                 return true;
               }
               return false;
             },
           ),
           AnimatedBuilder(
-            animation: _ColorAnimationController,
+            animation: _animationController,
             builder: (BuildContext context, Widget child) {
               return Opacity(
                 opacity: _opacityTween.value,
