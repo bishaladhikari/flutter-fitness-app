@@ -26,9 +26,18 @@ class Body extends StatelessWidget {
           SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Featured Products".tr().toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+            child: Row(
+              children: [
+                Text(
+                  "Featured Products".tr().toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                ),
+//                Spacer(),
+//                IconButton(
+//                  icon: Icon(Icons.arrow_forward),
+//                  color:NPrimaryColor, onPressed: () {  },
+//                )
+              ],
             ),
           ),
           FeaturedProductsList(),
