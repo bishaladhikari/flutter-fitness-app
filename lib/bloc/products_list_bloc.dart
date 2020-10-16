@@ -9,6 +9,8 @@ class ProductsListBloc {
       BehaviorSubject<ProductResponse>();
   final BehaviorSubject<ProductResponse> _featured =
   BehaviorSubject<ProductResponse>();
+  final BehaviorSubject<ProductResponse> _newArrivals =
+  BehaviorSubject<ProductResponse>();
 
 
   getProducts() async {
@@ -21,13 +23,20 @@ class ProductsListBloc {
     _featured.sink.add(response);
   }
 
+  getNewArrivals() async {
+    ProductResponse response = await _repository.getNewArrivals();
+    _newArrivals.sink.add(response);
+  }
+
   dispose() {
     _forYou.close();
     _featured.close();
+    _newArrivals.close();
   }
 
   BehaviorSubject<ProductResponse> get forYou => _forYou;
   BehaviorSubject<ProductResponse> get featured => _featured;
+  BehaviorSubject<ProductResponse> get newArrivals => _newArrivals;
 }
 
 final productsBloc = ProductsListBloc();

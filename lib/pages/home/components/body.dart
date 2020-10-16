@@ -9,6 +9,7 @@ import 'category_list.dart';
 import 'discount_card.dart';
 import 'featured_products_list.dart';
 import 'item_list.dart';
+import 'new_arrivals_products_list.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -26,7 +27,7 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              "featured_products".tr().toString(),
+              "Featured Products".tr().toString(),
               style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
             ),
           ),
@@ -35,7 +36,16 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              "products_for_you".tr().toString(),
+              "New Arrivals".tr().toString(),
+              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+            ),
+          ),
+          NewArrivalsProductsList(),
+          SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "Products for you".tr().toString(),
               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15, color: kTextColor),
             ),
           ),
