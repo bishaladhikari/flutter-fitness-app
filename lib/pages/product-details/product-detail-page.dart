@@ -170,10 +170,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           margin: const EdgeInsets.only(top:20),
                           child: Row(
                             children: [
-                              RawMaterialButton(
-                                onPressed: () {},
+                              MaterialButton(
+                                onPressed: () {
+                                  print("backing");
+                                  Navigator.pop(context);
+                                },
                                 elevation: 2.0,
-                                fillColor: Colors.white,
+                                color: Colors.white,
                                 child: Icon(
                                   Icons.arrow_back,
                                   color: NPrimaryColor,
