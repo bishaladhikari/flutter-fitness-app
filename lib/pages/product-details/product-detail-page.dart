@@ -143,111 +143,117 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       body: Stack(
         children: [
           NotificationListener<ScrollUpdateNotification>(
-            child: ListView(
+            child: CustomScrollView(
 //              mainAxisSize: MainAxisSize.max,
-              children: [
-                Stack(
-                  children: [
-                    StreamBuilder<ProductDetailResponse>(
-                        stream: productDetailBloc.subject.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            ProductDetail productDetail =
-                                snapshot.data.productDetail;
-                            return dottedSlider(
-                                productDetail.selectedAttribute.images);
-                          }
-                          return dottedSlider(widget.images);
-                        }),
-                    Container(
-                      height: 80,
-                      child: Row(
-                        children: [
-                          RawMaterialButton(
-                            onPressed: () {},
-                            elevation: 2.0,
-                            fillColor: Colors.white,
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: NPrimaryColor,
-//                              size: 35.0,
-                            ),
-                            padding: EdgeInsets.all(8.0),
-                            shape: CircleBorder(),
-                          ),
-                          Spacer(),
-                          RawMaterialButton(
-                            onPressed: () {},
-                            elevation: 2.0,
-                            fillColor: Colors.white,
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: NPrimaryColor,
-//                              size: 35.0,
-                            ),
-                            padding: EdgeInsets.all(8.0),
-                            shape: CircleBorder(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.product.name,
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          StarRating(
-                              rating: widget.product.avgRating, size: 10),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text("(3) reviews")
-                        ],
-                      ),
-                    ),
-                    StreamBuilder<ProductDetailResponse>(
-                        stream: productDetailBloc.subject.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            if (snapshot.data.error != null &&
-                                snapshot.data.error.length > 0) {
-                              return _buildErrorWidget(snapshot.data.error);
+              slivers: [
+                SliverAppBar(
+                  flexibleSpace: Stack(
+                    children: [
+                      StreamBuilder<ProductDetailResponse>(
+                          stream: productDetailBloc.subject.stream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              ProductDetail productDetail =
+                                  snapshot.data.productDetail;
+                              return dottedSlider(
+                                  productDetail.selectedAttribute.images);
                             }
-                            return _buildDetailWidget(snapshot.data);
-                          } else if (snapshot.hasError) {
-                            return _buildErrorWidget(snapshot.error);
-                          } else {
-                            return _buildLoadingWidget(context);
-                          }
-                          return _buildLoadingWidget(context);
-                        }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _buildProducts(context),
+                            return dottedSlider(widget.images);
+                          }),
+                      Container(
+                        height: 80,
+                        child: Row(
+                          children: [
+                            RawMaterialButton(
+                              onPressed: () {},
+                              elevation: 2.0,
+                              fillColor: Colors.white,
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: NPrimaryColor,
+//                              size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(8.0),
+                              shape: CircleBorder(),
+                            ),
+                            Spacer(),
+                            RawMaterialButton(
+                              onPressed: () {},
+                              elevation: 2.0,
+                              fillColor: Colors.white,
+                              child: Icon(
+                                Icons.favorite_border,
+                                color: NPrimaryColor,
+//                              size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(8.0),
+                              shape: CircleBorder(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [ Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.product.name,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              StarRating(
+                                  rating: widget.product.avgRating, size: 10),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Text("(3) reviews")
+                            ],
+                          ),
+                        ),
+                        StreamBuilder<ProductDetailResponse>(
+                            stream: productDetailBloc.subject.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data.error != null &&
+                                    snapshot.data.error.length > 0) {
+                                  return _buildErrorWidget(snapshot.data.error);
+                                }
+                                return _buildDetailWidget(snapshot.data);
+                              } else if (snapshot.hasError) {
+                                return _buildErrorWidget(snapshot.error);
+                              } else {
+                                return _buildLoadingWidget(context);
+                              }
+                              return _buildLoadingWidget(context);
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildProducts(context),
 //                    _buildSameSellerProducts(context),
-                    _buildComments(context),
-                  ],
+                        _buildComments(context),
+                      ],
+                    )],
+                  ),
                 )
               ],
             ),
