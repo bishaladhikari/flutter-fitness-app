@@ -91,6 +91,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   @override
   void initState() {
+    super.initState();
+
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 0));
     _opacityTween = Tween(begin: 0.0, end: 1.0).animate(_animationController);
@@ -100,7 +102,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     productDetailBloc.getProductDetail(slug);
     productDetailBloc.getSameSellerProduct(slug);
     productDetailBloc.getRelatedProduct(slug);
-    super.initState();
   }
 
   @override
