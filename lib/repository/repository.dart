@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
+import 'package:ecapp/models/response/banner_response.dart';
 import 'dart:developer';
 
 import 'package:ecapp/models/response/cart_response.dart';
@@ -31,6 +32,7 @@ class Repository {
   var cartUrl = '$appUrl/cart';
   var featuredProductsUrl = '$appUrl/products?type=new_arrivals';
   var addressUrl = '$appUrl/addresses';
+  var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
 
   Repository() {
@@ -197,6 +199,17 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return AddressResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<BannerResponse> getBanners() async {
+    try {
+      Response response = await _dio.get(bannerUrl);
+      print("Response:" + response.toString());
+      return BannerResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return BannerResponse.withError(_handleError(error));
     }
   }
 
