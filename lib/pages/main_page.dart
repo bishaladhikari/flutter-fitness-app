@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/get_categories_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
@@ -41,15 +42,21 @@ class _MainPageState extends State<MainPage> {
     AccountPage()
   ];
 
-  void _onPageChanged(int index) {if(index==2)cartBloc.getCart();}
+  void _onPageChanged(int index) {
+    if (index == 2) cartBloc.getCart();
+  }
+
   int currentPage = 0;
   int cart_count = 0;
 
-  void _changePage(id) {
-    setState(() {
-      _pageController.jumpToPage(id);
-      currentPage = id;
-    });
+  void _changePage(id) async {
+    if (!await authBloc.isAuthenticated && id == 2)
+      Navigator.pushNamed(context, "loginPage");
+    else
+      setState(() {
+        _pageController.jumpToPage(id);
+        currentPage = id;
+      });
   }
 
   @override
@@ -139,7 +146,6 @@ class _MainPageState extends State<MainPage> {
 //),
 //),
 //)
-
 
 leftDrawerMenu() {
   Color blackColor = Colors.black.withOpacity(0.6);

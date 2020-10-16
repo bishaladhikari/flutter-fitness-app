@@ -79,6 +79,7 @@ class AuthBloc {
 //    return User.fromJson(json.decode(pref.getString("user")));
 //  }
   get isAuthenticated async {
+    // check if already in stream
     SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString("token") != null ? true : false;
   }
