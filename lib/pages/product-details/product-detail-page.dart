@@ -148,7 +148,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               slivers: [
                 SliverAppBar(
                   pinned: false,
-                  expandedHeight: 250.0,
+                  expandedHeight: 280,
+                  leading: Container(),
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
                       children: [
@@ -165,6 +166,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             }),
                         Container(
                           height: 80,
+                          margin: const EdgeInsets.only(top:20),
                           child: Row(
                             children: [
                               RawMaterialButton(
@@ -729,7 +731,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         child: CachedNetworkImage(
           placeholder: (context, url) => Center(
             child: Container(
-              height: 100,
+              height: 280,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
@@ -741,7 +743,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 300,
+            height: 280,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
