@@ -93,8 +93,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   void initState() {
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 0));
-    _opacityTween = Tween(begin: 0.0, end: 1.0)
-        .animate(_animationController);
+    _opacityTween = Tween(begin: 0.0, end: 1.0).animate(_animationController);
     productDetailBloc = ProductDetailBloc();
 
     slug = widget.product.slug;
@@ -164,27 +163,30 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       height: 80,
                       child: Row(
                         children: [
-                          IconButton(
-                            onPressed: () => {print(widget)},
-                            icon: Icon(Icons.arrow_back),
-                            highlightColor: Colors.white,
-                            color: Colors.black,
-                            focusColor: Colors.white,
+                          RawMaterialButton(
+                            onPressed: () {},
+                            elevation: 2.0,
+                            fillColor: Colors.white,
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: NPrimaryColor,
+//                              size: 35.0,
+                            ),
+                            padding: EdgeInsets.all(8.0),
+                            shape: CircleBorder(),
                           ),
                           Spacer(),
-                          IconButton(
-                            onPressed: () => {},
-                            icon: Icon(Icons.settings),
-                            highlightColor: Colors.white,
-                            color: Colors.black,
-                            focusColor: Colors.white,
-                          ),
-                          IconButton(
-                            onPressed: () => {},
-                            icon: Icon(Icons.account_circle),
-                            highlightColor: Colors.white,
-                            color: Colors.black,
-                            focusColor: Colors.white,
+                          RawMaterialButton(
+                            onPressed: () {},
+                            elevation: 2.0,
+                            fillColor: Colors.white,
+                            child: Icon(
+                              Icons.favorite_border,
+                              color: NPrimaryColor,
+//                              size: 35.0,
+                            ),
+                            padding: EdgeInsets.all(8.0),
+                            shape: CircleBorder(),
                           ),
                         ],
                       ),
@@ -229,8 +231,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           if (snapshot.hasData) {
                             if (snapshot.data.error != null &&
                                 snapshot.data.error.length > 0) {
-                              return _buildErrorWidget(
-                                  snapshot.data.error);
+                              return _buildErrorWidget(snapshot.data.error);
                             }
                             return _buildDetailWidget(snapshot.data);
                           } else if (snapshot.hasError) {
@@ -264,7 +265,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //              });
 //              return true;
               if (notification.metrics.axis == Axis.vertical) {
-                _animationController.animateTo(notification.metrics.pixels / 350);
+                _animationController
+                    .animateTo(notification.metrics.pixels / 350);
                 return true;
               }
               return false;
