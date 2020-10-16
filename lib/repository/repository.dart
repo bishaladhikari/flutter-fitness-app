@@ -28,8 +28,6 @@ class Repository {
   var productsUrl = '$appUrl/products';
   var wishlistUrl = '$appUrl/wishlist';
   var cartUrl = '$appUrl/cart';
-  var featuredProductsUrl = '$appUrl/products?type=new_arrivals';
-  var bestSellersProductsUrl = '$appUrl/products?types=best_sellers';
   var addressUrl = '$appUrl/addresses';
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
@@ -322,7 +320,7 @@ class Repository {
 
   Future<ProductResponse> getFeaturedProducts() async {
     try {
-      Response response = await _dio.get(featuredProductsUrl);
+      Response response = await _dio.get(productsUrl + '?type=featured');
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -330,10 +328,19 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getBestSellersProducts() async {
-    print("called best seller");
+  Future<ProductResponse> getNewArrivals() async {
     try {
-      Response response = await _dio.get(bestSellersProductsUrl);
+      Response response = await _dio.get(productsUrl + '?type=new_arrivals');
+      return ProductResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return ProductResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<ProductResponse> getBestSellers() async {
+    try {
+      Response response = await _dio.get(productsUrl + '?type=best_sellers');
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");

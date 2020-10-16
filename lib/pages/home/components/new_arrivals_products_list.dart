@@ -8,16 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'item_card.dart';
 
-class BestSellersProductsList extends StatefulWidget {
-  const BestSellersProductsList({
+class NewArrivalsProductsList extends StatefulWidget {
+  const NewArrivalsProductsList({
     Key key,
   }) : super(key: key);
 
   @override
-  _BestSellersProductsListState createState() => _BestSellersProductsListState();
+  _NewArrivalsProductsListState createState() => _NewArrivalsProductsListState();
 }
 
-class _BestSellersProductsListState extends State<BestSellersProductsList> {
+class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
   @override
   void initState() {
     super.initState();
@@ -26,7 +26,7 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.bestSellers.stream,
+      stream: productsBloc.newArrivals.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

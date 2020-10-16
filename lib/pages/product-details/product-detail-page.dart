@@ -65,9 +65,13 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage>
     with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  double myscroll = 1;
+  double appBarV = 0;
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
+  AnimationController _animationController;
+  Animation _opacityTween;
 
   setImages(value) {
     setState(() {
@@ -87,13 +91,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   @override
   void initState() {
+    super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 0));
+    _opacityTween = Tween(begin: 0.0, end: 1.0).animate(_animationController);
     productDetailBloc = ProductDetailBloc();
 
     slug = widget.product.slug;
     productDetailBloc.getProductDetail(slug);
     productDetailBloc.getSameSellerProduct(slug);
     productDetailBloc.getRelatedProduct(slug);
-    super.initState();
   }
 
   @override
@@ -133,107 +141,291 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //    ));
     return Scaffold(
       key: _scaffoldKey,
-      body: CustomScrollView(slivers: [
-        SliverAppBar(
-            title: Text("Details"),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.favorite_border),
-                color: NPrimaryColor,
-                splashRadius: 50,
-                splashColor: Colors.white,
-                onPressed: () {},
-              ),
-            ],
-            iconTheme: IconThemeData(
-              color: Colors.black, //change your color here
+      body: Stack(
+        children: [
+          NotificationListener<ScrollUpdateNotification>(
+            child: CustomScrollView(
+//              mainAxisSize: MainAxisSize.max,
+              slivers: [
+                SliverAppBar(
+                  pinned: false,
+                  expandedHeight: 280,
+                  leading: Container(),
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Stack(
+                      children: [
+                        StreamBuilder<ProductDetailResponse>(
+                            stream: productDetailBloc.subject.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                ProductDetail productDetail =
+                                    snapshot.data.productDetail;
+                                return dottedSlider(
+                                    productDetail.selectedAttribute.images);
+                              }
+                              return dottedSlider(widget.images);
+                            }),
+                        Container(
+                          height: 80,
+                          margin: const EdgeInsets.only(top:20),
+                          child: Row(
+                            children: [
+                              MaterialButton(
+                                onPressed: () {
+                                  print("backing");
+                                  Navigator.pop(context);
+                                },
+                                elevation: 2.0,
+                                color: Colors.white,
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: NPrimaryColor,
+//                              size: 35.0,
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                shape: CircleBorder(),
+                              ),
+                              Spacer(),
+                              RawMaterialButton(
+                                onPressed: () {},
+                                elevation: 2.0,
+                                fillColor: Colors.white,
+                                child: Icon(
+                                  Icons.favorite_border,
+                                  color: NPrimaryColor,
+//                              size: 35.0,
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                shape: CircleBorder(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [ Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.product.name,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              StarRating(
+                                  rating: widget.product.avgRating, size: 10),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Text("(3) reviews")
+                            ],
+                          ),
+                        ),
+                        StreamBuilder<ProductDetailResponse>(
+                            stream: productDetailBloc.subject.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data.error != null &&
+                                    snapshot.data.error.length > 0) {
+                                  return _buildErrorWidget(snapshot.data.error);
+                                }
+                                return _buildDetailWidget(snapshot.data);
+                              } else if (snapshot.hasError) {
+                                return _buildErrorWidget(snapshot.error);
+                              } else {
+                                return _buildLoadingWidget(context);
+                              }
+                              return _buildLoadingWidget(context);
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buildProducts(context),
+//                    _buildSameSellerProducts(context),
+                        _buildComments(context),
+                      ],
+                    )],
+                  ),
+                )
+              ],
             ),
-            backgroundColor: Colors.white,
-            expandedHeight: MediaQuery.of(context).size.height / 2.6,
-            floating: false,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-//                centerTitle: true,
-//                  title: Expanded(
-//                    child: Text(
-//                      "I have a very long name which is "+widget.product.name,
-//                      style: TextStyle(
-//                        color: Colors.black,
-//                        fontSize: 14.0,
-//                      ),
-//                    ),
-//                  ),
-              background: StreamBuilder<ProductDetailResponse>(
-                  stream: productDetailBloc.subject.stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      ProductDetail productDetail = snapshot.data.productDetail;
-                      return dottedSlider(
-                          productDetail.selectedAttribute.images);
-                    }
-                    return dottedSlider(widget.images);
-                  }),
-            )),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+            onNotification: (notification) {
+              //How many pixels scrolled from pervious frame
+//          print(notification.scrollDelta);
+
+              //List scroll position
+//          print(notification.metrics.pixels);
+//              setState(() {
+//                myscroll = 100 - notification.metrics.pixels;
+//                appBarV = (notification.metrics.pixels / 100);
+//                myscroll = (myscroll / 100);
+//                print(myscroll);
+//              });
+//              return true;
+              if (notification.metrics.axis == Axis.vertical) {
+                _animationController
+                    .animateTo(notification.metrics.pixels / 350);
+                return true;
+              }
+              return false;
+            },
+          ),
+          AnimatedBuilder(
+            animation: _animationController,
+            builder: (BuildContext context, Widget child) {
+              return Opacity(
+                opacity: _opacityTween.value,
+                child: Container(
+                  height: 100,
+                  padding: EdgeInsets.only(top: 15),
+                  width: double.infinity,
+                  color: Colors.white,
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
+//                    crossAxisAlignment: MainAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
+//                    crossAxisAlignment: Alignment.bottomCenter,
                     children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back, color: Colors.black),
+                        onPressed: () {},
+                      ),
                       Text(
                         widget.product.name,
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
+                      Spacer(),
+                      IconButton(
+                        icon: Icon(Icons.favorite_border),
+                        onPressed: () {},
+                      )
                     ],
                   ),
                 ),
-                SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      StarRating(rating: widget.product.avgRating, size: 10),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text("(3) reviews")
-                    ],
-                  ),
-                ),
-                StreamBuilder<ProductDetailResponse>(
-                    stream: productDetailBloc.subject.stream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data.error != null &&
-                            snapshot.data.error.length > 0) {
-                          return _buildErrorWidget(snapshot.data.error);
-                        }
-                        return _buildDetailWidget(snapshot.data);
-                      } else if (snapshot.hasError) {
-                        return _buildErrorWidget(snapshot.error);
-                      } else {
-                        return _buildLoadingWidget(context);
-                      }
-                      return _buildLoadingWidget(context);
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                _buildProducts(context),
-                _buildSameSellerProducts(context),
-                _buildComments(context),
-              ],
-            )
-          ]),
-        )
-      ]),
+              );
+            },
+          ),
+        ],
+      ),
+//        body: CustomScrollView(slivers: [
+//    SliverAppBar(
+//    title: Text("Details"),
+//    actions: <Widget>[
+//    IconButton(
+//    icon: Icon(Icons.favorite_border),
+//    color: NPrimaryColor,
+//    splashRadius: 50,
+//    splashColor: Colors.white,
+//    onPressed: () {},
+//    ),
+//    ],
+//    iconTheme: IconThemeData(
+//    color: Colors.black, //change your color here
+//    ),
+//    backgroundColor: Colors.white,
+//    expandedHeight: MediaQuery.of(context).size.height / 2.6,
+//    floating: false,
+//    pinned: true,
+//    flexibleSpace: FlexibleSpaceBar(
+////                centerTitle: true,
+////                  title: Expanded(
+////                    child: Text(
+////                      "I have a very long name which is "+widget.product.name,
+////                      style: TextStyle(
+////                        color: Colors.black,
+////                        fontSize: 14.0,
+////                      ),
+////                    ),
+////                  ),
+//    background: StreamBuilder<ProductDetailResponse>(
+//    stream: productDetailBloc.subject.stream,
+//    builder: (context, snapshot) {
+//    if (snapshot.hasData) {
+//    ProductDetail productDetail = snapshot.data.productDetail;
+//    return dottedSlider(
+//    productDetail.selectedAttribute.images);
+//    }
+//    return dottedSlider(widget.images);
+//    }),
+//    )),
+//    SliverList(
+//    delegate: SliverChildListDelegate([
+//    Column(
+//    mainAxisAlignment: MainAxisAlignment.start,
+//    children: <Widget>[
+//    Padding(
+//    padding: const EdgeInsets.all(8.0),
+//    child: Row(
+//    mainAxisAlignment: MainAxisAlignment.start,
+//    children: [
+//    Text(
+//    widget.product.name,
+//    style: TextStyle(
+//    fontSize: 24,
+//    color: Colors.black,
+//    fontWeight: FontWeight.bold),
+//    ),
+//    ],
+//    ),
+//    ),
+//    SizedBox(height: 8),
+//    Padding(
+//    padding: const EdgeInsets.all(8.0),
+//    child: Row(
+//    children: [
+//    StarRating(rating: widget.product.avgRating, size: 10),
+//    SizedBox(
+//    width: 8,
+//    ),
+//    Text("(3) reviews")
+//    ],
+//    ),
+//    ),
+//    StreamBuilder<ProductDetailResponse>(
+//    stream: productDetailBloc.subject.stream,
+//    builder: (context, snapshot) {
+//    if (snapshot.hasData) {
+//    if (snapshot.data.error != null &&
+//    snapshot.data.error.length > 0) {
+//    return _buildErrorWidget(snapshot.data.error);
+//    }
+//    return _buildDetailWidget(snapshot.data);
+//    } else if (snapshot.hasError) {
+//    return _buildErrorWidget(snapshot.error);
+//    } else {
+//    return _buildLoadingWidget(context);
+//    }
+//    return _buildLoadingWidget(context);
+//    }),
+//    SizedBox(
+//    height: 10,
+//    ),
+//    _buildProducts(context),
+//    _buildSameSellerProducts(context),
+//    _buildComments(context),
+//    ],
+//    )
+//    ]),
+//    )
+//    ]),
       bottomNavigationBar: StreamBuilder<ProductDetailResponse>(
           stream: productDetailBloc.subject.stream,
           builder: (context, snapshot) {
@@ -543,7 +735,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         child: CachedNetworkImage(
           placeholder: (context, url) => Center(
             child: Container(
-              height: 100,
+              height: 280,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
@@ -555,7 +747,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 300,
+            height: 280,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,

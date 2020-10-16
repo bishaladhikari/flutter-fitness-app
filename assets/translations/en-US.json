@@ -1,7 +1,8 @@
 {
-  "featured_products": "Featured Products",
-  "products_for_you": "Products For You",
-  "best_seller_products": "Best Seller",
+  "Featured Products": "Featured Products",
+  "Products for you": "Products For You",
+  "New Arrivals": "New Arrivals",
+  "Best sellers Products": "Best Sellers",
   "title": "title",
-  "address_book": "Address Book"
+  "Address Book": "Address Book"
 }

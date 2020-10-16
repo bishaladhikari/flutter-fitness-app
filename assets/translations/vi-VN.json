@@ -1,6 +1,8 @@
 {
-  "featured_products": "おすすめ商品",
-  "products_for_you": "Products For You",
-  "best_seller_products": "Best Seller",
-  "title": "title"
+  "Featured Products": "おすすめ商品",
+  "Products for you": "Products For You",
+  "New Arrivals": "New Arrivals",
+  "title": "title",
+  "Best sellers Products": "Best Sellers",
+  "Address Book": "住所録"
 }
