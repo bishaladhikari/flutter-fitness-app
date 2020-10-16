@@ -147,52 +147,56 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //              mainAxisSize: MainAxisSize.max,
               slivers: [
                 SliverAppBar(
-                  flexibleSpace: Stack(
-                    children: [
-                      StreamBuilder<ProductDetailResponse>(
-                          stream: productDetailBloc.subject.stream,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              ProductDetail productDetail =
-                                  snapshot.data.productDetail;
-                              return dottedSlider(
-                                  productDetail.selectedAttribute.images);
-                            }
-                            return dottedSlider(widget.images);
-                          }),
-                      Container(
-                        height: 80,
-                        child: Row(
-                          children: [
-                            RawMaterialButton(
-                              onPressed: () {},
-                              elevation: 2.0,
-                              fillColor: Colors.white,
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: NPrimaryColor,
+                  pinned: false,
+                  expandedHeight: 250.0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Stack(
+                      children: [
+                        StreamBuilder<ProductDetailResponse>(
+                            stream: productDetailBloc.subject.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                ProductDetail productDetail =
+                                    snapshot.data.productDetail;
+                                return dottedSlider(
+                                    productDetail.selectedAttribute.images);
+                              }
+                              return dottedSlider(widget.images);
+                            }),
+                        Container(
+                          height: 80,
+                          child: Row(
+                            children: [
+                              RawMaterialButton(
+                                onPressed: () {},
+                                elevation: 2.0,
+                                fillColor: Colors.white,
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: NPrimaryColor,
 //                              size: 35.0,
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                shape: CircleBorder(),
                               ),
-                              padding: EdgeInsets.all(8.0),
-                              shape: CircleBorder(),
-                            ),
-                            Spacer(),
-                            RawMaterialButton(
-                              onPressed: () {},
-                              elevation: 2.0,
-                              fillColor: Colors.white,
-                              child: Icon(
-                                Icons.favorite_border,
-                                color: NPrimaryColor,
+                              Spacer(),
+                              RawMaterialButton(
+                                onPressed: () {},
+                                elevation: 2.0,
+                                fillColor: Colors.white,
+                                child: Icon(
+                                  Icons.favorite_border,
+                                  color: NPrimaryColor,
 //                              size: 35.0,
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                shape: CircleBorder(),
                               ),
-                              padding: EdgeInsets.all(8.0),
-                              shape: CircleBorder(),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 SliverList(
