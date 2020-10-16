@@ -520,7 +520,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
-                          _alert(context);
+//                          _alert(context);
+                          print('clicked');
+                          Navigator.pushNamed(context, "checkout");
                           setState(() {
                             isClicked = !isClicked;
                           });

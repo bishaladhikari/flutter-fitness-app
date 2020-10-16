@@ -5,6 +5,7 @@ import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
 import 'package:ecapp/pages/cart/cart-page.dart';
+import 'package:ecapp/pages/checkout/checkout-page.dart';
 import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
@@ -47,6 +48,9 @@ abstract class Routes {
         break;
       case 'addressFormPage':
         return MaterialPageRoute(builder: (context) => AddressFormPage(address:arguments));
+        break;
+      case 'checkout':
+        return MaterialPageRoute(builder: (context) => CheckoutPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
