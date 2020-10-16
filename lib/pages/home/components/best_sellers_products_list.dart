@@ -8,16 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'item_card.dart';
 
-class FeaturedProductsList extends StatefulWidget {
-  const FeaturedProductsList({
-    Key key,
-  }) : super(key: key);
+class BestSellersProductsList extends StatefulWidget {
+  const BestSellersProductsList({Key key,}) : super(key: key);
 
   @override
   _ProductsListState createState() => _ProductsListState();
 }
 
-class _ProductsListState extends State<FeaturedProductsList> {
+class _ProductsListState extends State<BestSellersProductsList> {
   @override
   void initState() {
     super.initState();
@@ -26,16 +24,19 @@ class _ProductsListState extends State<FeaturedProductsList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.featured.stream,
+      stream: productsBloc.bestSellers.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
+          print("has data");
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
           return _buildProductsListWidget(snapshot.data);
         } else if (snapshot.hasError) {
+          print("has error");
           return _buildErrorWidget(snapshot.error);
         } else {
+          print("has loading");
           return _buildLoadingWidget();
         }
       },
@@ -84,22 +85,17 @@ class _ProductsListState extends State<FeaturedProductsList> {
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occurred: $error"),
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Error occurred: $error"),
+          ],
+        ));
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
     var size = MediaQuery.of(context).size;
-
-//    final double itemHeight = (size.height) / 2.5;
-//    final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
-//    return Text(products[0].name);
-
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: SizedBox(

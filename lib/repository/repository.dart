@@ -4,8 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
-import 'dart:developer';
-
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
@@ -31,6 +29,7 @@ class Repository {
   var wishlistUrl = '$appUrl/wishlist';
   var cartUrl = '$appUrl/cart';
   var featuredProductsUrl = '$appUrl/products?type=new_arrivals';
+  var bestSellersProductsUrl = '$appUrl/products?types=best_sellers';
   var addressUrl = '$appUrl/addresses';
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
@@ -39,7 +38,6 @@ class Repository {
     BaseOptions options =
         BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
     _dio = Dio(options);
-//    print("is called");
     _dio.interceptors.addAll([
       InterceptorsWrapper(onRequest: (Options options) async {
         _dio.lock();
@@ -95,7 +93,6 @@ class Repository {
 
   Future<CategoryResponse> getCategories() async {
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(categoriesUrl);
       return CategoryResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -106,7 +103,6 @@ class Repository {
 
   Future<ProductResponse> getProducts() async {
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -117,7 +113,6 @@ class Repository {
 
   Future<ProductResponse> getRelatedProduct(slug) async {
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl,
           queryParameters: {"you_may_also_like": slug, "combo": false});
       return ProductResponse.fromJson(response.data);
@@ -129,7 +124,6 @@ class Repository {
 
   Future<ProductResponse> getSameSellerProduct(slug) async {
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl,
           queryParameters: {"products_from_same_seller": slug, "combo": false});
       return ProductResponse.fromJson(response.data);
@@ -327,16 +321,7 @@ class Repository {
   }
 
   Future<ProductResponse> getFeaturedProducts() async {
-//    try {
-////      _dio.options.headers = {"locale": "jp"};
-//      Response response = await _dio.get(featuredProductsUrl);
-//      return FeaturedProductResponse.fromJson(response.data);
-//    } catch (error, stacktrace) {
-//      print("Exception occurred: $error stackTrace: $stacktrace");
-//      return FeaturedProductResponse.withError(_handleError(error));
-//    }
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(featuredProductsUrl);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -345,19 +330,31 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getCategoryProducts(String category, String sortBy, String minPrice, String maxPrice, String types) async {
+  Future<ProductResponse> getBestSellersProducts() async {
+    print("called best seller");
+    try {
+      Response response = await _dio.get(bestSellersProductsUrl);
+      return ProductResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return ProductResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<ProductResponse> getCategoryProducts(String category, String sortBy,
+      String minPrice, String maxPrice, String types) async {
     var params = {
       "category": category,
       "sort_by": sortBy,
       "starting_price": minPrice,
-      "ending_price" :maxPrice,
+      "ending_price": maxPrice,
       "types": types
     };
 
     print(params);
 
     try {
-     _dio.options.headers = {"locale": "jp"};
+      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {

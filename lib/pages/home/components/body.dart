@@ -1,4 +1,5 @@
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/home/components/best_sellers_products_list.dart';
 import 'package:ecapp/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
@@ -8,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'category_list.dart';
 import 'discount_card.dart';
 import 'featured_products_list.dart';
+// import 'best_sellers_products_list.dart';
 import 'item_list.dart';
 
 class Body extends StatelessWidget {
@@ -31,19 +33,27 @@ class Body extends StatelessWidget {
             ),
           ),
           FeaturedProductsList(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "best_seller_products".tr().toString(),
+              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+            ),
+          ),
+          BestSellersProductsList(),
           SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "products_for_you".tr().toString(),
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15, color: kTextColor),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: ProductsList(),
           ),
-
         ],
       ),
     );
