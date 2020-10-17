@@ -21,7 +21,7 @@ class _BodyState extends State<Body> {
             child: Container(
               color: Colors.white,
               padding: EdgeInsets.symmetric(vertical: 8),
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
 
