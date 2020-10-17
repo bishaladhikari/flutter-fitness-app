@@ -172,7 +172,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             }),
                         Container(
                           height: 80,
-                          margin: const EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                           child: Row(
                             children: [
                               MaterialButton(
@@ -522,7 +522,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         onPressed: () {
 //                          _alert(context);
                           print('clicked');
-                          Navigator.pushNamed(context, "checkout");
+                          Navigator.pushNamed(context, "selectPaymentMethodPage");
                           setState(() {
                             isClicked = !isClicked;
                           });

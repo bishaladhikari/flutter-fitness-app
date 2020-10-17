@@ -1,18 +1,19 @@
+import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
-class CheckoutPage extends StatefulWidget {
+class SelectPaymentMethodPage extends StatefulWidget {
   @override
-  _CheckoutPageState createState() => _CheckoutPageState();
+  _SelectPaymentMethodPageState createState() => _SelectPaymentMethodPageState();
 }
 
-class _CheckoutPageState extends State<CheckoutPage> {
+class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CheckOurAppBar(),
-      body: CheckoutPageBody(),
+      appBar: SelectPaymentMethodAppBar(),
+      body: SelectPaymentBody(),
       bottomNavigationBar: Container(
         color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -25,16 +26,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 Text(
                   "Subtotal",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+//                      fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      fontSize: 20),
+                      fontSize: 16),
                 ),
                 Text(
                   "Rs 4,201",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
-                      fontSize: 20),
+                      fontSize: 16),
                 )
               ],
             ),
@@ -50,14 +51,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      fontSize: 20),
+                      fontSize: 16),
                 ),
                 Text(
                   "Rs 4,201",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 20),
+                      color: NPrimaryColor,
+                      fontSize: 16),
                 )
               ],
             )
