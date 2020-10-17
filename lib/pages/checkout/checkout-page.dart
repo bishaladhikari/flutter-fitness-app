@@ -40,7 +40,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 ),
                 Spacer(),
                 FlatButton(
-                  onPressed:(){},
+                  onPressed:(){
+                    Navigator.pushNamed(context, "selectPaymentMethodPage");
+                  },
                   color: NPrimaryColor,
                   child: Text("Proceed to Pay",style: TextStyle(color: Colors.white),),
                 )
