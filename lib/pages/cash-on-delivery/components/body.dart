@@ -31,28 +31,25 @@ class _BodyState extends State<Body> {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Image.asset("assets/icons/cash_on_delivery.png",scale:2,),
                   ),
-                  Column(
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "You can pay in cash to our courier when you receive the goods at your doorstep.",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
+                        Container(
+                          width: MediaQuery.of(context).size.width - 80,
+                          child: Text(
+                            "You can pay in cash to our courier when you receive the goods at your doorstep.",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
 //                                    fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
                     ),
+                  ),
                 ],
               ),
             ),
