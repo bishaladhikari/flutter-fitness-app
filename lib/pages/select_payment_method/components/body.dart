@@ -1,5 +1,6 @@
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 
 class SelectPaymentBody extends StatefulWidget {
   @override
@@ -7,6 +8,13 @@ class SelectPaymentBody extends StatefulWidget {
 }
 
 class _SelectPaymentBodyState extends State<SelectPaymentBody> {
+  @override
+  void initState() {
+//    StripePayment.setOptions(
+//        StripeOptions(publishableKey: "pk_test_aSaULNS8cJU6Tvo20VAXy6rp", merchantId: "Test", androidPayMode: 'test'));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
