@@ -45,7 +45,8 @@ class _BodyState extends State<Body> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+//                                    fontWeight: FontWeight.bold
+                                ),
                               ),
                             ],
                           ),
