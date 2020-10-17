@@ -108,7 +108,7 @@ Widget _buildShimmerWidget() {
       period: Duration(milliseconds: 1000),
       highlightColor: Colors.white70,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -118,7 +118,7 @@ Widget _buildShimmerWidget() {
                 Container(height: 160, width: 300, color: Colors.black26),
               ],
             ),
-            SizedBox(width: 15),
+//            SizedBox(width: 15),
           ],
         ),
       ),

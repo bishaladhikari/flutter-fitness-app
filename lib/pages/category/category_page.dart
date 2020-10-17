@@ -37,6 +37,7 @@ class _CategoryPageState extends State<CategoryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.01),
       bottomNavigationBar: Row(children: <Widget>[
         Container(
           height: 50,

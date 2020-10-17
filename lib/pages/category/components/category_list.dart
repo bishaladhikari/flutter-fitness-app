@@ -58,6 +58,7 @@ class _CategoryListState extends State<CategoryList>
                   indicatorColor: NPrimaryColor,
                   indicatorSize: TabBarIndicatorSize.tab,
                   controller: _tabController,
+
                   tabs: categories.map((Category category) {
                     return Container(
                       padding: const EdgeInsets.all(6.0),

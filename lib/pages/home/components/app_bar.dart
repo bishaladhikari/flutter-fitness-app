@@ -5,7 +5,7 @@ import 'package:ecapp/constants.dart';
 
 AppBar homeAppBar(BuildContext context) {
   return AppBar(
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.white.withOpacity(0),
     elevation: 0,
     title: SearchBox(),
     brightness: Brightness.dark,
