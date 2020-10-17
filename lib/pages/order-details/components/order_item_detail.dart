@@ -1,27 +1,26 @@
-import 'package:ecapp/bloc/orders_byStatus.dart';
+import 'package:ecapp/bloc/order_detail_bloc.dart';
 import 'package:ecapp/models/order.dart';
+import 'package:ecapp/models/order_product_detail.dart';
+import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
-import 'package:intl/intl.dart';
 
-class OrdersByStatus extends StatefulWidget {
-  final String status;
-  OrdersListByStatusBloc _ordersListByStatusBloc;
+class OrderItemDetailPage extends StatefulWidget {
+  final int id;
+  OrderDetailBloc _orderDetailBloc;
 
-  get ordersListByStatusBloc => _ordersListByStatusBloc;
+  get orderDetailBloc => _orderDetailBloc;
 
-  OrdersByStatus({Key key, this.status}) {
-    _ordersListByStatusBloc = OrdersListByStatusBloc();
+  OrderItemDetailPage({Key key, this.id}) {
+    _orderDetailBloc = OrderDetailBloc();
   }
 
   @override
-  _OrdersListByStatusState createState() => _OrdersListByStatusState(status);
+  _OrderItemDetailPageState createState() => _OrderItemDetailPageState(id);
 
-  static _OrdersListByStatusState of(BuildContext context) {
-    final _OrdersListByStatusState navigator = context
-        .ancestorStateOfType(const TypeMatcher<_OrdersListByStatusState>());
+  static _OrderItemDetailPageState of(BuildContext context) {
+    final _OrderItemDetailPageState navigator = context
+        .ancestorStateOfType(const TypeMatcher<_OrderItemDetailPageState>());
 
     assert(() {
       if (navigator == null) {
@@ -35,30 +34,30 @@ class OrdersByStatus extends StatefulWidget {
   }
 }
 
-class _OrdersListByStatusState extends State<OrdersByStatus> {
-  final String status;
+class _OrderItemDetailPageState extends State<OrderItemDetailPage>
+    with TickerProviderStateMixin {
+  final int id;
+  OrderDetailBloc orderDetailBloc;
 
-  OrdersListByStatusBloc ordersListByStatusBloc;
-
-  _OrdersListByStatusState(this.status);
+  _OrderItemDetailPageState(this.id);
 
   @override
   void initState() {
     super.initState();
-    widget._ordersListByStatusBloc..getOrdersByStatus(status);
+    widget._orderDetailBloc..getOrderItemDetail(id);
   }
 
   @override
   void dispose() {
     super.dispose();
-    ordersListByStatusBloc..drainStream();
+    orderDetailBloc..drainStream();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<OrderResponse>(
-      stream: widget._ordersListByStatusBloc.orders.stream,
-      builder: (context, AsyncSnapshot<OrderResponse> snapshot) {
+    return StreamBuilder<OrderProductDetailResponse>(
+      stream: widget._orderDetailBloc.orderItemDetail.stream,
+      builder: (context, AsyncSnapshot<OrderProductDetailResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
@@ -100,25 +99,13 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     ));
   }
 
-  Widget _buildHomeWidget(OrderResponse data) {
+  Widget _buildHomeWidget(OrderProductDetailResponse data) {
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
-    List<Order> orders = data.orders;
-    return Container(
-        padding: EdgeInsets.only(top: 18),
-        child: ListView.builder(
-            itemCount: orders.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                child: _buildOrderList(orders[index]),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('orderDetailPage', arguments: orders[index]);
-                },
-              );
-            }));
+    List<OrderProductDetail> orderProductDetails = data.orderProductDetails;
+    return _buildOrderList(orderProductDetails);
   }
 
   Widget _buildOrderList(order) {
@@ -145,7 +132,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
               child: Container(
                 width: 70.0,
                 child: Text(
-                  order.order_id,
+                  order.id.toString(),
                   style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,
@@ -162,7 +149,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                     Container(
                       width: 200.0,
                       child: Text(
-                        order.created_at,
+                        order.id.toString(),
                         style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.w600,
@@ -175,7 +162,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                     Container(
                       width: 200.0,
                       child: Text(
-                        order.sub_total.toString(),
+                        order.id.toString(),
                         style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.w600,
@@ -195,7 +182,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          order.status,
+                          order.id.toString(),
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
@@ -209,7 +196,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          order.total_quantity.toString(),
+                          order.id.toString(),
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
@@ -223,7 +210,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          order.status,
+                          order.id.toString(),
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
