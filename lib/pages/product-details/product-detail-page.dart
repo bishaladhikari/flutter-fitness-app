@@ -565,18 +565,19 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 ),
               );
             }
+//            return Container();
             return Container(
               color: Colors.white70,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 11,
               child: Shimmer.fromColors(
-                  baseColor: Colors.black26,
+                  baseColor: Colors.black12,
                   highlightColor: Colors.white70,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Container(
-                      height: 25,
-                      color: Colors.black26,
+                      height: 1,
+                      color: Colors.black12,
                     ),
                   )),
             );
@@ -607,31 +608,31 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(height: 25, width: width / 1.2, color: Colors.black26),
+            Container(height: 25, width: width / 1.6, color: Colors.black12),
             SizedBox(
               height: 8,
             ),
-            Container(height: 25, width: width / 1.5, color: Colors.black26),
+            Container(height: 25, width: width / 1.8, color: Colors.black12),
             SizedBox(
               height: 8,
             ),
-            Container(height: 25, width: width / 2, color: Colors.black26),
+            Container(height: 25, width: width / 2, color: Colors.black12),
             SizedBox(
               height: 8,
             ),
-            Container(height: 100, width: width, color: Colors.black26),
-            Container(height: 25, width: width, color: Colors.black26),
+            Container(height: 60, width: width, color: Colors.black12),
+            Container(height: 25, width: width, color: Colors.black12),
             SizedBox(
               height: 8,
             ),
             SizedBox(
               height: 8,
             ),
-            Container(height: 25, width: width, color: Colors.black26),
+            Container(height: 25, width: width, color: Colors.black12),
             SizedBox(
               height: 8,
             ),
-            Container(height: 25, width: width, color: Colors.black26),
+            Container(height: 25, width: width, color: Colors.black12),
             SizedBox(
               height: 8,
             ),

@@ -82,6 +82,7 @@ class _CategoryPageState extends State<CategoryPage>
         backgroundColor: Colors.white,
         elevation: 0,
         title: SearchBox(),
+        brightness: Brightness.dark,
       ),
       body: CategoryBody(),
     );

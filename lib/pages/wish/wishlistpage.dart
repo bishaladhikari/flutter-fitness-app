@@ -38,6 +38,7 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text("Wish List"),
         backgroundColor: Colors.white,
       ),

@@ -24,7 +24,7 @@ class DiscountCard extends StatelessWidget {
               return CarouselSlider.builder(
                   itemCount: snapShot.data.data.length,
                   options: CarouselOptions(
-                      height: 160.0,
+                      height: 200.0,
                       autoPlay: true,
                       autoPlayInterval: Duration(seconds: 5),
                       autoPlayAnimationDuration: Duration(milliseconds: 800),
@@ -38,7 +38,7 @@ class DiscountCard extends StatelessWidget {
                       child: CachedNetworkImage(
                         placeholder: (context, url) => Center(
                           child: Container(
-                            height: 100,
+                            height: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("assets/images/placeholder.png"),
@@ -50,7 +50,7 @@ class DiscountCard extends StatelessWidget {
 //            imageUrl: product.imageThumbnail,
                         imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-                          height: 100,
+                          height: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: imageProvider,
@@ -59,7 +59,7 @@ class DiscountCard extends StatelessWidget {
                         ),
                         errorWidget: (context, url, error) => Center(
                           child: Container(
-                            height: 100,
+                            height: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("assets/images/placeholder.png"),
@@ -108,14 +108,14 @@ Widget _buildShimmerWidget() {
       period: Duration(milliseconds: 1000),
       highlightColor: Colors.white70,
       child: Padding(
-        padding: EdgeInsets.only(top: 10),
+        padding: EdgeInsets.all(10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Column(
               children: [
-                Container(height: 120, width: 280, color: Colors.black26),
+                Container(height: 160, width: 300, color: Colors.black26),
               ],
             ),
             SizedBox(width: 15),

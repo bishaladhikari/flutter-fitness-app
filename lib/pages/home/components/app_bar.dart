@@ -4,9 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';
 
 AppBar homeAppBar(BuildContext context) {
-  return AppBar(backgroundColor: Colors.white,
-      elevation: 0,
-      title: SearchBox(),
+  return AppBar(
+    backgroundColor: Colors.white,
+    elevation: 0,
+    title: SearchBox(),
+    brightness: Brightness.dark,
 //    leading: IconButton(
 //      icon: Icon(Icons.menu),
 //      onPressed: () {},
@@ -35,5 +37,5 @@ AppBar homeAppBar(BuildContext context) {
 //        onPressed: () {},
 //      ),
 //    ],
-      );
+  );
 }
