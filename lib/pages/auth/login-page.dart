@@ -57,10 +57,12 @@ class _LoginPageState extends State<LoginPage>
         key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.pop(context)
+            },
             icon: Icon(Icons.close),
           ),
-          title: Text('Sign In!',
+          title: Text('Sign In',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
