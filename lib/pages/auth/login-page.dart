@@ -22,8 +22,8 @@ class _LoginPageState extends State<LoginPage>
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  var email = "actionbishal98130@gmail.com";
-  var password = "Password123";
+//  var email = "actionbishal98130@gmail.com";
+//  var password = "Password123";
 
   bool _obscureText = true;
   bool _validate = false;
@@ -57,10 +57,12 @@ class _LoginPageState extends State<LoginPage>
         key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.pop(context)
+            },
             icon: Icon(Icons.close),
           ),
-          title: Text('Sign In!',
+          title: Text('Sign In',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

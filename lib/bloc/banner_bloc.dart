@@ -13,8 +13,10 @@ class BannerBloc {
   BannerResponse response;
 
   getBanners() async {
+
     response = await _repository.getBanners();
     _subject.sink.add(response);
+
   }
 
   void drainStream(){ _subject.value = null; }

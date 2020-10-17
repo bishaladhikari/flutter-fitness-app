@@ -23,8 +23,8 @@ class _MainPageState extends State<MainPage> {
     categoryBloc..getCategories();
     productsBloc..getFeaturedProducts();
     productsBloc..getProducts();
-    productsBloc..getBestSellers();
     productsBloc..getNewArrivals();
+    productsBloc..getBestSellers();
     cartBloc..getCart();
 //    comboBloc.getComboProducts();
   }
@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
   int cart_count = 0;
 
   void _changePage(id) async {
-    if (!await authBloc.isAuthenticated && id == 2)
+    if (!await authBloc.isAuthenticated() && id == 2)
       Navigator.pushNamed(context, "loginPage");
     else
       setState(() {
