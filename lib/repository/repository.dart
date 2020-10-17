@@ -34,6 +34,7 @@ class Repository {
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
   var ordersUrl = '$appUrl/orders';
+  var orderProductsUrl = '$appUrl/order-products';
 
   Repository() {
     BaseOptions options =
@@ -232,7 +233,8 @@ class Repository {
   Future<OrderProductDetailResponse> getOrderItemDetail(int id) async {
     var params = {"order_id": id};
     try {
-      Response response = await _dio.get(ordersUrl + "/$id", queryParameters: params);
+      Response response =
+          await _dio.get(orderProductsUrl + "/$id", queryParameters: params);
       return OrderProductDetailResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -307,7 +309,8 @@ class Repository {
     }
   }
 
-  Future<dynamic> registerCustomer({@required fname, lname, email, mobile, password, cpassword}) async {
+  Future<dynamic> registerCustomer(
+      {@required fname, lname, email, mobile, password, cpassword}) async {
     try {
       final data = {
         "first_name": "$fname",
@@ -376,14 +379,15 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getCategoryProducts(String category, String sortBy, String minPrice, String maxPrice, String types) async {
-      var params = {
-        "category": category,
-        "sort_by": sortBy,
-        "starting_price": minPrice,
-        "ending_price": maxPrice,
-        "types": types
-      };
+  Future<ProductResponse> getCategoryProducts(String category, String sortBy,
+      String minPrice, String maxPrice, String types) async {
+    var params = {
+      "category": category,
+      "sort_by": sortBy,
+      "starting_price": minPrice,
+      "ending_price": maxPrice,
+      "types": types
+    };
 
     try {
       _dio.options.headers = {"locale": "jp"};

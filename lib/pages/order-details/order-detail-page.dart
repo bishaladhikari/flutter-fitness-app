@@ -13,7 +13,7 @@ class OrderDetailPage extends StatefulWidget {
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
-  Object detail;
+  Order detail;
   int id;
 
   @override
@@ -31,17 +31,70 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Order Details"),
-        backgroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Row(
-          children: <Widget>[
-            OrderItemDetailPage(id: this.id)
-          ],
+        appBar: AppBar(
+          title: Text("Order Details"),
+          backgroundColor: Colors.white,
         ),
-      ),
-    );
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+          child: Column(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Tracking order: " + detail.order_id,
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Address: " + detail.address,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          "Name: " + detail.name,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          "Contact: " + detail.phone,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        Text(
+                          "Email: " + detail.email,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                  OrderItemDetailPage(id: this.id),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }

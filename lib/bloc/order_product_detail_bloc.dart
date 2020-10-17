@@ -4,13 +4,13 @@ import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
-class OrderDetailBloc {
+class OrderProductDetailBloc {
   final Repository _repository = Repository();
 
   // final BehaviorSubject<OrderResponse> _orderDetail =
   //     BehaviorSubject<OrderResponse>();
 
-  final BehaviorSubject<OrderProductDetailResponse> _orderItemDetail =
+  final BehaviorSubject<OrderProductDetailResponse> _orderProductDetail =
       BehaviorSubject<OrderProductDetailResponse>();
 
   // OrderResponse response;
@@ -22,26 +22,26 @@ class OrderDetailBloc {
   //   return response;
   // }
 
-  getOrderItemDetail(int id) async {
+  getOrderProductDetail(int id) async {
     response = await _repository.getOrderItemDetail(id);
-    _orderItemDetail.sink.add(response);
+    _orderProductDetail.sink.add(response);
     return response;
   }
 
   void drainStream() {
     // _orderDetail.value = null;
-    _orderItemDetail.value = null;
+    _orderProductDetail.value = null;
   }
 
   @mustCallSuper
   void dispose() async {
     // await _orderDetail.drain();
     // _orderDetail.close();
-    await _orderItemDetail.drain();
-    _orderItemDetail.close();
+    await _orderProductDetail.drain();
+    _orderProductDetail.close();
   }
 
   // BehaviorSubject<OrderResponse> get orderDetail => _orderDetail;
 
-  BehaviorSubject<OrderProductDetailResponse> get orderItemDetail => _orderItemDetail;
+  BehaviorSubject<OrderProductDetailResponse> get orderProductDetail => _orderProductDetail;
 }

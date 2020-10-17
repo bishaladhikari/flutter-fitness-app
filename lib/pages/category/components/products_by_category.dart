@@ -129,8 +129,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         child: StaggeredGridView.countBuilder(
             crossAxisCount: 4,
             staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-//            mainAxisSpacing: 4.0,
-//            crossAxisSpacing: 4.0,
             controller: ScrollController(keepScrollOffset: false),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,

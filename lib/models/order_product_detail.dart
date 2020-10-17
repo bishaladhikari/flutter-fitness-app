@@ -1,6 +1,6 @@
 class OrderProductDetail {
   int id;
-  String combo;
+  bool combo;
   String customer_review;
   String image;
   String image_thumbnail;
