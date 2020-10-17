@@ -1,11 +1,11 @@
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
-import 'package:ecapp/pages/auth/email-confirm%20.dart';
+import 'package:ecapp/pages/auth/email-confirm.dart';
 import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
 import 'package:ecapp/pages/cart/cart-page.dart';
-import 'package:ecapp/pages/cash-on-delivery/checkout-page.dart';
+import 'package:ecapp/pages/cash-on-delivery/cash-on-delivery-page.dart';
 import 'package:ecapp/pages/checkout/checkout-page.dart';
 import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';

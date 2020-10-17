@@ -86,48 +86,53 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                   TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
             ),
           ),
-          Container(
-            color: Colors.white,
+          GestureDetector(
+            onTap: (){
+              Navigator.pushNamed(context, "cashOnDeliveryPage");
+            },
+            child: Container(
+              color: Colors.white,
 
-            height: 50,
+              height: 50,
 //          padding: EdgeInsets.symmetric( vertical: 10),
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
 
 //            mainAxisAlignment:,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Image.asset("assets/icons/cash_on_delivery.png",scale:2),
-                  ),
-                  Wrap(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Cash On Delivery",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                      child: Container(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 18,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Image.asset("assets/icons/cash_on_delivery.png",scale:2),
                     ),
-                  ))
-                ],
+                    Wrap(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Cash On Delivery",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                        child: Container(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        iconSize: 18,
+                      ),
+                    ))
+                  ],
+                ),
               ),
             ),
           ),
