@@ -17,6 +17,7 @@ class _CartPageState extends State<CartPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70,
       appBar: AppBar(
         title: Text(
           'My Cart',
@@ -76,7 +77,9 @@ class _CartPageState extends State<CartPage>
                         style: TextStyle(color: NPrimaryColor, fontSize: 15)),
                     RaisedButton(
                       color: NPrimaryColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, "checkoutPage");
+                      },
                       child: Text('Checkout', style: TextStyle(color: Colors.white)),
                     ),
                   ],

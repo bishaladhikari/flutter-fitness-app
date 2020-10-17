@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
@@ -112,25 +113,29 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   addToCart(context, params) async {
-    AddToCartResponse response = await cartBloc.addToCart(params);
-    if (response.error != null) {
-      var snackbar = SnackBar(
-        content: Text(response.error),
-        backgroundColor: Colors.redAccent,
-      );
-      _scaffoldKey.currentState.showSnackBar(snackbar);
-    } else {
-      var snackbar = SnackBar(
-        content: Row(
-          children: [
-            Text("Item added to cart"),
-            Spacer(),
+    if (!await authBloc.isAuthenticated)
+      Navigator.pushNamed(context, "loginPage");
+    else {
+      AddToCartResponse response = await cartBloc.addToCart(params);
+      if (response.error != null) {
+        var snackbar = SnackBar(
+          content: Text(response.error),
+          backgroundColor: Colors.redAccent,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      } else {
+        var snackbar = SnackBar(
+          content: Row(
+            children: [
+              Text("Item added to cart"),
+              Spacer(),
 //            GestureDetector(onTap: () {}, child: Text("Go to cart",style: TextStyle(color: Colors.red),))
-          ],
-        ),
-        backgroundColor: NPrimaryColor,
-      );
-      _scaffoldKey.currentState.showSnackBar(snackbar);
+            ],
+          ),
+          backgroundColor: NPrimaryColor,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      }
     }
   }
 
@@ -167,7 +172,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             }),
                         Container(
                           height: 80,
-                          margin: const EdgeInsets.only(top:20),
+                          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                           child: Row(
                             children: [
                               MaterialButton(
@@ -207,62 +212,65 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
-                    [ Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.product.name,
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                    [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.product.name,
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              StarRating(
-                                  rating: widget.product.avgRating, size: 10),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text("(3) reviews")
-                            ],
+                          SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                StarRating(
+                                    rating: widget.product.avgRating, size: 10),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text("(3) reviews")
+                              ],
+                            ),
                           ),
-                        ),
-                        StreamBuilder<ProductDetailResponse>(
-                            stream: productDetailBloc.subject.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                if (snapshot.data.error != null &&
-                                    snapshot.data.error.length > 0) {
-                                  return _buildErrorWidget(snapshot.data.error);
+                          StreamBuilder<ProductDetailResponse>(
+                              stream: productDetailBloc.subject.stream,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  if (snapshot.data.error != null &&
+                                      snapshot.data.error.length > 0) {
+                                    return _buildErrorWidget(
+                                        snapshot.data.error);
+                                  }
+                                  return _buildDetailWidget(snapshot.data);
+                                } else if (snapshot.hasError) {
+                                  return _buildErrorWidget(snapshot.error);
+                                } else {
+                                  return _buildLoadingWidget(context);
                                 }
-                                return _buildDetailWidget(snapshot.data);
-                              } else if (snapshot.hasError) {
-                                return _buildErrorWidget(snapshot.error);
-                              } else {
                                 return _buildLoadingWidget(context);
-                              }
-                              return _buildLoadingWidget(context);
-                            }),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        _buildProducts(context),
+                              }),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          _buildProducts(context),
 //                    _buildSameSellerProducts(context),
-                        _buildComments(context),
-                      ],
-                    )],
+                          _buildComments(context),
+                        ],
+                      )
+                    ],
                   ),
                 )
               ],
@@ -281,6 +289,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //              });
 //              return true;
               if (notification.metrics.axis == Axis.vertical) {
+                print("current position" +
+                    notification.metrics.pixels.toString());
                 _animationController
                     .animateTo(notification.metrics.pixels / 350);
                 return true;
@@ -510,7 +520,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
-                          _alert(context);
+//                          _alert(context);
+                          print('clicked');
+                          Navigator.pushNamed(context, "selectPaymentMethodPage");
                           setState(() {
                             isClicked = !isClicked;
                           });
