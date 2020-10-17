@@ -25,6 +25,7 @@ class _CategoryPageState extends State<CategoryPage>
     'new_arrivals': false,
     'top_rated': false,
   };
+
   TextEditingController minController = TextEditingController();
   TextEditingController maxController = TextEditingController();
 

@@ -9,6 +9,7 @@ import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
+import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
@@ -31,6 +32,7 @@ class Repository {
   var addressUrl = '$appUrl/addresses';
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
+  var ordersUrl = '$appUrl/orders';
 
   Repository() {
     BaseOptions options =
@@ -75,7 +77,6 @@ class Repository {
   Future<LoginResponse> login(credentials) async {
     print(credentials);
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response =
           await _dio.post(loginUrl, queryParameters: credentials);
 //      print(response.data);
@@ -202,6 +203,18 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return BannerResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<OrderResponse> getOrdersByStatus(status) async {
+    var params = {"status": status};
+    try {
+      Response response = await _dio.get(ordersUrl, queryParameters: params);
+      print("Response:" + response.toString());
+      return OrderResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return OrderResponse.withError(_handleError(error));
     }
   }
 

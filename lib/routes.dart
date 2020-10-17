@@ -9,6 +9,7 @@ import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
+import 'package:ecapp/pages/orders/orders_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class Routes {
@@ -47,6 +48,9 @@ abstract class Routes {
         break;
       case 'addressFormPage':
         return MaterialPageRoute(builder: (context) => AddressFormPage(address:arguments));
+        break;
+      case 'ordersPages':
+        return MaterialPageRoute(builder: (context) => OrdersListPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());

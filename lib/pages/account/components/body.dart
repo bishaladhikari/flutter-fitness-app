@@ -41,7 +41,9 @@ class _BodyState extends State<Body> {
             title: "Orders",
             subtitle: "Check your order status.",
             tralingIcon: Icons.keyboard_arrow_right,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('ordersPages');
+            },
           ),
           Divider(
             height: 1.0,

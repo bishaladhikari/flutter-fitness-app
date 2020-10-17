@@ -29,16 +29,13 @@ class ProductsByCategory extends StatefulWidget {
   }
 
   @override
-  _ProductsByCategoryState createState() =>
-      _ProductsByCategoryState(category, sortBy, minPrice, maxPrice, types);
+  _ProductsByCategoryState createState() => _ProductsByCategoryState(category, sortBy, minPrice, maxPrice, types);
   static _ProductsByCategoryState of(BuildContext context) {
-    final _ProductsByCategoryState navigator = context
-        .ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
+    final _ProductsByCategoryState navigator = context.ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
 
     assert(() {
       if (navigator == null) {
-        throw new FlutterError('Operation requested with a context that does '
-            'not include a ProductDetailPage.');
+        throw new FlutterError('Operation requested with a context that does ''not include a ProductDetailPage.');
       }
       return true;
     }());
