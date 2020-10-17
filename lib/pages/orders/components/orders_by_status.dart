@@ -3,6 +3,8 @@ import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/style.dart';
+import 'package:intl/intl.dart';
 
 class OrdersByStatus extends StatefulWidget {
   final String status;
@@ -35,6 +37,7 @@ class OrdersByStatus extends StatefulWidget {
 
 class _OrdersListByStatusState extends State<OrdersByStatus> {
   final String status;
+  final humanDate = new DateFormat('dd-MM-yyyy hh:mm a');
 
   OrdersListByStatusBloc ordersListByStatusBloc;
 
@@ -74,46 +77,157 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 35.0,
-              width: 35.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(
-                    Colors.blueAccent),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 35.0,
+          width: 35.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   Widget _buildHomeWidget(OrderResponse data) {
-    var size = MediaQuery
-        .of(context)
-        .size;
+    var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height) / 2.5;
     final double itemWidth = size.width / 2;
-    final orientation = MediaQuery
-        .of(context)
-        .orientation;
+    final orientation = MediaQuery.of(context).orientation;
     List<Order> orders = data.orders;
     return Container(
         padding: EdgeInsets.only(top: 18),
-        child: (
-            Text("")
+        child: ListView.builder(
+            itemCount: orders.length,
+            itemBuilder: (context, index) {
+              return _buildOrderList(orders[index]);
+            }));
+  }
+
+  Widget _buildOrderList(order) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
+      height: 150.0,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 20,
+            color: Color(0xFFB0CCE1).withOpacity(0.32),
+          ),
+        ],
+      ),
+      child: Container(
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
+              child: Container(
+                width: 70.0,
+                child: Text(
+                  order.order_id,
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 200.0,
+                      child: Text(
+                        order.created_at,
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Container(
+                      width: 200.0,
+                      child: Text(
+                        order.sub_total.toString(),
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(children: <Widget>[
+                      Container(
+                        width: 70.0,
+                        height: 30.0,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          order.status,
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(width: 10.0),
+                      Container(
+                        width: 30.0,
+                        height: 30.0,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          order.total_quantity.toString(),
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                      SizedBox(width: 10.0),
+                      Container(
+                        width: 70.0,
+                        height: 30.0,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          order.status,
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                      ),
+                    ])
+                  ]),
+            ),
+          ],
         ),
+      ),
     );
   }
 }
