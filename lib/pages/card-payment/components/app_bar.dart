@@ -5,6 +5,6 @@ AppBar CardPaymentAppBar() {
   return AppBar(
     backgroundColor: Colors.white,
     elevation: 1,
-    title: Text("Credit/Debit Card"),
+    title: Text("Credit/Debit Card",style: TextStyle(fontSize: 16),),
   );
 }

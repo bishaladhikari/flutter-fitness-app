@@ -153,6 +153,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //              mainAxisSize: MainAxisSize.max,
               slivers: [
                 SliverAppBar(
+                  brightness: Brightness.dark,
                   pinned: false,
                   expandedHeight: 280,
                   leading: Container(),
