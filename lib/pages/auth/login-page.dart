@@ -22,8 +22,8 @@ class _LoginPageState extends State<LoginPage>
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  var email = "actionbishal98130@gmail.com";
-  var password = "Password123";
+//  var email = "actionbishal98130@gmail.com";
+//  var password = "Password123";
 
   bool _obscureText = true;
   bool _validate = false;

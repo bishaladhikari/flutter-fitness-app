@@ -1,4 +1,5 @@
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/card-payment/components/card_number_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:stripe_sdk/stripe_sdk_ui.dart';
@@ -19,9 +20,10 @@ class Body extends StatefulWidget {
   final String cardCvcErrorText;
   final Decoration cardDecoration;
 
-  Body({Key key, this.cardNumberDecoration, this.cardNumberTextStyle, this.cardExpiryDecoration, this.cardExpiryTextStyle, this.cardCvcDecoration, this.cardCvcTextStyle, this.cardNumberErrorText, this.cardExpiryErrorText, this.cardCvcErrorText, this.cardDecoration})
-      : card = StripeCard(),
-        formKey = GlobalKey(),
+  Body({Key key, this.cardNumberDecoration, this.cardNumberTextStyle, this.cardExpiryDecoration, this.cardExpiryTextStyle, this.cardCvcDecoration, this.cardCvcTextStyle, this.cardNumberErrorText, this.cardExpiryErrorText, this.cardCvcErrorText, this.cardDecoration, this.formKey, this.card})
+      :
+//        card = StripeCard(),
+//        formKey = GlobalKey(),
         super(key: key);
   @override
   _BodyState createState() => _BodyState();
@@ -89,6 +91,7 @@ class _BodyState extends State<Body> {
                     ),
                     Form(
                       key: widget.formKey,
+                      autovalidate: false,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -96,7 +99,7 @@ class _BodyState extends State<Body> {
                             Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               margin: const EdgeInsets.only(top: 16),
-                              child: CardNumberFormField(
+                              child: CustomCardNumberFormField(
                                 initialValue: _validationModel.number ?? widget.card.number,
                                 onChanged: (number) {
                                   setState(() {
@@ -155,57 +158,6 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                height: 80,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Subtotal",
-                          style: TextStyle(
-//                      fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          "Rs 4,201",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                              fontSize: 16),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                        height:5
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                      children: [
-                        Text(
-                          "Total Amount",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          "Rs 4,201",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: NPrimaryColor,
-                              fontSize: 16),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
             ],
           ),
         ),
