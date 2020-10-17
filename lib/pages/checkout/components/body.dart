@@ -12,9 +12,6 @@ class _BodyState extends State<Body> {
     return Container(
       color: Colors.black.withOpacity(.01),
       child: Column(
-//      color,
-
-//      bac,
         children: [
           Container(
             width: double.infinity,
@@ -26,54 +23,59 @@ class _BodyState extends State<Body> {
                   TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
             ),
           ),
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(vertical: 8),
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+          GestureDetector(
+            onTap: (){
+              Navigator.pushNamed(context, "cardPaymentPage");
+            },
+            child: Container(
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 8),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
 
 //            mainAxisAlignment:,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Image.asset("assets/icons/creditdebit.png",scale:2,),
-                ),
-                Wrap(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Credit/Debit Card",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Image.asset("assets/icons/card_type_logo.png",scale: 6,),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Image.asset("assets/icons/creditdebit.png",scale:2,),
+                  ),
+                  Wrap(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Credit/Debit Card",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Image.asset("assets/icons/card_type_logo.png",scale: 6,),
 //                            Icon(Icons.home),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Text('Credit/Debit Card'),
-                      ],
-                    ),
-                  ],
-                ),
-                Expanded(
-                    child: Container(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                      iconSize: 18, icon: Icon(Icons.arrow_forward_ios)),
-                ))
-              ],
+                          Text('Credit/Debit Card'),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: Container(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                        iconSize: 18, icon: Icon(Icons.arrow_forward_ios)),
+                  ))
+                ],
+              ),
             ),
           ),
           Container(
