@@ -145,6 +145,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //      statusBarColor: Colors.white,
 //    ));
     return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.01),
       key: _scaffoldKey,
       body: Stack(
         children: [
