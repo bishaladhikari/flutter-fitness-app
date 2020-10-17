@@ -176,7 +176,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                           child: Row(
                             children: [
-                              MaterialButton(
+                              RaisedButton(
                                 onPressed: () {
                                   print("backing");
                                   Navigator.pop(context);
@@ -317,7 +317,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     children: [
                       IconButton(
                         icon: Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       Text(
                         widget.product.name,
