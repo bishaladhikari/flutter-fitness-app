@@ -172,7 +172,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             }),
                         Container(
                           height: 80,
-                          margin: const EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                           child: Row(
                             children: [
                               MaterialButton(
@@ -520,7 +520,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
-                          _alert(context);
+//                          _alert(context);
+                          print('clicked');
+                          Navigator.pushNamed(context, "selectPaymentMethodPage");
                           setState(() {
                             isClicked = !isClicked;
                           });

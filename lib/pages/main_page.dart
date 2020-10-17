@@ -23,8 +23,8 @@ class _MainPageState extends State<MainPage> {
     categoryBloc..getCategories();
     productsBloc..getFeaturedProducts();
     productsBloc..getProducts();
-    productsBloc..getBestSellers();
     productsBloc..getNewArrivals();
+    productsBloc..getBestSellers();
     cartBloc..getCart();
 //    comboBloc.getComboProducts();
   }
