@@ -24,7 +24,7 @@ class _WishListPageState extends State<WishListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(authBloc.isAuthenticated==false)
+    if(authBloc.isAuthenticated()==false)
 
     wishListBloc.getWishlist();
   }

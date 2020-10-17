@@ -113,7 +113,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   addToCart(context, params) async {
-    if (!await authBloc.isAuthenticated)
+    if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
