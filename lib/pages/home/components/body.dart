@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
 //          ),
           CategoryList(),
           DiscountCard(),
-          SizedBox(height: 10),
+//          SizedBox(height: 10),
           CategoryTab(),
           SizedBox(height: 10),
           Padding(
@@ -45,23 +45,23 @@ class Body extends StatelessWidget {
             ),
           ),
           FeaturedProductsList(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Best sellers Products".tr().toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-            ),
-          ),
-          BestSellersProductsList(),
-          SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "New Arrivals".tr().toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-            ),
-          ),
-          NewArrivalsProductsList(),
+//          Padding(
+//            padding: const EdgeInsets.symmetric(horizontal: 20),
+//            child: Text(
+//              "Best sellers Products".tr().toString(),
+//              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+//            ),
+//          ),
+//          BestSellersProductsList(),
+//          SizedBox(height: 5),
+//          Padding(
+//            padding: const EdgeInsets.symmetric(horizontal: 20),
+//            child: Text(
+//              "New Arrivals".tr().toString(),
+//              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+//            ),
+//          ),
+//          NewArrivalsProductsList(),
           SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

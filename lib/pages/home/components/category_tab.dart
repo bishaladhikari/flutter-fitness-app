@@ -6,6 +6,7 @@ import 'package:ecapp/pages/home/components/featured_products_list.dart';
 import 'package:ecapp/pages/home/components/new_arrivals_products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../constants.dart';
 import 'category_item.dart';
 
 class CategoryTab extends StatelessWidget {
@@ -24,6 +25,8 @@ class CategoryTab extends StatelessWidget {
               elevation: 0,
               bottom: TabBar(
                 isScrollable: true,
+                labelColor: NPrimaryColor,
+                unselectedLabelColor: Colors.black,
                 tabs: [
                   Tab(text: "Best Sellers"),
                   Tab(text: "New Arrivals"),
