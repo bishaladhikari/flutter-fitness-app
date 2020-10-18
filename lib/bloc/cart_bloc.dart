@@ -15,11 +15,15 @@ class CartBloc {
   final BehaviorSubject<CartResponse> _subject =
       BehaviorSubject<CartResponse>();
   CartResponse response;
+  List<CartItem> _cartItems;
 
   getCart() async {
     response = await _repository.getCart();
     _subject.sink.add(response);
+    if (response.error != null) _cartItems = response.carts[0].items;
   }
+
+  get cartItems => _cartItems;
 
   addToCart(params) async {
     AddToCartResponse response = await _repository.addToCart(params);

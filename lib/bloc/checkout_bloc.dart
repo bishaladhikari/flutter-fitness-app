@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
@@ -39,7 +40,7 @@ class CheckoutBloc {
       "redeemed_points": "",
       "payment_method": "Cash Payment",
       "billable_amount": "4444",
-      "products": cartItems,
+      "products": cartBloc.cartItems,
       "note": "",
       "achieved_promotions": []
     };
