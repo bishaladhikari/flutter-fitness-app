@@ -183,10 +183,8 @@ leftDrawerMenu() {
                         fontWeight: FontWeight.w600,
                         color: blackColor),
                   ),
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-                  ),
+                  leading: CircleAvatar(child: Image.asset("assets/icons/person_placeholder.png"))
+                  ,
                 ):
                 ListTile(
                   title:Text("Log In/Sign Up"),
