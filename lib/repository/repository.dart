@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
+import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -15,6 +16,7 @@ import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/theme.dart';
@@ -37,6 +39,7 @@ class Repository {
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
   var orderProductsUrl = '$appUrl/order-products';
+  var removeFromWishlist = '$appUrl/remove-from-wishlist';
 
   Repository() {
     BaseOptions options =
@@ -241,13 +244,24 @@ class Repository {
     }
   }
 
-  Future<AddToCartResponse> addToWishlist(params) async {
+  Future<AddToWishlistResponse> addToWishlist(params) async {
     try {
       Response response = await _dio.post(wishlistUrl, queryParameters: params);
-      return AddToCartResponse.fromJson(response.data);
+      return AddToWishlistResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return AddToCartResponse.withError(_handleError(error));
+      return AddToWishlistResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<RemoveFromWishlistResponse> deleteFromWishlist(params) async {
+    try {
+      Response response =
+          await _dio.post(removeFromWishlist, queryParameters: params);
+      return RemoveFromWishlistResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return RemoveFromWishlistResponse.withError(_handleError(error));
     }
   }
 
@@ -388,7 +402,6 @@ class Repository {
       "types": types
     };
 
-
     try {
       _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
@@ -398,16 +411,16 @@ class Repository {
       return ProductResponse.withError(_handleError(error));
     }
   }
+
   Future<AddOrderResponse> createOrder(params) async {
     try {
-      Response response = await _dio.post(ordersUrl,queryParameters: params);
+      Response response = await _dio.post(ordersUrl, queryParameters: params);
       return AddOrderResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return AddOrderResponse.withError(_handleError(error));
     }
   }
-
 
 //
 //  String _handleAuthError(error){

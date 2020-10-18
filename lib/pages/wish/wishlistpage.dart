@@ -24,10 +24,9 @@ class _WishListPageState extends State<WishListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(authBloc.isAuthenticated()==false)
-
-    wishListBloc.getWishlist();
+    if (authBloc.isAuthenticated() == false) wishListBloc.getWishlist();
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -46,7 +45,8 @@ class _WishListPageState extends State<WishListPage> {
           stream: wishListBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+              if (snapshot.data.error != null &&
+                  snapshot.data.error.length > 0) {
                 return _buildErrorWidget(snapshot.data.error);
               }
               return _buildWishlistWidget(snapshot.data);
@@ -62,38 +62,39 @@ class _WishListPageState extends State<WishListPage> {
     );
   }
 
-  Widget _buildWishlistWidget(WishlistResponse data ) {
+  Widget _buildWishlistWidget(WishlistResponse data) {
     List<Cart> wishes = data.wishes;
     return ListView.builder(
       itemCount: wishes.length,
-      itemBuilder:(context,index)=> WishlistItemView(wish:wishes[index]),
+      itemBuilder: (context, index) => WishlistItemView(wish: wishes[index]),
     );
   }
- 
+
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
+
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 }
 
@@ -114,7 +115,7 @@ class ListTileItem extends StatelessWidget {
         Container(
           height: 50.0,
           width: 50.0,
-          child: CachedNetworkImage(imageUrl:leading),
+          child: CachedNetworkImage(imageUrl: leading),
         ),
         SizedBox(
           width: 10.0,
@@ -129,22 +130,25 @@ class ListTileItem extends StatelessWidget {
     );
   }
 }
-class WishlistItemView extends StatelessWidget{
+
+class WishlistItemView extends StatelessWidget {
   final wish;
+
   WishlistItemView({this.wish});
+
   @override
   Widget build(BuildContext context) {
-       return Container(
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(bottom: 1),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Container(
+              height: 83.5,
+              decoration: BoxDecoration(
                 color: Colors.white,
-                padding: EdgeInsets.only(bottom: 1),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height:83.5,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
 //                          image: DecorationImage(
 //                            image: NetworkImage(
 //                              wish.imageThumbnail
@@ -152,41 +156,50 @@ class WishlistItemView extends StatelessWidget{
 //                            fit: BoxFit.fitHeight,
 ////                            image: Image.asset(cart[i]['image']),
 //                          ),
-                        ),
+              ),
 //                        child: Image.asset(cart[i]['image']),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
+            ),
+          ),
+          Expanded(
+            child: Container(
 //                        padding:
 //                            EdgeInsets.symmetric(horizontal: 10, vertical: 23),
 //                        height: 100,
-                        width: 200,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(wish.attribute!=null?wish.attribute.productName:wish.combo.title,
-                                style: TextStyle(
-                                    fontFamily: 'Quicksand',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black)),
-                            SizedBox(height: 10),
-                            Text("250", style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey))
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(padding:EdgeInsets.only(right:20.0),child: IconButton(icon:Icon(Icons.delete),color:Colors.black26,onPressed: (){
-                      wishListBloc.deleteFromWishList(wish.id);
-                    },))
-                    ],
-                ),
-              );
-           
+              width: 200,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      wish.attribute != null
+                          ? wish.attribute.productName
+                          : wish.combo.title,
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  SizedBox(height: 10),
+                  Text("250",
+                      style: TextStyle(
+                          fontFamily: 'Quicksand',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey))
+                ],
+              ),
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: IconButton(
+                icon: Icon(Icons.delete),
+                color: Colors.black26,
+                onPressed: () {
+                  wishListBloc.deleteFromWishList(wish.id);
+                },
+              ))
+        ],
+      ),
+    );
   }
 }

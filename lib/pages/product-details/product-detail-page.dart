@@ -11,8 +11,11 @@ import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
+import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/models/response/remove_from_wishlist.dart';
+import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
@@ -129,11 +132,12 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     }
   }
 
-  addToWishlist(context, params) async {
+  _addToWishlist(context, params) async {
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
-      AddToCartResponse response = await cartBloc.addToWishlist(params);
+      AddToWishlistResponse response =
+          await productDetailBloc.addToWishlist(params);
       if (response.error != null) {
         var snackbar = SnackBar(
           content: Text(response.error),
@@ -144,7 +148,33 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         var snackbar = SnackBar(
           content: Row(
             children: [
-              Text("Item added to Wishlist"),
+              Text("Successfully Updated"),
+              Spacer(),
+            ],
+          ),
+          backgroundColor: NPrimaryColor,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      }
+    }
+  }
+
+  _removeFromWishlist(context, params) async {
+    if (!await authBloc.isAuthenticated())
+      Navigator.pushNamed(context, "loginPage");
+    else {
+      RemoveFromWishlistResponse response = await productDetailBloc.deleteFromWishlist(params);
+      if (response.error != null) {
+        var snackbar = SnackBar(
+          content: Text(response.error),
+          backgroundColor: Colors.redAccent,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      } else {
+        var snackbar = SnackBar(
+          content: Row(
+            children: [
+              Text("Successfully Updated"),
               Spacer(),
             ],
           ),
@@ -325,9 +355,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   color: Colors.white,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-//                    crossAxisAlignment: MainAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
-//                    crossAxisAlignment: Alignment.bottomCenter,
                     children: [
                       IconButton(
                         icon: Icon(Icons.arrow_back, color: Colors.black),
@@ -341,23 +369,45 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       Spacer(),
                       StreamBuilder<ProductDetailResponse>(
-                        stream: productDetailBloc.subject.stream,
-                        builder: (context, snapshot) {
-                          return IconButton(
-                            icon: Icon(
-                                widget.product.attributes ? Icons.favorite : Icons.favorite_border,
-                                color: Colors.green),
-                            onPressed: () {
-                              print(widget.product.saved);
-                              // var params = {
-                              //   "attribute_id": widget.product.attributeId,
-                              //   "combo_id": null,
-                              // };
-                              // addToWishlist(context, params);
-                            },
-                          );
-                        }
-                      )
+                          stream: productDetailBloc.subject.stream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return IconButton(
+                                icon: Icon(
+                                    snapshot.data.productDetail
+                                            .selectedAttribute.saved
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: Colors.green),
+                                onPressed: () {
+                                  var params = {
+                                    "attribute_id": snapshot.data.productDetail
+                                        .selectedAttribute.id,
+                                    "combo_id": null,
+                                  };
+                                  if (snapshot.data.productDetail
+                                      .selectedAttribute.saved) {
+                                    _removeFromWishlist(context, params);
+                                  } else {
+                                    _addToWishlist(context, params);
+                                  }
+                                },
+                              );
+                            } else {
+                              return IconButton(
+                                icon: Icon(Icons.favorite_border,
+                                    color: Colors.green),
+                                onPressed: () {
+                                  print(widget.product.saved);
+                                  // var params = {
+                                  //   "attribute_id": widget.product.attributeId,
+                                  //   "combo_id": null,
+                                  // };
+                                  // addToWishlist(context, params);
+                                },
+                              );
+                            }
+                          })
                     ],
                   ),
                 ),
