@@ -37,7 +37,6 @@ class OrdersByStatus extends StatefulWidget {
 
 class _OrdersListByStatusState extends State<OrdersByStatus> {
   final String status;
-  final humanDate = new DateFormat('dd-MM-yyyy hh:mm a');
 
   OrdersListByStatusBloc ordersListByStatusBloc;
 
@@ -112,7 +111,13 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         child: ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              return _buildOrderList(orders[index]);
+              return GestureDetector(
+                child: _buildOrderList(orders[index]),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('orderDetailPage', arguments: orders[index]);
+                },
+              );
             }));
   }
 

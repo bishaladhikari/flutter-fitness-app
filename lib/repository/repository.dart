@@ -9,6 +9,7 @@ import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
+import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -33,6 +34,7 @@ class Repository {
   var addressUrl = '$appUrl/addresses';
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
+  var orderProductsUrl = '$appUrl/order-products';
 
   Repository() {
     BaseOptions options =
@@ -213,6 +215,28 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return OrderResponse.withError(_handleError(error));
+    }
+  }
+
+  // Future<OrderResponse> getSingleOrderDetail(int id) async {
+  //   try {
+  //     Response response = await _dio.get(ordersUrl + "/$id");
+  //     return OrderResponse.fromJson(response.data);
+  //   } catch (error, stacktrace) {
+  //     print("Exception occured: $error stackTrace: $stacktrace");
+  //     return OrderResponse.withError(_handleError(error));
+  //   }
+  // }
+
+  Future<OrderProductDetailResponse> getOrderItemDetail(int id) async {
+    var params = {"order_id": id};
+    try {
+      Response response =
+          await _dio.get(orderProductsUrl + "/$id", queryParameters: params);
+      return OrderProductDetailResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return OrderProductDetailResponse.withError(_handleError(error));
     }
   }
 
