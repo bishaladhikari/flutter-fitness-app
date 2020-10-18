@@ -21,12 +21,13 @@ class CategoryTab extends StatelessWidget {
             preferredSize: Size.fromHeight(50.0),
             child: AppBar(
               backgroundColor: Colors.white,
+              elevation: 0,
               bottom: TabBar(
                 isScrollable: true,
                 tabs: [
                   Tab(text: "Best Sellers"),
                   Tab(text: "New Arrivals"),
-                  Tab(text: "Featured Products"),
+                  Tab(text: "Top Rated"),
                 ],
               ),
             ),
