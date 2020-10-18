@@ -1,5 +1,6 @@
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
@@ -70,8 +71,10 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
               height: 50,
               child: FlatButton(
                 color: NPrimaryColor,
-                onPressed: () {
-                  checkoutBloc.createOrder();
+                onPressed: ()async {
+                  AddOrderResponse response = await checkoutBloc.createOrder();
+                  if(response.error==null)
+                    Navigator.of(context).pushNamed("orderConfirmationPage");
                 },
                 child: Text(
                   "Confirm Order", style: TextStyle(color: Colors.white),),

@@ -20,7 +20,7 @@ class CartBloc {
   getCart() async {
     response = await _repository.getCart();
     _subject.sink.add(response);
-    if (response.error != null) _cartItems = response.carts[0].items;
+    if (response.error == null) _cartItems = response.carts[0].items;
   }
 
   get cartItems => _cartItems;
