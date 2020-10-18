@@ -38,6 +38,7 @@ class _OrdersListPageState extends State<OrdersListPage>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            brightness: Brightness.dark,
             title: Text("Orders"),
             backgroundColor: Colors.white,
             bottom: TabBar(
