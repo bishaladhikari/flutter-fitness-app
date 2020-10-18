@@ -19,28 +19,33 @@ class Order {
   String weight;
   String zip_code;
   String created_at;
+  String created_date;
+  String payment_status;
 
-  Order(
-      {this.id,
-      this.name,
-      this.address,
-      this.bulk_discount_cost,
-      this.city,
-      this.email,
-      this.house,
-      this.order_id,
-      this.payment_method,
-      this.phone,
-      this.prefecture,
-      this.redeemed_amount,
-      this.shipping_cost,
-      this.shipping_discount_cost,
-      this.status,
-      this.sub_total,
-      this.total_quantity,
-      this.weight,
-      this.zip_code,
-      this.created_at});
+  Order({
+    this.id,
+    this.name,
+    this.address,
+    this.bulk_discount_cost,
+    this.city,
+    this.email,
+    this.house,
+    this.order_id,
+    this.payment_method,
+    this.phone,
+    this.prefecture,
+    this.redeemed_amount,
+    this.shipping_cost,
+    this.shipping_discount_cost,
+    this.status,
+    this.sub_total,
+    this.total_quantity,
+    this.weight,
+    this.zip_code,
+    this.created_at,
+    this.created_date,
+    this.payment_status,
+  });
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -63,5 +68,7 @@ class Order {
     weight = json['weight'];
     zip_code = json['zip_code'];
     created_at = json['created_at'];
+    created_date = json['created_date'];
+    payment_status = json['payment_status'];
   }
 }

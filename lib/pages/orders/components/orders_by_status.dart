@@ -121,7 +121,35 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
             }));
   }
 
-  Widget _buildOrderList(order) {
+  Widget _buildOrderList(Order order) {
+    return ListTile(
+      contentPadding: const EdgeInsets.all(8.0),
+      title: Row(
+        children: [
+          Text("Order "+order.order_id),
+          SizedBox(width: 5.0,),
+          Icon(Icons.keyboard_arrow_right,color: Colors.black26,),
+        ],
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Placed on "+ order.created_date),
+            SizedBox(height:5.0),
+            Text("Total Items: "+order.total_quantity.toString())
+          ],
+        ),
+      ),
+      trailing: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          order.payment_status.toString(),
+          style: TextStyle(fontSize: 14, color: Colors.black38),
+        ),
+      ),
+    );
     return Container(
       margin: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
       height: 150.0,
