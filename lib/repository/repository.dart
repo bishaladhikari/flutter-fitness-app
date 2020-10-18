@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
@@ -386,13 +387,13 @@ class Repository {
       return ProductResponse.withError(_handleError(error));
     }
   }
-  Future<BannerResponse> createOrder(params) async {
+  Future<AddOrderResponse> createOrder(params) async {
     try {
       Response response = await _dio.post(ordersUrl,queryParameters: params);
-      return BannerResponse.fromJson(response.data);
+      return AddOrderResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return BannerResponse.withError(_handleError(error));
+      return AddOrderResponse.withError(_handleError(error));
     }
   }
 

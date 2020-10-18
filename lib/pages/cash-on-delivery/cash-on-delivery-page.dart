@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
@@ -41,7 +42,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
               ],
             ),
             SizedBox(
-              height:5
+                height: 5
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,8 +70,11 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
               height: 50,
               child: FlatButton(
                 color: NPrimaryColor,
-                onPressed: () {  },
-                child: Text("Confirm Order",style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  checkoutBloc.createOrder();
+                },
+                child: Text(
+                  "Confirm Order", style: TextStyle(color: Colors.white),),
               ),
             )
           ],

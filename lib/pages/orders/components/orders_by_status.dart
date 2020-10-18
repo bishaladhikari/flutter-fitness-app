@@ -117,7 +117,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
             Column(
               children: <Widget>[
                 Text(
-                  "No Order Found",
+                  "No Orders Found",
                   style: TextStyle(color: Colors.black45),
                 )
               ],
@@ -175,7 +175,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           order.payment_status.toString(),
-          style: TextStyle(fontSize: 14, color: Colors.black38),
+          style: TextStyle(fontSize: 14, color: Colors.black38,fontStyle: FontStyle.italic),
         ),
       ),
     );
