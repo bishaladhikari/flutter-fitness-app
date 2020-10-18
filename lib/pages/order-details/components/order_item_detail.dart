@@ -76,38 +76,10 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   Widget _buildLoadingWidget() {
     var width = MediaQuery.of(context).size.width - 16;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.black26,
-        period: Duration(milliseconds: 1000),
-        highlightColor: Colors.white70,
-        child: Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Container(height: 100, width: MediaQuery.of(context).size.width, color: Colors.black26),
-                ],
-              ),
-              SizedBox(width: 15),
-              Column(
-                children: [
-                  Container(height: 100, width: MediaQuery.of(context).size.width, color: Colors.black26),
-                ],
-              ),
-              SizedBox(width:15),
-              Column(
-                children: [
-                  Container(height: 100, width: MediaQuery.of(context).size.width, color: Colors.black26),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return Center(child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: CircularProgressIndicator(),
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
