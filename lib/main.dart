@@ -35,11 +35,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: NPrimaryColor,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.light,
+
+
+        systemNavigationBarColor: Colors.white
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Food App',
+      title: 'Ecapp',
 //      theme: ThemeData(
 //        primaryColor: kPrimaryColor,
 //        scaffoldBackgroundColor: Colors.white,

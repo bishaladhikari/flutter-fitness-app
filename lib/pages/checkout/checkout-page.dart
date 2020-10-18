@@ -24,41 +24,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Subtotal",
-                  style: TextStyle(
-//                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 16),
-                ),
-                Text(
-                  "Rs 4,201",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      fontSize: 16),
-                )
-              ],
-            ),
-            SizedBox(
-              height:5
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-              children: [
-                Text(
                   "Total Amount",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: 16),
                 ),
+                Spacer(),
                 Text(
                   "Rs 4,201",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: NPrimaryColor,
                       fontSize: 16),
+                ),
+                Spacer(),
+                FlatButton(
+                  onPressed:(){
+                    Navigator.pushNamed(context, "selectPaymentMethodPage");
+                  },
+                  color: NPrimaryColor,
+                  child: Text("Proceed to Pay",style: TextStyle(color: Colors.white),),
                 )
               ],
             )

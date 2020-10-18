@@ -63,7 +63,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                               Text(
                                 "Credit/Debit Card",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -126,7 +126,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                             Text(
                               "Cash On Delivery",
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: Colors.black,),
                             ),
                           ],

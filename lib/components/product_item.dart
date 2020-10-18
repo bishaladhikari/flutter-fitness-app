@@ -14,7 +14,7 @@ class ProductItem extends StatelessWidget {
 //  final List<Color> gradientColors;
   final width;
 
-  ProductItem({this.product, this.width = 150.0});
+  ProductItem({this.product, this.width = 160.0});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ProductItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
+            margin: EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),

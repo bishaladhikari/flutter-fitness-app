@@ -23,12 +23,12 @@ class CategoryList extends StatelessWidget {
           } else if (snapshot.hasError) {
             return _buildErrorWidget(snapshot.error);
           } else {
-            return _buildLoadingWidget();
+            return _buildLoadingWidget(context);
           }
         });
   }
 
-  Widget _buildLoadingWidget() {
+  Widget _buildLoadingWidget(context) {
     
       return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -42,7 +42,7 @@ class CategoryList extends StatelessWidget {
           children: [
             Column(
               children: [
-            Container(height: 40,width: 330, color: Colors.black26),
+            Container(height: 40,width: MediaQuery.of(context).size.width-20, color: Colors.black26),
               ],
             ),
            
