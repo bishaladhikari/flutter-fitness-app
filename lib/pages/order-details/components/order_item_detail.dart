@@ -2,6 +2,7 @@ import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/order_product_detail.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../constants.dart';
 
@@ -73,20 +74,40 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   }
 
   Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 35.0,
-          width: 35.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-            strokeWidth: 4.0,
+    var width = MediaQuery.of(context).size.width - 16;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.black26,
+        period: Duration(milliseconds: 1000),
+        highlightColor: Colors.white70,
+        child: Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Container(height: 100, width: MediaQuery.of(context).size.width, color: Colors.black26),
+                ],
+              ),
+              SizedBox(width: 15),
+              Column(
+                children: [
+                  Container(height: 100, width: MediaQuery.of(context).size.width, color: Colors.black26),
+                ],
+              ),
+              SizedBox(width:15),
+              Column(
+                children: [
+                  Container(height: 100, width: MediaQuery.of(context).size.width, color: Colors.black26),
+                ],
+              ),
+            ],
           ),
-        )
-      ],
-    ));
+        ),
+      ),
+    );
   }
 
   Widget _buildErrorWidget(String error) {
