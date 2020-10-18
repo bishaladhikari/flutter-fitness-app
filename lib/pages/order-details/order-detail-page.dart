@@ -31,6 +31,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black.withOpacity(0.01),
         appBar: AppBar(
           brightness: Brightness.dark,
           title: Text("Order Details"),
@@ -43,24 +44,24 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Tracking order: " + detail.order_id,
+                  "Ship & bill to",
+                  style: TextStyle(fontSize: 16, color: Colors.black38),
+                ),
+                Text(
+                  detail.name,
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Text(
-                  "Address: " + detail.address,
+                  detail.phone,
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Text(
-                  "Name: " + detail.name,
+                  detail.email,
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Text(
-                  "Contact: " + detail.phone,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                Text(
-                  "Email: " + detail.email,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  detail.address,
+                  style: TextStyle(fontSize: 16, color: Colors.black38),
                 ),
                 OrderItemDetailPage(id: this.id),
                 ListTile(
@@ -116,7 +117,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     ],
                   ),
                 ),
-                Divider(color: Colors.black),
+                Divider(color: Colors.black12),
                 ListTile(
                   trailing: Column(
                     children: [

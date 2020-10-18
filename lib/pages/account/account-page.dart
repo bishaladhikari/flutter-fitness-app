@@ -17,7 +17,7 @@ class _AccountPageState extends State<AccountPage>
 
     return Scaffold(
         backgroundColor: Colors.black.withOpacity(0.01),
-      appBar: AccountAppBar(context),
+        appBar: AccountAppBar(context),
       body: Body()
     );
   }
