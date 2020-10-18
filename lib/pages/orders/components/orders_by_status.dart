@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/orders_byStatus.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -126,7 +127,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       contentPadding: const EdgeInsets.all(8.0),
       title: Row(
         children: [
-          Text("Order "+order.order_id),
+          Text("Order "+order.order_id,style: TextStyle(color: NPrimaryColor),),
           SizedBox(width: 5.0,),
           Icon(Icons.keyboard_arrow_right,color: Colors.black26,),
         ],
