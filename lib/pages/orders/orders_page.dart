@@ -46,6 +46,9 @@ class _OrdersListPageState extends State<OrdersListPage>
               controller: _tabController,
               isScrollable: true,
               indicatorColor: NPrimaryColor,
+              labelColor: NPrimaryColor,
+              unselectedLabelColor: Colors.black38,
+              indicatorSize: TabBarIndicatorSize.tab,
               tabs: orderTitleList.map((title) {
                 return Container(
                     padding: const EdgeInsets.all(6.0),
