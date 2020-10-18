@@ -127,7 +127,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       contentPadding: const EdgeInsets.all(8.0),
       title: Row(
         children: [
-          Text("Order "+order.order_id,style: TextStyle(color: NPrimaryColor),),
+          Text("Order "+order.order_id,style: TextStyle(color: Colors.black87,fontWeight: FontWeight.bold),),
           SizedBox(width: 5.0,),
           Icon(Icons.keyboard_arrow_right,color: Colors.black26,),
         ],

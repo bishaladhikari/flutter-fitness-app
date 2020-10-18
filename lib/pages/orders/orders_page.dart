@@ -1,3 +1,4 @@
+import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'components/orders_by_status.dart';
@@ -44,6 +45,7 @@ class _OrdersListPageState extends State<OrdersListPage>
             bottom: TabBar(
               controller: _tabController,
               isScrollable: true,
+              indicatorColor: NPrimaryColor,
               tabs: orderTitleList.map((title) {
                 return Container(
                     padding: const EdgeInsets.all(6.0),
