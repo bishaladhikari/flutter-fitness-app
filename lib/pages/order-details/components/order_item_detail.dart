@@ -23,7 +23,7 @@ class OrderItemDetailPage extends StatefulWidget {
     assert(() {
       if (navigator == null) {
         throw new FlutterError('Operation requested with a context that does '
-            'not include a ProductDetailPage.');
+            'not include a OrderItemDetailPage.');
       }
       return true;
     }());
@@ -117,73 +117,76 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   }
 
   Widget _buildOrderProductList(order) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Card(
-          elevation: 0,
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(order.image_thumbnail),
-                        fit: BoxFit.cover)),
-              ),
-              SizedBox(width: 20.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 200.0,
-                    child: Text(
-                      order.product_name,
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    "Sold By " + order.sold_by,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
-                  ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    "\$ " + order.sub_total.toString(),
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
-                  ),
-                  SizedBox(height: 10.0),
-                  Row(
-                    children: [
-                      Text(
-                        "x " + order.quantity.toString(),
+    return GestureDetector(
+      onTap: (){},
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Card(
+            elevation: 0,
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(order.image_thumbnail),
+                          fit: BoxFit.cover)),
+                ),
+                SizedBox(width: 20.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 200.0,
+                      child: Text(
+                        order.product_name,
                         style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.bold,
                             color: Colors.black),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
-                      SizedBox(width: 100.0),
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        )
-        // OrderItemDetailPage(id: this.id)
-      ],
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      "Sold By " + order.sold_by,
+                      style: TextStyle(
+                          fontSize: 14,
+//                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      "\$ " + order.sub_total.toString(),
+                      style: TextStyle(
+                          fontSize: 14,
+//                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(
+                      children: [
+                        Text(
+                          "x " + order.quantity.toString(),
+                          style: TextStyle(
+                              fontSize: 14,
+//                              fontWeight: FontWeight.w400,
+                              color: Colors.black),
+                        ),
+                        SizedBox(width: 100.0),
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+          // OrderItemDetailPage(id: this.id)
+        ],
+      ),
     );
   }
 }
