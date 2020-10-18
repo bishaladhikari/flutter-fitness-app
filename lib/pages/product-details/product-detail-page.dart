@@ -43,7 +43,6 @@ class ProductDetailPage extends StatefulWidget {
         {"image_thumbnail": this.product.imageThumbnail}));
   }
 
-//  ProductPage({this.product});
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
 
@@ -80,14 +79,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     });
   }
 
-//  set selectedAttribute(Attribute value) {
-//    setState(() {
-//      selectedAttribute = value;
-//    });
-//  } //  Product product;
-
-//  get selectedAttribute => _selectedAttribute;
-
   _ProductDetailPageState();
 
   @override
@@ -108,7 +99,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   @override
   void dispose() {
     super.dispose();
-//    print("disposed productDetail");
     productDetailBloc..drainStream();
   }
 
@@ -139,11 +129,34 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     }
   }
 
+  addToWishlist(context, params) async {
+    if (!await authBloc.isAuthenticated())
+      Navigator.pushNamed(context, "loginPage");
+    else {
+      AddToCartResponse response = await cartBloc.addToWishlist(params);
+      if (response.error != null) {
+        var snackbar = SnackBar(
+          content: Text(response.error),
+          backgroundColor: Colors.redAccent,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      } else {
+        var snackbar = SnackBar(
+          content: Row(
+            children: [
+              Text("Item added to Wishlist"),
+              Spacer(),
+            ],
+          ),
+          backgroundColor: NPrimaryColor,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackbar);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-//      statusBarColor: Colors.white,
-//    ));
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.01),
       key: _scaffoldKey,
@@ -151,7 +164,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         children: [
           NotificationListener<ScrollUpdateNotification>(
             child: CustomScrollView(
-//              mainAxisSize: MainAxisSize.max,
               slivers: [
                 SliverAppBar(
                   brightness: Brightness.dark,
@@ -174,7 +186,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             }),
                         Container(
                           height: 80,
-                          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).padding.top),
                           child: Row(
                             children: [
                               RaisedButton(
@@ -327,9 +340,23 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
                       Spacer(),
-                      IconButton(
-                        icon: Icon(Icons.favorite_border),
-                        onPressed: () {},
+                      StreamBuilder<ProductDetailResponse>(
+                        stream: productDetailBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          return IconButton(
+                            icon: Icon(
+                                widget.product.attributes ? Icons.favorite : Icons.favorite_border,
+                                color: Colors.green),
+                            onPressed: () {
+                              print(widget.product.saved);
+                              // var params = {
+                              //   "attribute_id": widget.product.attributeId,
+                              //   "combo_id": null,
+                              // };
+                              // addToWishlist(context, params);
+                            },
+                          );
+                        }
                       )
                     ],
                   ),
@@ -526,7 +553,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         onPressed: () {
 //                          _alert(context);
                           print('clicked');
-                          Navigator.pushNamed(context, "selectPaymentMethodPage");
+                          Navigator.pushNamed(
+                              context, "selectPaymentMethodPage");
                           setState(() {
                             isClicked = !isClicked;
                           });

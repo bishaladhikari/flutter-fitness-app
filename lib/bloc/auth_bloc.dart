@@ -84,6 +84,11 @@ class AuthBloc {
     return pref.getString("token") != null ? true : false;
   }
 
+  get user async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString("user") != null ? User.fromJson(json.decode(pref.getString("user"))) : User();
+  }
+
 //  get token async {
 //    SharedPreferences pref = await SharedPreferences.getInstance();
 //    return json.decode(pref.getString("token"));

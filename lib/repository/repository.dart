@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
@@ -206,7 +207,6 @@ class Repository {
     }
   }
 
-
   Future<OrderResponse> getOrdersByStatus(status) async {
     var params = {"status": status};
     try {
@@ -238,6 +238,16 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return OrderProductDetailResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<AddToCartResponse> addToWishlist(params) async {
+    try {
+      Response response = await _dio.post(wishlistUrl, queryParameters: params);
+      return AddToCartResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return AddToCartResponse.withError(_handleError(error));
     }
   }
 
@@ -329,6 +339,7 @@ class Repository {
   }
 
   Future<ProductDetailResponse> getProductDetail(String slug) async {
+    _dio.options.headers['user'] = 3;
     try {
       Response response = await _dio.get(productsUrl + "/$slug");
       return ProductDetailResponse.fromJson(response.data);

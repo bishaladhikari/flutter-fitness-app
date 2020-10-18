@@ -30,6 +30,11 @@ class CartBloc {
     return response;
   }
 
+  addToWishlist(params) async {
+    AddToCartResponse response = await _repository.addToWishlist(params);
+    return response;
+  }
+
   updateCart(CartItem cartItem, type) async {
     response = await _repository.updateCart(cartItem, type);
     _subject.sink.add(response);
