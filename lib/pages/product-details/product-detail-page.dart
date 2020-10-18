@@ -163,7 +163,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
-      RemoveFromWishlistResponse response = await productDetailBloc.deleteFromWishlist(params);
+      RemoveFromWishlistResponse response =
+          await productDetailBloc.deleteFromWishlist(params);
       if (response.error != null) {
         var snackbar = SnackBar(
           content: Text(response.error),
@@ -236,18 +237,44 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 shape: CircleBorder(),
                               ),
                               Spacer(),
-                              RawMaterialButton(
-                                onPressed: () {},
-                                elevation: 2.0,
-                                fillColor: Colors.white,
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  color: NPrimaryColor,
-//                              size: 35.0,
-                                ),
-                                padding: EdgeInsets.all(8.0),
-                                shape: CircleBorder(),
-                              ),
+                              StreamBuilder<ProductDetailResponse>(
+                                  stream: productDetailBloc.subject.stream,
+                                  builder: (context, snapshot) {
+                                    return RawMaterialButton(
+                                      onPressed: () {
+                                        var params = {
+                                          "attribute_id": snapshot
+                                              .data
+                                              .productDetail
+                                              .selectedAttribute
+                                              .id,
+                                          "combo_id": null,
+                                        };
+                                        if (snapshot.data.productDetail
+                                            .selectedAttribute.saved) {
+                                          _removeFromWishlist(context, params);
+                                        } else {
+                                          _addToWishlist(context, params);
+                                        }
+                                      },
+                                      elevation: 2.0,
+                                      fillColor: snapshot.data.productDetail
+                                              .selectedAttribute.saved
+                                          ? NPrimaryColor
+                                          : Colors.white,
+                                      child: Icon(
+                                          snapshot.data.productDetail
+                                                  .selectedAttribute.saved
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: snapshot.data.productDetail
+                                                  .selectedAttribute.saved
+                                              ? Colors.white
+                                              : NPrimaryColor),
+                                      padding: EdgeInsets.all(8.0),
+                                      shape: CircleBorder(),
+                                    );
+                                  }),
                             ],
                           ),
                         ),
@@ -398,12 +425,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 icon: Icon(Icons.favorite_border,
                                     color: Colors.green),
                                 onPressed: () {
-                                  print(widget.product.saved);
-                                  // var params = {
-                                  //   "attribute_id": widget.product.attributeId,
-                                  //   "combo_id": null,
-                                  // };
-                                  // addToWishlist(context, params);
+                                  var params = {
+                                    "attribute_id": widget.product.attributeId,
+                                    "combo_id": null,
+                                  };
+                                  _addToWishlist(context, params);
                                 },
                               );
                             }
