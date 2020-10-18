@@ -14,7 +14,6 @@ class CheckoutBloc {
   AddOrderResponse response;
 
   createOrder() async {
-
 //                  achieved_promotions: []
 //                  address_id: 1
 //                  billable_amount: "4444.00"
@@ -35,23 +34,28 @@ class CheckoutBloc {
       "shipping_cost": 0,
       "weight": 4444,
       "address_id": 1,
+      "store_id": 2,
 //      "token": stripeToken,
       "redeemed_amount": "",
       "redeemed_points": "",
       "payment_method": "Cash Payment",
       "billable_amount": "4444",
-      "products": cartBloc.cartItems,
+//      "products": cartBloc.cartItems,
+      "products": [{"attribute_id": 2, "combo_id": "", "price": "1111.00", "quantity": 4, "store_id": 2}],
       "note": "",
-      "achieved_promotions": []
+      "achieved_promotions": [{"id":1,"discount":1000}]
     };
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
     return response;
   }
 
-  void drainStream(){ _subject.value = null; }
+  void drainStream() {
+    _subject.value = null;
+  }
+
   @mustCallSuper
-  void dispose() async{
+  void dispose() async {
     await _subject.drain();
     _subject.close();
   }
