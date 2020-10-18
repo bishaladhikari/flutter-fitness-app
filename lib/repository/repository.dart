@@ -34,7 +34,6 @@ class Repository {
   var addressUrl = '$appUrl/addresses';
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
-  var ordersUrl = '$appUrl/orders';
   var orderProductsUrl = '$appUrl/order-products';
 
   Repository() {

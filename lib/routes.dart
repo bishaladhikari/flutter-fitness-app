@@ -60,6 +60,9 @@ abstract class Routes {
         return MaterialPageRoute(
             builder: (context) => AddressFormPage(address: arguments));
         break;
+      case 'ordersPages':
+        return MaterialPageRoute(builder: (context) => OrdersListPage());
+        break;
       case 'selectPaymentMethodPage':
         return MaterialPageRoute(
             builder: (context) => SelectPaymentMethodPage());
