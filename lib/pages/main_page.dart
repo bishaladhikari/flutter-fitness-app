@@ -154,63 +154,73 @@ leftDrawerMenu() {
     child: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 16.0),
-          height: 150,
-          child: DrawerHeader(
-            child: ListTile(
-              trailing: Icon(
-                Icons.chevron_right,
-                size: 28,
-              ),
-              subtitle: GestureDetector(
-                onTap: () {},
-                child: Text(
-                  "See Profile",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: blackColor),
+        StreamBuilder<PrefsData>(
+          stream: authBloc.preference,
+          builder: (context, snapshot) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              height: 200,
+              child: DrawerHeader(
+                child:snapshot.data?.isAuthenticated==true? ListTile(
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    size: 28,
+                  ),
+                  subtitle: GestureDetector(
+                    onTap: () {},
+                    child: Text(
+                      "See Wishlist",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: blackColor),
+                    ),
+                  ),
+                  title: Text(
+                    snapshot.data?.user.fullName,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: blackColor),
+                  ),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+                  ),
+                ):
+                ListTile(
+                  title:Text("Log In/Sign Up"),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                ),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF8FAFB),
                 ),
               ),
-              title: Text(
-                "Ali Anıl Koçak",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: blackColor),
-              ),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xFFF8FAFB),
-            ),
-          ),
+            );
+          }
         ),
         ListTile(
+          contentPadding: const EdgeInsets.all(8.0),
           leading: Icon(
             Icons.home,
-            color: kPrimaryColor,
+            color: ksecondaryColor,
           ),
           title: Text(
-            'Home',
+            'Browse',
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: kPrimaryColor),
+                color: blackColor),
           ),
           onTap: () {},
         ),
+        Divider(
+          height: 1.0,
+          color: Colors.black12,
+        ),
         ListTile(
-          trailing: Icon(
-            Icons.home,
-            color: Color(0xFFFB7C7A),
-            size: 18,
-          ),
-          leading: Icon(Icons.home, color: ksecondaryColor),
+          contentPadding: const EdgeInsets.all(8.0),
+          leading: Icon(Icons.shopping_basket, color: ksecondaryColor),
           title: Text('My orders',
               style: TextStyle(
                   fontSize: 16,
@@ -218,8 +228,13 @@ leftDrawerMenu() {
                   color: blackColor)),
           onTap: () {},
         ),
+        Divider(
+          height: 1.0,
+          color: Colors.black12,
+        ),
         ListTile(
-          leading: Icon(Icons.home, color: ksecondaryColor),
+          contentPadding: const EdgeInsets.all(8.0),
+          leading: Icon(Icons.search, color: ksecondaryColor),
           title: Text('Search',
               style: TextStyle(
                   fontSize: 16,
@@ -227,18 +242,44 @@ leftDrawerMenu() {
                   color: blackColor)),
           onTap: () {},
         ),
+        Divider(
+          height: 1.0,
+          color: Colors.black12,
+        ),
         ListTile(
-          trailing: Icon(
-            Icons.home,
-            color: Color(0xFFFB7C7A),
-            size: 18,
+//          leading: Container(),
+          title: Container(
+            margin: EdgeInsets.only(left: 50.0),
+            child: Text('FAQ',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: blackColor)),
           ),
-          leading: Icon(Icons.home, color: ksecondaryColor),
-          title: Text('Notifications',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: blackColor)),
+          onTap: () {},
+        ),
+        ListTile(
+//          leading: Container(),
+          title: Container(
+            margin: EdgeInsets.only(left: 50.0),
+            child: Text('Terms of Use',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: blackColor)),
+          ),
+          onTap: () {},
+        ),
+        ListTile(
+//          leading: Container(),
+          title: Container(
+            margin: EdgeInsets.only(left: 50.0),
+            child: Text('Privacy Policy',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: blackColor)),
+          ),
           onTap: () {},
         ),
 //        ListTile(
