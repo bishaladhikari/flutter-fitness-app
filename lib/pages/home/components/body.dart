@@ -1,4 +1,5 @@
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/home/components/category_tab.dart';
 import 'package:ecapp/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
@@ -24,6 +25,8 @@ class Body extends StatelessWidget {
 //          ),
           CategoryList(),
           DiscountCard(),
+          SizedBox(height: 10),
+          CategoryTab(),
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
