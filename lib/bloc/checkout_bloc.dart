@@ -56,7 +56,7 @@ class CheckoutBloc {
     _subject.close();
   }
 
-  BehaviorSubject<AddressResponse> get addresses => _subject.stream;
+  BehaviorSubject<AddOrderResponse> get addresses => _subject.stream;
 }
 
 final CheckoutBloc checkoutBloc = CheckoutBloc();
