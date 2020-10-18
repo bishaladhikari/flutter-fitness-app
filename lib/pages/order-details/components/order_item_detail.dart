@@ -3,6 +3,8 @@ import 'package:ecapp/models/order_product_detail.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants.dart';
+
 class OrderItemDetailPage extends StatefulWidget {
   final int id;
   OrderProductDetailBloc _orderProductDetailBloc;
@@ -160,11 +162,11 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "\$ " + order.sub_total.toString(),
+                      "\¥ " + order.sub_total.toString(),
                       style: TextStyle(
                           fontSize: 14,
 //                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
+                          color: NPrimaryColor),
                     ),
                     SizedBox(height: 10.0),
                     Row(
@@ -174,7 +176,7 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                           style: TextStyle(
                               fontSize: 14,
 //                              fontWeight: FontWeight.w400,
-                              color: Colors.black),
+                              color: Colors.black38),
                         ),
                         SizedBox(width: 100.0),
                       ],
