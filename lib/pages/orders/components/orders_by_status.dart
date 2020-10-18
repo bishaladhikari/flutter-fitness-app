@@ -107,19 +107,38 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
     List<Order> orders = data.orders;
-    return Container(
-        padding: EdgeInsets.only(top: 18),
-        child: ListView.builder(
-            itemCount: orders.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                child: _buildOrderList(orders[index]),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('orderDetailPage', arguments: orders[index]);
-                },
-              );
-            }));
+    if (orders.length == 0) {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text(
+                  "No Order Found",
+                  style: TextStyle(color: Colors.black45),
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    } else
+      return Container(
+          padding: EdgeInsets.only(top: 18),
+          child: ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  child: _buildOrderList(orders[index]),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed('orderDetailPage', arguments: orders[index]);
+                  },
+                );
+              }));
   }
 
   Widget _buildOrderList(Order order) {
