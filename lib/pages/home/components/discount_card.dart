@@ -102,26 +102,23 @@ class DiscountCard extends StatelessWidget {
 
 Widget _buildShimmerWidget() {
   return Center(
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.black26,
-        period: Duration(milliseconds: 1000),
-        highlightColor: Colors.white70,
-        child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Column(
-                children: [
-                  Container(height: 160, width: 300, color: Colors.black26),
-                ],
-              ),
+    child: Shimmer.fromColors(
+      baseColor: Colors.black26,
+      period: Duration(milliseconds: 1000),
+      highlightColor: Colors.white70,
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              children: [
+                Container(height: 160, width: 300, color: Colors.black26),
+              ],
+            ),
 //            SizedBox(width: 15),
-            ],
-          ),
+          ],
         ),
       ),
     ),
