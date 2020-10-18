@@ -17,6 +17,16 @@ class _BodyState extends State<Body> {
     super.initState();
   }
 
+  _navigateToWishlist() async {
+    await authBloc.isAuthenticated()==true?
+    Navigator.of(context).pushNamed('wishListPage'):
+    Navigator.of(context).pushNamed('loginPage');
+  }
+  _navigateToOrders() async {
+    await authBloc.isAuthenticated()==true?
+    Navigator.of(context).pushNamed('ordersPage'):
+    Navigator.of(context).pushNamed('loginPage');
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -42,7 +52,7 @@ class _BodyState extends State<Body> {
             subtitle: "Check your order status.",
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
-              Navigator.of(context).pushNamed('ordersPages');
+              _navigateToOrders();
             },
           ),
           Divider(
@@ -66,7 +76,7 @@ class _BodyState extends State<Body> {
             subtitle: "Your Most Loved Styles.",
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
-              Navigator.of(context).pushNamed('/wishListPage');
+              _navigateToWishlist();
             },
           ),
 

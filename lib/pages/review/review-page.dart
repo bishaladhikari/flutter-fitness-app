@@ -10,6 +10,7 @@ class ReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
+          brightness: Brightness.dark,
           backgroundColor: Colors.white,
           centerTitle: true,
           title: new Text(

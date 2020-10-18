@@ -38,6 +38,7 @@ class _CategoryPageState extends State<CategoryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.01),
       bottomNavigationBar: Row(children: <Widget>[
         Container(
           height: 50,
@@ -83,6 +84,7 @@ class _CategoryPageState extends State<CategoryPage>
         backgroundColor: Colors.white,
         elevation: 0,
         title: SearchBox(),
+        brightness: Brightness.dark,
       ),
       body: CategoryBody(),
     );

@@ -92,7 +92,7 @@ class _ProductsListState extends State<ProductsList> {
             scrollDirection: Axis.vertical,
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return ProductItem(product: products[index],width: 200.0);
+              return ProductItem(product: products[index],width: 180.0);
             })
     );
   }

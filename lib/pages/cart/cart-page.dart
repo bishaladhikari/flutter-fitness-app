@@ -17,8 +17,9 @@ class _CartPageState extends State<CartPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.black.withOpacity(0.01),
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text(
           'My Cart',
           style:

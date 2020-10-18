@@ -153,6 +153,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
     return Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.white,
+          brightness: Brightness.dark,
           centerTitle: true,
           title: new Text(
             'Add New Address',

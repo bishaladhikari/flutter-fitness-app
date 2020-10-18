@@ -1,5 +1,6 @@
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 
 class SelectPaymentBody extends StatefulWidget {
   @override
@@ -7,6 +8,13 @@ class SelectPaymentBody extends StatefulWidget {
 }
 
 class _SelectPaymentBodyState extends State<SelectPaymentBody> {
+  @override
+  void initState() {
+//    StripePayment.setOptions(
+//        StripeOptions(publishableKey: "pk_test_aSaULNS8cJU6Tvo20VAXy6rp", merchantId: "Test", androidPayMode: 'test'));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +26,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             color: Colors.black.withOpacity(.01),
             child: Text(
               'Recommended method(s)',
@@ -49,22 +57,19 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Credit/Debit Card",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Image.asset("assets/icons/card_type_logo.png",scale: 6,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Credit/Debit Card",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Image.asset("assets/icons/card_type_logo.png",scale: 6,),
 //                            Icon(Icons.home),
-                              ],
-                            ),
+                            ],
                           ),
                           Text('Credit/Debit Card'),
                         ],
@@ -83,7 +88,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
           ),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             color: Colors.black.withOpacity(.01),
             child: Text(
               'Payment methods',
@@ -121,7 +126,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                             Text(
                               "Cash On Delivery",
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: Colors.black,),
                             ),
                           ],

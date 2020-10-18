@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:ecapp/pages/auth/email-confirm.dart';
@@ -19,8 +20,9 @@ import 'package:flutter/material.dart';
 abstract class Routes {
   static MaterialPageRoute materialPageRoute(RouteSettings routeSettings) {
     final arguments = routeSettings.arguments;
+//    final arguments = settings.arguments as Map<String, dynamic> ?? {};
     switch (routeSettings.name) {
-      case '/wishListPage':
+      case 'wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
         break;
       case '/settings-page':
@@ -33,7 +35,10 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => CartPage());
         break;
       case 'productDetailPage':
-        return MaterialPageRoute(builder: (context) => ProductDetailPage(product: arguments,));
+        return MaterialPageRoute(
+            builder: (context) => ProductDetailPage(
+                  product: arguments,
+                ));
         break;
       case 'registerPage':
         return MaterialPageRoute(builder: (context) => RegisterPage());
@@ -44,20 +49,22 @@ abstract class Routes {
       case 'addressPage':
         return MaterialPageRoute(builder: (context) => AddressPage());
         break;
-        case 'emailConfirmPage':
+      case 'emailConfirmPage':
         return MaterialPageRoute(builder: (context) => EmailConfirmPage());
         break;
-        case 'forgetpasswordPage':
+      case 'forgetpasswordPage':
         return MaterialPageRoute(builder: (context) => ForgetPasswordPage());
         break;
       case 'addressFormPage':
-        return MaterialPageRoute(builder: (context) => AddressFormPage(address:arguments));
+        return MaterialPageRoute(
+            builder: (context) => AddressFormPage(address: arguments));
         break;
-      case 'ordersPages':
+      case 'ordersPage':
         return MaterialPageRoute(builder: (context) => OrdersListPage());
         break;
       case 'selectPaymentMethodPage':
-        return MaterialPageRoute(builder: (context) => SelectPaymentMethodPage());
+        return MaterialPageRoute(
+            builder: (context) => SelectPaymentMethodPage());
         break;
       case 'checkoutPage':
         return MaterialPageRoute(builder: (context) => CheckoutPage());

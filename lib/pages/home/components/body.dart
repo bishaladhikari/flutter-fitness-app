@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
 //          ),
           CategoryList(),
           DiscountCard(),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(

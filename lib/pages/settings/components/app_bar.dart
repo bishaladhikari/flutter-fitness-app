@@ -6,6 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 AppBar AccountAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
+    brightness: Brightness.dark,
     elevation: 0,
 //    leading: null,
 //    leading: ImageButton(

@@ -10,6 +10,7 @@ class AddressPage extends StatelessWidget {
     return Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.white,
+          brightness: Brightness.dark,
           centerTitle: true,
           title: new Text(
             ' My Address',

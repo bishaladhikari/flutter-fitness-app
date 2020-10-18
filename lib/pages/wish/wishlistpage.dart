@@ -24,7 +24,7 @@ class _WishListPageState extends State<WishListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(authBloc.isAuthenticated==false)
+    if(authBloc.isAuthenticated()==false)
 
     wishListBloc.getWishlist();
   }
@@ -38,6 +38,7 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         title: Text("Wish List"),
         backgroundColor: Colors.white,
       ),
