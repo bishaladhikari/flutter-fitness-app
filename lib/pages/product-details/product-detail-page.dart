@@ -253,7 +253,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   width: 8,
                                 ),
                                 // Text("(3) reviews"),
-                                Text("("+ widget.product.reviewCount.toString()  +")" +" reviews")
+                                Text("(" +
+                                    widget.product.reviewCount.toString() +
+                                    ")" +
+                                    " reviews")
                               ],
                             ),
                           ),
@@ -1153,46 +1156,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           children: reviews.map((Review review) {
             final children = <Widget>[];
             for (int i = 0; i < review.imageThumbnail?.length ?? 0; i++) {
-              print("adding children:" + review.imageThumbnail[i]);
               children.add(Container(
                 child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Image(
                       image: NetworkImage(review.imageThumbnail[i]),
                       height: 60,
-                    )
-//                CachedNetworkImage(
-//                  placeholder: (context, url) => Center(
-//                    child: Container(
-//                      height: 300,
-//                      decoration: BoxDecoration(
-//                        image: DecorationImage(
-//                            image: AssetImage("assets/images/placeholder.png"),
-//                            fit: BoxFit.contain),
-//                      ),
-//                    ),
-//                  ),
-//                  imageUrl: "http://ecsite.eeeinnovation.com/storage/uploads/reviews/thumbnails/pro16030376885f8c69f8b4e883.png",
-//                  imageBuilder: (context, imageProvider) => Container(
-//                    height: 300,
-//                    decoration: BoxDecoration(
-//                        image: DecorationImage(
-//                      image: imageProvider,
-//                      fit: BoxFit.cover,
-//                    )),
-//                  ),
-//                  errorWidget: (context, url, error) => Center(
-//                    child: Container(
-//                      height: 300,
-//                      decoration: BoxDecoration(
-//                        image: DecorationImage(
-//                            image: AssetImage("assets/images/placeholder.png"),
-//                            fit: BoxFit.cover),
-//                      ),
-//                    ),
-//                  ),
-//                ),
-                    ),
+                    )),
               ));
             }
             return ListTile(

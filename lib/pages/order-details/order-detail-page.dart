@@ -31,9 +31,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
-
           title: Text("Order Details"),
           backgroundColor: Colors.white,
         ),
@@ -69,7 +67,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   title: Row(
                     children: [
                       Text(
-                        "Order " + detail.order_id,
+                        "Order " + detail.orderId,
                         style: TextStyle(
                             color: Colors.black87, fontWeight: FontWeight.bold),
                       ),
@@ -80,7 +78,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Placed on " + detail.created_date),
+                        Text("Placed on " + detail.createdDate),
                       ],
                     ),
                   ),
@@ -106,12 +104,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          detail.sub_total.toString(),
+                          detail.subTotal.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.black38),
                         ),
                       ),
                       Text(
-                        detail.shipping_cost.toString(),
+                        detail.shippingCost.toString(),
                         style: TextStyle(fontSize: 14, color: Colors.black38),
                       ),
                     ],
@@ -124,12 +122,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          detail.total_quantity.toString() + " Item",
+                          detail.totalQuantity.toString() + " Item",
                           style: TextStyle(fontSize: 14, color: Colors.black38),
                         ),
                       ),
                       Text(
-                        "Total: " + detail.sub_total.toString(),
+                        "Total: " + detail.subTotal.toString(),
                         style: TextStyle(fontSize: 14, color: Colors.black38),
                       ),
                     ],

@@ -76,7 +76,8 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   Widget _buildLoadingWidget() {
     var width = MediaQuery.of(context).size.width - 16;
 
-    return Center(child: Padding(
+    return Center(
+        child: Padding(
       padding: const EdgeInsets.all(10.0),
       child: CircularProgressIndicator(),
     ));
@@ -93,27 +94,19 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   }
 
   Widget _buildHomeWidget(OrderProductDetailResponse data) {
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<OrderProductDetail> orderProductDetails = data.orderProductDetails;
-    return Container(
-        padding: EdgeInsets.only(top: 18),
-        child: SizedBox(
-          child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: orderProductDetails.length,
-              itemBuilder: (context, index) {
-                return _buildOrderProductList(orderProductDetails[index]);
-              }),
-        ));
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children:
+            orderProductDetails.map((OrderProductDetail orderProductDetail) {
+          return _buildOrderProductList(orderProductDetail);
+        }).toList());
   }
 
   Widget _buildOrderProductList(order) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -126,28 +119,46 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                   height: 80,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(order.image_thumbnail),
+                          image: NetworkImage(order.imageThumbnail),
                           fit: BoxFit.cover)),
                 ),
                 SizedBox(width: 20.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      width: 200.0,
-                      child: Text(
-                        order.product_name,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          order.productName,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                        SizedBox(width: 10.0),
+                        order.reviewed
+                            ? RaisedButton(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                onPressed: () {},
+                                child: order.reviewId != null
+                                    ? Text('View Review',
+                                        style: TextStyle(fontSize: 11))
+                                    : Text('Place Review',
+                                        style: TextStyle(fontSize: 11)),
+                                color: Colors.orange,
+                                textColor: Colors.white,
+                                splashColor: NPrimaryColor,
+                              )
+                            : Text("Null"),
+                      ],
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "Sold By " + order.sold_by,
+                      "Sold By " + order.soldBy,
                       style: TextStyle(
                           fontSize: 14,
 //                          fontWeight: FontWeight.w500,
@@ -155,7 +166,7 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "\¥ " + order.sub_total.toString(),
+                      "\¥ " + order.subTotal.toString(),
                       style: TextStyle(
                           fontSize: 14,
 //                          fontWeight: FontWeight.w500,
