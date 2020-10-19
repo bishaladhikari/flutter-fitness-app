@@ -24,6 +24,7 @@ class Product {
   int attributeId;
   String heroTag;
   Product productDetail;
+  int reviewCount;
 
   Product(
       {this.id,
@@ -45,7 +46,8 @@ class Product {
       this.avgRating,
       this.saved,
       this.heroTag,
-      this.attributeId});
+      this.attributeId,
+      this.reviewCount});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -71,6 +73,7 @@ class Product {
         json['avg_rating'] != null ? json['avg_rating'].toDouble() : 0.0;
     saved = json['saved'];
     attributeId = json['attribute_id'];
+    reviewCount = json['total_review'];
     heroTag = Uuid().v4();
   }
 }

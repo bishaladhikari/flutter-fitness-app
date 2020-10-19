@@ -414,7 +414,6 @@ class Repository {
     };
 
     try {
-//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
@@ -433,7 +432,14 @@ class Repository {
     }
   }
 
-  Future<ReviewResponse> getProductReview(params) async {
+  Future<ReviewResponse> getProductReview(String combo, String slug) async {
+    _dio.options.headers['user'] = 3;
+    var params = {
+      "combo": combo,
+      "slug": slug,
+    };
+    print(params);
+
     try {
       Response response =
           await _dio.get(reviewProductUrl, queryParameters: params);

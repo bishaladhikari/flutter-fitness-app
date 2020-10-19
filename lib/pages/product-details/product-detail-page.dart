@@ -2,35 +2,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
+import 'package:ecapp/bloc/review_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/attribute.dart';
-
-//import 'package:ecapp/models/attribute_image.dart' as Image;
 import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
-import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
-import 'package:ecapp/models/response/wishlist_response.dart';
+import 'package:ecapp/models/response/review_response.dart';
+import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../constants.dart';
 import 'components/related_products_list.dart';
 import 'components/same_seller_list.dart';
-
 import 'components/detail_widget.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -75,6 +68,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   String slug;
   AnimationController _animationController;
   Animation _opacityTween;
+  ReviewBloc reviewBloc = ReviewBloc();
 
   setImages(value) {
     setState(() {
@@ -97,12 +91,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     productDetailBloc.getProductDetail(slug);
     productDetailBloc.getSameSellerProduct(slug);
     productDetailBloc.getRelatedProduct(slug);
+    reviewBloc.getProductReview("false", slug);
   }
 
   @override
   void dispose() {
     super.dispose();
     productDetailBloc..drainStream();
+    reviewBloc..drainStream();
   }
 
   addToCart(context, params) async {
@@ -281,9 +277,12 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal:20.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -916,7 +915,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Comments",
+                  "Reviews",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -933,12 +932,12 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                StarRating(rating: 4, size: 20),
+                StarRating(rating: widget.product.avgRating, size: 20),
                 SizedBox(
                   width: 8,
                 ),
                 Text(
-                  "1250 Comments",
+                  widget.product.reviewCount.toString() + " Reviews",
                   style: TextStyle(color: Colors.black54),
                 )
               ],
@@ -950,83 +949,28 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               ),
               height: 24,
             ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-              ),
-              subtitle: Text(
-                  "Cats are good pets, for they are clean and are not noisy."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "12 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://www.familiadejesusperu.org/images/avatar/john-doe-13.jpg"),
-              ),
-              subtitle: Text(
-                  "There was no ice cream in the freezer, nor did they have money to go to the store."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "15 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.black26,
-                height: 4,
-              ),
-              height: 24,
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://pbs.twimg.com/profile_images/1020903668240052225/_6uVaH4c.jpg"),
-              ),
-              subtitle: Text(
-                  "I think I will buy the red car, or I will lease the blue one."),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "25 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
+            _buildReviewView(context),
+            // ListTile(
+            //   leading: CircleAvatar(
+            //     backgroundImage: NetworkImage(
+            //         "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+            //   ),
+            //   subtitle: Text(
+            //       "Cats are good pets, for they are clean and are not noisy."),
+            //   title: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: <Widget>[
+            //       StarRating(rating: 4, size: 15),
+            //       SizedBox(
+            //         width: 8,
+            //       ),
+            //       Text(
+            //         "12 Sep 2019",
+            //         style: TextStyle(fontSize: 12, color: Colors.black54),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -1215,6 +1159,109 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           ),
         )
       ],
+    );
+  }
+
+  _buildReviewView(BuildContext context) {
+    return StreamBuilder<ReviewResponse>(
+      stream: reviewBloc.review.stream,
+      builder: (context, AsyncSnapshot<ReviewResponse> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+            return _buildErrorWidget(snapshot.data.error);
+          }
+          return _buildReviewListWidget(snapshot.data);
+        } else if (snapshot.hasError) {
+          return _buildErrorWidget(snapshot.error);
+        } else {
+          return _buildLoadingWidget(context);
+        }
+      },
+    );
+  }
+
+  _buildReviewListWidget(ReviewResponse data) {
+    List<Review> reviews = data.reviews;
+    if (reviews.length == 0) {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "This product has no reviews.",
+                  style: TextStyle(color: Colors.black45),
+                ),
+                Text(
+                  "Let others know what do you think and be the first to write a review.",
+                  style: TextStyle(color: Colors.black45),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    } else
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            child: ListView.builder(
+                itemCount: reviews.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(reviews[index].customerImage),
+                    ),
+                    subtitle: Text(reviews[index].message),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: 3, size: 15),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          "12 Sep 2019",
+                          style: TextStyle(fontSize: 12, color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+          ),
+        ],
+      );
+  }
+
+  _buildReviewList(review) {
+    return Container(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(
+              "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+        ),
+        subtitle:
+            Text("Cats are good pets, for they are clean and are not noisy."),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            StarRating(rating: 4, size: 15),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              "12 Sep 2019",
+              style: TextStyle(fontSize: 12, color: Colors.black54),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

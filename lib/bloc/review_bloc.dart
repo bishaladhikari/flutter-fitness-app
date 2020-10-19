@@ -4,11 +4,12 @@ import 'package:rxdart/rxdart.dart';
 
 class ReviewBloc {
   final Repository _repository = Repository();
-  final BehaviorSubject<ReviewResponse> _review = BehaviorSubject<ReviewResponse>();
+  final BehaviorSubject<ReviewResponse> _review =
+      BehaviorSubject<ReviewResponse>();
   ReviewResponse response;
 
-  getProductReview(params) async {
-    response = await _repository.getProductReview(params);
+  getProductReview(String combo, String slug) async {
+    response = await _repository.getProductReview(combo, slug);
     _review.sink.add(response);
   }
 
