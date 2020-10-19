@@ -16,34 +16,24 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
-      elevation: 0,
+      elevation: 1,
       backgroundColor: Colors.white,
-      title: Container(
-//        margin: EdgeInsets.all(5),
-//      padding: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: ksecondaryColor.withOpacity(0.32),
+      title: TextField(
+        autofocus: true,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            icon:  SvgPicture.asset("assets/icons/search.svg"), onPressed: () {  },
           ),
-        ),
-        child: TextField(
-          autofocus: true,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon:  SvgPicture.asset("assets/icons/search.svg"), onPressed: () {  },
-            ),
-            contentPadding: new EdgeInsets.symmetric(
-                vertical: 15.0,horizontal: 15),
-            border: InputBorder.none,
+          contentPadding: new EdgeInsets.symmetric(
+              vertical: 15.0,horizontal: 15),
+          border: InputBorder.none,
 //          icon: SvgPicture.asset("assets/icons/search.svg"),
 //          icon:  IconButton(
 //      icon: Icon(Icons.menu),
 //            onPressed: () {},
 //          ),
-            hintText: "Search Here",
-            hintStyle: TextStyle(color: ksecondaryColor),
-          ),
+          hintText: "Search Here",
+          hintStyle: TextStyle(color: ksecondaryColor),
         ),
       ),
       leading: IconButton(

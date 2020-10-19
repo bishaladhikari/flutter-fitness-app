@@ -2,6 +2,7 @@ import 'package:ecapp/components/search_box.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/bottom_nav_bar.dart';
 
+import '../main_page.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
@@ -16,9 +17,22 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Don't show the leading button
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:[
+            IconButton(
+                icon: Icon(Icons.menu,),
+                onPressed: () {
+                  MainPage.of(context).scaffoldKey.currentState.openDrawer();
+                }
+            ),
+            SearchBox()
+          ],
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: SearchBox(),
       ),
 //      appBar: homeAppBar(context),
 //      bottomNavigationBar: BottomNavBar(),

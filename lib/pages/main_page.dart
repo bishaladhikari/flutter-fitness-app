@@ -14,9 +14,26 @@ import 'package:ecapp/bloc/products_list_bloc.dart';
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
+
+  static _MainPageState of(BuildContext context) {
+    final _MainPageState navigator = context
+        .ancestorStateOfType(const TypeMatcher<_MainPageState>());
+
+    assert(() {
+      if (navigator == null) {
+        throw new FlutterError('Operation requested with a context that does '
+            'not include a ProductDetailPage.');
+      }
+      return true;
+    }());
+
+    return navigator;
+  }
 }
 
 class _MainPageState extends State<MainPage> {
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -62,6 +79,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       drawer: Drawer(child: leftDrawerMenu()),
       body: PageView(
         controller: _pageController,
@@ -239,7 +257,10 @@ class _MainPageState extends State<MainPage> {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: blackColor)),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, "searchPage");
+            },
           ),
           Divider(
             height: 1.0,

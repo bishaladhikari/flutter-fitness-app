@@ -1140,10 +1140,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   "This product has no reviews.",
                   style: TextStyle(color: Colors.black45),
                 ),
-                Text(
-                  "Let others know what do you think and be the first to write a review.",
-                  style: TextStyle(color: Colors.black45),
-                ),
               ],
             )
           ],

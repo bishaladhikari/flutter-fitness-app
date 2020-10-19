@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
+import '../main_page.dart';
 import 'components/body.dart';
 import 'package:ecapp/bloc/get_categories_bloc.dart';
 
@@ -38,7 +39,6 @@ class _CategoryPageState extends State<CategoryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       bottomNavigationBar: Row(children: <Widget>[
         Container(
           height: 50,
@@ -81,9 +81,22 @@ class _CategoryPageState extends State<CategoryPage>
         ),
       ]),
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Don't show the leading button
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:[
+            IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  MainPage.of(context).scaffoldKey.currentState.openDrawer();
+                }
+            ),
+            SearchBox()
+          ],
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: SearchBox(),
       ),
       body: CategoryBody(),
     );
@@ -234,8 +247,12 @@ class _CategoryPageState extends State<CategoryPage>
     const types = '';
 
     ProductsByCategory().productsByCategoryBloc
-      ..getCategoryProducts(ProductsByCategory().productsByCategoryBloc.category.value, sortBy,
-          minPrice, maxPrice, types);
+      ..getCategoryProducts(
+          ProductsByCategory().productsByCategoryBloc.category.value,
+          sortBy,
+          minPrice,
+          maxPrice,
+          types);
     Navigator.of(context).pop();
   }
 

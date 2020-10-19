@@ -22,7 +22,7 @@ class _CartPageState extends State<CartPage>
         title: Text(
           'My Cart',
           style:
-              TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.w600),
+              TextStyle(fontFamily: 'Quicksand',),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -31,7 +31,6 @@ class _CartPageState extends State<CartPage>
           icon: Icon(Icons.menu),
           color: Colors.black,
         ),
-        centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(Icons.notifications_none),
