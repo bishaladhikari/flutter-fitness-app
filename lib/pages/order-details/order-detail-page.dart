@@ -31,9 +31,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black.withOpacity(0.01),
+
         appBar: AppBar(
-          brightness: Brightness.dark,
+
           title: Text("Order Details"),
           backgroundColor: Colors.white,
         ),

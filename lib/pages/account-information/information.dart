@@ -38,7 +38,6 @@ class _InformationPageState extends State<InformationPage> {
         appBar: new AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          brightness: Brightness.dark,
           // * leading: new Padding(
           // padding: const EdgeInsets.only(top: 16.0, left: 10.0),
           // child: new Text(

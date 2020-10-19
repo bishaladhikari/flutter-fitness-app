@@ -184,7 +184,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.01),
       key: _scaffoldKey,
       body: Stack(
         children: [
@@ -192,7 +191,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  brightness: Brightness.dark,
+
                   backgroundColor: Colors.white,
                   pinned: true,
                   floating: false,
