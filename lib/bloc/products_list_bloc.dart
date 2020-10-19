@@ -7,16 +7,18 @@ class ProductsListBloc {
   final Repository _repository = Repository();
 
   final BehaviorSubject<ProductResponse> _forYou =
-  BehaviorSubject<ProductResponse>();
+      BehaviorSubject<ProductResponse>();
 
   final BehaviorSubject<ProductResponse> _featured =
-  BehaviorSubject<ProductResponse>();
+      BehaviorSubject<ProductResponse>();
 
   final BehaviorSubject<ProductResponse> _newArrivals =
-  BehaviorSubject<ProductResponse>();
+      BehaviorSubject<ProductResponse>();
 
   final BehaviorSubject<ProductResponse> _bestSellers =
-  BehaviorSubject<ProductResponse>();
+      BehaviorSubject<ProductResponse>();
+  final BehaviorSubject<ProductResponse> _topRated =
+      BehaviorSubject<ProductResponse>();
 
   getProducts() async {
     ProductResponse response = await _repository.getProducts();
@@ -33,9 +35,26 @@ class ProductsListBloc {
     _bestSellers.sink.add(response);
   }
 
+  getTopRated() async {
+    ProductResponse response = await _repository.getTopRated();
+    _topRated.sink.add(response);
+  }
+
   getNewArrivals() async {
     ProductResponse response = await _repository.getNewArrivals();
     _newArrivals.sink.add(response);
+  }
+
+  drainBestSellersStream() {
+    _bestSellers.value = null;
+  }
+
+  drainNewArrivalsStream() {
+    _newArrivals.value = null;
+  }
+
+  drainTopRatedStream() {
+    _topRated.value = null;
   }
 
   dispose() {
@@ -46,9 +65,14 @@ class ProductsListBloc {
   }
 
   BehaviorSubject<ProductResponse> get forYou => _forYou;
+
   BehaviorSubject<ProductResponse> get featured => _featured;
+
   BehaviorSubject<ProductResponse> get bestSellers => _bestSellers;
+
   BehaviorSubject<ProductResponse> get newArrivals => _newArrivals;
+
+  BehaviorSubject<ProductResponse> get topRated => _topRated;
 }
 
 final productsBloc = ProductsListBloc();

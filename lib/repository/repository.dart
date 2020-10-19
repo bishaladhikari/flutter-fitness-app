@@ -392,6 +392,17 @@ class Repository {
     }
   }
 
+
+  Future<ProductResponse> getTopRated() async {
+    try {
+      Response response = await _dio.get(productsUrl + '?type=top_rated');
+      return ProductResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return ProductResponse.withError(_handleError(error));
+    }
+  }
+
   Future<ProductResponse> getCategoryProducts(String category, String sortBy,
       String minPrice, String maxPrice, String types) async {
     var params = {

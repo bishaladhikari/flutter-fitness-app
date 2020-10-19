@@ -8,25 +8,31 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'item_card.dart';
 
-class FeaturedProductsList extends StatefulWidget {
-  const FeaturedProductsList({
+class TopRatedProductsList extends StatefulWidget {
+  const TopRatedProductsList({
     Key key,
   }) : super(key: key);
 
   @override
-  _ProductsListState createState() => _ProductsListState();
+  _TopRatedProductsListState createState() => _TopRatedProductsListState();
 }
 
-class _ProductsListState extends State<FeaturedProductsList> {
+class _TopRatedProductsListState extends State<TopRatedProductsList> {
   @override
   void initState() {
+    productsBloc.getTopRated();
     super.initState();
+  }
+  @override
+  void dispose() {
+    productsBloc.drainTopRatedStream();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.featured.stream,
+      stream: productsBloc.topRated.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -103,7 +109,7 @@ class _ProductsListState extends State<FeaturedProductsList> {
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: SizedBox(
-          height: 280,
+          height: 240,
           child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,

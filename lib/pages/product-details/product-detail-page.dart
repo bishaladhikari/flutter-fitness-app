@@ -132,12 +132,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     }
   }
 
-  _addToWishlist(context, params) async {
+  _addToWishlist(context) async {
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
-      AddToWishlistResponse response =
-          await productDetailBloc.addToWishlist(params);
+      AddToWishlistResponse response = await productDetailBloc.addToWishlist();
       if (response.error != null) {
         var snackbar = SnackBar(
           content: Text(response.error),
@@ -159,12 +158,12 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     }
   }
 
-  _removeFromWishlist(context, params) async {
+  _removeFromWishlist(context) async {
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
       RemoveFromWishlistResponse response =
-          await productDetailBloc.deleteFromWishlist(params);
+          await productDetailBloc.deleteFromWishlist();
       if (response.error != null) {
         var snackbar = SnackBar(
           content: Text(response.error),
@@ -199,7 +198,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 SliverAppBar(
                   brightness: Brightness.dark,
                   pinned: false,
-                  expandedHeight: 280,
+                  expandedHeight: 220,
                   leading: Container(),
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
@@ -240,40 +239,34 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               StreamBuilder<ProductDetailResponse>(
                                   stream: productDetailBloc.subject.stream,
                                   builder: (context, snapshot) {
-                                    return RawMaterialButton(
-                                      onPressed: () {
-                                        var params = {
-                                          "attribute_id": snapshot
-                                              .data
-                                              .productDetail
-                                              .selectedAttribute
-                                              .id,
-                                          "combo_id": null,
-                                        };
-                                        if (snapshot.data.productDetail
-                                            .selectedAttribute.saved) {
-                                          _removeFromWishlist(context, params);
-                                        } else {
-                                          _addToWishlist(context, params);
-                                        }
-                                      },
-                                      elevation: 2.0,
-                                      fillColor: snapshot.data.productDetail
-                                              .selectedAttribute.saved
-                                          ? NPrimaryColor
-                                          : Colors.white,
-                                      child: Icon(
-                                          snapshot.data.productDetail
-                                                  .selectedAttribute.saved
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: snapshot.data.productDetail
-                                                  .selectedAttribute.saved
-                                              ? Colors.white
-                                              : NPrimaryColor),
-                                      padding: EdgeInsets.all(8.0),
-                                      shape: CircleBorder(),
-                                    );
+                                    if (snapshot.hasData)
+                                      return RawMaterialButton(
+                                        onPressed: () {
+                                          if (snapshot.data.productDetail
+                                              .selectedAttribute.saved) {
+                                            _removeFromWishlist(context);
+                                          } else {
+                                            _addToWishlist(context);
+                                          }
+                                        },
+                                        elevation: 2.0,
+                                        fillColor: snapshot.data.productDetail
+                                                .selectedAttribute.saved
+                                            ? NPrimaryColor
+                                            : Colors.white,
+                                        child: Icon(
+                                            snapshot.data.productDetail
+                                                    .selectedAttribute.saved
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: snapshot.data.productDetail
+                                                    .selectedAttribute.saved
+                                                ? Colors.white
+                                                : NPrimaryColor),
+                                        padding: EdgeInsets.all(8.0),
+                                        shape: CircleBorder(),
+                                      );
+                                    return Container();
                                   }),
                             ],
                           ),
@@ -288,8 +281,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
+                          SizedBox(height: 10,),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.symmetric(horizontal:20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -303,7 +297,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               ],
                             ),
                           ),
-                          SizedBox(height: 8),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -400,12 +393,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return IconButton(
-                                icon: Icon(
-                                    snapshot.data.productDetail
-                                            .selectedAttribute.saved
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: Colors.green),
+                                icon: snapshot.data.productDetail
+                                        .selectedAttribute.saved
+                                    ? Icon(Icons.favorite, color: Colors.green)
+                                    : Icon(Icons.favorite_border),
                                 onPressed: () {
                                   var params = {
                                     "attribute_id": snapshot.data.productDetail
@@ -414,25 +405,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   };
                                   if (snapshot.data.productDetail
                                       .selectedAttribute.saved) {
-                                    _removeFromWishlist(context, params);
+                                    _removeFromWishlist(context);
                                   } else {
-                                    _addToWishlist(context, params);
+                                    _addToWishlist(context);
                                   }
                                 },
                               );
-                            } else {
-                              return IconButton(
-                                icon: Icon(Icons.favorite_border,
-                                    color: Colors.green),
-                                onPressed: () {
-                                  var params = {
-                                    "attribute_id": widget.product.attributeId,
-                                    "combo_id": null,
-                                  };
-                                  _addToWishlist(context, params);
-                                },
-                              );
                             }
+                            return Container();
                           })
                     ],
                   ),
@@ -913,7 +893,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       }
     }
     return DottedSlider(
-      maxHeight: 280,
+      maxHeight: 220,
       children: children,
       color: NPrimaryColor,
     );

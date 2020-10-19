@@ -34,7 +34,13 @@ class ProductDetailBloc {
     _fromSameSeller.sink.add(response);
   }
 
-  addToWishlist(params) async {
+  addToWishlist() async {
+    var params = {
+      "attribute_id": response.productDetail
+          .selectedAttribute
+          .id,
+      "combo_id": null,
+    };
     AddToWishlistResponse res = await _repository.addToWishlist(params);
     // response.productDetail.attributes.where((element) => element.id == params["attribute_id"]).saved = true;
     if (res.error == null) {
@@ -46,7 +52,13 @@ class ProductDetailBloc {
     return res;
   }
 
-  deleteFromWishlist(params) async {
+  deleteFromWishlist() async {
+    var params = {
+      "attribute_id": response.productDetail
+          .selectedAttribute
+          .id,
+      "combo_id": null,
+    };
     RemoveFromWishlistResponse res = await _repository.deleteFromWishlist(params);
     if (res.error == null) {
       var attributes = response.productDetail.attributes;

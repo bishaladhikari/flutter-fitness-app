@@ -20,9 +20,15 @@ class BestSellersProductsList extends StatefulWidget {
 class _BestSellersProductsListState extends State<BestSellersProductsList> {
   @override
   void initState() {
+    productsBloc..getBestSellers();
     super.initState();
   }
 
+  @override
+  void dispose() {
+    productsBloc..drainBestSellersStream();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(

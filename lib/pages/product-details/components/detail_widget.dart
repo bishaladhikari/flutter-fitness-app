@@ -70,7 +70,7 @@ class _DetailWidgetState extends State<DetailWidget> {
                   : "\$" + widget.selectedAttribute.sellingPrice,
               style: TextStyle(
                   color: NPrimaryColor,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700),
             )
           ],

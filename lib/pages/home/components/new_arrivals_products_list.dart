@@ -20,7 +20,13 @@ class NewArrivalsProductsList extends StatefulWidget {
 class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
   @override
   void initState() {
+    productsBloc.getNewArrivals();
     super.initState();
+  }
+  @override
+  void dispose() {
+    productsBloc.drainNewArrivalsStream();
+    super.dispose();
   }
 
   @override
