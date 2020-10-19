@@ -91,9 +91,9 @@ class _ProductsListState extends State<RelatedProductsList> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-            padding: EdgeInsets.only(top: 18),
+            padding: EdgeInsets.all(10),
             child: SizedBox(
-              height: 240,
+              height: 260,
               child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
                   shrinkWrap: true,

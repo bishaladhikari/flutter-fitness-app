@@ -193,82 +193,31 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               slivers: [
                 SliverAppBar(
                   brightness: Brightness.dark,
-                  pinned: false,
-                  expandedHeight: 220,
-                  leading: Container(),
+                  backgroundColor: Colors.white,
+                  pinned: true,
+                  floating: false,
+                  expandedHeight: 300,
+                  title: AnimatedBuilder(
+                      animation: _animationController,
+                      builder: (BuildContext context, Widget child) {
+                        return Opacity(
+                            opacity: _opacityTween.value,
+                            child: Text(widget.product.name));
+                      }),
+//                  leading: Container(),
+//                  floating: true,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Stack(
-                      children: [
-                        StreamBuilder<ProductDetailResponse>(
-                            stream: productDetailBloc.subject.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                ProductDetail productDetail =
-                                    snapshot.data.productDetail;
-                                return dottedSlider(
-                                    productDetail.selectedAttribute.images);
-                              }
-                              return dottedSlider(widget.images);
-                            }),
-                        Container(
-                          height: 80,
-                          margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).padding.top),
-                          child: Row(
-                            children: [
-                              RaisedButton(
-                                onPressed: () {
-                                  print("backing");
-                                  Navigator.pop(context);
-                                },
-                                elevation: 2.0,
-                                color: Colors.white,
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  color: NPrimaryColor,
-//                              size: 35.0,
-                                ),
-                                padding: EdgeInsets.all(8.0),
-                                shape: CircleBorder(),
-                              ),
-                              Spacer(),
-                              StreamBuilder<ProductDetailResponse>(
-                                  stream: productDetailBloc.subject.stream,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData)
-                                      return RawMaterialButton(
-                                        onPressed: () {
-                                          if (snapshot.data.productDetail
-                                              .selectedAttribute.saved) {
-                                            _removeFromWishlist(context);
-                                          } else {
-                                            _addToWishlist(context);
-                                          }
-                                        },
-                                        elevation: 2.0,
-                                        fillColor: snapshot.data.productDetail
-                                                .selectedAttribute.saved
-                                            ? NPrimaryColor
-                                            : Colors.white,
-                                        child: Icon(
-                                            snapshot.data.productDetail
-                                                    .selectedAttribute.saved
-                                                ? Icons.favorite
-                                                : Icons.favorite_border,
-                                            color: snapshot.data.productDetail
-                                                    .selectedAttribute.saved
-                                                ? Colors.white
-                                                : NPrimaryColor),
-                                        padding: EdgeInsets.all(8.0),
-                                        shape: CircleBorder(),
-                                      );
-                                    return Container();
-                                  }),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    background: StreamBuilder<ProductDetailResponse>(
+                        stream: productDetailBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            ProductDetail productDetail =
+                                snapshot.data.productDetail;
+                            return dottedSlider(
+                                productDetail.selectedAttribute.images);
+                          }
+                          return dottedSlider(widget.images);
+                        }),
                   ),
                 ),
                 SliverList(
@@ -330,7 +279,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             height: 10,
                           ),
                           _buildProducts(context),
-//                    _buildSameSellerProducts(context),
+                          _buildSameSellerProducts(context),
                           _buildComments(context),
                         ],
                       )
@@ -341,7 +290,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             ),
             onNotification: (notification) {
               //How many pixels scrolled from pervious frame
-//          print(notification.scrollDelta);
+              print("delta" + notification.metrics.pixels.toString());
 
               //List scroll position
 //          print(notification.metrics.pixels);
@@ -356,69 +305,69 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 print("current position" +
                     notification.metrics.pixels.toString());
                 _animationController
-                    .animateTo(notification.metrics.pixels / 350);
+                    .animateTo(notification.metrics.pixels / 400);
                 return true;
               }
               return false;
             },
           ),
-          AnimatedBuilder(
-            animation: _animationController,
-            builder: (BuildContext context, Widget child) {
-              return Opacity(
-                opacity: _opacityTween.value,
-                child: Container(
-                  height: 100,
-                  padding: EdgeInsets.only(top: 15),
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      Text(
-                        widget.product.name,
-                        style: TextStyle(fontSize: 20, color: Colors.black),
-                      ),
-                      Spacer(),
-                      StreamBuilder<ProductDetailResponse>(
-                          stream: productDetailBloc.subject.stream,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return IconButton(
-                                icon: snapshot.data.productDetail
-                                        .selectedAttribute.saved
-                                    ? Icon(Icons.favorite, color: Colors.green)
-                                    : Icon(Icons.favorite_border),
-                                onPressed: () {
-                                  var params = {
-                                    "attribute_id": snapshot.data.productDetail
-                                        .selectedAttribute.id,
-                                    "combo_id": null,
-                                  };
-                                  if (snapshot.data.productDetail
-                                      .selectedAttribute.saved) {
-                                    _removeFromWishlist(context);
-                                  } else {
-                                    _addToWishlist(context);
-                                  }
-                                },
-                              );
-                            }
-                            return Container();
-                          })
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
+//          AnimatedBuilder(
+//            animation: _animationController,
+//            builder: (BuildContext context, Widget child) {
+//              return Opacity(
+//                opacity: _opacityTween.value,
+//                child: Container(
+//                  height: 100,
+//                  padding: EdgeInsets.only(top: 15),
+//                  width: double.infinity,
+//                  color: Colors.white,
+//                  child: Row(
+//                    mainAxisSize: MainAxisSize.max,
+//                    mainAxisAlignment: MainAxisAlignment.start,
+//                    children: [
+//                      IconButton(
+//                        icon: Icon(Icons.arrow_back, color: Colors.black),
+//                        onPressed: () {
+//                          Navigator.pop(context);
+//                        },
+//                      ),
+//                      Text(
+//                        widget.product.name,
+//                        style: TextStyle(fontSize: 20, color: Colors.black),
+//                      ),
+//                      Spacer(),
+//                      StreamBuilder<ProductDetailResponse>(
+//                          stream: productDetailBloc.subject.stream,
+//                          builder: (context, snapshot) {
+//                            if (snapshot.hasData) {
+//                              return IconButton(
+//                                icon: snapshot.data.productDetail
+//                                        .selectedAttribute.saved
+//                                    ? Icon(Icons.favorite, color: Colors.green)
+//                                    : Icon(Icons.favorite_border),
+//                                onPressed: () {
+//                                  var params = {
+//                                    "attribute_id": snapshot.data.productDetail
+//                                        .selectedAttribute.id,
+//                                    "combo_id": null,
+//                                  };
+//                                  if (snapshot.data.productDetail
+//                                      .selectedAttribute.saved) {
+//                                    _removeFromWishlist(context);
+//                                  } else {
+//                                    _addToWishlist(context);
+//                                  }
+//                                },
+//                              );
+//                            }
+//                            return Container();
+//                          })
+//                    ],
+//                  ),
+//                ),
+//              );
+//            },
+//          ),
         ],
       ),
 //        body: CustomScrollView(slivers: [
@@ -835,11 +784,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         child: CachedNetworkImage(
           placeholder: (context, url) => Center(
             child: Container(
-              height: 280,
+              height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.cover),
+                    fit: BoxFit.contain),
               ),
             ),
           ),
@@ -847,7 +796,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 280,
+            height: 300,
+//            width: MediaQuery.of(context).size.width,
+//            height: 280,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
@@ -892,7 +843,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       }
     }
     return DottedSlider(
-      maxHeight: 220,
+      maxHeight: 300,
       children: children,
       color: NPrimaryColor,
     );
