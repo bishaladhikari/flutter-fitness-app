@@ -200,19 +200,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   backgroundColor: Colors.white,
                   pinned: true,
                   floating: false,
-                  expandedHeight: 220,
+                  expandedHeight: 300,
                   title: AnimatedBuilder(
                       animation: _animationController,
                       builder: (BuildContext context, Widget child) {
                         return Opacity(
                             opacity: _opacityTween.value,
-                            child: Text(widget.product.name)
-                        );
+                            child: Text(widget.product.name));
                       }),
 //                  leading: Container(),
 //                  floating: true,
                   flexibleSpace: FlexibleSpaceBar(
-
                     background: StreamBuilder<ProductDetailResponse>(
                         stream: productDetailBloc.subject.stream,
                         builder: (context, snapshot) {
@@ -285,7 +283,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             height: 10,
                           ),
                           _buildProducts(context),
-//                    _buildSameSellerProducts(context),
+                          _buildSameSellerProducts(context),
                           _buildComments(context),
                         ],
                       )
@@ -296,7 +294,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             ),
             onNotification: (notification) {
               //How many pixels scrolled from pervious frame
-//          print(notification.scrollDelta);
+              print("delta" + notification.metrics.pixels.toString());
 
               //List scroll position
 //          print(notification.metrics.pixels);
@@ -311,7 +309,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 print("current position" +
                     notification.metrics.pixels.toString());
                 _animationController
-                    .animateTo(notification.metrics.pixels / 350);
+                    .animateTo(notification.metrics.pixels / 400);
                 return true;
               }
               return false;
@@ -790,11 +788,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         child: CachedNetworkImage(
           placeholder: (context, url) => Center(
             child: Container(
-              height: 280,
+              height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.cover),
+                    fit: BoxFit.contain),
               ),
             ),
           ),
@@ -802,7 +800,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-            height: 280,
+            height: 300,
+//            width: MediaQuery.of(context).size.width,
+//            height: 280,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
@@ -847,7 +847,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       }
     }
     return DottedSlider(
-      maxHeight: 220,
+      maxHeight: 300,
       children: children,
       color: NPrimaryColor,
     );
