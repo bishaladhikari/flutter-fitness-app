@@ -16,7 +16,7 @@ class _AccountPageState extends State<AccountPage>
     super.build(context);
 
     return Scaffold(
-        backgroundColor: Colors.black.withOpacity(0.01),
+
         appBar: AccountAppBar(context),
       body: Body()
     );

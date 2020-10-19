@@ -65,8 +65,8 @@ class ProductItem extends StatelessWidget {
       ),
       onTap: () {
 //        productDetailBloc..drainStream();
-        Navigator.of(context)
-            .pushNamed("productDetailPage", arguments: product);
+        Navigator
+            .pushNamed(context,"productDetailPage", arguments: product);
       },
     );
   }

@@ -24,7 +24,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          brightness: Brightness.dark,
+
           title: Text('Confirm Your Email',
               style: TextStyle(
                   color: Colors.black,

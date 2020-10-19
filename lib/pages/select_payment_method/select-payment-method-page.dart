@@ -12,7 +12,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.01),
+
       appBar: SelectPaymentMethodAppBar(),
       body: SelectPaymentBody(),
       bottomNavigationBar: Container(
