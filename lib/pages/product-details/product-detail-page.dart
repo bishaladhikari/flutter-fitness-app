@@ -780,7 +780,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     return Center(
       child: Hero(
         tag: widget.product.heroTag,
-//            tag:product.imageThumbnail,
         child: CachedNetworkImage(
           placeholder: (context, url) => Center(
             child: Container(
@@ -793,12 +792,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             ),
           ),
           imageUrl: imageUrl,
-//            imageUrl: product.imageThumbnail,
           imageBuilder: (context, imageProvider) => Container(
-//              width: 75,
             height: 300,
-//            width: MediaQuery.of(context).size.width,
-//            height: 280,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: imageProvider,
@@ -1158,61 +1153,78 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       );
     } else
       return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            child: ListView.builder(
-                itemCount: reviews.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(reviews[index].customerImage),
-                    ),
-                    subtitle: Text(reviews[index].message),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: 3, size: 15),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          "12 Sep 2019",
-                          style: TextStyle(fontSize: 12, color: Colors.black54),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-          ),
-        ],
-      );
-  }
-
-  _buildReviewList(review) {
-    return Container(
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(
-              "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-        ),
-        subtitle:
-            Text("Cats are good pets, for they are clean and are not noisy."),
-        title: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            StarRating(rating: 4, size: 15),
-            SizedBox(
-              width: 8,
-            ),
-            Text(
-              "12 Sep 2019",
-              style: TextStyle(fontSize: 12, color: Colors.black54),
-            ),
-          ],
-        ),
-      ),
-    );
+          children: reviews.map((Review review) {
+            final children = <Widget>[];
+            for (int i = 0; i < review.imageThumbnail?.length ?? 0; i++) {
+              if (review.imageThumbnail[i] == null) {
+                children.add(Center(child: CircularProgressIndicator()));
+              } else {
+                children.add(Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CachedNetworkImage(
+                    placeholder: (context, url) => Center(
+                      child: Container(
+                        height: 300,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image:
+                                  AssetImage("assets/images/placeholder.png"),
+                              fit: BoxFit.contain),
+                        ),
+                      ),
+                    ),
+                    imageUrl: review.imageThumbnail[i],
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      )),
+                    ),
+                    errorWidget: (context, url, error) => Center(
+                      child: Container(
+                        height: 300,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image:
+                                  AssetImage("assets/images/placeholder.png"),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                  ),
+                ));
+              }
+            }
+            return ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(review.customerImage),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(review.headline),
+                  Row(children: children),
+                  Text(review.message),
+                ],
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  StarRating(rating: 4, size: 15),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "12 Sep 2019",
+                    style: TextStyle(fontSize: 12, color: Colors.black54),
+                  ),
+                ],
+              ),
+            );
+          }).toList());
   }
 }
