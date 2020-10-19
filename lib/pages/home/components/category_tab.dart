@@ -27,6 +27,8 @@ class CategoryTab extends StatelessWidget {
               bottom: TabBar(
                 isScrollable: true,
                 labelColor: NPrimaryColor,
+                indicatorWeight: 3.0,
+                indicatorSize: TabBarIndicatorSize.tab,
                 unselectedLabelColor: Colors.black,
                 tabs: [
                   Tab(text: "Best Sellers"),

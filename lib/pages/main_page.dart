@@ -129,156 +129,158 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-}
 
-//Expanded(
-//child: Container(
-//alignment: Alignment.center,
-//margin: EdgeInsets.only(left: 14, top: 0, bottom: 14),
-//width: 15,
-//height: 15,
-//decoration: BoxDecoration(
-//borderRadius: BorderRadius.circular(10),
-//color: Colors.orange),
-//child: Text(
-//cart_count.toString(),
-//style: TextStyle(fontSize: 10, color: Colors.white),
-//),
-//),
-//)
-
-leftDrawerMenu() {
-  Color blackColor = Colors.black.withOpacity(0.6);
-  return Container(
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        StreamBuilder<PrefsData>(
-          stream: authBloc.preference,
-          builder: (context, snapshot) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              height: 200,
-              child: DrawerHeader(
-                child:snapshot.data?.isAuthenticated==true? ListTile(
-                  trailing: Icon(
-                    Icons.chevron_right,
-                    size: 28,
-                  ),
-                  subtitle: GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      "See Wishlist",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: blackColor),
+  leftDrawerMenu() {
+    Color blackColor = Colors.black.withOpacity(0.6);
+    return Container(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          StreamBuilder<PrefsData>(
+              stream: authBloc.preference,
+              builder: (context, snapshot) {
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  height: 200,
+                  child: DrawerHeader(
+                    child: snapshot.data?.isAuthenticated == true
+                        ? ListTile(
+                            trailing: Icon(
+                              Icons.chevron_right,
+                              size: 28,
+                            ),
+                            subtitle: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, "wishListPage");
+                              },
+                              child: Text(
+                                "View Wishlist",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: blackColor),
+                              ),
+                            ),
+                            title: Text(
+                              snapshot.data?.user.fullName,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: blackColor),
+                            ),
+                            leading: CircleAvatar(
+                                child: Image.asset(
+                                    "assets/icons/person_placeholder.png")),
+                          )
+                        : ListTile(
+                            onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, "loginPage");
+                            },
+                            title: Text("Log In/Sign Up",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black87),),
+                            trailing: Icon(Icons.keyboard_arrow_right),
+                          ),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF8FAFB),
                     ),
                   ),
-                  title: Text(
-                    snapshot.data?.user.fullName,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: blackColor),
-                  ),
-                  leading: CircleAvatar(child: Image.asset("assets/icons/person_placeholder.png"))
-                  ,
-                ):
-                ListTile(
-                  title:Text("Log In/Sign Up"),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF8FAFB),
-                ),
-              ),
-            );
-          }
-        ),
-        ListTile(
-          contentPadding: const EdgeInsets.all(8.0),
-          leading: Icon(
-            Icons.home,
-            color: ksecondaryColor,
-          ),
-          title: Text(
-            'Browse',
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: blackColor),
-          ),
-          onTap: () {},
-        ),
-        Divider(
-          height: 1.0,
-          color: Colors.black12,
-        ),
-        ListTile(
-          contentPadding: const EdgeInsets.all(8.0),
-          leading: Icon(Icons.shopping_basket, color: ksecondaryColor),
-          title: Text('My orders',
+                );
+              }),
+          ListTile(
+            contentPadding: const EdgeInsets.all(8.0),
+            leading: Icon(
+              Icons.home,
+              color: ksecondaryColor,
+            ),
+            title: Text(
+              'Browse',
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: blackColor)),
-          onTap: () {},
-        ),
-        Divider(
-          height: 1.0,
-          color: Colors.black12,
-        ),
-        ListTile(
-          contentPadding: const EdgeInsets.all(8.0),
-          leading: Icon(Icons.search, color: ksecondaryColor),
-          title: Text('Search',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: blackColor)),
-          onTap: () {},
-        ),
-        Divider(
-          height: 1.0,
-          color: Colors.black12,
-        ),
-        ListTile(
-//          leading: Container(),
-          title: Container(
-            margin: EdgeInsets.only(left: 50.0),
-            child: Text('FAQ',
+                  fontSize: 16, fontWeight: FontWeight.w600, color: blackColor),
+            ),
+            onTap: () {
+              _changePage(0);
+              Navigator.pop(context);
+            },
+          ),
+          Divider(
+            height: 1.0,
+            color: Colors.black12,
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.all(8.0),
+            leading: Icon(Icons.shopping_basket, color: ksecondaryColor),
+            title: Text('My orders',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: blackColor)),
+            onTap: () async {
+              if (await authBloc.isAuthenticated() == false){
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "loginPage");
+
+              }
+              else{
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "ordersPage");
+              }
+            },
           ),
-          onTap: () {},
-        ),
-        ListTile(
-//          leading: Container(),
-          title: Container(
-            margin: EdgeInsets.only(left: 50.0),
-            child: Text('Terms of Use',
+          Divider(
+            height: 1.0,
+            color: Colors.black12,
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.all(8.0),
+            leading: Icon(Icons.search, color: ksecondaryColor),
+            title: Text('Search',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: blackColor)),
+            onTap: () {},
           ),
-          onTap: () {},
-        ),
-        ListTile(
+          Divider(
+            height: 1.0,
+            color: Colors.black12,
+          ),
+          ListTile(
 //          leading: Container(),
-          title: Container(
-            margin: EdgeInsets.only(left: 50.0),
-            child: Text('Privacy Policy',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: blackColor)),
+            title: Container(
+              margin: EdgeInsets.only(left: 50.0),
+              child: Text('FAQ',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: blackColor)),
+            ),
+            onTap: () {},
           ),
-          onTap: () {},
-        ),
+          ListTile(
+//          leading: Container(),
+            title: Container(
+              margin: EdgeInsets.only(left: 50.0),
+              child: Text('Terms of Use',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: blackColor)),
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+//          leading: Container(),
+            title: Container(
+              margin: EdgeInsets.only(left: 50.0),
+              child: Text('Privacy Policy',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: blackColor)),
+            ),
+            onTap: () {},
+          ),
 //        ListTile(
 //          trailing: Icon(
 //            Icons.looks_two,
@@ -376,7 +378,8 @@ leftDrawerMenu() {
 //            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
 //          },
 //        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }

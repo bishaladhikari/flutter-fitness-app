@@ -111,7 +111,7 @@ class _RegisterPageState extends State<RegisterPage>
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          brightness: Brightness.dark,
+
           leading: IconButton(
             onPressed: () => {},
             icon: Icon(Icons.close),
