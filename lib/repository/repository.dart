@@ -403,7 +403,7 @@ class Repository {
     };
 
     try {
-      _dio.options.headers = {"locale": "jp"};
+//      _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {

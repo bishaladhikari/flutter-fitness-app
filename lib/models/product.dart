@@ -67,7 +67,8 @@ class Product {
     variantTitle = json['variant_title'];
     actualQuantity = json['actual_quantity'];
     slug = json['slug'];
-    avgRating = json['avg_rating']!=null?json['avg_rating']:0;
+    avgRating =
+        json['avg_rating'] != null ? json['avg_rating'].toDouble() : 0.0;
     saved = json['saved'];
     attributeId = json['attribute_id'];
     heroTag = Uuid().v4();
