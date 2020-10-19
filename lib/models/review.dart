@@ -4,7 +4,7 @@ class Review {
   List<String> imageThumbnail;
   String message;
   int orderAttributeId;
-  String rating;
+  double rating;
   String reviewedDate;
   String userName;
   String customerImage;
@@ -26,7 +26,7 @@ class Review {
     imageThumbnail = json['image_thumbnail'].cast<String>();
     message = json['message'];
     orderAttributeId = json['order_attribute_id'];
-    rating = json['rating'];
+    rating = double.parse(json['rating']);
     reviewedDate = json['reviewed_date'];
     userName = json['user_name'];
     customerImage = json['customer_image'];

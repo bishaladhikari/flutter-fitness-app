@@ -191,7 +191,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-
                   backgroundColor: Colors.white,
                   pinned: true,
                   floating: false,
@@ -1152,75 +1151,85 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       );
     } else
       return Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: reviews.map((Review review) {
             final children = <Widget>[];
             for (int i = 0; i < review.imageThumbnail?.length ?? 0; i++) {
-              if (review.imageThumbnail[i] == null) {
-                children.add(Center(child: CircularProgressIndicator()));
-              } else {
-                children.add(Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) => Center(
-                      child: Container(
-                        height: 300,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/placeholder.png"),
-                              fit: BoxFit.contain),
-                        ),
-                      ),
+              print("adding children:" + review.imageThumbnail[i]);
+              children.add(Container(
+                child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image(
+                      image: NetworkImage(review.imageThumbnail[i]),
+                      height: 60,
+                    )
+//                CachedNetworkImage(
+//                  placeholder: (context, url) => Center(
+//                    child: Container(
+//                      height: 300,
+//                      decoration: BoxDecoration(
+//                        image: DecorationImage(
+//                            image: AssetImage("assets/images/placeholder.png"),
+//                            fit: BoxFit.contain),
+//                      ),
+//                    ),
+//                  ),
+//                  imageUrl: "http://ecsite.eeeinnovation.com/storage/uploads/reviews/thumbnails/pro16030376885f8c69f8b4e883.png",
+//                  imageBuilder: (context, imageProvider) => Container(
+//                    height: 300,
+//                    decoration: BoxDecoration(
+//                        image: DecorationImage(
+//                      image: imageProvider,
+//                      fit: BoxFit.cover,
+//                    )),
+//                  ),
+//                  errorWidget: (context, url, error) => Center(
+//                    child: Container(
+//                      height: 300,
+//                      decoration: BoxDecoration(
+//                        image: DecorationImage(
+//                            image: AssetImage("assets/images/placeholder.png"),
+//                            fit: BoxFit.cover),
+//                      ),
+//                    ),
+//                  ),
+//                ),
                     ),
-                    imageUrl: review.imageThumbnail[i],
-                    imageBuilder: (context, imageProvider) => Container(
-                      height: 300,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      )),
-                    ),
-                    errorWidget: (context, url, error) => Center(
-                      child: Container(
-                        height: 300,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/placeholder.png"),
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                    ),
-                  ),
-                ));
-              }
+              ));
             }
             return ListTile(
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(review.customerImage),
               ),
+              title: Column(
+                children: [
+                  Row(
+                    children: [Text(review.userName)],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      StarRating(rating: review.rating, size: 15),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "12 Sep 2019",
+                        style: TextStyle(fontSize: 12, color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(review.headline),
-                  Row(children: children),
                   Text(review.message),
-                ],
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  StarRating(rating: 4, size: 15),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "12 Sep 2019",
-                    style: TextStyle(fontSize: 12, color: Colors.black54),
-                  ),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Container(child: Row(children: children))),
                 ],
               ),
             );
