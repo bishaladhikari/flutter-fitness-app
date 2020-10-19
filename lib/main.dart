@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.light,
+        
 
-
-        systemNavigationBarColor: Colors.white
+        systemNavigationBarColor: Colors.white.withOpacity(0.1)
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,

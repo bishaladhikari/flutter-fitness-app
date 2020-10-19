@@ -57,6 +57,7 @@ class _CategoryListState extends State<CategoryList>
                   labelColor: NPrimaryColor,
                   indicatorColor: NPrimaryColor,
                   indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorWeight: 3,
                   controller: _tabController,
 
                   tabs: categories.map((Category category) {

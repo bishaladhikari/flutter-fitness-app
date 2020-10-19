@@ -37,7 +37,7 @@ class _DottedSliderState extends State<DottedSlider> {
             children: widget.children,
           ),
         ),
-//        _drawDots(currentPage)
+        _drawDots(currentPage)
       ],
     );
   }
