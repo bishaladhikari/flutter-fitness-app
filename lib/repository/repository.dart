@@ -14,9 +14,8 @@ import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/models/user.dart';
-import 'package:ecapp/theme.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,6 +35,7 @@ class Repository {
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
   var orderProductsUrl = '$appUrl/order-products';
+  var reviewProductUrl = '$appUrl/reviews';
 
   Repository() {
     BaseOptions options =
@@ -205,7 +205,6 @@ class Repository {
       return AddressResponse.withError(_handleError(error));
     }
   }
-
 
   Future<OrderResponse> getOrdersByStatus(status) async {
     var params = {"status": status};
@@ -377,7 +376,6 @@ class Repository {
       "types": types
     };
 
-
     try {
       _dio.options.headers = {"locale": "jp"};
       Response response = await _dio.get(productsUrl, queryParameters: params);
@@ -387,9 +385,10 @@ class Repository {
       return ProductResponse.withError(_handleError(error));
     }
   }
+
   Future<AddOrderResponse> createOrder(params) async {
     try {
-      Response response = await _dio.post(ordersUrl,queryParameters: params);
+      Response response = await _dio.post(ordersUrl, queryParameters: params);
       return AddOrderResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -397,39 +396,17 @@ class Repository {
     }
   }
 
+  Future<ReviewResponse> getProductReview(params) async {
+    try {
+      Response response =
+          await _dio.get(reviewProductUrl, queryParameters: params);
+      return ReviewResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return ReviewResponse.withError(_handleError(error));
+    }
+  }
 
-//
-//  String _handleAuthError(error){
-//    String errorDescription = "";
-//    if (error is DioError) {
-//      DioError dioError = error;
-//      switch (dioError.type) {
-//        case DioErrorType.RESPONSE:
-//          switch(dioError.response.statusCode) {
-//            case 401:
-//              errorDescription = "Unauthenticated";
-//              break;
-//          }
-//          break;
-//        case DioErrorType.CONNECT_TIMEOUT:
-//          // TODO: Handle this case.
-//          break;
-//        case DioErrorType.SEND_TIMEOUT:
-//          // TODO: Handle this case.
-//          break;
-//        case DioErrorType.RECEIVE_TIMEOUT:
-//          // TODO: Handle this case.
-//          break;
-//        case DioErrorType.CANCEL:
-//          // TODO: Handle this case.
-//          break;
-//        case DioErrorType.DEFAULT:
-//          // TODO: Handle this case.
-//          break;
-//      }
-//    }
-//    return errorDescription;
-//  }
   String _handleError(error) {
     String errorDescription = "";
     if (error is DioError) {
