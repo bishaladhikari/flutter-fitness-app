@@ -143,7 +143,10 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                                 elevation: 5,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed('orderReviewPage');
+                                },
                                 child: order.reviewId != null
                                     ? Text('View Review',
                                         style: TextStyle(fontSize: 11))
