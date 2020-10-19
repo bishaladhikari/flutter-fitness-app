@@ -1,5 +1,9 @@
+import 'package:ecapp/models/response/add_to_cart_response.dart';
+import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/models/response/remove_from_wishlist.dart';
+import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -28,6 +32,29 @@ class ProductDetailBloc {
   getSameSellerProduct(slug) async {
     ProductResponse response = await _repository.getSameSellerProduct(slug);
     _fromSameSeller.sink.add(response);
+  }
+
+  addToWishlist(params) async {
+    AddToWishlistResponse res = await _repository.addToWishlist(params);
+    // response.productDetail.attributes.where((element) => element.id == params["attribute_id"]).saved = true;
+    if (res.error == null) {
+      var attributes = response.productDetail.attributes;
+      var index = attributes
+          .indexWhere((element) => element.id == params["attribute_id"]);
+      if (index > -1) response.productDetail.attributes[index].saved = true;
+    }
+    return res;
+  }
+
+  deleteFromWishlist(params) async {
+    RemoveFromWishlistResponse res = await _repository.deleteFromWishlist(params);
+    if (res.error == null) {
+      var attributes = response.productDetail.attributes;
+      var index = attributes
+          .indexWhere((element) => element.id == params["attribute_id"]);
+      if (index > -1) response.productDetail.attributes[index].saved = false;
+    }
+    return res;
   }
 
   setSelectedAttribute(attribute) {

@@ -167,13 +167,6 @@ class CartBody extends StatelessWidget {
   }
 
   Widget _buildErrorWidget(context, String error) {
-//    return Center(
-//        child: Column(
-//      mainAxisAlignment: MainAxisAlignment.center,
-//      children: [
-//        Text("Error occurred: $error"),
-//      ],
-//    ));
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text("$error"),
     ));
