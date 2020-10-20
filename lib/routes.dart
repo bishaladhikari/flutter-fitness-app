@@ -88,7 +88,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => OrderConfirmationPage());
         break;
       case 'orderReviewPage':
-        return MaterialPageRoute(builder: (context) => OrderReviewPage());
+        return MaterialPageRoute(builder: (context) => OrderReviewPage(orderProduct: arguments));
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());

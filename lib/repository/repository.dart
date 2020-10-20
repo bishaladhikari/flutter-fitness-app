@@ -9,6 +9,7 @@ import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
+import 'package:ecapp/models/response/customer_review_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
@@ -49,6 +50,7 @@ class Repository {
       InterceptorsWrapper(onRequest: (Options options) async {
         _dio.lock();
         options.headers["Accept"] = "application/json";
+        options.headers["Content-Type"] = "application/json";
         _dio.unlock();
       }),
       // Append authorization
@@ -79,6 +81,11 @@ class Repository {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     return pref.getString("token");
+  }
+
+  getUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString("userId");
   }
 
   Future<LoginResponse> login(credentials) async {
@@ -211,7 +218,7 @@ class Repository {
   }
 
   Future<OrderResponse> getOrdersByStatus(status) async {
-    var params = {"status": status};
+    var params = {"page": 3, "status": status};
     try {
       Response response = await _dio.get(ordersUrl, queryParameters: params);
       print("Response:" + response.toString());
@@ -392,7 +399,6 @@ class Repository {
     }
   }
 
-
   Future<ProductResponse> getTopRated() async {
     try {
       Response response = await _dio.get(productsUrl + '?type=top_rated');
@@ -447,6 +453,27 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ReviewResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<OrderProductDetailResponse> addProductReview(params) async {
+    try {
+      Response response =
+          await _dio.post(reviewProductUrl, queryParameters: params);
+      return OrderProductDetailResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return OrderProductDetailResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<CustomerReviewResponse> getProductReviewById(String id) async {
+    try {
+      Response response = await _dio.get(reviewProductUrl + "/$id");
+      return CustomerReviewResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return CustomerReviewResponse.withError(_handleError(error));
     }
   }
 

@@ -134,8 +134,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                 return GestureDetector(
                   child: _buildOrderList(orders[index]),
                   onTap: () {
-                    Navigator.of(context)
-                        .pushNamed('orderDetailPage', arguments: orders[index]);
+                    Navigator.of(context).pushNamed('orderDetailPage', arguments: orders[index]);
                   },
                 );
               }));

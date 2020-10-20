@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
+import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/order_product_detail.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,12 @@ import '../../../constants.dart';
 
 class OrderItemDetailPage extends StatefulWidget {
   final int id;
+  Order orderDetail;
   OrderProductDetailBloc _orderProductDetailBloc;
 
   get orderDetailBloc => _orderProductDetailBloc;
 
-  OrderItemDetailPage({Key key, this.id}) {
+  OrderItemDetailPage({Key key, this.id, this.orderDetail}) {
     _orderProductDetailBloc = OrderProductDetailBloc();
   }
 
@@ -38,6 +40,7 @@ class OrderItemDetailPage extends StatefulWidget {
 class _OrderItemDetailPageState extends State<OrderItemDetailPage>
     with TickerProviderStateMixin {
   final int id;
+  Order orderDetail;
   OrderProductDetailBloc orderDetailBloc;
 
   _OrderItemDetailPageState(this.id);
@@ -110,90 +113,70 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Card(
-            elevation: 0,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(order.imageThumbnail),
-                          fit: BoxFit.cover)),
-                ),
-                SizedBox(width: 20.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Text(
-                          order.productName,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        ),
-                        SizedBox(width: 10.0),
-                        order.reviewed
-                            ? RaisedButton(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed('orderReviewPage');
-                                },
-                                child: order.reviewId != null
-                                    ? Text('View Review',
-                                        style: TextStyle(fontSize: 11))
-                                    : Text('Place Review',
-                                        style: TextStyle(fontSize: 11)),
-                                color: Colors.orange,
-                                textColor: Colors.white,
-                                splashColor: NPrimaryColor,
-                              )
-                            : Text("Null"),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "Sold By " + order.soldBy,
-                      style: TextStyle(
-                          fontSize: 14,
+          ListTile(
+              leading: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(order.imageThumbnail),
+                        fit: BoxFit.cover)),
+              ),
+              title: Text(
+                order.productName,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sold By " + order.soldBy,
+                    style: TextStyle(
+                        fontSize: 14,
 //                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "\¥ " + order.subTotal.toString(),
-                      style: TextStyle(
-                          fontSize: 14,
+                        color: Colors.black),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    "\¥ " + order.subTotal.toString(),
+                    style: TextStyle(
+                        fontSize: 14,
 //                          fontWeight: FontWeight.w500,
-                          color: NPrimaryColor),
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Text(
-                          "x " + order.quantity.toString(),
-                          style: TextStyle(
-                              fontSize: 14,
-//                              fontWeight: FontWeight.w400,
-                              color: Colors.black38),
-                        ),
-                        SizedBox(width: 100.0),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-          // OrderItemDetailPage(id: this.id)
+                        color: NPrimaryColor),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    "x" + order.quantity.toString(),
+                    style: TextStyle(
+                        fontSize: 14,
+//                          fontWeight: FontWeight.w500,
+                        color: Colors.black),
+                  ),
+                ],
+              ),
+              trailing: widget.orderDetail.status == 'Delivered'
+                  ? RaisedButton(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed('orderReviewPage', arguments: order);
+                      },
+                      child: order.reviewed
+                          ? Text('View Review', style: TextStyle(fontSize: 11))
+                          : Text('Place Review',
+                              style: TextStyle(fontSize: 11)),
+                      color: Colors.orange,
+                      textColor: Colors.white,
+                      splashColor: NPrimaryColor,
+                    )
+                  : Text("")),
         ],
       ),
     );
