@@ -392,7 +392,6 @@ class Repository {
     }
   }
 
-
   Future<ProductResponse> getTopRated() async {
     try {
       Response response = await _dio.get(productsUrl + '?type=top_rated');
@@ -493,7 +492,10 @@ class Repository {
                 errorDescription = dioError.response.statusMessage;
               break;
             case 500:
-              errorDescription = "something went wrong on server";
+              if (dioError.response.data["message"] != null)
+                errorDescription = dioError.response.data["message"];
+              else
+                errorDescription = "something went wrong on server";
               break;
           }
           break;

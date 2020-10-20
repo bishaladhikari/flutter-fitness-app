@@ -9,7 +9,7 @@ import 'package:ecapp/pages/card-payment/card-payment-page.dart';
 import 'package:ecapp/pages/cart/cart-page.dart';
 import 'package:ecapp/pages/cash-on-delivery/cash-on-delivery-page.dart';
 import 'package:ecapp/pages/checkout/checkout-page.dart';
-import 'package:ecapp/pages/order-confirmation/order-confirmation-page.dart';
+import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
 import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
@@ -83,7 +83,7 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => OrderDetailPage(order: arguments));
         break;
       case 'orderConfirmationPage':
-        return MaterialPageRoute(builder: (context) => OrderConfirmationPage());
+        return MaterialPageRoute(builder: (context) => OrderCompletePage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
