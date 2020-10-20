@@ -65,6 +65,18 @@ class Body extends StatelessWidget {
 //          ),
 //          NewArrivalsProductsList(),
           SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Text(
+                  "Combo Products".tr(),
+                  style:
+                  TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                ),
+              ],
+            ),
+          ),
           ComboProductsList(),
           SizedBox(height: 10),
           Padding(
@@ -80,18 +92,6 @@ class Body extends StatelessWidget {
             child: ProductsList(),
           ),
           SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Text(
-                  "Combo Products".tr(),
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
