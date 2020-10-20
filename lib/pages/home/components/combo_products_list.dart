@@ -101,7 +101,7 @@ class _ComboProductsListState extends State<ComboProductsList> {
 //    final double itemHeight = (size.height) / 2.5;
 //    final double itemWidth = size.width / 2;
     final orientation = MediaQuery.of(context).orientation;
-    List<Combo> products = data.products;
+    List<Combo> combos = data.combos;
 //    return Text(products[0].name);
 
     return Container(
@@ -112,9 +112,9 @@ class _ComboProductsListState extends State<ComboProductsList> {
 //            controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: products.length,
+              itemCount: combos.length,
               itemBuilder: (context, index) {
-                return ComboProductItem();
+                return ComboProductItem(combo: combos[index]);
               }),
         ));
   }

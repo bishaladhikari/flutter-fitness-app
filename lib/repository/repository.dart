@@ -385,7 +385,6 @@ class Repository {
   }
   Future<ComboResponse> getComboProducts() async {
     try {
-      print("hello");
       Response response = await _dio.get(comboProductUrl);
       return ComboResponse.fromJson(response.data);
     } catch (error, stacktrace) {

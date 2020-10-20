@@ -13,22 +13,24 @@ class Combo {
   int weight;
   String unit;
   bool saved;
+  String heroTag;
 
   Combo(
       {this.id,
-        this.title,
-        this.price,
-        this.soldBy,
-        this.storeSlug,
-        this.availability,
-        this.actualQuantity,
-        this.actualPrice,
-        this.imageThumbnail,
-        this.priceDifference,
-        this.slug,
-        this.weight,
-        this.unit,
-        this.saved});
+      this.title,
+      this.price,
+      this.soldBy,
+      this.storeSlug,
+      this.availability,
+      this.actualQuantity,
+      this.actualPrice,
+      this.imageThumbnail,
+      this.priceDifference,
+      this.slug,
+      this.weight,
+      this.unit,
+      this.heroTag,
+      this.saved});
 
   Combo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -63,6 +65,7 @@ class Combo {
     data['weight'] = this.weight;
     data['unit'] = this.unit;
     data['saved'] = this.saved;
+    
     return data;
   }
 }
