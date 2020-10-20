@@ -18,15 +18,17 @@ class _BodyState extends State<Body> {
   }
 
   _navigateToWishlist() async {
-    await authBloc.isAuthenticated()==true?
-    Navigator.of(context).pushNamed('wishListPage'):
-    Navigator.of(context).pushNamed('loginPage');
+    await authBloc.isAuthenticated() == true
+        ? Navigator.of(context).pushNamed('wishListPage')
+        : Navigator.of(context).pushNamed('loginPage');
   }
+
   _navigateToOrders() async {
-    await authBloc.isAuthenticated()==true?
-    Navigator.of(context).pushNamed('ordersPage'):
-    Navigator.of(context).pushNamed('loginPage');
+    await authBloc.isAuthenticated() == true
+        ? Navigator.of(context).pushNamed('ordersPage')
+        : Navigator.of(context).pushNamed('loginPage');
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -140,35 +142,39 @@ class _BodyState extends State<Body> {
             child: ProfileImage(),
           ),
           StreamBuilder<PrefsData>(
-            stream: authBloc.preference,
-            builder: (context,AsyncSnapshot snapshot) {
-              return snapshot.data?.isAuthenticated==false ?
-              Positioned(
-                  right: 25,
-                  bottom: 25,
-                  child: GestureDetector(
-                    child: _LoginSignup(),
-                    onTap: () {
+              stream: authBloc.preference,
+              builder: (context, AsyncSnapshot snapshot) {
+                return snapshot.data?.isAuthenticated == false
+                    ? Positioned(
+                        right: 25,
+                        bottom: 25,
+                        child: GestureDetector(
+                          child: _LoginSignup(),
+                          onTap: () {
 //                      _bottomLoginDialog(context);
-                      Navigator.of(context,rootNavigator: false).pushNamed("loginPage");
-                    },
-                  )):Container();
-            }
-          ),
+                            Navigator.of(context, rootNavigator: false)
+                                .pushNamed("loginPage");
+                          },
+                        ))
+                    : Container();
+              }),
           StreamBuilder<PrefsData>(
-            stream: authBloc.preference,
-            builder: (context, AsyncSnapshot snapshot) {
+              stream: authBloc.preference,
+              builder: (context, AsyncSnapshot snapshot) {
 //              if(!snapshot.hasData) return Container();
-              return snapshot.data?.isAuthenticated == true?
-              Positioned(
-                  left: 160,
-                  bottom: 60,
-                  child: Text(
-                    snapshot.data.user.fullName,
-                    style: TextStyle(fontWeight:FontWeight.bold,color: Colors.black,fontSize: 18),
-                  )):Container();
-            }
-          ),
+                return snapshot.data?.isAuthenticated == true
+                    ? Positioned(
+                        left: 160,
+                        bottom: 60,
+                        child: Text(
+                          snapshot.data.user.fullName,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 18),
+                        ))
+                    : Container();
+              }),
         ],
       ),
     );
@@ -241,7 +247,6 @@ class ProfileImage extends StatelessWidget {
 }
 
 class _LoginSignup extends StatelessWidget {
-
   _LoginSignup();
 
   @override

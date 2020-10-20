@@ -22,7 +22,7 @@ class MainPage extends StatefulWidget {
     assert(() {
       if (navigator == null) {
         throw new FlutterError('Operation requested with a context that does '
-            'not include a ProductDetailPage.');
+            'not include a MainPage.');
       }
       return true;
     }());
