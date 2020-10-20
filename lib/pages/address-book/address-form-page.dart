@@ -57,7 +57,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 phone: phoneController.text)
             .then((value) {
           _loadingController.sink.add(false);
-          addressBloc.getAddress();
+          addressBloc.getAddresses();
           Navigator.of(context).pop();
         }).catchError((value) {
           _loadingController.sink.add(false);
@@ -83,7 +83,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
               phone: phoneController.text)
           .then((value) {
         _loadingController.sink.add(false);
-        addressBloc.getAddress();
+        addressBloc.getAddresses();
         Navigator.of(context).pop();
       }).catchError((value) {
         _loadingController.sink.add(false);

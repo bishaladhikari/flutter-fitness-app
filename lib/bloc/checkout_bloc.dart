@@ -7,11 +7,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'address_bloc.dart';
+
 class CheckoutBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<AddOrderResponse> _subject =
       BehaviorSubject<AddOrderResponse>();
   AddOrderResponse response;
+
+  void drainStream() {
+    _subject.value = null;
+  }
+
+  @mustCallSuper
+  void dispose() async {
+    await _subject.drain();
+    _subject.close();
+  }
 
   createOrder() async {
 //                  achieved_promotions: []
@@ -41,23 +53,30 @@ class CheckoutBloc {
       "payment_method": "Cash Payment",
       "billable_amount": "4444",
 //      "products": cartBloc.cartItems,
-      "products": [{"attribute_id": 2, "combo_id": "", "price": "1111.00", "quantity": 4, "store_id": 2}],
+      "products": [
+        {
+          "attribute_id": 2,
+          "combo_id": "",
+          "price": "1111.00",
+          "quantity": 4,
+          "store_id": 2
+        }
+      ],
       "note": "",
-      "achieved_promotions": [{"id":1,"discount":1000}]
+      "achieved_promotions": [
+        {"id": 1, "discount": 1000}
+      ]
     };
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
     return response;
   }
 
-  void drainStream() {
-    _subject.value = null;
-  }
-
-  @mustCallSuper
-  void dispose() async {
-    await _subject.drain();
-    _subject.close();
+  getDefaultAddress() async{
+    AddressResponse response =await addressBloc.getAddresses();
+    if(response.error==null)
+      return response.addresses[0];
+    else return null;
   }
 
   BehaviorSubject<AddOrderResponse> get addresses => _subject.stream;

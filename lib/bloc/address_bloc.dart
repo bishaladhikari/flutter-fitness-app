@@ -11,9 +11,10 @@ class AddressBloc {
       BehaviorSubject<AddressResponse>();
   AddressResponse response;
 
-  getAddress() async {
-    response = await _repository.getAddress();
+  getAddresses() async {
+    response = await _repository.getAddresses();
     _subject.sink.add(response);
+    return response;
   }
 
 

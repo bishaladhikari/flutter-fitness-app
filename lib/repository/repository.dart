@@ -202,7 +202,7 @@ class Repository {
     }
   }
 
-  Future<AddressResponse> getAddress() async {
+  Future<AddressResponse> getAddresses() async {
     try {
       Response response = await _dio.get(addressUrl);
 

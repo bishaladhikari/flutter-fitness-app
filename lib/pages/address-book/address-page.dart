@@ -1,16 +1,17 @@
 import 'package:ecapp/bloc/address_bloc.dart';
+import 'package:ecapp/components/add_address.dart';
 import 'package:ecapp/models/address.dart';
+import 'package:ecapp/pages/address-book/address_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class AddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    addressBloc.getAddress();
+    addressBloc.getAddresses();
     return Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.white,
-
           centerTitle: true,
           title: new Text(
             ' My Address',
@@ -19,34 +20,7 @@ class AddressPage extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: DottedBorder(
-                // padding: EdgeInsets.all(20.0),
-                color: Colors.black26,
-                strokeWidth: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, 'addressFormPage');
-                  },
-                  child: Container(
-                    // width: 310.0,
-                    height: 100.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0XFFB3E5FC),
-                    ),
-                    child: Text(
-                      " + Add address",
-                      style: TextStyle(color: Colors.lightBlue, fontSize: 20),
-                    ),
-                    alignment: Alignment(
-                      0.0,
-                      0.0,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            AddAddress(),
             StreamBuilder(
                 stream: addressBloc.addresses,
                 builder: (context, snapshot) {
@@ -57,73 +31,8 @@ class AddressPage extends StatelessWidget {
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (_, index) {
-                          final item = snapshot.data.addresses[index];
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5.0,vertical: 5),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.max,
-
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal:10.0),
-                                          child: Icon(
-                                            Icons.add_location,
-                                            color: Colors.orange,
-                                          ),
-                                        ),
-
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              item.name.toString(),
-                                              style: TextStyle(
-                                                  color: Colors.black87,
-                                                  fontSize: 16),
-                                            ),
-                                            Text(item.phone.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black38,
-                                                    fontSize: 14)),
-                                            Text(item.house.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black38,
-                                                    fontSize: 14)),
-                                            Text(item.city.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black38,
-                                                    fontSize: 14)),
-                                          ],
-                                        ),
-                                        Spacer(),
-                                        FlatButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, 'addressFormPage',
-                                              arguments: addresses[index]);
-                                          },
-                                          // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
-                                          child: Text(
-                                            "Edit",
-                                            style: TextStyle(
-//                                                decoration:
-//                                                TextDecoration.underline,
-                                                color: Colors.lightBlue,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ])),
-                            ],
-                          );
+                          Address address = snapshot.data.addresses[index];
+                          return AddressListItem(address: address);
                         });
 
                   }
