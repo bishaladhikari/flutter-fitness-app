@@ -25,7 +25,7 @@ class OrderReviewPage extends StatefulWidget {
 
 class _OrderReviewPageState extends State<OrderReviewPage> {
   OrderProductDetail orderProduct;
-  double rating = 0.0;
+  int rating = 0;
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -45,6 +45,8 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
     orderProductDetailBloc = OrderProductDetailBloc();
     customerReviewBloc = CustomerReviewBloc();
 
+    if (widget.customerReview != null)
+      rating = int.parse(widget.customerReview.rating) ?? 0;
     headingController = TextEditingController(
         text: widget.customerReview.headline == null
             ? ""
@@ -88,11 +90,11 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                   allowHalfRating: false,
                   onRated: (v) {
                     setState(() {
-                      rating = v;
+                      rating = v.toInt();
                     });
                   },
                   starCount: 5,
-                  rating: rating,
+                  rating: rating.toDouble(),
                   size: 40.0,
                   isReadOnly: false,
                   color: Colors.orange,
@@ -172,8 +174,15 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
 
   _validateReviewForm(context, params) async {
     // if (_formKey.currentState.validate()) {
-    OrderProductDetailResponse response =
-        await orderProductDetailBloc.addProductReview(params);
+    OrderProductDetailResponse response;
+    if (widget.customerReview != null)
+      response = await orderProductDetailBloc.addProductReview(params);
+    else
+      response = await orderProductDetailBloc.updateProductReview(params);
+
+    if (response.error == null) Navigator.pop(context);
+    else
+      _scaffoldKey.currentState.showSnackBar(SnackBar(content:Text(response.error),backgroundColor: Colors.redAccent,));
     // } else {
     //   setState(() => _validate = true);
     // }

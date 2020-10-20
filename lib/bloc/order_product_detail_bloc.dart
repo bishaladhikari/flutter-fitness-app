@@ -19,10 +19,20 @@ class OrderProductDetailBloc {
   }
 
   addProductReview(params) async{
-    response = await _repository.addProductReview(params);
+//    AddReviewResponse response = await _repository.addProductReview(params);
+//    response.orderProductDetails.add(response.data);
+//    _orderProductDetail.sink.add(response);
+//    return response;
+  }
+
+  updateProductReview(params) async{
+    response = await _repository.updateProductReview(params);
     _orderProductDetail.sink.add(response);
     return response;
   }
+
+
+
 
   void drainStream() {
     _orderProductDetail.value = null;
