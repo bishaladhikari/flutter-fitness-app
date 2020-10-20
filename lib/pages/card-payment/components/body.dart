@@ -59,7 +59,7 @@ class _BodyState extends State<Body> {
                     Icon(
                       Icons.security,
 //                    size: 18,
-                      color: NPrimaryColor,
+                      color: NPrimaryColor.withOpacity(0.7),
                     ),
                     SizedBox(
                       width: 4.0,

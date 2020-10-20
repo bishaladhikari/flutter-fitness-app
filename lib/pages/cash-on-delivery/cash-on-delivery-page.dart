@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
@@ -11,9 +12,12 @@ class CashOnDeliveryPage extends StatefulWidget {
 }
 
 class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: CashOnDeliveryAppBar(),
       body: Body(),
       bottomNavigationBar: Container(
@@ -75,9 +79,13 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                   AddOrderResponse response = await checkoutBloc.createOrder();
                   if(response.error==null)
                     Navigator.of(context).pushNamed("orderConfirmationPage");
+                  else
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(
+                      tr(response.error),
+                    ),backgroundColor: Colors.redAccent,));
                 },
                 child: Text(
-                  "Confirm Order", style: TextStyle(color: Colors.white),),
+                  "Confirm Order".tr(), style: TextStyle(color: Colors.white),),
               ),
             )
           ],
