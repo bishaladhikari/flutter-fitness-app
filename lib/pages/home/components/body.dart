@@ -78,7 +78,6 @@ class Body extends StatelessWidget {
             ),
           ),
           ComboProductsList(),
-          SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
