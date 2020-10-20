@@ -8,23 +8,23 @@ import 'package:rxdart/rxdart.dart';
 class ComboBloc {
   final Repository _repository = Repository();
 
-  final BehaviorSubject<ComboResponse> _combo =
+  final BehaviorSubject<ComboResponse> _combos =
       BehaviorSubject<ComboResponse>();
 
   getComboProducts() async {
     ComboResponse response = await _repository.getComboProducts();
-    _combo.sink.add(response);
+    _combos.sink.add(response);
   }
 
   drainComboStream() {
-    _combo.value = null;
+    _combos.value = null;
   }
 
   dispose() {
-    _combo.close();
+    _combos.close();
   }
 
-  BehaviorSubject<ComboResponse> get combo => _combo;
+  BehaviorSubject<ComboResponse> get combos => _combos;
 }
 
 final comboBloc = ComboBloc();

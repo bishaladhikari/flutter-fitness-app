@@ -24,13 +24,14 @@ class ComboProductsList extends StatefulWidget {
 class _ComboProductsListState extends State<ComboProductsList> {
   @override
   void initState() {
+    comboBloc..getComboProducts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ComboResponse>(
-      stream: comboBloc.combo.stream,
+      stream: comboBloc.combos.stream,
       builder: (context, AsyncSnapshot<ComboResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

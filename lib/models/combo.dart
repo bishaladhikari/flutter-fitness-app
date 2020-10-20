@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 class Combo {
   int id;
   String title;
@@ -47,6 +49,7 @@ class Combo {
     weight = json['weight'];
     unit = json['unit'];
     saved = json['saved'];
+    heroTag = Uuid().v4();
   }
 
   Map<String, dynamic> toJson() {
