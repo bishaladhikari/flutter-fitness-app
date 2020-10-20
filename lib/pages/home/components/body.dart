@@ -1,5 +1,6 @@
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/pages/home/components/category_tab.dart';
+import 'package:ecapp/pages/home/components/combo_products_list.dart';
 import 'package:ecapp/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
@@ -34,7 +35,8 @@ class Body extends StatelessWidget {
               children: [
                 Text(
                   "Featured Products".tr().toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                 ),
 //                Spacer(),
 //                IconButton(
@@ -67,13 +69,28 @@ class Body extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "Products for you".tr().toString(),
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15, color: kTextColor),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: ProductsList(),
           ),
+          SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Text(
+                  "Combo Products".tr(),
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                ),
+              ],
+            ),
+          ),
+          ComboProductsList(),
         ],
       ),
     );

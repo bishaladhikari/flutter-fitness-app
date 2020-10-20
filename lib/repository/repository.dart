@@ -9,6 +9,7 @@ import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
+import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
@@ -40,6 +41,7 @@ class Repository {
   var orderProductsUrl = '$appUrl/order-products';
   var removeFromWishlist = '$appUrl/remove-from-wishlist';
   var reviewProductUrl = '$appUrl/reviews';
+  var comboProductUrl = '$appUrl/combos';
 
   Repository() {
     BaseOptions options =
@@ -379,6 +381,16 @@ class Repository {
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return ProductResponse.withError(_handleError(error));
+    }
+  }
+  Future<ComboResponse> getComboProducts() async {
+    try {
+      print("hello");
+      Response response = await _dio.get(comboProductUrl);
+      return ComboResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return ComboResponse.withError(_handleError(error));
     }
   }
 
