@@ -13,8 +13,11 @@ import '../../constants.dart';
 
 class OrderReviewPage extends StatefulWidget {
   final OrderProductDetail orderProduct;
+  final CustomerReview customerReview;
 
-  OrderReviewPage({Key key, this.orderProduct}) : super(key: key);
+  OrderReviewPage({Key key, this.orderProduct})
+      : customerReview = orderProduct.customerReview,
+        super(key: key);
 
   @override
   _OrderReviewPageState createState() => _OrderReviewPageState();
@@ -41,6 +44,15 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
     orderProduct = widget.orderProduct;
     orderProductDetailBloc = OrderProductDetailBloc();
     customerReviewBloc = CustomerReviewBloc();
+
+    headingController = TextEditingController(
+        text: widget.customerReview.headline == null
+            ? ""
+            : widget.customerReview.headline);
+    messageController = TextEditingController(
+        text: widget.customerReview.message == null
+            ? ""
+            : widget.customerReview.message);
   }
 
   @override
@@ -58,8 +70,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
           title: Text("Place Review"),
           backgroundColor: Colors.white,
         ),
-        body: orderProduct.reviewed ? _loadFormData(context) : _buildForm(
-            context));
+        body: _buildForm(context));
   }
 
   _buildForm(BuildContext context) {
@@ -99,8 +110,8 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  contentPadding:
-                  new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
                   hintStyle: TextStyle(color: Colors.grey),
                   hintText: "Headline"),
               validator: MultiValidator([
@@ -120,8 +131,8 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
               maxLines: null,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  contentPadding:
-                  new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
                   hintStyle: TextStyle(color: Colors.grey),
                   hintText: "Message"),
               validator: MultiValidator([
@@ -142,18 +153,15 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
               },
               child: Container(
                 height: 50.0,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: NPrimaryColor,
                     borderRadius: BorderRadius.circular(40.0)),
                 child: Center(
                     child: Text(
-                      "Submit Review",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
+                  "Submit Review",
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                )),
               ),
             ),
           ],
@@ -162,63 +170,32 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
     );
   }
 
-  _loadFormData(BuildContext context) {
-    return StreamBuilder<CustomerReviewResponse>(
-      stream:
-      customerReviewBloc
-          .getProductReviewById(orderProduct.reviewId)
-          .stream,
-      builder: (context, AsyncSnapshot<CustomerReviewResponse> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return _buildErrorWidget(snapshot.data.error);
-          }
-          return _buildHomeWidget(snapshot.data);
-        } else if (snapshot.hasError) {
-          return _buildErrorWidget(snapshot.error);
-        } else {
-          return _buildLoadingWidget();
-        }
-      },
-    );
-  }
-
   _validateReviewForm(context, params) async {
     // if (_formKey.currentState.validate()) {
     OrderProductDetailResponse response =
-    await orderProductDetailBloc.addProductReview(params);
+        await orderProductDetailBloc.addProductReview(params);
     // } else {
     //   setState(() => _validate = true);
     // }
   }
 
   Widget _buildLoadingWidget() {
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width - 16;
+    var width = MediaQuery.of(context).size.width - 16;
 
     return Center(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: CircularProgressIndicator(),
-        ));
+      padding: const EdgeInsets.all(10.0),
+      child: CircularProgressIndicator(),
+    ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
-  }
-
-  Widget _buildHomeWidget(CustomerReviewResponse data) {
-    CustomerReview customerReview = data.customerReview;
-    return Center(
-      child: Text("Form"),
-    );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 }

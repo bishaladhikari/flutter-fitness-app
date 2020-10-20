@@ -103,11 +103,11 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
         mainAxisAlignment: MainAxisAlignment.start,
         children:
             orderProductDetails.map((OrderProductDetail orderProductDetail) {
-          return _buildOrderProductList(orderProductDetail);
+          return _buildOrderProductListItem(orderProductDetail);
         }).toList());
   }
 
-  Widget _buildOrderProductList(order) {
+  Widget _buildOrderProductListItem(orderProductDetail) {
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -119,11 +119,11 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                 height: 80,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(order.imageThumbnail),
+                        image: NetworkImage(orderProductDetail.imageThumbnail),
                         fit: BoxFit.cover)),
               ),
               title: Text(
-                order.productName,
+                orderProductDetail.productName,
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Sold By " + order.soldBy,
+                    "Sold By " + orderProductDetail.soldBy,
                     style: TextStyle(
                         fontSize: 14,
 //                          fontWeight: FontWeight.w500,
@@ -143,7 +143,7 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                   ),
                   SizedBox(height: 10.0),
                   Text(
-                    "\¥ " + order.subTotal.toString(),
+                    "\¥ " + orderProductDetail.subTotal.toString(),
                     style: TextStyle(
                         fontSize: 14,
 //                          fontWeight: FontWeight.w500,
@@ -151,7 +151,7 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                   ),
                   SizedBox(height: 10.0),
                   Text(
-                    "x" + order.quantity.toString(),
+                    "x" + orderProductDetail.quantity.toString(),
                     style: TextStyle(
                         fontSize: 14,
 //                          fontWeight: FontWeight.w500,
@@ -166,9 +166,9 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                           borderRadius: BorderRadius.circular(20)),
                       onPressed: () {
                         Navigator.of(context)
-                            .pushNamed('orderReviewPage', arguments: order);
+                            .pushNamed('orderReviewPage', arguments:orderProductDetail);
                       },
-                      child: order.reviewed
+                      child: orderProductDetail.reviewed
                           ? Text('View Review', style: TextStyle(fontSize: 11))
                           : Text('Place Review',
                               style: TextStyle(fontSize: 11)),
