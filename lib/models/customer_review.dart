@@ -11,7 +11,7 @@ class CustomerReview {
   String updatedAt;
   List<String> imageLink;
   List<int> imageSize;
-  List<String> imageThumbnail;
+  List<String> imageThumbnails;
   String reviewedAge;
 
   CustomerReview(
@@ -27,23 +27,23 @@ class CustomerReview {
         this.updatedAt,
         this.imageLink,
         this.imageSize,
-        this.imageThumbnail,
+        this.imageThumbnails,
         this.reviewedAge});
 
   CustomerReview.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     reviewedBy = json['reviewed_by'];
     orderAttributeId = json['order_attribute_id'];
-    images = json['images'].cast<String>();
+    // images = json['images'].cast<String>();
     headline = json['headline'];
     message = json['message'];
     rating = json['rating'];
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    imageLink = json['image_link'].cast<String>();
-    imageSize = json['image_size'].cast<int>();
-    imageThumbnail = json['image_thumbnail'].cast<String>();
+    // imageLink = json['image_link'].cast<String>();
+    // imageSize = json['image_size'].cast<int>();
+    imageThumbnails = json['image_thumbnail'];
     reviewedAge = json['reviewed_age'];
   }
 
@@ -61,7 +61,7 @@ class CustomerReview {
     data['updated_at'] = this.updatedAt;
     data['image_link'] = this.imageLink;
     data['image_size'] = this.imageSize;
-    data['image_thumbnail'] = this.imageThumbnail;
+    data['image_thumbnail'] = this.imageThumbnails;
     data['reviewed_age'] = this.reviewedAge;
     return data;
   }

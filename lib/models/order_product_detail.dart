@@ -1,7 +1,9 @@
+import 'package:ecapp/models/customer_review.dart';
+
 class OrderProductDetail {
   int id;
   bool combo;
-  String customerReview;
+  CustomerReview customerReview;
   String image;
   String imageThumbnail;
   int orderAttributeId;
@@ -39,7 +41,7 @@ class OrderProductDetail {
   OrderProductDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     combo = json['combo'];
-    // customer_review = json['customer_review'];
+    customerReview = json['customer_review'] != null ? CustomerReview.fromJson(json['customer_review']) : CustomerReview();
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
     orderAttributeId = json['order_attribute_id'];
@@ -57,24 +59,4 @@ class OrderProductDetail {
         ? json['customer_review']["id"].toString()
         : '';
   }
-
-// Map<String, dynamic> toJson() {
-//   final Map<String, dynamic> data = new Map<String, dynamic>();
-//   data['id'] = this.id;
-//   data['combo'] = this.combo;
-//   data['customer_review'] = this.customer_review;
-//   data['image'] = this.image;
-//   data['image_thumbnail'] = this.image_thumbnail;
-//   data['order_attribute_id'] = this.order_attribute_id;
-//   data['product_id'] = this.product_id;
-//   data['product_name'] = this.product_name;
-//   data['quantity'] = this.quantity;
-//   data['reviewed'] = this.reviewed;
-//   data['slug'] = this.slug;
-//   data['sold_by'] = this.sold_by;
-//   data['sub_total'] = this.sub_total;
-//   data['variant'] = this.variant;
-//   data['variant_title'] = this.variant_title;
-//   return data;
-// }
 }
