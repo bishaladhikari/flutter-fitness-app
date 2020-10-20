@@ -29,8 +29,6 @@ class Body extends StatelessWidget {
 //          SizedBox(height: 10),
           CategoryTab(),
           SizedBox(height: 10),
-          ComboProductsList(),
-          SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -67,6 +65,8 @@ class Body extends StatelessWidget {
 //          ),
 //          NewArrivalsProductsList(),
           SizedBox(height: 5),
+          ComboProductsList(),
+          SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
