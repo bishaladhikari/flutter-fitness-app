@@ -252,7 +252,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 SizedBox(
                                   width: 8,
                                 ),
-                                Text("(3) reviews")
+                                // Text("(3) reviews"),
+                                Text("("+ widget.product.reviewCount.toString()  +")" +" reviews")
                               ],
                             ),
                           ),
