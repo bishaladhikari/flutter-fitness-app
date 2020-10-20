@@ -19,10 +19,9 @@ class OrderProductDetailBloc {
   }
 
   addProductReview(params) async{
-//    AddReviewResponse response = await _repository.addProductReview(params);
-//    response.orderProductDetails.add(response.data);
-//    _orderProductDetail.sink.add(response);
-//    return response;
+    OrderProductDetailResponse response = await _repository.addProductReview(params);
+    _orderProductDetail.sink.add(response);
+    return response;
   }
 
   updateProductReview(params) async{
