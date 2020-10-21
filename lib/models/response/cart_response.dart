@@ -27,7 +27,7 @@ class CartResponse {
         shippingDiscountCost = json["data"]['shipping_discount_cost'],
         bulkDiscountCost = json["data"]['bulk_discount_cost'],
         shippingCost = json["data"]['shipping_cost'],
-        error = "";
+        error = null;
 
   CartResponse.withError(String errorValue)
       : carts = List(),
