@@ -14,6 +14,7 @@ import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
+import 'package:ecapp/models/response/order_product_item_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -467,14 +468,14 @@ class Repository {
     }
   }
 
-  Future<OrderProductDetailResponse> updateProductReview(params) async {
+  Future<OrderProductItemResponse> updateProductReview(params, id) async {
     try {
       Response response =
-      await _dio.post(reviewProductUrl, queryParameters: params);
-      return OrderProductDetailResponse.fromJson(response.data);
+          await _dio.put(reviewProductUrl + "/$id", queryParameters: params);
+      return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return OrderProductDetailResponse.withError(_handleError(error));
+      return OrderProductItemResponse.withError(_handleError(error));
     }
   }
 

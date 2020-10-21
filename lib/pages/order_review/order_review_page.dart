@@ -60,7 +60,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
   @override
   void dispose() {
     super.dispose();
-    orderProductDetailBloc..drainStream();
+    // orderProductDetailBloc..drainStream();
     headingController.dispose();
     messageController.dispose();
   }
@@ -175,14 +175,19 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
   _validateReviewForm(context, params) async {
     // if (_formKey.currentState.validate()) {
     OrderProductDetailResponse response;
-    if (widget.customerReview != null)
-      response = await orderProductDetailBloc.addProductReview(params);
-    else
+    if (widget.customerReview != null) {
+      params["id"] = widget.customerReview.id;
       response = await orderProductDetailBloc.updateProductReview(params);
+    } else
+      response = await orderProductDetailBloc.addProductReview(params);
 
-    if (response.error == null) Navigator.pop(context);
-    else
-      _scaffoldKey.currentState.showSnackBar(SnackBar(content:Text(response.error),backgroundColor: Colors.redAccent,));
+    // if (response.error == null)
+    //   Navigator.pop(context);
+    // else
+    //   _scaffoldKey.currentState.showSnackBar(SnackBar(
+    //     content: Text(response.error),
+    //     backgroundColor: Colors.redAccent,
+    //   ));
     // } else {
     //   setState(() => _validate = true);
     // }
