@@ -266,6 +266,16 @@ class Repository {
       return RemoveFromWishlistResponse.withError(_handleError(error));
     }
   }
+  Future<CartResponse> deleteFromCartList(id) async {
+    try {
+      Response response =
+      await _dio.delete(cartUrl+'/$id');
+      return CartResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return CartResponse.withError(_handleError(error));
+    }
+  }
 
   updateAddress(
       {@required id,

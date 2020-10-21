@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -253,7 +255,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   width: 8,
                                 ),
                                 // Text("(3) reviews"),
-                                Text("("+ widget.product.reviewCount.toString()  +")" +" reviews")
+                                Text("(" +
+                                    widget.product.reviewCount.toString() +
+                                    ")" +
+                                    " reviews")
                               ],
                             ),
                           ),
@@ -502,6 +507,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
                             color: Colors.black26,
                             onPressed: () {
+//                              MainPage.of(context).changePage(2);
+//                              Navigator.pushNamed(context, "mainPage");
                               Navigator.pushNamed(context, "cartPage");
                             },
                           ),
@@ -554,10 +561,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
-//                          _alert(context);
-                          print('clicked');
                           Navigator.pushNamed(
-                              context, "selectPaymentMethodPage");
+                              context, "checkoutPage");
                           setState(() {
                             isClicked = !isClicked;
                           });
@@ -575,14 +580,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             borderRadius: BorderRadius.all(
                               Radius.circular(5.0),
                             ),
-//                    boxShadow: [
-//                      BoxShadow(
-//                        color: Colors.green,
-//                        blurRadius: 4.0,
-//                        spreadRadius: 2.0,
-//                        offset: Offset(0.0, 0.0),
-//                      )
-//                    ],
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -969,7 +966,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             children: <Widget>[
               Expanded(
                 child: Text(
-                  "From same seller",
+                  tr("From same seller"),
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,

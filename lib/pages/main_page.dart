@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> {
   int currentPage = 0;
   int cart_count = 0;
 
-  void _changePage(id) async {
+  void changePage(id) async {
     if (!await authBloc.isAuthenticated() && id == 2)
       Navigator.pushNamed(context, "loginPage");
     else
@@ -153,7 +153,7 @@ class _MainPageState extends State<MainPage> {
                     : SvgPicture.asset("assets/icons/home_outline.svg"),
                 padding: EdgeInsets.all(15),
                 onPressed: () => {
-                  _changePage(0),
+                  changePage(0),
                 },
               ),
               IconButton(
@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
                         color: NPrimaryColor)
                     : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
                 padding: EdgeInsets.all(15),
-                onPressed: () => {_changePage(1)},
+                onPressed: () => {changePage(1)},
               ),
               IconButton(
                 icon: currentPage == 2
@@ -170,7 +170,7 @@ class _MainPageState extends State<MainPage> {
                         color: NPrimaryColor)
                     : SvgPicture.asset("assets/icons/Cart_02.svg"),
                 padding: EdgeInsets.all(10),
-                onPressed: () => {_changePage(2)},
+                onPressed: () => {changePage(2)},
               ),
               IconButton(
                 padding: EdgeInsets.all(10),
@@ -178,7 +178,7 @@ class _MainPageState extends State<MainPage> {
                     ? SvgPicture.asset("assets/icons/p.svg",
                         color: NPrimaryColor)
                     : SvgPicture.asset("assets/icons/person.svg"),
-                onPressed: () => {_changePage(3)},
+                onPressed: () => {changePage(3)},
               ),
             ],
           ),
@@ -261,7 +261,7 @@ class _MainPageState extends State<MainPage> {
                   fontSize: 16, fontWeight: FontWeight.w600, color: blackColor),
             ),
             onTap: () {
-              _changePage(0);
+              changePage(0);
               Navigator.pop(context);
             },
           ),

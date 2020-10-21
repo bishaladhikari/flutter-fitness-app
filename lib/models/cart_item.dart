@@ -7,6 +7,7 @@ class CartItem {
   Attribute attribute;
   Combo combo;
   String price;
+  bool availability;
 
   CartItem({this.id, this.quantity, this.attribute, this.combo, this.price});
 
@@ -17,7 +18,11 @@ class CartItem {
         ? new Attribute.fromJson(json['attribute'])
         : null;
     combo = json['combo'] != null ? new Combo.fromJson(json['combo']) : null;
-    price = attribute != null ? attribute.discountPrice:combo.price.toString();
+    price = attribute != null
+        ? attribute.discountPrice.toString()
+        : combo.price.toString();
+    availability =
+        attribute != null ? attribute.availability : combo.availability;
   }
 
   Map<String, dynamic> toJson() {
