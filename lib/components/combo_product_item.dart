@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/combo_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
@@ -66,8 +67,7 @@ class ComboProductItem extends StatelessWidget {
       ),
       onTap: () {
 //        productDetailBloc..drainStream();
-        Navigator
-            .pushNamed(context,"productDetailPage", arguments: combo);
+        Navigator.pushNamed(context, "productDetailPage", arguments: combo);
       },
     );
   }
@@ -129,32 +129,32 @@ class ComboProductItem extends StatelessWidget {
             height: 8,
           ),
           Text(
-            combo.soldBy,
+            combo.attributes_count.toString() + " items",
             style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
           ),
           SizedBox(height: 6),
-          // Row(
-          //   children: <Widget>[
-          //     Text(
-          //         product.discountPrice != null
-          //             ? "\$" + product.discountPrice
-          //             : "\$" + product.sellingPrice,
-          //         style: TextStyle(
-          //             fontSize: 15,
-          //             fontWeight: FontWeight.bold,
-          //             color: NPrimaryColor)),
-          //     SizedBox(width: 6),
-          //     product.discountPrice != null
-          //         ? Text(
-          //             "\$" + product.sellingPrice,
-          //             style: TextStyle(
-          //                 color: Colors.grey,
-          //                 fontSize: 10,
-          //                 decoration: TextDecoration.lineThrough),
-          //           )
-          //         : Container()
-          //   ],
-          // ),
+          Row(
+            children: <Widget>[
+              Text(
+                  combo.price != null
+                      ? "\$" + combo.price.toString()
+                      : "\$" + combo.actualPrice.toString(),
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: NPrimaryColor)),
+              SizedBox(width: 6),
+              combo.actualPrice.toString() != null
+                  ? Text(
+                      "\$" + combo.actualPrice.toString(),
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 10,
+                          decoration: TextDecoration.lineThrough),
+                    )
+                  : Container()
+            ],
+          ),
           SizedBox(height: 10),
           // StarRating(rating: product.avgRating, size: 10),
         ],
