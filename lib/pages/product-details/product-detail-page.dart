@@ -561,10 +561,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
-//                          _alert(context);
-                          print('clicked');
                           Navigator.pushNamed(
-                              context, "selectPaymentMethodPage");
+                              context, "checkoutPage");
                           setState(() {
                             isClicked = !isClicked;
                           });
@@ -582,14 +580,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             borderRadius: BorderRadius.all(
                               Radius.circular(5.0),
                             ),
-//                    boxShadow: [
-//                      BoxShadow(
-//                        color: Colors.green,
-//                        blurRadius: 4.0,
-//                        spreadRadius: 2.0,
-//                        offset: Offset(0.0, 0.0),
-//                      )
-//                    ],
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
