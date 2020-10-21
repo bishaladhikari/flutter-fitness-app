@@ -12,7 +12,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  Address address;
+//  Address address;
 
   @override
   void initState() {
@@ -21,22 +21,80 @@ class _BodyState extends State<Body> {
   }
 
   @override
+  void dispose() {
+    checkoutBloc..drainStream();
+    checkoutBloc..dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         color: Colors.black.withOpacity(.01),
+        height: 200,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            address == null ? AddAddress() : Container(),
-            Text("Shipping Address"),
-            SizedBox(
-              height: 10.0,
-            ),
-            AddressListItem(
-              address: address,
-            )
+            StreamBuilder<Address>(
+                stream: checkoutBloc.defaultAddress,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data != null)
+                      return _buildAddressWidget(snapshot.data);
+                    else
+                      return AddAddress();
+                  }
+                  return _buildLoadingWidget();
+                  return AddAddress();
+                }),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 25.0,
+            width: 25.0,
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+              strokeWidth: 4.0,
+            ),
+          )
+        ],
+      )),
+    );
+  }
+
+  Widget _buildAddressWidget(Address address) {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Shipping Address",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          AddressListItem(
+            address: address,
+          )
+        ],
       ),
     );
   }
