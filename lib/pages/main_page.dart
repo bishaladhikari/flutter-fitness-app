@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
         context: context,
         builder: (context) => new AlertDialog(
           title: new Text('Are you sure?'),
-          content: new Text('Do you want to exit this App'),
+          content: new Text('Do you want to exit this application'),
           actionsPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
 //          actionsOverflowButtonSpacing: double.infinity,
         buttonPadding: EdgeInsets.only(right:20),
@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> {
               child: Text("NO"),
             ),
             SizedBox(
-              width:50
+              width:30
             ),
             new GestureDetector(
               onTap: () => Navigator.of(context).pop(true),
