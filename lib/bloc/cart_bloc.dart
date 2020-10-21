@@ -36,11 +36,8 @@ class CartBloc {
   }
 
   deleteFromCartList(id) async {
-    await _repository.deleteWishlist(id);
-    response.deleteFromCarts(id);
-    _subject.sink.add(response);
-
-    print("response:" + response.toString());
+    response = await _repository.deleteFromCartList(id);
+    if (response.error == null) _subject.sink.add(response);
   }
 
   void drainStream() {

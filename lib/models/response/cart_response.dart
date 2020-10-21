@@ -11,14 +11,9 @@ class CartResponse {
   int shippingCost;
   final String error;
 
-  void deleteFromCarts(id) {
-    carts.removeWhere((element) => element.id == id);
-  }
-
-//
-//   void addWish(Wish wish) {
-//     wishes.add(wish);
-//   }
+//  void deleteFromCarts(id) {
+//    carts.removeWhere((element) => element.id == id);
+//  }
 
   CartResponse(this.carts, this.error);
 

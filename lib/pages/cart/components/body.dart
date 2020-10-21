@@ -83,7 +83,7 @@ class CartBody extends StatelessWidget {
             margin: const EdgeInsets.only(top:50),
             child: Column(
               children: [
-                Text("There are no items in this cart"),
+                Text("There are no items in this cart",style: TextStyle(color: Colors.black87),),
                 SizedBox(height: 8.0,),
                 FlatButton(
                   onPressed: () {},

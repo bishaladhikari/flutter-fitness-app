@@ -77,7 +77,7 @@ class CartItemView extends StatelessWidget {
                 ),
                 splashRadius: 5.0,
                 onPressed: () {
-                  cartBloc.updateCart(cartItem, "sub");
+                  cartBloc.deleteFromCartList(cartItem.id);
                 },
               ),
               Spacer(),
