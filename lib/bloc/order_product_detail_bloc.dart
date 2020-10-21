@@ -46,6 +46,19 @@ class OrderProductDetailBloc {
     return response;
   }
 
+  deleteProductReview(params) async {
+    OrderProductItemResponse resp =
+        await _repository.deleteProductReview(params["id"]);
+
+    if (resp.error == null) {
+      var index = response.orderProductDetails.indexWhere((element) =>
+          element.orderAttributeId == params["order_attribute_id"]);
+      if (index > -1)
+        response.orderProductDetails[index] = resp.orderProductItem;
+    }
+    return response;
+  }
+
   void drainStream() {
     _orderProductDetail.value = null;
   }

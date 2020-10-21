@@ -1,5 +1,6 @@
 import 'package:ecapp/bloc/customer_review_bloc.dart';
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
+import 'package:ecapp/components/dialogs.dart';
 import 'package:ecapp/models/customer_review.dart';
 import 'package:ecapp/models/order_product_detail.dart';
 import 'package:ecapp/models/response/customer_review_response.dart';
@@ -35,6 +36,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
 
   bool _obscureText = true;
   bool _validate = false;
+
   CustomerReviewBloc customerReviewBloc;
 
   @override
@@ -69,6 +71,32 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
         appBar: AppBar(
           title: Text("Place Review"),
           backgroundColor: Colors.white,
+          actions: [
+            widget.customerReview != null
+                ? Padding(
+                    padding: EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        final action = await Dialogs.yesAbortDialog(
+                            context, 'Are you sure want to delete?', 'You won\'t be able to revert this!');
+                        if (action == DialogAction.yes) {
+                          var params = {
+                            "order_attribute_id":
+                                orderProductItem.orderAttributeId,
+                            "id": orderProductItem.reviewId
+                          };
+
+                          orderProductDetailBloc.deleteProductReview(params);
+                        }
+                      },
+                      child: Text(
+                        "Delete",
+                        style: TextStyle(fontSize: 16, color: Colors.red),
+                      ),
+                    ),
+                  )
+                : Text("")
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -166,9 +194,12 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
         ));
   }
 
-
   _validateReviewForm(context, params) async {
     OrderProductDetailResponse response;
+    // if (_formKey.currentState.validate()) {
+    //   Scaffold.of(context)
+    //       .showSnackBar(SnackBar(content: Text('Processing Data')));
+
     if (widget.customerReview != null) {
       params["id"] = widget.customerReview.id;
       response = await orderProductDetailBloc.updateProductReview(params);
@@ -182,5 +213,6 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
     //     content: Text(response.error),
     //     backgroundColor: Colors.redAccent,
     //   ));
+    // }
   }
 }

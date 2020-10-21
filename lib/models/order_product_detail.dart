@@ -41,7 +41,7 @@ class OrderProductDetail {
   OrderProductDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     combo = json['combo'];
-    customerReview = json['customer_review'] != null ? CustomerReview.fromJson(json['customer_review']) : CustomerReview();
+    customerReview = json['customer_review'] != null ? CustomerReview.fromJson(json['customer_review']) : null;
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
     orderAttributeId = json['order_attribute_id'];

@@ -489,6 +489,16 @@ class Repository {
     }
   }
 
+  Future<OrderProductItemResponse> deleteProductReview(id) async {
+    try {
+      Response response = await _dio.delete(reviewProductUrl + "/$id");
+      return OrderProductItemResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return OrderProductItemResponse.withError(_handleError(error));
+    }
+  }
+
   String _handleError(error) {
     String errorDescription = "";
     if (error is DioError) {
