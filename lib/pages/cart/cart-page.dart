@@ -18,7 +18,6 @@ class _CartPageState extends State<CartPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(
           'My Cart',
           style:
@@ -32,11 +31,11 @@ class _CartPageState extends State<CartPage>
           color: Colors.black,
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.notifications_none),
-            onPressed: () {},
-            color: Colors.black,
-          ),
+//          IconButton(
+//            icon: Icon(Icons.notifications_none),
+//            onPressed: () {},
+//            color: Colors.black,
+//          ),
         ],
       ),
       body: SingleChildScrollView(child: CartBody()),

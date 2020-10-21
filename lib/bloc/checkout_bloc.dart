@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
@@ -13,16 +14,20 @@ class CheckoutBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<AddOrderResponse> _subject =
       BehaviorSubject<AddOrderResponse>();
+  final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
   AddOrderResponse response;
 
   void drainStream() {
     _subject.value = null;
+    _defaultAddress.value = null;
   }
 
   @mustCallSuper
   void dispose() async {
     await _subject.drain();
     _subject.close();
+    await _defaultAddress.drain();
+    _defaultAddress.close();
   }
 
   createOrder() async {
@@ -72,14 +77,14 @@ class CheckoutBloc {
     return response;
   }
 
-  getDefaultAddress() async{
-    AddressResponse response =await addressBloc.getAddresses();
-    if(response.error==null)
-      return response.addresses[0];
-    else return null;
+  getDefaultAddress() async {
+    AddressResponse response = await addressBloc.getAddresses();
+    if (response.error == null) _defaultAddress.sink.add(response.addresses[0]);
   }
 
   BehaviorSubject<AddOrderResponse> get addresses => _subject.stream;
+
+  BehaviorSubject<Address> get defaultAddress => _defaultAddress.stream;
 }
 
 final CheckoutBloc checkoutBloc = CheckoutBloc();

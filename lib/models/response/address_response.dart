@@ -19,7 +19,7 @@ class AddressResponse {
   AddressResponse.fromJson(Map<String, dynamic> json)
       : addresses =
             (json["data"] as List).map((i) => new Address.fromJson(i)).toList(),
-        error = "";
+        error = null;
 
   AddressResponse.withError(String errorValue)
       : addresses = List(),
