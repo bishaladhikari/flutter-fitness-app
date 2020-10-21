@@ -61,7 +61,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   detail.address,
                   style: TextStyle(fontSize: 16, color: Colors.black38),
                 ),
-                OrderItemDetailPage(id: this.id, orderDetail: this.detail),
+                OrderItemDetails(id: this.id, orderDetail: this.detail),
                 ListTile(
                   contentPadding: const EdgeInsets.all(8.0),
                   title: Row(

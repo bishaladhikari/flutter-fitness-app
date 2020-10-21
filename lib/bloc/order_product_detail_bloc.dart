@@ -19,21 +19,31 @@ class OrderProductDetailBloc {
   }
 
   addProductReview(params) async {
-    response = await _repository.addProductReview(params);
-    _orderProductDetail.sink.add(response);
+    OrderProductItemResponse itemResponse =
+        await _repository.addProductReview(params);
+
+    if (itemResponse.error == null) {
+      var index = response.orderProductDetails.indexWhere((element) =>
+          element.orderAttributeId == params["order_attribute_id"]);
+      print(index);
+      if (index > -1)
+        response.orderProductDetails[index] = itemResponse.orderProductItem;
+    }
     return response;
   }
 
   updateProductReview(params) async {
-    print(response);
-    OrderProductItemResponse res = await _repository.updateProductReview(params, params["id"]);
+    OrderProductItemResponse res =
+        await _repository.updateProductReview(params, params["id"]);
 
     if (res.error == null) {
-      var orderDetails = _orderProductDetail;
-      print(response);
-      // var index = orderDetails.indexWhere((element) => element.id == params["order_attribute_id"]);
-      // if (index > -1) response.orderProductDetails[index] == res;
+      var index = response.orderProductDetails.indexWhere((element) =>
+          element.orderAttributeId == params["order_attribute_id"]);
+      print(index);
+      if (index > -1)
+        response.orderProductDetails[index] = res.orderProductItem;
     }
+    return response;
   }
 
   void drainStream() {
@@ -49,3 +59,5 @@ class OrderProductDetailBloc {
   BehaviorSubject<OrderProductDetailResponse> get orderProductDetail =>
       _orderProductDetail;
 }
+
+final orderProductDetailBloc = OrderProductDetailBloc();

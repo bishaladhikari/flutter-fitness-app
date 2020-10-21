@@ -7,23 +7,21 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../constants.dart';
 
-class OrderItemDetailPage extends StatefulWidget {
+class OrderItemDetails extends StatefulWidget {
   final int id;
   Order orderDetail;
   OrderProductDetailBloc _orderProductDetailBloc;
 
   get orderDetailBloc => _orderProductDetailBloc;
 
-  OrderItemDetailPage({Key key, this.id, this.orderDetail}) {
-    _orderProductDetailBloc = OrderProductDetailBloc();
-  }
+  OrderItemDetails({Key key, this.id, this.orderDetail});
 
   @override
-  _OrderItemDetailPageState createState() => _OrderItemDetailPageState(id);
+  _OrderItemDetailsState createState() => _OrderItemDetailsState(id);
 
-  static _OrderItemDetailPageState of(BuildContext context) {
-    final _OrderItemDetailPageState navigator = context
-        .ancestorStateOfType(const TypeMatcher<_OrderItemDetailPageState>());
+  static _OrderItemDetailsState of(BuildContext context) {
+    final _OrderItemDetailsState navigator = context
+        .ancestorStateOfType(const TypeMatcher<_OrderItemDetailsState>());
 
     assert(() {
       if (navigator == null) {
@@ -37,30 +35,29 @@ class OrderItemDetailPage extends StatefulWidget {
   }
 }
 
-class _OrderItemDetailPageState extends State<OrderItemDetailPage>
+class _OrderItemDetailsState extends State<OrderItemDetails>
     with TickerProviderStateMixin {
   final int id;
   Order orderDetail;
-  OrderProductDetailBloc orderDetailBloc;
 
-  _OrderItemDetailPageState(this.id);
+  _OrderItemDetailsState(this.id);
 
   @override
   void initState() {
     super.initState();
-    widget._orderProductDetailBloc..getOrderProductDetail(id);
+    orderProductDetailBloc..getOrderProductDetail(id);
   }
 
   @override
   void dispose() {
     super.dispose();
-    // widget.orderDetailBloc..drainStream();
+    widget.orderDetailBloc..drainStream();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<OrderProductDetailResponse>(
-      stream: widget._orderProductDetailBloc.orderProductDetail.stream,
+      stream: orderProductDetailBloc.orderProductDetail.stream,
       builder: (context, AsyncSnapshot<OrderProductDetailResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -78,7 +75,6 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
 
   Widget _buildLoadingWidget() {
     var width = MediaQuery.of(context).size.width - 16;
-
     return Center(
         child: Padding(
       padding: const EdgeInsets.all(10.0),
@@ -165,8 +161,8 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed('orderReviewPage', arguments:orderProductDetail);
+                        Navigator.of(context).pushNamed('orderReviewPage',
+                            arguments: orderProductDetail);
                       },
                       child: orderProductDetail.reviewed
                           ? Text('View Review', style: TextStyle(fontSize: 11))

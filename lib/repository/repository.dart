@@ -457,14 +457,14 @@ class Repository {
     }
   }
 
-  Future<OrderProductDetailResponse> addProductReview(params) async {
+  Future<OrderProductItemResponse> addProductReview(params) async {
     try {
       Response response =
           await _dio.post(reviewProductUrl, queryParameters: params);
-      return OrderProductDetailResponse.fromJson(response.data);
+      return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
-      return OrderProductDetailResponse.withError(_handleError(error));
+      return OrderProductItemResponse.withError(_handleError(error));
     }
   }
 
