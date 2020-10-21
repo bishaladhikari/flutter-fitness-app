@@ -164,7 +164,7 @@ class Repository {
   Future<CartResponse> updateCart(cartItem, type) async {
     int qty = cartItem.quantity;
     if (type == "add") qty++;
-    if (type == "remove") qty--;
+    if (type == "sub") qty--;
 
     var params = {
       "attribute_id": cartItem.attribute?.id ?? null,

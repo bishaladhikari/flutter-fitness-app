@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 class Combo {
   int id;
   String title;
-  int price;
+  double price;
   String soldBy;
   String storeSlug;
   bool availability;
@@ -37,7 +37,7 @@ class Combo {
   Combo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    price = json['price'];
+    price = json['price'].toDouble();
     soldBy = json['sold_by'];
     storeSlug = json['store_slug'];
     availability = json['availability'];
