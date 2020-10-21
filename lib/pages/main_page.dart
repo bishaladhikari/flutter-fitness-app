@@ -11,13 +11,14 @@ import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 
+//import 'package:path/path.dart';
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 
   static _MainPageState of(BuildContext context) {
-    final _MainPageState navigator = context
-        .ancestorStateOfType(const TypeMatcher<_MainPageState>());
+    final _MainPageState navigator =
+        context.ancestorStateOfType(const TypeMatcher<_MainPageState>());
 
     assert(() {
       if (navigator == null) {
@@ -77,25 +78,37 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<bool> _onBackPressed() {
-    return showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('Are you sure?'),
-        content: new Text('Do you want to exit an App'),
-        actions: <Widget>[
-          new GestureDetector(
-            onTap: () => Navigator.of(context).pop(false),
-            child: Text("NO"),
-          ),
-          SizedBox(height: 16),
-          new GestureDetector(
-            onTap: () => Navigator.of(context).pop(true),
-            child: Text("YES"),
-          ),
-        ],
-      ),
-    ) ??
-        false;
+    print(currentPage);
+    if (currentPage == 0) {
+      return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          title: new Text('Are you sure?'),
+          content: new Text('Do you want to exit this App'),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+//          actionsOverflowButtonSpacing: double.infinity,
+        buttonPadding: EdgeInsets.only(right:20),
+          actions: <Widget>[
+            new GestureDetector(
+              onTap: () => Navigator.of(context).pop(false),
+              child: Text("NO"),
+            ),
+            SizedBox(
+              width:50
+            ),
+            new GestureDetector(
+              onTap: () => Navigator.of(context).pop(true),
+              child: Text("YES"),
+            ),
+          ],
+        ),
+      );
+    } else {
+      setState(() {
+        currentPage = 0;
+      });
+      _pageController.jumpToPage(0);
+    }
   }
 
   @override
@@ -162,7 +175,8 @@ class _MainPageState extends State<MainPage> {
               IconButton(
                 padding: EdgeInsets.all(10),
                 icon: currentPage == 3
-                    ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
+                    ? SvgPicture.asset("assets/icons/p.svg",
+                        color: NPrimaryColor)
                     : SvgPicture.asset("assets/icons/person.svg"),
                 onPressed: () => {_changePage(3)},
               ),
@@ -221,7 +235,12 @@ class _MainPageState extends State<MainPage> {
                               Navigator.pop(context);
                               Navigator.pushNamed(context, "loginPage");
                             },
-                            title: Text("Log In/Sign Up",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black87),),
+                            title: Text(
+                              "Log In/Sign Up",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87),
+                            ),
                             trailing: Icon(Icons.keyboard_arrow_right),
                           ),
                     decoration: BoxDecoration(
@@ -259,12 +278,10 @@ class _MainPageState extends State<MainPage> {
                     fontWeight: FontWeight.w600,
                     color: blackColor)),
             onTap: () async {
-              if (await authBloc.isAuthenticated() == false){
+              if (await authBloc.isAuthenticated() == false) {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "loginPage");
-
-              }
-              else{
+              } else {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "ordersPage");
               }
