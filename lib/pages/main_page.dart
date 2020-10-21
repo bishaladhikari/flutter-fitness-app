@@ -76,73 +76,98 @@ class _MainPageState extends State<MainPage> {
       });
   }
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Are you sure?'),
+        content: new Text('Do you want to exit an App'),
+        actions: <Widget>[
+          new GestureDetector(
+            onTap: () => Navigator.of(context).pop(false),
+            child: Text("NO"),
+          ),
+          SizedBox(height: 16),
+          new GestureDetector(
+            onTap: () => Navigator.of(context).pop(true),
+            child: Text("YES"),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      drawer: Drawer(child: leftDrawerMenu()),
-      body: PageView(
-        controller: _pageController,
-        children: _screens,
-        onPageChanged: _onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 35),
-        height: 75,
-        width: double.infinity,
-        // double.infinity means it cove the available width
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, -7),
-              blurRadius: 33,
-              color: Color(0xFF6DAED9).withOpacity(0.11),
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: Drawer(child: leftDrawerMenu()),
+        body: PageView(
+          controller: _pageController,
+          children: _screens,
+          onPageChanged: _onPageChanged,
+          physics: NeverScrollableScrollPhysics(),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: currentPage == 0
-                  ? SvgPicture.asset("assets/icons/home.svg",
-                      color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/home_outline.svg"),
-              padding: EdgeInsets.all(15),
-              onPressed: () => {
-                _changePage(0),
-              },
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.symmetric(horizontal: 35),
+          height: 75,
+          width: double.infinity,
+          // double.infinity means it cove the available width
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
-            IconButton(
-              icon: currentPage == 1
-                  ? SvgPicture.asset("assets/icons/category.svg",
-                      color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
-              padding: EdgeInsets.all(15),
-              onPressed: () => {_changePage(1)},
-            ),
-            IconButton(
-              icon: currentPage == 2
-                  ? SvgPicture.asset("assets/icons/Cart_03.svg",
-                      color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/Cart_02.svg"),
-              padding: EdgeInsets.all(10),
-              onPressed: () => {_changePage(2)},
-            ),
-            IconButton(
-              padding: EdgeInsets.all(10),
-              icon: currentPage == 3
-                  ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/person.svg"),
-              onPressed: () => {_changePage(3)},
-            ),
-          ],
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, -7),
+                blurRadius: 33,
+                color: Color(0xFF6DAED9).withOpacity(0.11),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: currentPage == 0
+                    ? SvgPicture.asset("assets/icons/home.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/home_outline.svg"),
+                padding: EdgeInsets.all(15),
+                onPressed: () => {
+                  _changePage(0),
+                },
+              ),
+              IconButton(
+                icon: currentPage == 1
+                    ? SvgPicture.asset("assets/icons/category.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
+                padding: EdgeInsets.all(15),
+                onPressed: () => {_changePage(1)},
+              ),
+              IconButton(
+                icon: currentPage == 2
+                    ? SvgPicture.asset("assets/icons/Cart_03.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/Cart_02.svg"),
+                padding: EdgeInsets.all(10),
+                onPressed: () => {_changePage(2)},
+              ),
+              IconButton(
+                padding: EdgeInsets.all(10),
+                icon: currentPage == 3
+                    ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/person.svg"),
+                onPressed: () => {_changePage(3)},
+              ),
+            ],
+          ),
         ),
       ),
     );
