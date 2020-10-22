@@ -19,6 +19,7 @@ import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
+import 'package:ecapp/pages/product-details/components/same_seller_list.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -319,18 +320,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
               ],
             ),
             onNotification: (notification) {
-              //How many pixels scrolled from pervious frame
-              print("delta" + notification.metrics.pixels.toString());
-
-              //List scroll position
-//          print(notification.metrics.pixels);
-//              setState(() {
-//                myscroll = 100 - notification.metrics.pixels;
-//                appBarV = (notification.metrics.pixels / 100);
-//                myscroll = (myscroll / 100);
-//                print(myscroll);
-//              });
-//              return true;
               if (notification.metrics.axis == Axis.vertical) {
                 print("current position" +
                     notification.metrics.pixels.toString());
@@ -538,20 +527,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
         ),
       ),
     );
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
   }
 
   Widget _buildErrorWidget(String error) {
@@ -562,136 +537,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
         Text("Error occurred: $error"),
       ],
     ));
-  }
-
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Shopping Cart"),
-      content: Text("Your product has been added to cart."),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  _alert(BuildContext context) {
-    var alertStyle = AlertStyle(
-      animationType: AnimationType.shrink,
-      isCloseButton: false,
-      isOverlayTapDismiss: false,
-      descStyle: TextStyle(fontWeight: FontWeight.bold),
-      animationDuration: Duration(milliseconds: 400),
-      alertBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(
-          color: Colors.grey,
-        ),
-      ),
-      titleStyle: TextStyle(
-        color: Color.fromRGBO(0, 179, 134, 1.0),
-      ),
-    );
-    Alert(
-      context: context,
-      style: alertStyle,
-      type: AlertType.success,
-      title: "Shopping Cart",
-      desc: "Your product has been added to cart.",
-      buttons: [
-        DialogButton(
-          child: Text(
-            "BACK",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Navigator.pop(context),
-          color: Color.fromRGBO(0, 179, 134, 1.0),
-        ),
-        DialogButton(
-          child: Text(
-            "GO CART",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => null,
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(116, 116, 191, 1.0),
-            Color.fromRGBO(52, 138, 199, 1.0)
-          ]),
-        )
-      ],
-    ).show();
-  }
-
-  Widget _productSlideImage(String imageUrl) {
-    return Center(
-      child: Hero(
-        tag: widget.combo.heroTag,
-        child: CachedNetworkImage(
-          placeholder: (context, url) => Center(
-            child: Container(
-              height: 300,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.contain),
-              ),
-            ),
-          ),
-          imageUrl: imageUrl,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 300,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-            )),
-          ),
-          errorWidget: (context, url, error) => Center(
-            child: Container(
-              height: 300,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.cover),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget dottedSlider(images) {
-//    List<AttributeImage> images = images;
-    final children = <Widget>[];
-    for (int i = 0; i < images?.length ?? 0; i++) {
-      if (images[i] == null) {
-        children.add(Center(child: CircularProgressIndicator()));
-      } else {
-        children.add(_productSlideImage(images[i].imageThumbnail));
-      }
-    }
-    return DottedSlider(
-      maxHeight: 300,
-      children: children,
-      color: NPrimaryColor,
-    );
   }
 
   _buildComments(BuildContext context) {
@@ -822,117 +667,8 @@ class _ComboDetailPageState extends State<ComboDetailPage>
             ],
           ),
         ),
-        // SameSellerList(slug: slug),
+         SameSellerList(slug: slug),
         // buildTrending()
-      ],
-    );
-  }
-
-  Column buildTrending() {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 180,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 7 plus (128GB)',
-//                    icon: 'assets/iphone_7.png',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$2,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 11 (128GB)',
-//                    icon: 'assets/phone1.jpeg',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$4,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'iPhone',
-//                    name: 'iPhone 11 (64GB)',
-//                    icon: 'assets/phone2.jpeg',
-//                    rating: 4.5,
-//                    price: '\$3,890'),
-//                gradientColors: [Color(0XFF6eed8c), Colors.green[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Xiaomi',
-//                    name: 'Xiaomi Redmi Note8',
-//                    icon: 'assets/mi1.png',
-//                    rating: 3.5,
-//                    price: '\$2,890'),
-//                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 11 (128GB)',
-//                    icon: 'assets/phone1.jpeg',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$4,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'iPhone',
-//                    name: 'iPhone 11 (64GB)',
-//                    icon: 'assets/phone2.jpeg',
-//                    rating: 4.5,
-//                    price: '\$3,890'),
-//                gradientColors: [Color(0XFF6eed8c), Colors.green[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Xiaomi',
-//                    name: 'Xiaomi Redmi Note8',
-//                    icon: 'assets/mi1.png',
-//                    rating: 3.5,
-//                    price: '\$2,890'),
-//                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 11 (128GB)',
-//                    icon: 'assets/phone1.jpeg',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$4,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'iPhone',
-//                    name: 'iPhone 11 (64GB)',
-//                    icon: 'assets/phone2.jpeg',
-//                    rating: 4.5,
-//                    price: '\$3,890'),
-//                gradientColors: [Color(0XFF6eed8c), Colors.green[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Xiaomi',
-//                    name: 'Xiaomi Redmi Note8',
-//                    icon: 'assets/mi1.png',
-//                    rating: 3.5,
-//                    price: '\$2,890'),
-//                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
-//              ),
-            ],
-          ),
-        )
       ],
     );
   }

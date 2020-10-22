@@ -24,21 +24,20 @@ class ProductDetailBloc {
     return response;
   }
 
-  getRelatedProduct(slug) async {
-    ProductResponse response = await _repository.getRelatedProduct(slug);
+  getRelatedProduct({slug, isCombo=false}) async {
+    ProductResponse response =
+        await _repository.getRelatedProduct(slug, isCombo);
     _related.sink.add(response);
   }
 
-  getSameSellerProduct(slug) async {
-    ProductResponse response = await _repository.getSameSellerProduct(slug);
+  getSameSellerProduct({slug,isCombo=false}) async {
+    ProductResponse response = await _repository.getSameSellerProduct(slug,isCombo);
     _fromSameSeller.sink.add(response);
   }
 
   addToWishlist() async {
     var params = {
-      "attribute_id": response.productDetail
-          .selectedAttribute
-          .id,
+      "attribute_id": response.productDetail.selectedAttribute.id,
       "combo_id": null,
     };
     AddToWishlistResponse res = await _repository.addToWishlist(params);
@@ -54,12 +53,11 @@ class ProductDetailBloc {
 
   deleteFromWishlist() async {
     var params = {
-      "attribute_id": response.productDetail
-          .selectedAttribute
-          .id,
+      "attribute_id": response.productDetail.selectedAttribute.id,
       "combo_id": null,
     };
-    RemoveFromWishlistResponse res = await _repository.deleteFromWishlist(params);
+    RemoveFromWishlistResponse res =
+        await _repository.deleteFromWishlist(params);
     if (res.error == null) {
       var attributes = response.productDetail.attributes;
       var index = attributes

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 
 class SameSellerList extends StatefulWidget {
   final String slug;
-  const SameSellerList({
-    Key key,
-    this.slug
-  }) : super(key: key);
+  final bool isCombo;
+
+  const SameSellerList({Key key, this.slug, this.isCombo = false})
+      : super(key: key);
 
   @override
   _ProductsListState createState() => _ProductsListState();
@@ -18,12 +18,15 @@ class SameSellerList extends StatefulWidget {
 
 class _ProductsListState extends State<SameSellerList> {
   ProductDetailBloc productDetailBloc;
+
   @override
   void initState() {
     productDetailBloc = ProductDetailBloc();
-    productDetailBloc.getSameSellerProduct(widget.slug);
+    productDetailBloc.getSameSellerProduct(
+        slug: widget.slug, isCombo: widget.isCombo);
     super.initState();
   }
+
   @override
   void dispose() {
     productDetailBloc..drainStream();
@@ -95,9 +98,10 @@ class _ProductsListState extends State<SameSellerList> {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return ProductItem(product: products[index],);
+                return ProductItem(
+                  product: products[index],
+                );
               }),
-        )
-    );
+        ));
   }
 }

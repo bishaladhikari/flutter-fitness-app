@@ -92,9 +92,9 @@ class _DetailWidgetState extends State<DetailWidget> {
           child: OutlineButton(
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(8.0)),
-            child: Text(attributes[i].variantTitle,
+            child: Text(attributes[i].productName,
                 style: TextStyle(
-                    color: kTextColor)),
+                    color: Colors.black)),
             onPressed: () {
 
             }, //callback when button is clicked
@@ -125,7 +125,7 @@ class _DetailWidgetState extends State<DetailWidget> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("What's in the bundle?"),
+            Text("What's in the bundle?",style: TextStyle(color:Colors.black),),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(

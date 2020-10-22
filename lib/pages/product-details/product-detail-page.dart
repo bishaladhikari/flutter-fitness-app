@@ -91,8 +91,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
     slug = widget.product.slug;
     productDetailBloc.getProductDetail(slug);
-    productDetailBloc.getSameSellerProduct(slug);
-    productDetailBloc.getRelatedProduct(slug);
+//    productDetailBloc.getSameSellerProduct(slug:slug);
+//    productDetailBloc.getRelatedProduct(slug:slug);
     reviewBloc.getProductReview("false", slug);
   }
 

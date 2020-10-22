@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 
 class RelatedProductsList extends StatefulWidget {
   final String slug;
-  RelatedProductsList({
-    Key key,
-    this.slug,
-  }) : super(key: key);
+  final bool isCombo;
+
+  RelatedProductsList({Key key, this.slug, this.isCombo = false})
+      : super(key: key);
 
   @override
   _ProductsListState createState() => _ProductsListState();
@@ -18,13 +18,14 @@ class RelatedProductsList extends StatefulWidget {
 
 class _ProductsListState extends State<RelatedProductsList> {
   ProductDetailBloc productDetailBloc;
+
   @override
   void initState() {
-    productDetailBloc=ProductDetailBloc();
-    productDetailBloc.getRelatedProduct(widget.slug);
+    productDetailBloc = ProductDetailBloc();
+    productDetailBloc.getRelatedProduct(
+        slug: widget.slug, isCombo: widget.isCombo);
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -102,8 +103,7 @@ class _ProductsListState extends State<RelatedProductsList> {
                   itemBuilder: (context, index) {
                     return ProductItem(product: products[index]);
                   }),
-            )
-        ),
+            )),
       ],
     );
   }

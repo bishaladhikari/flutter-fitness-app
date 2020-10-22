@@ -128,10 +128,10 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getRelatedProduct(slug) async {
+  Future<ProductResponse> getRelatedProduct(slug,isCombo) async {
     try {
       Response response = await _dio.get(productsUrl,
-          queryParameters: {"you_may_also_like": slug, "combo": false});
+          queryParameters: {"you_may_also_like": slug, "combo": isCombo});
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -139,10 +139,10 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getSameSellerProduct(slug) async {
+  Future<ProductResponse> getSameSellerProduct(slug,isCombo) async {
     try {
       Response response = await _dio.get(productsUrl,
-          queryParameters: {"products_from_same_seller": slug, "combo": false});
+          queryParameters: {"products_from_same_seller": slug, "combo": isCombo});
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
