@@ -17,9 +17,10 @@ class CheckoutCartItemView extends StatelessWidget {
       elevation: 1,
       shadowColor: Colors.black.withOpacity(0.5),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
 
 //      mainAxisAlignment: MainAxisAlignment.start,
 //      mainAxisSize: MainAxisSize.min,
@@ -27,16 +28,15 @@ class CheckoutCartItemView extends StatelessWidget {
               Flexible(
                 child: Container(
                   height: 60,
-                  width: width / 3,
+                  width: width / 4,
+                  margin: const EdgeInsets.only(right:10.0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     image: DecorationImage(
                       image: NetworkImage(cartItem.imageThumbnail),
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.contain,
 //                            image: Image.asset(cart[i]['image']),
                     ),
                   ),
-//                        child: Image.asset(cart[i]['image']),
                 ),
               ),
               Flexible(

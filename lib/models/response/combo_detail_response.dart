@@ -1,4 +1,5 @@
-import '../product_detail.dart';
+
+import '../combo_detail.dart';
 
 class ComboDetailResponse {
   ComboDetail comboDetail;

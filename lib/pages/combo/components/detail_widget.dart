@@ -19,8 +19,6 @@ class DetailWidget extends StatefulWidget {
   ComboDetailBloc comboDetailBloc;
 
   DetailWidget({this.comboDetail,this.comboDetailBloc}) {
-    selectedAttribute = comboDetail.selectedAttribute;
-    selectedVariant = comboDetail.selectedAttribute.variant;
   }
 
   @override
@@ -40,8 +38,8 @@ class _DetailWidgetState extends State<DetailWidget> {
     return Column(
       children: [
         _buildInfo(context), //Product Info
-        _buildVariants(context),
-        _buildDescription(context),
+        _buildAttributes(context),
+//        _buildDescription(context),
       ],
     );
     ;
@@ -54,43 +52,41 @@ class _DetailWidgetState extends State<DetailWidget> {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            widget.selectedAttribute.discountPrice != null
-                ? Text(
-                    "\$" + widget.selectedAttribute.sellingPrice,
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 18,
-                        decoration: TextDecoration.lineThrough),
-                  )
-                : Container(),
-            SizedBox(
-              width: 6,
-            ),
-            Text(
-              widget.selectedAttribute.discountPrice != null
-                  ? "\$" + widget.selectedAttribute.discountPrice
-                  : "\$" + widget.selectedAttribute.sellingPrice,
-              style: TextStyle(
-                  color: NPrimaryColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700),
-            )
+//            widget.selectedAttribute.discountPrice != null
+//                ? Text(
+//                    "\$" + widget.selectedAttribute.sellingPrice,
+//                    style: TextStyle(
+//                        color: Colors.black54,
+//                        fontSize: 18,
+//                        decoration: TextDecoration.lineThrough),
+//                  )
+//                : Container(),
+//            SizedBox(
+//              width: 6,
+//            ),
+//            Text(
+//              widget.selectedAttribute.discountPrice != null
+//                  ? "\$" + widget.selectedAttribute.discountPrice
+//                  : "\$" + widget.selectedAttribute.sellingPrice,
+//              style: TextStyle(
+//                  color: NPrimaryColor,
+//                  fontSize: 18,
+//                  fontWeight: FontWeight.w700),
+//            )
           ],
         ),
       ),
     );
   }
 
-  _buildVariants(BuildContext context) {
+  _buildAttributes(BuildContext context) {
     List<Attributes> attributes = widget.comboDetail.attributes;
     final children = <Widget>[];
     for (int i = 0; i < attributes?.length ?? 0; i++) {
       if (attributes[i] == null) {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
-        bool isVariantSelected = widget.selectedVariant.id == attributes[i].id;
 
-        print('selecting' + widget.selectedVariant.id.toString());
         children.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: OutlineButton(
@@ -98,20 +94,12 @@ class _DetailWidgetState extends State<DetailWidget> {
                 borderRadius: new BorderRadius.circular(8.0)),
             child: Text(attributes[i].variantTitle,
                 style: TextStyle(
-                    color: isVariantSelected ? kPrimaryColor : kTextColor)),
+                    color: kTextColor)),
             onPressed: () {
-              var variant = attributes[i];
-              int index = widget.comboDetail.attributes
-                  .indexWhere((x) => x.attribute?.id == variant.id);
-              if (index > -1) {
-                widget.comboDetailBloc.setSelectedAttribute(
-                    widget.comboDetail.attributes[index]);
-              }
+
             }, //callback when button is clicked
             borderSide: BorderSide(
-              color: isVariantSelected
-                  ? kPrimaryColor
-                  : Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.3),
               //Color of the border
               style: BorderStyle.solid,
               //Style of the border
@@ -130,14 +118,14 @@ class _DetailWidgetState extends State<DetailWidget> {
       padding: EdgeInsets.all(4.0),
       width: MediaQuery.of(context).size.width,
 //      height: MediaQuery.of(context).size.height / 4,
-      child: widget.comboDetail.variantTitle!=null?
+      child:
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Available " + widget.comboDetail.variantTitle),
+            Text("What's in the bundle?"),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -146,69 +134,69 @@ class _DetailWidgetState extends State<DetailWidget> {
             ),
           ],
         ),
-      ):Container(),
-    );
-  }
-
-  _buildDescription(BuildContext context) {
-    String description = widget.comboDetail.description;
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 3.8,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              "Description",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black45,
-                fontSize: 18,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-//            OverflowBox(
-//              child: Html(
-//                data: description,
-//                //Optional parameters:
-////          backgroundColor: Colors.white70,
-//                onLinkTap: (url) {
-//                  // open url in a webview
-//                },
-//
-//                onImageTap: (src) {
-//                  // Display the image in large form.
-//                },
-//              ),
-//            ),
-            SizedBox(
-              height: 8,
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  _settingModalBottomSheet(
-                      context, widget.comboDetail.description);
-                },
-                child: Text(
-                  "View More",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
-                      fontSize: 16),
-                ),
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
+
+//  _buildDescription(BuildContext context) {
+//    String description = widget.comboDetail.description;
+//    return Container(
+//      width: MediaQuery.of(context).size.width,
+//      height: MediaQuery.of(context).size.height / 3.8,
+//      child: Container(
+//        padding: EdgeInsets.all(16.0),
+//        child: Column(
+//          crossAxisAlignment: CrossAxisAlignment.start,
+//          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//          children: <Widget>[
+//            Text(
+//              "Description",
+//              style: TextStyle(
+//                fontWeight: FontWeight.bold,
+//                color: Colors.black45,
+//                fontSize: 18,
+//              ),
+//            ),
+//            SizedBox(
+//              height: 8,
+//            ),
+////            OverflowBox(
+////              child: Html(
+////                data: description,
+////                //Optional parameters:
+//////          backgroundColor: Colors.white70,
+////                onLinkTap: (url) {
+////                  // open url in a webview
+////                },
+////
+////                onImageTap: (src) {
+////                  // Display the image in large form.
+////                },
+////              ),
+////            ),
+//            SizedBox(
+//              height: 8,
+//            ),
+//            Center(
+//              child: GestureDetector(
+//                onTap: () {
+//                  _settingModalBottomSheet(
+//                      context, widget.comboDetail.description);
+//                },
+//                child: Text(
+//                  "View More",
+//                  style: TextStyle(
+//                      fontWeight: FontWeight.bold,
+//                      color: Colors.blueGrey,
+//                      fontSize: 16),
+//                ),
+//              ),
+//            )
+//          ],
+//        ),
+//      ),
+//    );
+//  }
 
   void _settingModalBottomSheet(context, description) {
     showModalBottomSheet(

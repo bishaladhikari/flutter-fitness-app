@@ -67,7 +67,7 @@ class ComboProductItem extends StatelessWidget {
       ),
       onTap: () {
 //        productDetailBloc..drainStream();
-        Navigator.pushNamed(context, "productDetailPage", arguments: combo);
+        Navigator.pushNamed(context, "comboDetailPage", arguments: combo);
       },
     );
   }

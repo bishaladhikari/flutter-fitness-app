@@ -23,41 +23,35 @@ class ComboDetailBloc {
   }
 
   addToWishlist() async {
-    var params = {
-      "attribute_id": response.comboDetail.selectedAttribute.id,
-      "combo_id": null,
-    };
-    AddToWishlistResponse res = await _repository.addToWishlist(params);
-    // response.productDetail.attributes.where((element) => element.id == params["attribute_id"]).saved = true;
-    if (res.error == null) {
-      var attributes = response.comboDetail.attributes;
-      var index = attributes
-          .indexWhere((element) => element.id == params["attribute_id"]);
-      if (index > -1) response.comboDetail.attributes[index].saved = true;
-    }
-    return res;
+//    var params = {
+//      "attribute_id": response.comboDetail.id,
+//      "combo_id": null,
+//    };
+//    AddToWishlistResponse res = await _repository.addToWishlist(params);
+//    // response.productDetail.attributes.where((element) => element.id == params["attribute_id"]).saved = true;
+//    if (res.error == null) {
+//      var attributes = response.comboDetail.attributes;
+//      var index = attributes
+//          .indexWhere((element) => element.id == params["attribute_id"]);
+//      if (index > -1) response.comboDetail.attributes[index].saved = true;
+//    }
+//    return res;
   }
 
   deleteFromWishlist() async {
-    var params = {
-      "attribute_id": response.comboDetail.selectedAttribute.id,
-      "combo_id": null,
-    };
-    RemoveFromWishlistResponse res =
-        await _repository.deleteFromWishlist(params);
-    if (res.error == null) {
-      var attributes = response.comboDetail.attributes;
-      var index = attributes
-          .indexWhere((element) => element.id == params["attribute_id"]);
-      if (index > -1) response.comboDetail.attributes[index].saved = false;
-    }
-    return res;
-  }
-
-  setSelectedAttribute(attribute) {
-//    response.productDetail.selectedAttribute =
-    response.comboDetail.selectedAttribute = attribute;
-    _subject.sink.add(response);
+//    var params = {
+//      "attribute_id": response.comboDetail.selectedAttribute.id,
+//      "combo_id": null,
+//    };
+//    RemoveFromWishlistResponse res =
+//        await _repository.deleteFromWishlist(params);
+//    if (res.error == null) {
+//      var attributes = response.comboDetail.attributes;
+//      var index = attributes
+//          .indexWhere((element) => element.id == params["attribute_id"]);
+//      if (index > -1) response.comboDetail.attributes[index].saved = false;
+//    }
+//    return res;
   }
 
   void drainStream() {
@@ -72,5 +66,3 @@ class ComboDetailBloc {
 
   BehaviorSubject<ComboDetailResponse> get subject => _subject;
 }
-
-//final productDetailBloc = ProductDetailBloc();

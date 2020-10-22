@@ -1,4 +1,6 @@
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
@@ -14,43 +16,52 @@ class _CheckoutPageState extends State<CheckoutPage> {
     return Scaffold(
       appBar: CheckoutAppBar(),
       body: Body(),
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        height: 80,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Total Amount",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 16),
+      bottomNavigationBar: StreamBuilder<CartResponse>(
+          stream: cartBloc.subject.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              double totalAmount =snapshot.data.totalAmount;
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: 80,
+                width: double.infinity,
+                // double.infinity means it cove the available width
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, -7),
+                      blurRadius: 33,
+                      color: Color(0xFF6DAED9).withOpacity(0.11),
+                    ),
+                  ],
                 ),
-                Spacer(),
-                Text(
-                  "Rs 4,201",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Total Amount',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    Text('¥ ' + totalAmount.toString(),
+                        style: TextStyle(color: NPrimaryColor, fontWeight:FontWeight.bold,fontSize: 16)),
+                    RaisedButton(
                       color: NPrimaryColor,
-                      fontSize: 16),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "selectPaymentMethodPage");
+                      },
+                      child: Text('Proceed to Pay', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
                 ),
-                Spacer(),
-                FlatButton(
-                  onPressed:(){
-                    Navigator.pushNamed(context, "selectPaymentMethodPage");
-                  },
-                  color: NPrimaryColor,
-                  child: Text("Proceed to Pay",style: TextStyle(color: Colors.white),),
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+              );
+            }
+            else return Container();
+          }),
     );
   }
 }

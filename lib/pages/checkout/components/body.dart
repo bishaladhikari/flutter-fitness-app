@@ -42,7 +42,6 @@ class _BodyState extends State<Body> {
             color: Colors.black.withOpacity(.01),
             height: 200,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 StreamBuilder<Address>(
                     stream: checkoutBloc.defaultAddress,
@@ -88,29 +87,30 @@ class _BodyState extends State<Body> {
   }
 
   Widget _buildLoadingWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SizedBox(
             height: 25.0,
             width: 25.0,
             child: CircularProgressIndicator(
               valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
               strokeWidth: 4.0,
             ),
-          )
-        ],
-      )),
-    );
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildAddressWidget(Address address) {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(

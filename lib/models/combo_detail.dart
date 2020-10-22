@@ -1,3 +1,5 @@
+import 'category.dart';
+
 class ComboDetail {
   int id;
   String soldBy;
@@ -173,12 +175,12 @@ class Attributes {
     variant = json['variant'];
     slug = json['slug'];
     quantity = json['quantity'];
-    if (json['tags'] != null) {
-      tags = new List<Null>();
-      json['tags'].forEach((v) {
-        tags.add(new Null.fromJson(v));
-      });
-    }
+//    if (json['tags'] != null) {
+//      tags = new List<Null>();
+//      json['tags'].forEach((v) {
+//        tags.add(new Null.fromJson(v));
+//      });
+//    }
   }
 
   Map<String, dynamic> toJson() {
@@ -204,41 +206,13 @@ class Attributes {
     data['variant'] = this.variant;
     data['slug'] = this.slug;
     data['quantity'] = this.quantity;
-    if (this.tags != null) {
-      data['tags'] = this.tags.map((v) => v.toJson()).toList();
-    }
+//    if (this.tags != null) {
+//      data['tags'] = this.tags.map((v) => v.toJson()).toList();
+//    }
     return data;
   }
 }
 
-class Category {
-  int id;
-  String name;
-  String slug;
-  String imageLink;
-  String imageThumbnail;
-
-  Category(
-      {this.id, this.name, this.slug, this.imageLink, this.imageThumbnail});
-
-  Category.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    slug = json['slug'];
-    imageLink = json['image_link'];
-    imageThumbnail = json['image_thumbnail'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['slug'] = this.slug;
-    data['image_link'] = this.imageLink;
-    data['image_thumbnail'] = this.imageThumbnail;
-    return data;
-  }
-}
 
 class Brand {
   int id;

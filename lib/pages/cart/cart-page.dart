@@ -13,15 +13,15 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage>
     with AutomaticKeepAliveClientMixin {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'My Cart',
-          style:
-              TextStyle(fontFamily: 'Quicksand',),
+          style: TextStyle(
+            fontFamily: 'Quicksand',
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -30,7 +30,6 @@ class _CartPageState extends State<CartPage>
           icon: Icon(Icons.menu),
           color: Colors.black,
         ),
-
         actions: [
 //          IconButton(
 //            icon: Icon(Icons.notifications_none),
@@ -44,7 +43,7 @@ class _CartPageState extends State<CartPage>
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double totalAmount =snapshot.data.totalAmount;
+              double totalAmount = snapshot.data.totalAmount;
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 35),
                 height: 75,
@@ -67,27 +66,28 @@ class _CartPageState extends State<CartPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Total',
+                    Text('Total Amount',
                         style: TextStyle(
-                            fontFamily: 'Quicksand',
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                     Text('¥ ' + totalAmount.toString(),
-                        style: TextStyle(color: NPrimaryColor, fontSize: 15)),
+                        style: TextStyle(color: NPrimaryColor,fontWeight: FontWeight.bold, fontSize: 16)),
                     RaisedButton(
                       color: NPrimaryColor,
                       onPressed: () {
                         Navigator.pushNamed(context, "checkoutPage");
                       },
-                      child: Text('Checkout', style: TextStyle(color: Colors.white)),
+                      child: Text('Checkout',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
               );
-            }
-            else return Container();
+            } else
+              return Container();
           }),
-      );
+    );
   }
 
   @override

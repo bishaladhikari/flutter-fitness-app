@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
+import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/order_product_detail.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
@@ -6,22 +7,21 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../constants.dart';
 
-class OrderItemDetailPage extends StatefulWidget {
+class OrderItemDetails extends StatefulWidget {
   final int id;
+  Order orderDetail;
   OrderProductDetailBloc _orderProductDetailBloc;
 
   get orderDetailBloc => _orderProductDetailBloc;
 
-  OrderItemDetailPage({Key key, this.id}) {
-    _orderProductDetailBloc = OrderProductDetailBloc();
-  }
+  OrderItemDetails({Key key, this.id, this.orderDetail});
 
   @override
-  _OrderItemDetailPageState createState() => _OrderItemDetailPageState(id);
+  _OrderItemDetailsState createState() => _OrderItemDetailsState(id);
 
-  static _OrderItemDetailPageState of(BuildContext context) {
-    final _OrderItemDetailPageState navigator = context
-        .ancestorStateOfType(const TypeMatcher<_OrderItemDetailPageState>());
+  static _OrderItemDetailsState of(BuildContext context) {
+    final _OrderItemDetailsState navigator = context
+        .ancestorStateOfType(const TypeMatcher<_OrderItemDetailsState>());
 
     assert(() {
       if (navigator == null) {
@@ -35,17 +35,17 @@ class OrderItemDetailPage extends StatefulWidget {
   }
 }
 
-class _OrderItemDetailPageState extends State<OrderItemDetailPage>
+class _OrderItemDetailsState extends State<OrderItemDetails>
     with TickerProviderStateMixin {
   final int id;
-  OrderProductDetailBloc orderDetailBloc;
+  Order orderDetail;
 
-  _OrderItemDetailPageState(this.id);
+  _OrderItemDetailsState(this.id);
 
   @override
   void initState() {
     super.initState();
-    widget._orderProductDetailBloc..getOrderProductDetail(id);
+    orderProductDetailBloc..getOrderProductDetail(id);
   }
 
   @override
@@ -57,7 +57,7 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<OrderProductDetailResponse>(
-      stream: widget._orderProductDetailBloc.orderProductDetail.stream,
+      stream: orderProductDetailBloc.orderProductDetail.stream,
       builder: (context, AsyncSnapshot<OrderProductDetailResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -75,8 +75,8 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
 
   Widget _buildLoadingWidget() {
     var width = MediaQuery.of(context).size.width - 16;
-
-    return Center(child: Padding(
+    return Center(
+        child: Padding(
       padding: const EdgeInsets.all(10.0),
       child: CircularProgressIndicator(),
     ));
@@ -93,93 +93,86 @@ class _OrderItemDetailPageState extends State<OrderItemDetailPage>
   }
 
   Widget _buildHomeWidget(OrderProductDetailResponse data) {
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<OrderProductDetail> orderProductDetails = data.orderProductDetails;
-    return Container(
-        padding: EdgeInsets.only(top: 18),
-        child: SizedBox(
-          child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: orderProductDetails.length,
-              itemBuilder: (context, index) {
-                return _buildOrderProductList(orderProductDetails[index]);
-              }),
-        ));
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children:
+            orderProductDetails.map((OrderProductDetail orderProductDetail) {
+          return _buildOrderProductListItem(orderProductDetail);
+        }).toList());
   }
 
-  Widget _buildOrderProductList(order) {
+  Widget _buildOrderProductListItem(orderProductDetail) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {},
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Card(
-            elevation: 0,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(order.image_thumbnail),
-                          fit: BoxFit.cover)),
-                ),
-                SizedBox(width: 20.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 200.0,
-                      child: Text(
-                        order.product_name,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "Sold By " + order.sold_by,
-                      style: TextStyle(
-                          fontSize: 14,
+          ListTile(
+              leading: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(orderProductDetail.imageThumbnail),
+                        fit: BoxFit.cover)),
+              ),
+              title: Text(
+                orderProductDetail.productName,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sold By " + orderProductDetail.soldBy,
+                    style: TextStyle(
+                        fontSize: 14,
 //                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "\¥ " + order.sub_total.toString(),
-                      style: TextStyle(
-                          fontSize: 14,
+                        color: Colors.black),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    "\¥ " + orderProductDetail.subTotal.toString(),
+                    style: TextStyle(
+                        fontSize: 14,
 //                          fontWeight: FontWeight.w500,
-                          color: NPrimaryColor),
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Text(
-                          "x " + order.quantity.toString(),
-                          style: TextStyle(
-                              fontSize: 14,
-//                              fontWeight: FontWeight.w400,
-                              color: Colors.black38),
-                        ),
-                        SizedBox(width: 100.0),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-          // OrderItemDetailPage(id: this.id)
+                        color: NPrimaryColor),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    "x" + orderProductDetail.quantity.toString(),
+                    style: TextStyle(
+                        fontSize: 14,
+//                          fontWeight: FontWeight.w500,
+                        color: Colors.black),
+                  ),
+                ],
+              ),
+              trailing: widget.orderDetail.status == 'Delivered'
+                  ? RaisedButton(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('orderReviewPage',
+                            arguments: orderProductDetail);
+                      },
+                      child: orderProductDetail.reviewed
+                          ? Text('View Review', style: TextStyle(fontSize: 11))
+                          : Text('Place Review',
+                              style: TextStyle(fontSize: 11)),
+                      color: Colors.orange,
+                      textColor: Colors.white,
+                      splashColor: NPrimaryColor,
+                    )
+                  : Text("")),
         ],
       ),
     );
