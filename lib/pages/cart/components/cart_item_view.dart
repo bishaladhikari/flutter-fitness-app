@@ -19,7 +19,7 @@ class CartItemView extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
 
 //      mainAxisAlignment: MainAxisAlignment.start,
 //      mainAxisSize: MainAxisSize.min,
@@ -27,7 +27,8 @@ class CartItemView extends StatelessWidget {
               Flexible(
                 child: Container(
                   height: 60,
-                  width: width / 3,
+                  width: width / 4,
+                  margin: const EdgeInsets.only(right: 10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     image: DecorationImage(
@@ -89,7 +90,8 @@ class CartItemView extends StatelessWidget {
                 ),
                 splashRadius: 5.0,
                 onPressed: () {
-                  cartBloc.updateCart(cartItem, "sub");
+                  if (cartItem.quantity > 1)
+                    cartBloc.updateCart(cartItem, "sub");
                 },
               ),
               Container(

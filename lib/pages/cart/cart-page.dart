@@ -69,7 +69,6 @@ class _CartPageState extends State<CartPage>
                   children: <Widget>[
                     Text('Total',
                         style: TextStyle(
-                            fontFamily: 'Quicksand',
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                     Text('¥ ' + totalAmount.toString(),
