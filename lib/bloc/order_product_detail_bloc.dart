@@ -29,7 +29,7 @@ class OrderProductDetailBloc {
       if (index > -1)
         response.orderProductDetails[index] = itemResponse.orderProductItem;
     }
-    return response;
+    return itemResponse;
   }
 
   updateProductReview(params) async {
@@ -43,7 +43,7 @@ class OrderProductDetailBloc {
       if (index > -1)
         response.orderProductDetails[index] = res.orderProductItem;
     }
-    return response;
+    return res;
   }
 
   deleteProductReview(params) async {
@@ -56,7 +56,7 @@ class OrderProductDetailBloc {
       if (index > -1)
         response.orderProductDetails[index] = resp.orderProductItem;
     }
-    return response;
+    return resp;
   }
 
   void drainStream() {
