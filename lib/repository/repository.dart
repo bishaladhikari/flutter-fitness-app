@@ -9,6 +9,7 @@ import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
+import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/featured_product_response.dart';
@@ -400,6 +401,16 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return ComboResponse.withError(_handleError(error));
+    }
+  }
+    Future<ComboDetailResponse> getComboDetail(String slug) async {
+    _dio.options.headers['user'] = 3;
+    try {
+      Response response = await _dio.get(comboProductUrl + "/$slug");
+      return ComboDetailResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return ComboDetailResponse.withError(_handleError(error));
     }
   }
 
