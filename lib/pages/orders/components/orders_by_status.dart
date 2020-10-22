@@ -134,8 +134,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                 return GestureDetector(
                   child: _buildOrderList(orders[index]),
                   onTap: () {
-                    Navigator.of(context)
-                        .pushNamed('orderDetailPage', arguments: orders[index]);
+                    Navigator.of(context).pushNamed('orderDetailPage', arguments: orders[index]);
                   },
                 );
               }));
@@ -147,7 +146,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       title: Row(
         children: [
           Text(
-            "Order " + order.order_id,
+            "Order " + order.orderId,
             style:
                 TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
           ),
@@ -165,16 +164,16 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Placed on " + order.created_date),
+            Text("Placed on " + order.createdDate),
             SizedBox(height: 5.0),
-            Text("Total Items: " + order.total_quantity.toString())
+            Text("Total Items: " + order.totalQuantity.toString())
           ],
         ),
       ),
       trailing: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          order.payment_status.toString(),
+          order.paymentStatus.toString(),
           style: TextStyle(fontSize: 14, color: Colors.black38,fontStyle: FontStyle.italic),
         ),
       ),

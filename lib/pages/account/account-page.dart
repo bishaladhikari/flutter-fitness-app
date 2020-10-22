@@ -16,7 +16,6 @@ class _AccountPageState extends State<AccountPage>
     super.build(context);
 
     return Scaffold(
-
         appBar: AccountAppBar(context),
       body: Body()
     );
