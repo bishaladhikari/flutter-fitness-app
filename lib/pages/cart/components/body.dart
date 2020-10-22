@@ -29,52 +29,6 @@ class CartBody extends StatelessWidget {
                 return _buildLoadingWidget();
               }
             }),
-//        Container(
-//          padding: EdgeInsets.all(8.0),
-//          child: Row(
-//            mainAxisSize: MainAxisSize.max,
-//            children: [
-//              Container(
-//                height: 83.5,
-//                color: Colors.white,
-//                child: Center(
-//                  child: Text('Total',
-//                      style: TextStyle(
-//                          fontFamily: 'Quicksand',
-//                          fontWeight: FontWeight.bold,
-//                          color: Colors.black)),
-//                ),
-//              ),
-//              Container(
-//                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 27),
-////                          height: 50,
-//                  color: Colors.white,
-//                  width: 200,
-//                  child: Container(
-////                                height: 50,
-//                    width: double.infinity,
-////                        decoration: ,
-//                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-//                    child: Center(
-//                      child: Text('Rs ' + '1000',
-//                          style: TextStyle(color: Colors.black, fontSize: 15)),
-//                    ),
-//                  ))
-//            ],
-//          ),
-//        ),
-//        Padding(
-//          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-//          child: Container(
-//            width: double.infinity,
-//            height: 50,
-//            child: RaisedButton(
-//              color: NPrimaryColor,
-//              onPressed: () {},
-//              child: Text('Checkout', style: TextStyle(color: Colors.white)),
-//            ),
-//          ),
-//        )
       ],
     );
   }
@@ -100,7 +54,6 @@ class CartBody extends StatelessWidget {
                   carts[i].soldBy + " ($itemCount items)",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      fontFamily: 'Quicksand',
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
@@ -130,7 +83,7 @@ class CartBody extends StatelessWidget {
             margin: const EdgeInsets.only(top:50),
             child: Column(
               children: [
-                Text("There are no items in this cart"),
+                Text("There are no items in this cart",style: TextStyle(color: Colors.black87),),
                 SizedBox(height: 8.0,),
                 FlatButton(
                   onPressed: () {},
@@ -158,7 +111,7 @@ class CartBody extends StatelessWidget {
               height: 25.0,
               width: 25.0,
               child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
                 strokeWidth: 4.0,
               ),
             )

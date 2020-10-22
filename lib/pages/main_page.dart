@@ -11,13 +11,14 @@ import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 
+//import 'package:path/path.dart';
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 
   static _MainPageState of(BuildContext context) {
-    final _MainPageState navigator = context
-        .ancestorStateOfType(const TypeMatcher<_MainPageState>());
+    final _MainPageState navigator =
+        context.ancestorStateOfType(const TypeMatcher<_MainPageState>());
 
     assert(() {
       if (navigator == null) {
@@ -66,7 +67,7 @@ class _MainPageState extends State<MainPage> {
   int currentPage = 0;
   int cart_count = 0;
 
-  void _changePage(id) async {
+  void changePage(id) async {
     if (!await authBloc.isAuthenticated() && id == 2)
       Navigator.pushNamed(context, "loginPage");
     else
@@ -76,73 +77,111 @@ class _MainPageState extends State<MainPage> {
       });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      drawer: Drawer(child: leftDrawerMenu()),
-      body: PageView(
-        controller: _pageController,
-        children: _screens,
-        onPageChanged: _onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 35),
-        height: 75,
-        width: double.infinity,
-        // double.infinity means it cove the available width
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, -7),
-              blurRadius: 33,
-              color: Color(0xFF6DAED9).withOpacity(0.11),
+  Future<bool> _onBackPressed() {
+    print(currentPage);
+    if (currentPage == 0) {
+      return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          title: new Text('Are you sure?'),
+          content: new Text('Do you want to exit this application'),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+//          actionsOverflowButtonSpacing: double.infinity,
+        buttonPadding: EdgeInsets.only(right:20),
+          actions: <Widget>[
+            new GestureDetector(
+              onTap: () => Navigator.of(context).pop(false),
+              child: Text("NO"),
+            ),
+            SizedBox(
+              width:30
+            ),
+            new GestureDetector(
+              onTap: () => Navigator.of(context).pop(true),
+              child: Text("YES"),
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: currentPage == 0
-                  ? SvgPicture.asset("assets/icons/home.svg",
-                      color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/home_outline.svg"),
-              padding: EdgeInsets.all(15),
-              onPressed: () => {
-                _changePage(0),
-              },
+      );
+    } else {
+      setState(() {
+        currentPage = 0;
+      });
+      _pageController.jumpToPage(0);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: Drawer(child: leftDrawerMenu()),
+        body: PageView(
+          controller: _pageController,
+          children: _screens,
+          onPageChanged: _onPageChanged,
+          physics: NeverScrollableScrollPhysics(),
+        ),
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.symmetric(horizontal: 35),
+          height: 75,
+          width: double.infinity,
+          // double.infinity means it cove the available width
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
-            IconButton(
-              icon: currentPage == 1
-                  ? SvgPicture.asset("assets/icons/category.svg",
-                      color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
-              padding: EdgeInsets.all(15),
-              onPressed: () => {_changePage(1)},
-            ),
-            IconButton(
-              icon: currentPage == 2
-                  ? SvgPicture.asset("assets/icons/Cart_03.svg",
-                      color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/Cart_02.svg"),
-              padding: EdgeInsets.all(10),
-              onPressed: () => {_changePage(2)},
-            ),
-            IconButton(
-              padding: EdgeInsets.all(10),
-              icon: currentPage == 3
-                  ? SvgPicture.asset("assets/icons/p.svg", color: NPrimaryColor)
-                  : SvgPicture.asset("assets/icons/person.svg"),
-              onPressed: () => {_changePage(3)},
-            ),
-          ],
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, -7),
+                blurRadius: 33,
+                color: Color(0xFF6DAED9).withOpacity(0.11),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                icon: currentPage == 0
+                    ? SvgPicture.asset("assets/icons/home.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/home_outline.svg"),
+                padding: EdgeInsets.all(15),
+                onPressed: () => {
+                  changePage(0),
+                },
+              ),
+              IconButton(
+                icon: currentPage == 1
+                    ? SvgPicture.asset("assets/icons/category.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/Category_Out_bold.svg"),
+                padding: EdgeInsets.all(15),
+                onPressed: () => {changePage(1)},
+              ),
+              IconButton(
+                icon: currentPage == 2
+                    ? SvgPicture.asset("assets/icons/Cart_03.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/Cart_02.svg"),
+                padding: EdgeInsets.all(10),
+                onPressed: () => {changePage(2)},
+              ),
+              IconButton(
+                padding: EdgeInsets.all(10),
+                icon: currentPage == 3
+                    ? SvgPicture.asset("assets/icons/p.svg",
+                        color: NPrimaryColor)
+                    : SvgPicture.asset("assets/icons/person.svg"),
+                onPressed: () => {changePage(3)},
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -196,7 +235,12 @@ class _MainPageState extends State<MainPage> {
                               Navigator.pop(context);
                               Navigator.pushNamed(context, "loginPage");
                             },
-                            title: Text("Log In/Sign Up",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black87),),
+                            title: Text(
+                              "Log In/Sign Up",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87),
+                            ),
                             trailing: Icon(Icons.keyboard_arrow_right),
                           ),
                     decoration: BoxDecoration(
@@ -217,7 +261,7 @@ class _MainPageState extends State<MainPage> {
                   fontSize: 16, fontWeight: FontWeight.w600, color: blackColor),
             ),
             onTap: () {
-              _changePage(0);
+              changePage(0);
               Navigator.pop(context);
             },
           ),
@@ -234,12 +278,10 @@ class _MainPageState extends State<MainPage> {
                     fontWeight: FontWeight.w600,
                     color: blackColor)),
             onTap: () async {
-              if (await authBloc.isAuthenticated() == false){
+              if (await authBloc.isAuthenticated() == false) {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "loginPage");
-
-              }
-              else{
+              } else {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "ordersPage");
               }

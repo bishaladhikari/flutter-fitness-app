@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-class CartItemView extends StatelessWidget {
+class CheckoutCartItemView extends StatelessWidget {
   CartItem cartItem;
 
-  CartItemView({this.cartItem});
+  CheckoutCartItemView({this.cartItem});
 
   @override
   Widget build(BuildContext context) {
@@ -67,57 +67,33 @@ class CartItemView extends StatelessWidget {
               )
             ],
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.black87.withOpacity(0.3),
-                  size: 20,
-                ),
-                splashRadius: 5.0,
-                onPressed: () {
-                  cartBloc.deleteFromCartList(cartItem.id);
-                },
-              ),
-              Spacer(),
-              IconButton(
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.black87.withOpacity(0.5),
-                  size: 20,
-                ),
-                splashRadius: 5.0,
-                onPressed: () {
-                  cartBloc.updateCart(cartItem, "sub");
-                },
-              ),
-              Container(
-//                                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: kForeGroundColor)),
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: Center(
-                  child: Text(
-                    cartItem.quantity.toString(),
-                    style: TextStyle(color: Colors.black),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.black87.withOpacity(0.3),
+                    size: 20,
                   ),
+                  splashRadius: 5.0,
+                  onPressed: () {
+                    cartBloc.deleteFromCartList(cartItem.id);
+                  },
                 ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.black87.withOpacity(0.5),
-                  size: 20,
-                ),
-                splashRadius: 5.0,
-                onPressed: () {
-                  cartBloc.updateCart(cartItem, "add");
-                },
-              ),
-            ],
+                Spacer(),
+                cartItem.availability
+                    ? Text("Qty " + cartItem.quantity.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87.withOpacity(0.6)))
+                    : Text(
+                        "Item Unavailable",
+                        style: TextStyle(color: Colors.redAccent),
+                      )
+              ],
+            ),
           )
         ],
       ),

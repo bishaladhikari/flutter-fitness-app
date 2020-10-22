@@ -11,14 +11,9 @@ class CartResponse {
   int shippingCost;
   final String error;
 
-  void deleteFromCarts(id) {
-    carts.removeWhere((element) => element.id == id);
-  }
-
-//
-//   void addWish(Wish wish) {
-//     wishes.add(wish);
-//   }
+//  void deleteFromCarts(id) {
+//    carts.removeWhere((element) => element.id == id);
+//  }
 
   CartResponse(this.carts, this.error);
 
@@ -32,7 +27,7 @@ class CartResponse {
         shippingDiscountCost = json["data"]['shipping_discount_cost'],
         bulkDiscountCost = json["data"]['bulk_discount_cost'],
         shippingCost = json["data"]['shipping_cost'],
-        error = "";
+        error = null;
 
   CartResponse.withError(String errorValue)
       : carts = List(),

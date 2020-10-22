@@ -9,6 +9,7 @@ import 'package:ecapp/pages/card-payment/card-payment-page.dart';
 import 'package:ecapp/pages/cart/cart-page.dart';
 import 'package:ecapp/pages/cash-on-delivery/cash-on-delivery-page.dart';
 import 'package:ecapp/pages/checkout/checkout-page.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
 import 'package:ecapp/pages/product-details/product-detail-page.dart';
@@ -24,6 +25,9 @@ abstract class Routes {
     final arguments = routeSettings.arguments;
 //    final arguments = settings.arguments as Map<String, dynamic> ?? {};
     switch (routeSettings.name) {
+      case 'mainPage':
+        return MaterialPageRoute(builder: (context) => MainPage());
+        break;
       case 'wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
         break;
