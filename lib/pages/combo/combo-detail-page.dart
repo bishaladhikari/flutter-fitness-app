@@ -19,6 +19,7 @@ import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
+import 'package:ecapp/pages/product-details/components/related_products_list.dart';
 import 'package:ecapp/pages/product-details/components/same_seller_list.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
@@ -686,6 +687,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
             ],
           ),
         ),
+        RelatedProductsList(slug: slug, isCombo: true,),
         SameSellerList(slug: slug, isCombo: true,),
         // buildTrending()
       ],
