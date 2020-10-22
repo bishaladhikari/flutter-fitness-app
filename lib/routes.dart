@@ -51,8 +51,8 @@ abstract class Routes {
       case 'comboDetailPage':
         return MaterialPageRoute(
             builder: (context) => ComboDetailPage(
-              combo: arguments,
-            ));
+                  combo: arguments,
+                ));
         break;
       case 'registerPage':
         return MaterialPageRoute(builder: (context) => RegisterPage());
@@ -61,7 +61,8 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => SearchPage());
         break;
       case 'addressPage':
-        return MaterialPageRoute(builder: (context) => AddressPage());
+        return MaterialPageRoute(
+            builder: (context) => AddressPage(selectMode: arguments));
         break;
       case 'emailConfirmPage':
         return MaterialPageRoute(builder: (context) => EmailConfirmPage());
@@ -99,7 +100,8 @@ abstract class Routes {
         return MaterialPageRoute(builder: (context) => OrderCompletePage());
         break;
       case 'orderReviewPage':
-        return MaterialPageRoute(builder: (context) => OrderReviewPage(orderProductItem: arguments));
+        return MaterialPageRoute(
+            builder: (context) => OrderReviewPage(orderProductItem: arguments));
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());

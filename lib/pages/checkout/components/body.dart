@@ -115,10 +115,26 @@ class _BodyState extends State<Body> {
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "Shipping Address",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            child: Row(
+              children: [
+                Text(
+                  "Shipping Address",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'addressPage',
+                        arguments: true);
+                  },
+                  child: Text(
+                    "Change",
+                    style: TextStyle(
+                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(
@@ -126,6 +142,7 @@ class _BodyState extends State<Body> {
           ),
           AddressListItem(
             address: address,
+            selectMode: true,
           )
         ],
       ),

@@ -1,14 +1,18 @@
 import 'package:ecapp/models/address.dart';
-import 'package:ecapp/pages/account/account-page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-class AddressListItem extends StatelessWidget {
+class AddressListItem extends StatefulWidget {
   Address address;
-  AddressListItem({
-    Key key,
-    this.address
-  }) : super(key: key);
+  bool selectMode;
+
+  AddressListItem({Key key, this.address, this.selectMode}) : super(key: key);
+
+  @override
+  _AddressListItemState createState() => _AddressListItemState();
+}
+
+class _AddressListItemState extends State<AddressListItem> {
+  bool selectMode;
 
   @override
   Widget build(BuildContext context) {
@@ -18,63 +22,51 @@ class AddressListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 5.0,vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
             child: Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
-
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Icon(
                       Icons.add_location,
                       color: Colors.orange,
                     ),
                   ),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        address.name.toString(),
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16),
+                        widget.address.name.toString(),
+                        style: TextStyle(color: Colors.black87, fontSize: 16),
                       ),
-                      Text(address.phone.toString(),
-                          style: TextStyle(
-                              color: Colors.black38,
-                              fontSize: 14)),
-                      Text(address.house.toString(),
-                          style: TextStyle(
-                              color: Colors.black38,
-                              fontSize: 14)),
-                      Text(address.city.toString(),
-                          style: TextStyle(
-                              color: Colors.black38,
-                              fontSize: 14)),
+                      Text(widget.address.phone.toString(),
+                          style:
+                              TextStyle(color: Colors.black38, fontSize: 14)),
+                      Text(widget.address.house.toString(),
+                          style:
+                              TextStyle(color: Colors.black38, fontSize: 14)),
+                      Text(widget.address.city.toString(),
+                          style:
+                              TextStyle(color: Colors.black38, fontSize: 14)),
                     ],
                   ),
                   Spacer(),
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, 'addressFormPage',
-                          arguments: address);
-                    },
-                    // padding: const EdgeInsets.fromLTRB(180, 0, 30, 0),
-                    child: Text(
-                      "Edit",
-                      style: TextStyle(
-//                                                decoration:
-//                                                TextDecoration.underline,
-                          color: Colors.lightBlue,
-                          fontSize: 15),
-                    ),
-                  ),
+                  !widget.selectMode
+                      ? FlatButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'addressFormPage',
+                                arguments: widget.address);
+                          },
+                          child: Text(
+                            "Edit",
+                            style: TextStyle(
+                                color: Colors.lightBlue, fontSize: 15),
+                          ),
+                        )
+                      : Text("")
                 ])),
       ],
     );
