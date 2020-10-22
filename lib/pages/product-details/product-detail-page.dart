@@ -65,6 +65,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double myscroll = 1;
   double appBarV = 0;
+  int ctQuantity = 1;
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
@@ -181,6 +182,47 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         _scaffoldKey.currentState.showSnackBar(snackbar);
       }
     }
+  }
+
+  _askForQuantity() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Quantity'),
+        content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState){
+//            _setState = setState;
+            return Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        setState(() {
+                          if(ctQuantity > 1){
+                            ctQuantity -= 1;
+                          }
+                        });
+                      },
+                    ),
+                    Text(ctQuantity.toString()
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        setState(() {
+                          ctQuantity += 1;
+                          print(ctQuantity);
+                        });
+                      },
+                    )
+                  ],
+                ));
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -546,12 +588,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             onPressed: () {
-                              var params = {
-                                "attribute_id": attribute_id,
-                                "combo_id": null,
-                                "quantity": 1
-                              };
-                              addToCart(context, params);
+//                              var params = {
+//                                "attribute_id": attribute_id,
+//                                "combo_id": null,
+//                                "quantity": 1
+//                              };
+//                              addToCart(context, params);
+                              _askForQuantity();
                             },
                           )
                         ],
@@ -561,8 +604,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, "checkoutPage");
+                          Navigator.pushNamed(context, "checkoutPage");
                           setState(() {
                             isClicked = !isClicked;
                           });
