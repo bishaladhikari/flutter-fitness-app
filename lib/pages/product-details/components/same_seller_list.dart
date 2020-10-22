@@ -1,5 +1,6 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
+import 'package:ecapp/components/combo_product_item.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -99,8 +100,8 @@ class _ProductsListState extends State<SameSellerList> {
               itemCount: products.length,
               itemBuilder: (context, index) {
                 return ProductItem(
-                  product: products[index],
-                );
+                        product: products[index],
+                      );
               }),
         ));
   }

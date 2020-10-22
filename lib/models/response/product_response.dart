@@ -10,7 +10,7 @@ class ProductResponse {
       : products = (json["data"] as List)
             .map((i) => new Product.fromJson(i))
             .toList(),
-        error = "";
+        error = null;
 
   ProductResponse.withError(String errorValue)
       : products = List(),
