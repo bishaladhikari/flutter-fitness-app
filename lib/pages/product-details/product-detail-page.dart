@@ -21,12 +21,17 @@ import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants.dart';
 import 'components/related_products_list.dart';
 import 'components/same_seller_list.dart';
 import 'components/detail_widget.dart';
+
+import 'components/widgets/price.dart';
+
+int ctQuantity = 1;
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -65,7 +70,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   double myscroll = 1;
   double appBarV = 0;
-  int ctQuantity = 1;
   bool isClicked = false;
   ProductDetailBloc productDetailBloc;
   String slug;
@@ -185,44 +189,46 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   _askForQuantity() {
-    return showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('Quantity'),
-        content: StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState){
-//            _setState = setState;
-            return Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {
-                        setState(() {
-                          if(ctQuantity > 1){
-                            ctQuantity -= 1;
-                          }
-                        });
-                      },
-                    ),
-                    Text(ctQuantity.toString()
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        setState(() {
-                          ctQuantity += 1;
-                          print(ctQuantity);
-                        });
-                      },
-                    )
-                  ],
-                ));
-          },
-        ),
-      ),
-    );
+//    return
+
+//      showDialog(
+//      context: context,
+//      builder: (context) => new AlertDialog(
+//        title: new Text('Quantity'),
+//        content: StatefulBuilder(
+//          builder: (BuildContext context, StateSetter setState){
+////            _setState = setState;
+//            return Container(
+//                child: Row(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: [
+//                    IconButton(
+//                      icon: Icon(Icons.remove),
+//                      onPressed: () {
+//                        setState(() {
+//                          if(ctQuantity > 1){
+//                            ctQuantity -= 1;
+//                          }
+//                        });
+//                      },
+//                    ),
+//                    Text(ctQuantity.toString()
+//                    ),
+//                    IconButton(
+//                      icon: Icon(Icons.add),
+//                      onPressed: () {
+//                        setState(() {
+//                          ctQuantity += 1;
+//                          print(ctQuantity);
+//                        });
+//                      },
+//                    )
+//                  ],
+//                ));
+//          },
+//        ),
+//      ),
+//    );
   }
 
   @override
@@ -594,7 +600,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //                                "quantity": 1
 //                              };
 //                              addToCart(context, params);
-                              _askForQuantity();
+//                              _askForQuantity();
+                            print(widget.product.name);
+                              showMaterialModalBottomSheet(
+                                  expand: false,
+                                  bounce: true,
+                                  context: context,
+                                  builder: (context, scrollController) =>
+                                      SMPrice( product : widget.product));
                             },
                           )
                         ],
@@ -1239,3 +1252,73 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           }).toList());
   }
 }
+//
+//class ChangeQuantity extends StatefulWidget {
+//  final product;
+//
+//  const ChangeQuantity({Key key, this.product}) : super(key: key);
+//
+//
+//
+//
+//  _ChangeQuantityState createState() => _ChangeQuantityState();
+//}
+//
+//class _ChangeQuantityState extends State<ChangeQuantity> {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Container(
+//      padding: EdgeInsets.all(10),
+//      height: 300,
+//      child: Column(
+//        mainAxisAlignment: MainAxisAlignment.start,
+//        crossAxisAlignment: CrossAxisAlignment.start,
+//
+//        children: [
+//          Text(widget.product.name, style: TextStyle(color:Colors.black, fontSize: 30, fontWeight: FontWeight.bold),),
+//          Text('@ '+widget.product.sellingPrice, style: TextStyle(color:Colors.black, fontSize: 20, fontWeight: FontWeight.normal),),
+//          Padding(
+//            padding: const EdgeInsets.only(top:8.0),
+//            child: Text("Quantity", style: TextStyle(color:Colors.black, fontSize: 20),),
+//          ),
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: [
+//              IconButton(
+//                icon: Icon(Icons.remove),
+//                onPressed: () {
+//                  setState(() {
+//                    if (ctQuantity > 1) {
+//                      ctQuantity -= 1;
+//                    }
+//                  });
+//                },
+//              ),
+//              Text(
+//                ctQuantity.toString(),
+//                style: TextStyle(color: Colors.black),
+//              ),
+//              IconButton(
+//                icon: Icon(Icons.add),
+//                onPressed: () {
+//                  setState(() {
+//                    ctQuantity += 1;
+//                    print(ctQuantity);
+//                  });
+//                },
+//              )
+//            ],
+//          ),
+//          RaisedButton(
+//            onPressed: () => null,
+//            color: Colors.blue.withOpacity(.2 ),
+//            elevation: 0.4,
+//
+////              width:double.infinity,
+//            child: Text("Add To Cart", style: TextStyle(color:Colors.white),),
+//          )
+//        ],
+//      ),
+//    );
+//  }
+//}
