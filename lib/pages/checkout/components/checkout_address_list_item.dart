@@ -52,10 +52,7 @@ class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
                           style:
                               TextStyle(color: Colors.black38, fontSize: 14)),
                     ],
-                  ),
-                  Spacer(),
-                  !widget.selectMode
-                      ? FlatButton(
+                  ), FlatButton(
                           onPressed: () {
                             Navigator.pushNamed(context, 'addressPage',
                                 arguments: widget.address);
@@ -66,7 +63,6 @@ class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
                                 color: Colors.lightBlue, fontSize: 15),
                           ),
                         )
-                      : Text("")
                 ])),
       ],
     );

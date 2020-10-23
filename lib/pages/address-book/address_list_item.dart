@@ -22,6 +22,7 @@ class _AddressListItemState extends State<AddressListItem> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
