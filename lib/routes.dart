@@ -25,7 +25,7 @@ import 'package:flutter/material.dart';
 abstract class Routes {
   static MaterialPageRoute materialPageRoute(RouteSettings routeSettings) {
     final arguments = routeSettings.arguments;
-//    final arguments = settings.arguments as Map<String, dynamic> ?? {};
+//    final arguments = routeSettings.arguments as Map<String, dynamic> ?? {};
     switch (routeSettings.name) {
       case 'mainPage':
         return MaterialPageRoute(builder: (context) => MainPage());
