@@ -48,11 +48,12 @@ class CheckoutBloc {
 //                  shipping_cost: 0
 //                  weight: 4444
     var addressId = _defaultAddress.value.id;
+
     var params = {
       "shipping_cost": 0,
       "weight": 4444,
-      "address_id":addressId.toString(),
-      "store_id":2,
+      "address_id": addressId,
+      "store_id": 2,
 //      "token": stripeToken,
       "redeemed_amount": "",
       "redeemed_points": "",
