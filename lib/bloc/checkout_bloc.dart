@@ -52,13 +52,13 @@ class CheckoutBloc {
     print("addressId "+addressId.toString());
     var params = {
       "shipping_cost": 0,
-      "weight": 4444,
+      "weight": cartBloc.subject.value.totalWeight,
       "address_id": addressId,
       "store_id": 2,
 //      "token": stripeToken,
       "redeemed_amount": "",
       "redeemed_points": "",
-      "payment_method": "Cash Payment",
+      "payment_method": paymentMethod,
       "billable_amount": "4444",
 //      "products": cartBloc.cartItems,
       "products": [
