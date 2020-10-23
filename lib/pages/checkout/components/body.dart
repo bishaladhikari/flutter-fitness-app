@@ -17,8 +17,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-//  Address address;
-
   @override
   void initState() {
     checkoutBloc.getDefaultAddress();

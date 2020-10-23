@@ -30,19 +30,14 @@ class _CartPageState extends State<CartPage>
           icon: Icon(Icons.menu),
           color: Colors.black,
         ),
-        actions: [
-//          IconButton(
-//            icon: Icon(Icons.notifications_none),
-//            onPressed: () {},
-//            color: Colors.black,
-//          ),
-        ],
+        actions: [],
       ),
       body: SingleChildScrollView(child: CartBody()),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              if (snapshot.data.carts.length == 0) return Text("");
               double totalAmount = snapshot.data.totalAmount;
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 35),
@@ -72,7 +67,10 @@ class _CartPageState extends State<CartPage>
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                     Text('¥ ' + totalAmount.toString(),
-                        style: TextStyle(color: NPrimaryColor,fontWeight: FontWeight.bold, fontSize: 16)),
+                        style: TextStyle(
+                            color: NPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16)),
                     RaisedButton(
                       color: NPrimaryColor,
                       onPressed: () {

@@ -2,6 +2,7 @@ import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +23,7 @@ class CartBody extends StatelessWidget {
                     snapshot.data.error.length > 0) {
                   return _buildErrorWidget(context, snapshot.data.error);
                 }
-                return _buildCartWidget(snapshot.data);
+                return _buildCartWidget(context, snapshot.data);
               } else if (snapshot.hasError) {
                 return _buildErrorWidget(context, snapshot.error);
               } else {
@@ -33,7 +34,7 @@ class CartBody extends StatelessWidget {
     );
   }
 
-  Widget _buildCartWidget(CartResponse data) {
+  Widget _buildCartWidget(context, CartResponse data) {
     List<Cart> carts = data.carts;
     final cartChildren = <Widget>[];
     for (int i = 0; i < carts?.length ?? 0; i++) {
@@ -54,8 +55,7 @@ class CartBody extends StatelessWidget {
                   carts[i].soldBy + " ($itemCount items)",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 IconButton(
                   icon: Icon(
@@ -80,13 +80,20 @@ class CartBody extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            margin: const EdgeInsets.only(top:50),
+            margin: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Text("There are no items in this cart",style: TextStyle(color: Colors.black87),),
-                SizedBox(height: 8.0,),
+                Text(
+                  "There are no items in this cart",
+                  style: TextStyle(color: Colors.black87),
+                ),
+                SizedBox(
+                  height: 8.0,
+                ),
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    MainPage.of(context).changePage(0);
+                  },
                   color: NPrimaryColor,
                   textColor: Colors.white,
                   child: Text("CONTINUE SHOPPING"),
@@ -105,18 +112,18 @@ class CartBody extends StatelessWidget {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(context, String error) {
