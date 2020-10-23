@@ -3,6 +3,7 @@ import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/components/add_address.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/pages/address-book/address_list_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -45,12 +46,14 @@ class _AddressPageState extends State<AddressPage> {
                         itemBuilder: (_, index) {
                           Address address = snapshot.data.addresses[index];
                           return GestureDetector(
+                              behavior: HitTestBehavior.translucent,
                               onTap: () {
                                 checkoutBloc.setDefaultAddress(address);
                                 Navigator.pop(context);
                               },
                               child: AddressListItem(
-                                  address: address, selectMode: widget.selectMode));
+                                  address: address,
+                                  selectMode: widget.selectMode));
                         });
                   }
                   return Container();

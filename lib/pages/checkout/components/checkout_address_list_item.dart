@@ -5,10 +5,12 @@ class CheckoutAddressListItem extends StatefulWidget {
   Address address;
   bool selectMode;
 
-  CheckoutAddressListItem({Key key, this.address, this.selectMode}) : super(key: key);
+  CheckoutAddressListItem({Key key, this.address, this.selectMode})
+      : super(key: key);
 
   @override
-  _CheckoutAddressListItemState createState() => _CheckoutAddressListItemState();
+  _CheckoutAddressListItemState createState() =>
+      _CheckoutAddressListItemState();
 }
 
 class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
@@ -52,17 +54,17 @@ class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
                           style:
                               TextStyle(color: Colors.black38, fontSize: 14)),
                     ],
-                  ), FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'addressPage',
-                                arguments: widget.address);
-                          },
-                          child: Text(
-                            "Change",
-                            style: TextStyle(
-                                color: Colors.lightBlue, fontSize: 15),
-                          ),
-                        )
+                  ),
+                  Spacer(),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'addressPage');
+                    },
+                    child: Text(
+                      "Change",
+                      style: TextStyle(color: Colors.lightBlue, fontSize: 15),
+                    ),
+                  )
                 ])),
       ],
     );
