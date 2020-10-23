@@ -41,7 +41,7 @@ class ComboDetailPage extends StatefulWidget {
 
   static _ComboDetailPageState of(BuildContext context) {
     final _ComboDetailPageState navigator =
-    context.ancestorStateOfType(const TypeMatcher<_ComboDetailPageState>());
+        context.ancestorStateOfType(const TypeMatcher<_ComboDetailPageState>());
 
     assert(() {
       if (navigator == null) {
@@ -150,7 +150,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
       Navigator.pushNamed(context, "loginPage");
     else {
       RemoveFromWishlistResponse response =
-      await comboDetailBloc.deleteFromWishlist();
+          await comboDetailBloc.deleteFromWishlist();
       if (response.error != null) {
         var snackbar = SnackBar(
           content: Text(response.error),
@@ -199,44 +199,39 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                     background: Hero(
                       tag: widget.combo.heroTag,
                       child: CachedNetworkImage(
-                        placeholder: (context, url) =>
-                            Center(
-                              child: Container(
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                      AssetImage(
-                                          "assets/images/placeholder.png"),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
+                        placeholder: (context, url) => Center(
+                          child: Container(
+                            height: 200,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/placeholder.png"),
+                                  fit: BoxFit.cover),
                             ),
+                          ),
+                        ),
                         imageUrl: widget.combo.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
-                        imageBuilder: (context, imageProvider) =>
-                            Container(
+                        imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  )),
+                          height: 200,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          )),
+                        ),
+                        errorWidget: (context, url, error) => Center(
+                          child: Container(
+                            height: 200,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/placeholder.png"),
+                                  fit: BoxFit.cover),
                             ),
-                        errorWidget: (context, url, error) =>
-                            Center(
-                              child: Container(
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                      AssetImage(
-                                          "assets/images/placeholder.png"),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -252,7 +247,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                           ),
                           Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -332,17 +327,9 @@ class _ComboDetailPageState extends State<ComboDetailPage>
             if (snapshot.hasData) {
               var comboDetail = snapshot.data.comboDetail;
               return Container(
-                color: Theme
-                    .of(context)
-                    .backgroundColor,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height / 11,
+                color: Theme.of(context).backgroundColor,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 11,
                 child: Container(
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
@@ -372,10 +359,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                           ),
                           FlatButton(
                             child: Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width / 2.9,
+                              width: MediaQuery.of(context).size.width / 2.9,
                               height: 50,
                               decoration: const BoxDecoration(
                                 color: Color.fromARGB(255, 170, 192, 211),
@@ -393,7 +377,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                               ),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   new Text(
                                     "Add to cart",
@@ -433,10 +417,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width / 2.9,
+                          width: MediaQuery.of(context).size.width / 2.9,
                           height: 50,
                           decoration: const BoxDecoration(
                             color: NPrimaryColor,
@@ -463,14 +444,8 @@ class _ComboDetailPageState extends State<ComboDetailPage>
 //            return Container();
             return Container(
               color: Colors.white70,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height / 11,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 11,
               child: Shimmer.fromColors(
                   baseColor: Colors.black12,
                   highlightColor: Colors.white70,
@@ -498,10 +473,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
   }
 
   Widget _buildLoadingWidget(BuildContext context) {
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width - 16;
+    var width = MediaQuery.of(context).size.width - 16;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Shimmer.fromColors(
@@ -549,11 +521,11 @@ class _ComboDetailPageState extends State<ComboDetailPage>
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   _buildComments(BuildContext context) {
@@ -564,10 +536,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
           bottom: BorderSide(width: 1.0, color: Colors.black12),
         ),
       ),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       child: Container(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -649,7 +618,10 @@ class _ComboDetailPageState extends State<ComboDetailPage>
             ],
           ),
         ),
-        // RelatedProductsList(slug: slug),
+        RelatedProductsList(
+          slug: slug,
+          isCombo: true,
+        ),
         // buildTrending()
       ],
     );
@@ -687,8 +659,10 @@ class _ComboDetailPageState extends State<ComboDetailPage>
             ],
           ),
         ),
-        RelatedProductsList(slug: slug, isCombo: true,),
-        SameSellerList(slug: slug, isCombo: true,),
+        SameSellerList(
+          slug: slug,
+          isCombo: true,
+        ),
         // buildTrending()
       ],
     );
@@ -716,10 +690,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
     List<Review> reviews = data.reviews;
     if (reviews.length == 0) {
       return Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -782,7 +753,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
 //                    ),
 //                  ),
 //                ),
-                ),
+                    ),
               ));
             }
             return ListTile(
