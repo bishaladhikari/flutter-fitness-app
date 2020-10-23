@@ -16,7 +16,9 @@ class _OrderCompletePageState extends State<OrderCompletePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.close), onPressed: () {  },),
+        leading: IconButton(icon: Icon(Icons.close), onPressed: () {
+          Navigator.pushReplacementNamed(context, "ordersPage");
+        },),
         backgroundColor: Colors.white,
         title: Text("Order Received".tr()),
       ),
