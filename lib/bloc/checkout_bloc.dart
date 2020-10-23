@@ -49,6 +49,7 @@ class CheckoutBloc {
 //                  weight: 4444
     var addressId = _defaultAddress.value.id;
 
+    print("addressId "+addressId.toString());
     var params = {
       "shipping_cost": 0,
       "weight": 4444,
