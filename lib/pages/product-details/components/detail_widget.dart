@@ -170,7 +170,7 @@ class _DetailWidgetState extends State<DetailWidget> {
                       child: OutlineButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(8.0)),
-                        child: Text(title.toUpperCase(),
+                        child: Text(title,
                             style: TextStyle(color: kTextColor)),
                         onPressed: () {}, //callback when button is clicked
                         borderSide: BorderSide(
