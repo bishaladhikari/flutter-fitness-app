@@ -1,14 +1,22 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/order.dart';
 import 'package:flutter/material.dart';
 
+import '../../main_page.dart';
+
 class Body extends StatefulWidget {
+  Order order;
+
+  Body({Key key, this.order}) : super(key: key);
+
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   String email;
+  Order order;
 
   @override
   void initState() {
@@ -33,9 +41,17 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
-          SizedBox(height: 20,),
-          Center(child: Text("Order "+ "#0016",style: TextStyle(fontSize: 16,color: Colors.black),)),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+              child: Text(
+            "Order " + widget.order.orderId,
+            style: TextStyle(fontSize: 16, color: Colors.black),
+          )),
+          SizedBox(
+            height: 20,
+          ),
           Card(
               elevation: 0,
               child: Row(
@@ -70,7 +86,9 @@ class _BodyState extends State<Body> {
             ),
             padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
             color: NPrimaryColor,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "mainPage");
+            },
           )
         ],
       ),

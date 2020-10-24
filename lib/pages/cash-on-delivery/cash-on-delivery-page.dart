@@ -25,7 +25,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
-            if (snapshot.hasData){
+            if (snapshot.hasData) {
               double totalAmount = snapshot.data.totalAmount;
               return Container(
                 color: Colors.white,
@@ -83,11 +83,12 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                         color: NPrimaryColor,
                         onPressed: () async {
                           AddOrderResponse response =
-                          await checkoutBloc.createOrder();
-                          if (response.error == null)
-                            Navigator.of(context)
-                                .pushNamed("orderConfirmationPage");
-                          else
+                              await checkoutBloc.createOrder();
+                          if (response.error == null) {
+                            Navigator.of(context).pushNamed(
+                                "orderConfirmationPage",
+                                arguments: response.order);
+                          } else
                             _scaffoldKey.currentState.showSnackBar(SnackBar(
                               content: Text(
                                 tr(response.error),
@@ -104,8 +105,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                   ],
                 ),
               );
-            }
-            else
+            } else
               return Container();
           }),
     );
