@@ -17,6 +17,7 @@ import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/pages/main_page.dart';
+import 'package:ecapp/pages/product-details/components/add_to_cart.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,16 +90,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   @override
   void initState() {
     super.initState();
+    productDetailBloc = ProductDetailBloc();
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 0));
     _opacityTween = Tween(begin: 0.0, end: 1.0).animate(_animationController);
-    productDetailBloc = ProductDetailBloc();
-
     slug = widget.product.slug;
+
     productDetailBloc.getProductDetail(slug);
-//    productDetailBloc.getSameSellerProduct(slug:slug);
-//    productDetailBloc.getRelatedProduct(slug:slug);
     reviewBloc.getProductReview("false", slug);
   }
 
@@ -192,7 +191,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   Widget _buildQuantity() {
     return Row(
       children: [
-        Text("Quantity",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),),
+        Text(
+          "Quantity",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
 //        Spacer(),
         IconButton(
           icon: Icon(
@@ -233,7 +235,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         ),
       ],
     );
-
   }
 
   @override
@@ -612,55 +613,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   bounce: true,
                                   context: context,
                                   builder: (context, scrollController) {
-                                    return StreamBuilder<ProductDetailResponse>(
-                                        stream:
-                                            productDetailBloc.subject.stream,
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData)
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(20.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(widget.product.name,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.black,
-                                                          fontSize: 18)),
-                                                  ProductPrice(
-                                                      product: widget.product),
-                                                  Variants(
-                                                      productDetail:
-                                                          productDetail,
-                                                      productDetailBloc:
-                                                          productDetailBloc),
-                                                  _buildQuantity(),
-                                                  SizedBox(
-                                                    height: 10.0,
-                                                  ),
-                                                  SizedBox(
-                                                    width: double.infinity,
-                                                    height: 50,
-                                                    child: FlatButton(
-                                                      color: NPrimaryColor,
-                                                      onPressed: () async {
-                                                      },
-                                                      child: Text(
-                                                        "Add to cart".tr(),
-                                                        style: TextStyle(color: Colors.white),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          else
-                                            return Container();
-                                        });
+                                    var params = {
+                                      "attribute_id": attribute_id,
+                                      "combo_id": null,
+                                      "quantity": 1
+                                    };
+                                    return AddToCart(addToCart:addToCart(context, params),
+                                    product:widget.product,productDetailBloc:productDetailBloc);
                                   });
                             },
                           )
@@ -678,9 +637,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           };
                           addToCart(context, params);
                           Navigator.pushNamed(context, "checkoutPage");
-                          setState(() {
-                            isClicked = !isClicked;
-                          });
+//                          setState(() {
+//                            isClicked = !isClicked;
+//                          });
                         },
                         textColor: Colors.white,
                         padding: const EdgeInsets.all(0.0),
@@ -740,6 +699,59 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //    controller.forward();
     return DetailWidget(
         productDetail: productDetail, productDetailBloc: productDetailBloc);
+  }
+
+  Widget _buildBottomSheet() {
+    return StreamBuilder<ProductDetailResponse>(
+        stream: productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var productDetail = snapshot.data.productDetail;
+            var attribute_id = productDetail?.selectedAttribute?.id;
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.product.name,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 18)),
+                  ProductPrice(product: widget.product),
+                  Variants(
+                      productDetail: productDetail,
+                      productDetailBloc: productDetailBloc),
+                  _buildQuantity(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: FlatButton(
+                      color: NPrimaryColor,
+                      onPressed: () async {
+                        var params = {
+                          "attribute_id": attribute_id,
+                          "combo_id": null,
+                          "quantity": 1
+                        };
+                        addToCart(context, params);
+                      },
+                      child: Text(
+                        "Add to cart".tr(),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          } else
+            return Container();
+        });
   }
 
   Widget _buildLoadingWidget(BuildContext context) {
