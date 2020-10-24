@@ -608,23 +608,38 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   bounce: true,
                                   context: context,
                                   builder: (context, scrollController) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(widget.product.name,
-                                              style:TextStyle(fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 18)),
-                                          ProductPrice(product: widget.product),
-                                          Variants(
-                                              productDetail: productDetail,
-                                              productDetailBloc: productDetailBloc),
-                                        ],
-                                      ),
-                                    );
+                                    return StreamBuilder<ProductDetailResponse>(
+                                        stream:
+                                            productDetailBloc.subject.stream,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData)
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(20.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(widget.product.name,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black,
+                                                          fontSize: 18)),
+                                                  ProductPrice(
+                                                      product: widget.product),
+                                                  Variants(
+                                                      productDetail:
+                                                          productDetail,
+                                                      productDetailBloc:
+                                                          productDetailBloc),
+                                                ],
+                                              ),
+                                            );
+                                          else
+                                            return Container();
+                                        });
                                   });
                             },
                           )
