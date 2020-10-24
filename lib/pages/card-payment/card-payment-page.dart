@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:stripe_payment/stripe_payment.dart';
@@ -96,7 +97,7 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                     );
                     StripePayment.createTokenWithCard(testCard).then((token) {
                       print(token.tokenId);
-//                      placeOrder(token);
+                      checkoutBloc.createOrder(token:token);
 //                      createCharge(token.tokenId);
                     });
 //                    showDialog(
