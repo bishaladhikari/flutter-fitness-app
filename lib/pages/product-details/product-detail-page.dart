@@ -618,8 +618,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                       "combo_id": null,
                                       "quantity": 1
                                     };
-                                    return AddToCart(addToCart:addToCart(context, params),
-                                    product:widget.product,productDetailBloc:productDetailBloc);
+                                    return AddToCart(
+                                        addToCart: addToCart(context, params),
+                                        product: widget.product,
+                                        productDetailBloc: productDetailBloc);
                                   });
                             },
                           )
