@@ -30,6 +30,7 @@ import 'components/same_seller_list.dart';
 import 'components/detail_widget.dart';
 
 import 'components/widgets/price.dart';
+import 'components/widgets/variants.dart';
 
 int ctQuantity = 1;
 
@@ -527,8 +528,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           stream: productDetailBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              var attribute_id =
-                  snapshot.data.productDetail?.selectedAttribute?.id;
+              var productDetail = snapshot.data.productDetail;
+              var attribute_id = productDetail?.selectedAttribute?.id;
               return Container(
                 color: Theme.of(context).backgroundColor,
                 width: MediaQuery.of(context).size.width,
@@ -601,13 +602,30 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //                              };
 //                              addToCart(context, params);
 //                              _askForQuantity();
-                            print(widget.product.name);
+                              print(widget.product.name);
                               showMaterialModalBottomSheet(
                                   expand: false,
                                   bounce: true,
                                   context: context,
-                                  builder: (context, scrollController) =>
-                                      ProductPrice( product : widget.product));
+                                  builder: (context, scrollController) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(widget.product.name,
+                                              style:TextStyle(fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 18)),
+                                          ProductPrice(product: widget.product),
+                                          Variants(
+                                              productDetail: productDetail,
+                                              productDetailBloc: productDetailBloc),
+                                        ],
+                                      ),
+                                    );
+                                  });
                             },
                           )
                         ],

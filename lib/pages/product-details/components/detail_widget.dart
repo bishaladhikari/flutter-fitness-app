@@ -39,24 +39,14 @@ class _DetailWidgetState extends State<DetailWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildInfo(context), //Product Info
-        _buildVariants(context),
+        ProductPrice(product: widget.selectedAttribute), //Product Info
+        Variants(
+            productDetail: widget.productDetail,
+            productDetailBloc: widget.productDetailBloc),
         _buildDescription(context),
       ],
     );
     ;
-  }
-
-  _buildInfo(context) {
-    return ProductPrice(product: widget.selectedAttribute);
-  }
-
-  _buildVariants(BuildContext context) {
-    return widget.productDetailBloc.subject.value.productDetail.variants.length > 0
-        ? Variants(
-            productDetail: widget.productDetail,
-            productDetailBloc: widget.productDetailBloc)
-        : Container();
   }
 
   _buildDescription(BuildContext context) {

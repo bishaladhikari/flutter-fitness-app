@@ -5,16 +5,18 @@ import 'package:ecapp/models/variant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
+
 class Variants extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   ProductDetail productDetail;
   ProductDetailBloc productDetailBloc;
 
-  Variants({this.productDetail,this.productDetailBloc}){
+  Variants({this.productDetail, this.productDetailBloc}) {
     selectedAttribute = productDetail.selectedAttribute;
     selectedVariant = productDetail.selectedAttribute.variant;
   }
+
   @override
   _VariantsState createState() => _VariantsState();
 }
@@ -61,32 +63,33 @@ class _VariantsState extends State<Variants> {
         ));
       }
     }
-    return Container(
-      decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 1.0, color: Colors.black12),
-            bottom: BorderSide(width: 1.0, color: Colors.black12),
-          )),
-      padding: EdgeInsets.all(4.0),
-      width: MediaQuery.of(context).size.width,
+    return widget.productDetail.variantTitle != null
+        ? Container(
+            decoration: BoxDecoration(
+                border: Border(
+              top: BorderSide(width: 1.0, color: Colors.black12),
+              bottom: BorderSide(width: 1.0, color: Colors.black12),
+            )),
+            padding: EdgeInsets.all(4.0),
+            width: MediaQuery.of(context).size.width,
 //      height: MediaQuery.of(context).size.height / 4,
-      child: widget.productDetail.variantTitle!=null?
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Available " + widget.productDetail.variantTitle),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: children,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Available " + widget.productDetail.variantTitle),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: children,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ):Container(),
-    );
+          )
+        : Container();
   }
 }
