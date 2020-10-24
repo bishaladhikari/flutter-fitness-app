@@ -189,47 +189,51 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     }
   }
 
-  _askForQuantity() {
-//    return
+  Widget _buildQuantity() {
+    return Row(
+      children: [
+        Text("Quantity",style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),),
+//        Spacer(),
+        IconButton(
+          icon: Icon(
+            Icons.remove,
+            color: Colors.black87.withOpacity(0.5),
+            size: 20,
+          ),
+          splashRadius: 5.0,
+          onPressed: () {
+//            if (cartItem.quantity > 1)
+//              cartBloc.updateCart(cartItem, "sub");
+          },
+        ),
+        Container(
+//                                height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: kForeGroundColor)),
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          child: Center(
+            child: Text(
+              "1",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.add,
+            color: Colors.black87.withOpacity(0.5),
+            size: 20,
+          ),
+          splashRadius: 5.0,
+          onPressed: () {
+//            cartBloc.updateCart(cartItem, "add");
+          },
+        ),
+      ],
+    );
 
-//      showDialog(
-//      context: context,
-//      builder: (context) => new AlertDialog(
-//        title: new Text('Quantity'),
-//        content: StatefulBuilder(
-//          builder: (BuildContext context, StateSetter setState){
-////            _setState = setState;
-//            return Container(
-//                child: Row(
-//                  mainAxisAlignment: MainAxisAlignment.center,
-//                  children: [
-//                    IconButton(
-//                      icon: Icon(Icons.remove),
-//                      onPressed: () {
-//                        setState(() {
-//                          if(ctQuantity > 1){
-//                            ctQuantity -= 1;
-//                          }
-//                        });
-//                      },
-//                    ),
-//                    Text(ctQuantity.toString()
-//                    ),
-//                    IconButton(
-//                      icon: Icon(Icons.add),
-//                      onPressed: () {
-//                        setState(() {
-//                          ctQuantity += 1;
-//                          print(ctQuantity);
-//                        });
-//                      },
-//                    )
-//                  ],
-//                ));
-//          },
-//        ),
-//      ),
-//    );
   }
 
   @override
@@ -634,6 +638,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                                           productDetail,
                                                       productDetailBloc:
                                                           productDetailBloc),
+                                                  _buildQuantity()
                                                 ],
                                               ),
                                             );
