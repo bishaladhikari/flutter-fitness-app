@@ -5,21 +5,21 @@ import 'package:ecapp/models/variant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
-class ProductVariants extends StatefulWidget {
+class Variants extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;
   ProductDetail productDetail;
-  ProductDetailBloc, productDetailBloc;
+  ProductDetailBloc productDetailBloc;
 
-  ProductVariants({this.productDetail,this.productDetailBloc}){
+  Variants({this.productDetail,this.productDetailBloc}){
     selectedAttribute = productDetail.selectedAttribute;
     selectedVariant = productDetail.selectedAttribute.variant;
   }
   @override
-  _ProductVariantsState createState() => _ProductVariantsState();
+  _VariantsState createState() => _VariantsState();
 }
 
-class _ProductVariantsState extends State<ProductVariants> {
+class _VariantsState extends State<Variants> {
   @override
   Widget build(BuildContext context) {
     List<Variant> variants = widget.productDetail.variants;

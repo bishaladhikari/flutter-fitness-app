@@ -6,7 +6,7 @@ import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
-import 'package:ecapp/pages/product-details/components/widgets/ProductVariants.dart';
+import 'package:ecapp/pages/product-details/components/widgets/variants.dart';
 import 'package:ecapp/pages/product-details/components/widgets/price.dart';
 import 'package:flutter/material.dart';
 import 'package:ecapp/components/search_box.dart';
@@ -18,7 +18,7 @@ class DetailWidget extends StatefulWidget {
   ProductDetail productDetail;
   ProductDetailBloc productDetailBloc;
 
-  DetailWidget({this.productDetail,this.productDetailBloc}){
+  DetailWidget({this.productDetail, this.productDetailBloc}) {
     selectedAttribute = productDetail.selectedAttribute;
     selectedVariant = productDetail.selectedAttribute.variant;
   }
@@ -48,11 +48,15 @@ class _DetailWidgetState extends State<DetailWidget> {
   }
 
   _buildInfo(context) {
-    return SMPrice(product: widget.selectedAttribute);
+    return ProductPrice(product: widget.selectedAttribute);
   }
 
   _buildVariants(BuildContext context) {
-    ProductVariants(productDetail: widget.productDetail, productDetailBloc :ProductDetailBloc);
+    return widget.productDetailBloc.subject.value.productDetail.variants.length > 0
+        ? Variants(
+            productDetail: widget.productDetail,
+            productDetailBloc: widget.productDetailBloc)
+        : Container();
   }
 
   _buildDescription(BuildContext context) {

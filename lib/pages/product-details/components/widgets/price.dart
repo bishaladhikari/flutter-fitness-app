@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
-class SMPrice extends StatefulWidget {
+class ProductPrice extends StatefulWidget {
   final product;
 
-  const SMPrice({Key key, this.product}) : super(key: key);
+  const ProductPrice({Key key, this.product}) : super(key: key);
   @override
-  _SMPriceState createState() => _SMPriceState();
+  _ProductPriceState createState() => _ProductPriceState();
 }
 
-class _SMPriceState extends State<SMPrice> {
+class _ProductPriceState extends State<ProductPrice> {
   @override
   Widget build(BuildContext context) {
     return  Container(

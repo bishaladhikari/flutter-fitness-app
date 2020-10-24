@@ -528,7 +528,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var attribute_id =
-                  snapshot.data.productDetail.selectedAttribute.id;
+                  snapshot.data.productDetail?.selectedAttribute?.id;
               return Container(
                 color: Theme.of(context).backgroundColor,
                 width: MediaQuery.of(context).size.width,
@@ -607,7 +607,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   bounce: true,
                                   context: context,
                                   builder: (context, scrollController) =>
-                                      SMPrice( product : widget.product));
+                                      ProductPrice( product : widget.product));
                             },
                           )
                         ],
@@ -732,20 +732,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         ),
       ),
     );
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
   }
 
   Widget _buildErrorWidget(String error) {
