@@ -51,6 +51,47 @@ class _DetailWidgetState extends State<DetailWidget> {
     ;
   }
 
+  _buildTags(BuildContext context) {
+    List<String> tags = widget.productDetail.tags;
+    return widget.productDetail.tags.length > 0
+        ? Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                alignment: Alignment.topLeft, child: Text("Tags")),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: tags.map((title) {
+                  return Container(
+                    padding: const EdgeInsets.all(6.0),
+                    child: OutlineButton(
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(8.0)),
+                      child: Text(title,
+                          style: TextStyle(color: kTextColor)),
+                      onPressed: () {}, //callback when button is clicked
+                      borderSide: BorderSide(
+                        color: kTextColor,
+                        //Color of the border
+                        style: BorderStyle.solid,
+                        //Style of the border
+                        width: 0.8, //width of the border
+                      ),
+                    ),
+                  );
+                }).toList()),
+          ),
+        ],
+      ),
+    )
+        : Container();
+  }
+
   _buildDescription(BuildContext context) {
     String description = widget.productDetail.description;
     return Container(
