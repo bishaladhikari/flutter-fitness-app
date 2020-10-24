@@ -638,7 +638,23 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                                           productDetail,
                                                       productDetailBloc:
                                                           productDetailBloc),
-                                                  _buildQuantity()
+                                                  _buildQuantity(),
+                                                  SizedBox(
+                                                    height: 10.0,
+                                                  ),
+                                                  SizedBox(
+                                                    width: double.infinity,
+                                                    height: 50,
+                                                    child: FlatButton(
+                                                      color: NPrimaryColor,
+                                                      onPressed: () async {
+                                                      },
+                                                      child: Text(
+                                                        "Add to cart".tr(),
+                                                        style: TextStyle(color: Colors.white),
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             );
