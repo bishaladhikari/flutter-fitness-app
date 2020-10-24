@@ -58,7 +58,8 @@ class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
                   Spacer(),
                   FlatButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'addressPage');
+                      Navigator.pushNamed(context, 'addressPage',
+                          arguments: true);
                     },
                     child: Text(
                       "Change",

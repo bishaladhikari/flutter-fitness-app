@@ -16,7 +16,7 @@ class DetailWidget extends StatefulWidget {
   ProductDetail productDetail;
   ProductDetailBloc productDetailBloc;
 
-  DetailWidget({this.productDetail,this.productDetailBloc}) {
+  DetailWidget({this.productDetail, this.productDetailBloc}) {
     selectedAttribute = productDetail.selectedAttribute;
     selectedVariant = productDetail.selectedAttribute.variant;
   }
@@ -39,6 +39,7 @@ class _DetailWidgetState extends State<DetailWidget> {
       children: [
         _buildInfo(context), //Product Info
         _buildVariants(context),
+        _buildTags(context),
         _buildDescription(context),
       ],
     );
@@ -87,8 +88,6 @@ class _DetailWidgetState extends State<DetailWidget> {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
         bool isVariantSelected = widget.selectedVariant.id == variants[i].id;
-
-        print('selecting' + widget.selectedVariant.id.toString());
         children.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: OutlineButton(
@@ -120,32 +119,75 @@ class _DetailWidgetState extends State<DetailWidget> {
       }
     }
     return Container(
-      decoration: BoxDecoration(
-          border: Border(
-        top: BorderSide(width: 1.0, color: Colors.black12),
-        bottom: BorderSide(width: 1.0, color: Colors.black12),
-      )),
+      decoration: widget.productDetail.variantTitle != null
+          ? BoxDecoration(
+              border: Border(
+              top: BorderSide(width: 1.0, color: Colors.black12),
+              bottom: BorderSide(width: 1.0, color: Colors.black12),
+            ))
+          : BoxDecoration(),
       padding: EdgeInsets.all(4.0),
       width: MediaQuery.of(context).size.width,
-//      height: MediaQuery.of(context).size.height / 4,
-      child: widget.productDetail.variantTitle!=null?
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Available " + widget.productDetail.variantTitle),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: children,
+      child: widget.productDetail.variantTitle != null
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Available " + widget.productDetail.variantTitle),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: children,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      ):Container(),
+            )
+          : Container(),
     );
+  }
+
+  _buildTags(BuildContext context) {
+    List<String> tags = widget.productDetail.tags;
+    return widget.productDetail.tags.length > 0
+        ? Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      alignment: Alignment.topLeft, child: Text("Tags")),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: tags.map((title) {
+                    return Container(
+                      padding: const EdgeInsets.all(6.0),
+                      child: OutlineButton(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(8.0)),
+                        child: Text(title.toUpperCase(),
+                            style: TextStyle(color: kTextColor)),
+                        onPressed: () {}, //callback when button is clicked
+                        borderSide: BorderSide(
+                          color: kTextColor,
+                          //Color of the border
+                          style: BorderStyle.solid,
+                          //Style of the border
+                          width: 0.8, //width of the border
+                        ),
+                      ),
+                    );
+                  }).toList()),
+                ),
+              ],
+            ),
+          )
+        : Container();
   }
 
   _buildDescription(BuildContext context) {

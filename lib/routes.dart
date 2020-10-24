@@ -97,7 +97,8 @@ abstract class Routes {
             builder: (context) => OrderDetailPage(order: arguments));
         break;
       case 'orderConfirmationPage':
-        return MaterialPageRoute(builder: (context) => OrderCompletePage());
+        return MaterialPageRoute(
+            builder: (context) => OrderCompletePage(order: arguments));
         break;
       case 'orderReviewPage':
         return MaterialPageRoute(
