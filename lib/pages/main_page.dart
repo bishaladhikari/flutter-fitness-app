@@ -87,15 +87,13 @@ class _MainPageState extends State<MainPage> {
           content: new Text('Do you want to exit this application'),
           actionsPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
 //          actionsOverflowButtonSpacing: double.infinity,
-        buttonPadding: EdgeInsets.only(right:20),
+          buttonPadding: EdgeInsets.only(right: 20),
           actions: <Widget>[
             new GestureDetector(
               onTap: () => Navigator.of(context).pop(false),
               child: Text("NO"),
             ),
-            SizedBox(
-              width:30
-            ),
+            SizedBox(width: 30),
             new GestureDetector(
               onTap: () => Navigator.of(context).pop(true),
               child: Text("YES"),

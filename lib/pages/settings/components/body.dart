@@ -24,10 +24,12 @@ class _BodyState extends State<Body> {
           ListTile(
               title: Text('Address Book'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddressPage()),
-                );
+                Navigator.pushNamed(context, 'addressPage',
+                    arguments: false);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => AddressPage()),
+                // );
               }),
           ListTile(
               title: Text('Language'),

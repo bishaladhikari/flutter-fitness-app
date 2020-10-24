@@ -1,18 +1,19 @@
 import 'package:ecapp/models/cart_item.dart';
 
+import '../order.dart';
 import '../product_detail.dart';
 
 class AddOrderResponse {
-  String orderId;
+  Order order;
   final String error;
 
-  AddOrderResponse(this.orderId, this.error);
+  AddOrderResponse(this.order, this.error);
 
   AddOrderResponse.fromJson(Map<String, dynamic> json)
-      : orderId = json["data"],
+      : order = Order.fromJson(json["data"]),
         error = null;
 
   AddOrderResponse.withError(String errorValue)
-      : orderId = null,
+      : order = null,
         error = errorValue;
 }

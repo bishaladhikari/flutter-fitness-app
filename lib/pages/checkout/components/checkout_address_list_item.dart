@@ -1,17 +1,19 @@
 import 'package:ecapp/models/address.dart';
 import 'package:flutter/material.dart';
 
-class AddressListItem extends StatefulWidget {
+class CheckoutAddressListItem extends StatefulWidget {
   Address address;
   bool selectMode;
 
-  AddressListItem({Key key, this.address, this.selectMode}) : super(key: key);
+  CheckoutAddressListItem({Key key, this.address, this.selectMode})
+      : super(key: key);
 
   @override
-  _AddressListItemState createState() => _AddressListItemState();
+  _CheckoutAddressListItemState createState() =>
+      _CheckoutAddressListItemState();
 }
 
-class _AddressListItemState extends State<AddressListItem> {
+class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
   bool selectMode;
 
   @override
@@ -22,12 +24,11 @@ class _AddressListItemState extends State<AddressListItem> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -57,11 +58,10 @@ class _AddressListItemState extends State<AddressListItem> {
                   Spacer(),
                   FlatButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'addressFormPage',
-                          arguments: widget.address);
+                      Navigator.pushNamed(context, 'addressPage');
                     },
                     child: Text(
-                      "Edit",
+                      "Change",
                       style: TextStyle(color: Colors.lightBlue, fontSize: 15),
                     ),
                   )

@@ -20,7 +20,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double totalAmount =snapshot.data.totalAmount;
+              double totalAmount = snapshot.data.totalAmount;
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 height: 80,
@@ -45,22 +45,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   children: <Widget>[
                     Text('Total Amount',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black)),
+                            fontWeight: FontWeight.bold, color: Colors.black)),
                     Text('¥ ' + totalAmount.toString(),
-                        style: TextStyle(color: NPrimaryColor, fontWeight:FontWeight.bold,fontSize: 16)),
+                        style: TextStyle(
+                            color: NPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16)),
                     RaisedButton(
                       color: NPrimaryColor,
                       onPressed: () {
                         Navigator.pushNamed(context, "selectPaymentMethodPage");
                       },
-                      child: Text('Proceed to Pay', style: TextStyle(color: Colors.white)),
+                      child: Text('Proceed to Pay',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
               );
-            }
-            else return Container();
+            } else
+              return Container();
           }),
     );
   }

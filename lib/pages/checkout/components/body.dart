@@ -1,4 +1,3 @@
-import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/components/add_address.dart';
@@ -7,9 +6,10 @@ import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
-import 'package:ecapp/pages/address-book/address_list_item.dart';
 import 'package:ecapp/pages/checkout/components/checkout_cart_item_view.dart';
 import 'package:flutter/material.dart';
+
+import 'checkout_address_list_item.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -17,8 +17,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-//  Address address;
-
   @override
   void initState() {
     checkoutBloc.getDefaultAddress();
@@ -115,17 +113,22 @@ class _BodyState extends State<Body> {
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "Shipping Address",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            child: Row(
+              children: [
+                Text(
+                  "Shipping Address",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           SizedBox(
             height: 10.0,
           ),
-          AddressListItem(
+          CheckoutAddressListItem(
             address: address,
+            selectMode: true,
           )
         ],
       ),

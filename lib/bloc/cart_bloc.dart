@@ -3,8 +3,6 @@ import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
-import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/models/wish.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -20,7 +18,8 @@ class CartBloc {
   getCart() async {
     response = await _repository.getCart();
     _subject.sink.add(response);
-    if (response.error == null) _cartItems = response.carts[0].items;
+    return response;
+    // if (response.error == null) _cartItems = response.carts[0].items;
   }
 
   get cartItems => _cartItems;

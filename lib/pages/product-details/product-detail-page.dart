@@ -617,6 +617,12 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ),
                       FlatButton(
                         onPressed: () {
+                          var params = {
+                            "attribute_id": attribute_id,
+                            "combo_id": null,
+                            "quantity": 1
+                          };
+                          addToCart(context, params);
                           Navigator.pushNamed(context, "checkoutPage");
                           setState(() {
                             isClicked = !isClicked;
@@ -652,7 +658,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 ),
               );
             }
-//            return Container();
             return Container(
               color: Colors.white70,
               width: MediaQuery.of(context).size.width,
