@@ -13,7 +13,7 @@ import 'address_bloc.dart';
 class CheckoutBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<AddOrderResponse> _subject =
-      BehaviorSubject<AddOrderResponse>();
+  BehaviorSubject<AddOrderResponse>();
   final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
   AddOrderResponse response;
 
@@ -30,7 +30,7 @@ class CheckoutBloc {
     _defaultAddress.close();
   }
 
-  createOrder() async {
+  createOrder({paymentMethod = "Cash Payment"}) async {
 //                  achieved_promotions: []
 //                  address_id: 1
 //                  billable_amount: "4444.00"
@@ -47,15 +47,18 @@ class CheckoutBloc {
 //                  redeemed_points: ""
 //                  shipping_cost: 0
 //                  weight: 4444
+    var addressId = _defaultAddress.value.id;
+
+    print("addressId "+addressId.toString());
     var params = {
       "shipping_cost": 0,
-      "weight": 4444,
-      "address_id": 1,
+      "weight": cartBloc.subject.value.totalWeight,
+      "address_id": addressId,
       "store_id": 2,
 //      "token": stripeToken,
       "redeemed_amount": "",
       "redeemed_points": "",
-      "payment_method": "Cash Payment",
+      "payment_method": paymentMethod,
       "billable_amount": "4444",
 //      "products": cartBloc.cartItems,
       "products": [

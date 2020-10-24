@@ -48,8 +48,10 @@ class _AddressPageState extends State<AddressPage> {
                           return GestureDetector(
                               behavior: HitTestBehavior.translucent,
                               onTap: () {
-                                checkoutBloc.setDefaultAddress(address);
-                                Navigator.pop(context);
+                                if (widget.selectMode) {
+                                  checkoutBloc.setDefaultAddress(address);
+                                  Navigator.pop(context);
+                                }
                               },
                               child: AddressListItem(
                                   address: address,

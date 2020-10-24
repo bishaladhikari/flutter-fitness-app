@@ -51,7 +51,6 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
   @override
   void dispose() {
     super.dispose();
-    widget.orderDetailBloc..drainStream();
   }
 
   @override

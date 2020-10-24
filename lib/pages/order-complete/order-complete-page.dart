@@ -1,28 +1,38 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
 class OrderCompletePage extends StatefulWidget {
+  Order order;
+
+  OrderCompletePage({Key key, this.order}) : super(key: key);
+
   @override
   _OrderCompletePageState createState() => _OrderCompletePageState();
 }
 
 class _OrderCompletePageState extends State<OrderCompletePage> {
+  Order order;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.close), onPressed: () {
-          Navigator.pushReplacementNamed(context, "ordersPage");
-        },),
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, "ordersPage");
+          },
+        ),
         backgroundColor: Colors.white,
         title: Text("Order Received".tr()),
       ),
-      body: Body(),
+      body: Body(order: widget.order),
     );
   }
 }

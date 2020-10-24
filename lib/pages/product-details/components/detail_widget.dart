@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/constants.dart';
@@ -43,6 +44,7 @@ class _DetailWidgetState extends State<DetailWidget> {
         Variants(
             productDetail: widget.productDetail,
             productDetailBloc: widget.productDetailBloc),
+        _buildTags(context),
         _buildDescription(context),
       ],
     );
