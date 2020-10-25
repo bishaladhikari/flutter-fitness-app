@@ -82,19 +82,28 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                       child: FlatButton(
                         color: NPrimaryColor,
                         onPressed: () async {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) =>
+                                  Center(child: CircularProgressIndicator()));
                           AddOrderResponse response =
                               await checkoutBloc.createOrder();
                           if (response.error == null) {
+                            Navigator.pop(context);
                             Navigator.of(context).pushNamed(
                                 "orderConfirmationPage",
                                 arguments: response.order);
-                          } else
+                          } else{
+                            Navigator.pop(context);
                             _scaffoldKey.currentState.showSnackBar(SnackBar(
                               content: Text(
                                 tr(response.error),
                               ),
                               backgroundColor: Colors.redAccent,
                             ));
+                          }
+
                         },
                         child: Text(
                           "Confirm Order".tr(),
