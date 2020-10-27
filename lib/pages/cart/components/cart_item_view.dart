@@ -54,6 +54,7 @@ class CartItemView extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
+                      cartItem.attribute?.variant!=null?
                       Row(
                         children: [
                           Text(cartItem.attribute.variantTitle,
@@ -65,8 +66,8 @@ class CartItemView extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.7))),
                         ],
-                      ),
-
+                      ):
+                      Container(),
                       SizedBox(
                         height: 10,
                       ),
