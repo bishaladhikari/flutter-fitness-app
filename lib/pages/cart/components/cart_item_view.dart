@@ -60,7 +60,7 @@ class CartItemView extends StatelessWidget {
                           Text(cartItem.attribute.variantTitle,
                               style: TextStyle(
 //                            fontWeight: FontWeight.bold,
-                                  color: Colors.black38)),
+                                  color: Colors.black87.withOpacity(0.6))),
                           SizedBox(width: 5.0,),
                           Text(cartItem.attribute?.variant?.name,
                               style: TextStyle(
