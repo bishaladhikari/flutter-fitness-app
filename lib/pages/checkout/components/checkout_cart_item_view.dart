@@ -53,6 +53,23 @@ class CheckoutCartItemView extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
+                      cartItem.attribute?.variant!=null?
+                      Row(
+                        children: [
+                          Text(cartItem.attribute.variantTitle,
+                              style: TextStyle(
+//                            fontWeight: FontWeight.bold,
+                                  color: Colors.black87.withOpacity(0.6))),
+                          SizedBox(width: 5.0,),
+                          Text(cartItem.attribute?.variant?.name,
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.7))),
+                        ],
+                      ):
+                      Container(),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
