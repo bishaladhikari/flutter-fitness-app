@@ -21,7 +21,7 @@ class CartResponse {
       : carts = (json["data"]["data"] as List)
             .map((i) => new Cart.fromJson(i))
             .toList(),
-        totalItems = json["data"]['total_items'],
+        totalItems = json["data"]['total_items']!=null?json["data"]['total_items']:0,
         totalAmount = json["data"]['total_amount'].toDouble(),
         totalWeight = json["data"]['total_weight'].toString(),
         shippingDiscountCost = json["data"]['shipping_discount_cost'],
