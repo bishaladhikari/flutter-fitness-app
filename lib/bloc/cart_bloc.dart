@@ -11,7 +11,7 @@ import 'package:rxdart/rxdart.dart';
 class CartBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<CartResponse> _subject =
-      BehaviorSubject<CartResponse>();
+  BehaviorSubject<CartResponse>();
   CartResponse response;
   List<CartItem> _cartItems;
 
@@ -25,8 +25,13 @@ class CartBloc {
   get cartItems => _cartItems;
 
   addToCart(params) async {
-    AddToCartResponse response = await _repository.addToCart(params);
-    return response;
+    AddToCartResponse addToCartresponse = await _repository.addToCart(params);
+    if (addToCartresponse.error == null){
+      response.totalItems+= params['quantity'];
+      _subject.sink.add(response);
+    }
+
+    return addToCartresponse;
   }
 
   updateCart(CartItem cartItem, type) async {
