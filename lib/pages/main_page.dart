@@ -2,6 +2,7 @@ import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/get_categories_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -162,18 +163,47 @@ class _MainPageState extends State<MainPage> {
                 padding: EdgeInsets.all(15),
                 onPressed: () => {changePage(1)},
               ),
-              Stack(
-                children:[
-                  IconButton(
-                    icon: currentPage == 2
-                        ? SvgPicture.asset("assets/icons/Cart_03.svg",
-                        color: NPrimaryColor)
-                        : SvgPicture.asset("assets/icons/Cart_02.svg"),
-                    padding: EdgeInsets.all(10),
-                    onPressed: () => {changePage(2)},
-                  ),
-                ]
-              ),
+              Stack(children: [
+                StreamBuilder<CartResponse>(
+                    stream: cartBloc.subject.stream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData)
+                        return Positioned(
+                          right: 4,
+                          top: 2,
+                          child: new Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: new BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 14,
+                              minHeight: 14,
+                            ),
+                            child: Text(
+                              snapshot.data.totalItems.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      else
+                        return Container(height: 14,);
+                    }),
+                IconButton(
+                  icon: currentPage == 2
+                      ? SvgPicture.asset("assets/icons/Cart_03.svg",
+                          color: NPrimaryColor)
+                      : SvgPicture.asset("assets/icons/Cart_02.svg"),
+                  padding: EdgeInsets.all(10),
+                  onPressed: () => {changePage(2)},
+                ),
+
+              ]),
               IconButton(
                 padding: EdgeInsets.all(10),
                 icon: currentPage == 3
