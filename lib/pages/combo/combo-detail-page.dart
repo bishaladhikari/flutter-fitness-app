@@ -13,17 +13,20 @@ import 'package:ecapp/models/combo_detail.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
+import 'package:ecapp/pages/product-details/components/add_to_cart.dart';
 import 'package:ecapp/pages/product-details/components/related_products_list.dart';
 import 'package:ecapp/pages/product-details/components/same_seller_list.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../constants.dart';
@@ -348,15 +351,50 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                             ),
                             height: 24,
                           ),
-                          IconButton(
-                            icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-                            color: Colors.black26,
-                            onPressed: () {
-//                              MainPage.of(context).changePage(2);
-//                              Navigator.pushNamed(context, "mainPage");
-                              Navigator.pushNamed(context, "cartPage");
-                            },
-                          ),
+                          Stack(children: [
+                            StreamBuilder<CartResponse>(
+                                stream: cartBloc.subject.stream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData)
+                                    return Positioned(
+                                      right: 4,
+                                      top: 2,
+                                      child: new Container(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: new BoxDecoration(
+                                          color: kPrimaryColor,
+                                          borderRadius:
+                                          BorderRadius.circular(8),
+                                        ),
+                                        constraints: BoxConstraints(
+                                          minWidth: 14,
+                                          minHeight: 14,
+                                        ),
+                                        child: Text(
+                                          snapshot.data.totalItems.toString(),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 9,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    );
+                                  else
+                                    return Container(
+                                      height: 14,
+                                    );
+                                }),
+                            IconButton(
+                              icon:
+                              SvgPicture.asset("assets/icons/Cart_02.svg"),
+                              color: Colors.black26,
+                              onPressed: () {
+                                cartBloc.getCart();
+                                Navigator.pushNamed(context, "cartPage");
+                              },
+                            ),
+                          ]),
                           FlatButton(
                             child: Container(
                               width: MediaQuery.of(context).size.width / 2.9,
@@ -366,14 +404,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(5.0),
                                 ),
-//                    boxShadow: [
-//                      BoxShadow(
-//                        color: Colors.green,
-//                        blurRadius: 4.0,
-//                        spreadRadius: 2.0,
-//                        offset: Offset(0.0, 0.0),
-//                      )
-//                    ],
                               ),
                               child: Row(
                                 mainAxisAlignment:
@@ -391,12 +421,16 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             onPressed: () {
-                              var params = {
-                                "attribute_id": null,
-                                "combo_id": comboDetail.id,
-                                "quantity": 1
-                              };
-                              addToCart(context, params);
+                              showMaterialModalBottomSheet(
+                                  expand: false,
+                                  bounce: true,
+                                  context: context,
+                                  builder: (context, scrollController) {
+                                    return AddToCart(
+                                        addToCart: addToCart,
+                                        combo: widget.combo,
+                                        comboDetailBloc: comboDetailBloc);
+                                  });
                             },
                           )
                         ],

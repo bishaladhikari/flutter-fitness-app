@@ -577,7 +577,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                         padding: EdgeInsets.all(2),
                                         decoration: new BoxDecoration(
                                           color: kPrimaryColor,
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                         constraints: BoxConstraints(
                                           minWidth: 14,
@@ -594,20 +595,20 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                       ),
                                     );
                                   else
-                                    return Container(height: 14,);
+                                    return Container(
+                                      height: 14,
+                                    );
                                 }),
                             IconButton(
-                              icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
+                              icon:
+                                  SvgPicture.asset("assets/icons/Cart_02.svg"),
                               color: Colors.black26,
                               onPressed: () {
-//                              MainPage.of(context).changePage(2);
-//                              Navigator.pushNamed(context, "mainPage");
                                 cartBloc.getCart();
                                 Navigator.pushNamed(context, "cartPage");
                               },
                             ),
                           ]),
-
                           FlatButton(
                             child: Container(
                               width: MediaQuery.of(context).size.width / 2.9,
@@ -617,14 +618,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(5.0),
                                 ),
-//                    boxShadow: [
-//                      BoxShadow(
-//                        color: Colors.green,
-//                        blurRadius: 4.0,
-//                        spreadRadius: 2.0,
-//                        offset: Offset(0.0, 0.0),
-//                      )
-//                    ],
                               ),
                               child: Row(
                                 mainAxisAlignment:
@@ -642,25 +635,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             onPressed: () {
-//                              var params = {
-//                                "attribute_id": attribute_id,
-//                                "combo_id": null,
-//                                "quantity": 1
-//                              };
-//                              addToCart(context, params);
-//                              _askForQuantity();
-                              print(widget.product.name);
                               showMaterialModalBottomSheet(
                                   expand: false,
                                   bounce: true,
                                   context: context,
                                   builder: (context, scrollController) {
-//                                    var params = {
-//                                      "attribute_id": attribute_id,
-//                                      "combo_id": null,
-//                                      "quantity": 1
-//                                    };
-//                                    return _buildBottomSheet(context);
                                     return AddToCart(
                                         addToCart: addToCart,
                                         product: widget.product,

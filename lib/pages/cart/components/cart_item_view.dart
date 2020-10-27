@@ -47,27 +47,37 @@ class CartItemView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(cartItem.name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
+                      GestureDetector(
+                        onTap: () {
+                          // var product = {'name': cartItem.name};
+                          // Navigator.pushNamed(context, "productDetailPage",
+                          //     arguments: product);
+                        },
+                        child: Text(cartItem.name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      cartItem.attribute?.variant!=null?
-                      Row(
-                        children: [
-                          Text(cartItem.attribute.variantTitle,
-                              style: TextStyle(
+                      cartItem.attribute?.variant != null
+                          ? Row(
+                              children: [
+                                Text(cartItem.attribute.variantTitle,
+                                    style: TextStyle(
 //                            fontWeight: FontWeight.bold,
-                                  color: Colors.black87.withOpacity(0.6))),
-                          SizedBox(width: 5.0,),
-                          Text(cartItem.attribute?.variant?.name,
-                              style: TextStyle(
-                                  color: Colors.black.withOpacity(0.7))),
-                        ],
-                      ):
-                      Container(),
+                                        color:
+                                            Colors.black87.withOpacity(0.6))),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Text(cartItem.attribute?.variant?.name,
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.7))),
+                              ],
+                            )
+                          : Container(),
                       SizedBox(
                         height: 10,
                       ),

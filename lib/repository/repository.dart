@@ -128,7 +128,7 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getRelatedProduct(slug,isCombo) async {
+  Future<ProductResponse> getRelatedProduct(slug, isCombo) async {
     try {
       Response response = await _dio.get(productsUrl,
           queryParameters: {"you_may_also_like": slug, "combo": isCombo});
@@ -139,10 +139,12 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getSameSellerProduct(slug,isCombo) async {
+  Future<ProductResponse> getSameSellerProduct(slug, isCombo) async {
     try {
-      Response response = await _dio.get(productsUrl,
-          queryParameters: {"products_from_same_seller": slug, "combo": isCombo});
+      Response response = await _dio.get(productsUrl, queryParameters: {
+        "products_from_same_seller": slug,
+        "combo": isCombo
+      });
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -222,7 +224,7 @@ class Repository {
   }
 
   Future<OrderResponse> getOrdersByStatus(status) async {
-    var params = {"page": 3, "status": status};
+    var params = {"status": status};
     try {
       Response response = await _dio.get(ordersUrl, queryParameters: params);
       print("Response:" + response.toString());
@@ -275,10 +277,10 @@ class Repository {
       return RemoveFromWishlistResponse.withError(_handleError(error));
     }
   }
+
   Future<CartResponse> deleteFromCartList(id) async {
     try {
-      Response response =
-      await _dio.delete(cartUrl+'/$id');
+      Response response = await _dio.delete(cartUrl + '/$id');
       return CartResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -402,6 +404,7 @@ class Repository {
       return ProductResponse.withError(_handleError(error));
     }
   }
+
   Future<ComboResponse> getComboProducts() async {
     try {
       Response response = await _dio.get(comboProductUrl);
@@ -411,7 +414,8 @@ class Repository {
       return ComboResponse.withError(_handleError(error));
     }
   }
-    Future<ComboDetailResponse> getComboDetail(String slug) async {
+
+  Future<ComboDetailResponse> getComboDetail(String slug) async {
     _dio.options.headers['user'] = 3;
     try {
       Response response = await _dio.get(comboProductUrl + "/$slug");
