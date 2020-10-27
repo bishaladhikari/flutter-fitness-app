@@ -11,6 +11,7 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
@@ -111,7 +112,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   addToCart(context, params) async {
-
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
@@ -565,15 +565,49 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             ),
                             height: 24,
                           ),
-                          IconButton(
-                            icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
-                            color: Colors.black26,
-                            onPressed: () {
+                          Stack(children: [
+                            StreamBuilder<CartResponse>(
+                                stream: cartBloc.subject.stream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData)
+                                    return Positioned(
+                                      right: 4,
+                                      top: 2,
+                                      child: new Container(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: new BoxDecoration(
+                                          color: kPrimaryColor,
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        constraints: BoxConstraints(
+                                          minWidth: 14,
+                                          minHeight: 14,
+                                        ),
+                                        child: Text(
+                                          snapshot.data.totalItems.toString(),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 9,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    );
+                                  else
+                                    return Container(height: 14,);
+                                }),
+                            IconButton(
+                              icon: SvgPicture.asset("assets/icons/Cart_02.svg"),
+                              color: Colors.black26,
+                              onPressed: () {
 //                              MainPage.of(context).changePage(2);
 //                              Navigator.pushNamed(context, "mainPage");
-                              Navigator.pushNamed(context, "cartPage");
-                            },
-                          ),
+                                cartBloc.getCart();
+                                Navigator.pushNamed(context, "cartPage");
+                              },
+                            ),
+                          ]),
+
                           FlatButton(
                             child: Container(
                               width: MediaQuery.of(context).size.width / 2.9,
