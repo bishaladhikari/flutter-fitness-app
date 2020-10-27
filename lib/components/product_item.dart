@@ -136,8 +136,8 @@ class ProductItem extends StatelessWidget {
             children: <Widget>[
               Text(
                   product.discountPrice != null
-                      ? "\$" + product.discountPrice
-                      : "\$" + product.sellingPrice,
+                      ? "\¥" + product.discountPrice
+                      : "\¥" + product.sellingPrice,
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -145,7 +145,7 @@ class ProductItem extends StatelessWidget {
               SizedBox(width: 6),
               product.discountPrice != null
                   ? Text(
-                      "\$" + product.sellingPrice,
+                      "\¥" + product.sellingPrice,
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 10,

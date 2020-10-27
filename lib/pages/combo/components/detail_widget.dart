@@ -54,7 +54,7 @@ class _DetailWidgetState extends State<DetailWidget> {
           children: [
 //            widget.selectedAttribute.discountPrice != null
 //                ? Text(
-//                    "\$" + widget.selectedAttribute.sellingPrice,
+//                    "\¥" + widget.selectedAttribute.sellingPrice,
 //                    style: TextStyle(
 //                        color: Colors.black54,
 //                        fontSize: 18,
@@ -66,8 +66,8 @@ class _DetailWidgetState extends State<DetailWidget> {
 //            ),
 //            Text(
 //              widget.selectedAttribute.discountPrice != null
-//                  ? "\$" + widget.selectedAttribute.discountPrice
-//                  : "\$" + widget.selectedAttribute.sellingPrice,
+//                  ? "\¥" + widget.selectedAttribute.discountPrice
+//                  : "\¥" + widget.selectedAttribute.sellingPrice,
 //              style: TextStyle(
 //                  color: NPrimaryColor,
 //                  fontSize: 18,

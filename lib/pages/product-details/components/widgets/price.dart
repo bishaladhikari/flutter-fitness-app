@@ -20,7 +20,7 @@ class _ProductPriceState extends State<ProductPrice> {
           children: [
             widget.product.discountPrice != null
                 ? Text(
-              "\$" + widget.product.sellingPrice,
+              "\¥" + widget.product.sellingPrice,
               style: TextStyle(
                   color: Colors.black54,
                   fontSize: 18,
@@ -32,8 +32,8 @@ class _ProductPriceState extends State<ProductPrice> {
             ),
             Text(
               widget.product.discountPrice != null
-                  ? "\$" + widget.product.discountPrice
-                  : "\$" + widget.product.sellingPrice,
+                  ? "\¥" + widget.product.discountPrice
+                  : "\¥" + widget.product.sellingPrice,
               style: TextStyle(
                   color: NPrimaryColor,
                   fontSize: 18,

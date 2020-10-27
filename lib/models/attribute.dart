@@ -16,6 +16,7 @@ class Attribute {
   String unit;
   int actualQuantity;
   Variant variant;
+  String variantTitle;
   String slug;
   bool saved;
 
@@ -33,6 +34,7 @@ class Attribute {
       this.unit,
       this.actualQuantity,
       this.variant,
+      this.variantTitle,
       this.slug,
       this.saved});
 
@@ -41,7 +43,8 @@ class Attribute {
     availability = json['availability'];
     productName = json['product_name'];
     sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'] != null ? json['discount_price'] : null;
+    discountPrice =
+        json['discount_price'] != null ? json['discount_price'] : null;
     discountPercentage = json['discount_percentage'];
     if (json['images'] != null) {
       images = new List<AttributeImage>();
@@ -57,6 +60,7 @@ class Attribute {
     variant =
         json['variant'] != null ? new Variant.fromJson(json['variant']) : null;
     slug = json['slug'];
+    variantTitle = json['variant_title'];
     saved = json['saved'];
   }
 

@@ -4,6 +4,7 @@ import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../main_page.dart';
 import 'components/body.dart';
 
 class CartPage extends StatefulWidget {
@@ -26,7 +27,9 @@ class _CartPageState extends State<CartPage>
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            MainPage.of(context).scaffoldKey.currentState.openDrawer();
+          },
           icon: Icon(Icons.menu),
           color: Colors.black,
         ),

@@ -55,9 +55,25 @@ class CartItemView extends StatelessWidget {
                         height: 10,
                       ),
                       Row(
+                        children: [
+                          Text(cartItem.attribute.variantTitle,
+                              style: TextStyle(
+//                            fontWeight: FontWeight.bold,
+                                  color: Colors.black38)),
+                          SizedBox(width: 5.0,),
+                          Text(cartItem.attribute?.variant?.name,
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.7))),
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(cartItem.price,
+                            Text("\¥ " + cartItem.price,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: NPrimaryColor)),

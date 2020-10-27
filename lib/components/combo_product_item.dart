@@ -137,8 +137,8 @@ class ComboProductItem extends StatelessWidget {
             children: <Widget>[
               Text(
                   combo.price != null
-                      ? "\$" + combo.price.toString()
-                      : "\$" + combo.actualPrice.toString(),
+                      ? "\¥" + combo.price.toString()
+                      : "\¥" + combo.actualPrice.toString(),
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -146,7 +146,7 @@ class ComboProductItem extends StatelessWidget {
               SizedBox(width: 6),
               combo.actualPrice.toString() != null
                   ? Text(
-                      "\$" + combo.actualPrice.toString(),
+                      "\¥" + combo.actualPrice.toString(),
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 10,

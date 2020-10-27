@@ -71,12 +71,12 @@ class _DetailWidgetState extends State<DetailWidget> {
                     padding: const EdgeInsets.all(6.0),
                     child: OutlineButton(
                       shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(8.0)),
+                          borderRadius: new BorderRadius.circular(5.0)),
                       child: Text(title,
-                          style: TextStyle(color: kTextColor)),
+                          style: TextStyle(color: Colors.black.withOpacity(0.6))),
                       onPressed: () {}, //callback when button is clicked
                       borderSide: BorderSide(
-                        color: kTextColor,
+                        color: Colors.black.withOpacity(0.4),
                         //Color of the border
                         style: BorderStyle.solid,
                         //Style of the border

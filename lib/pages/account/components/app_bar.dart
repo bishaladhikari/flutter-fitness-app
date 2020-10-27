@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../../main_page.dart';
+
 AppBar AccountAppBar(BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
@@ -11,7 +13,9 @@ AppBar AccountAppBar(BuildContext context) {
     elevation: 0,
     leading: IconButton(
       icon: Icon(Icons.menu),
-      onPressed: () {},
+      onPressed: () {
+        MainPage.of(context).scaffoldKey.currentState.openDrawer();
+      },
     ),
 //    leading: null,
 //    leading: ImageButton(
