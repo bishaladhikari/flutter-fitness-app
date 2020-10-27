@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:flutter/material.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 import 'package:stripe_sdk/stripe_sdk.dart';
@@ -22,9 +24,11 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
   void initState() {
 //    stripeApi = StripeApi(
 //        "pk_test_51HLfupKoHgRHkB8gxXW89hAxj3pQFdve3FsoYJPh5izaYtVdFHppAjG00TWQo6ldxDW6gF4jsK7i4c4fX7PjW18900xZTBCswt");
-    StripePayment.setOptions(
-        StripeOptions(publishableKey: "pk_test_51HLfupKoHgRHkB8gxXW89hAxj3pQFdve3FsoYJPh5izaYtVdFHppAjG00TWQo6ldxDW6gF4jsK7i4c4fX7PjW18900xZTBCswt", merchantId: "Test", androidPayMode: 'test')
-    );
+    StripePayment.setOptions(StripeOptions(
+        publishableKey:
+            "pk_test_51HLfupKoHgRHkB8gxXW89hAxj3pQFdve3FsoYJPh5izaYtVdFHppAjG00TWQo6ldxDW6gF4jsK7i4c4fX7PjW18900xZTBCswt",
+        merchantId: "Test",
+        androidPayMode: 'test'));
     super.initState();
   }
 
@@ -90,14 +94,24 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    final CreditCard testCard =  CreditCard(
+                    final CreditCard testCard = CreditCard(
                         number: _card.number,
                         expMonth: _card.expMonth,
-                        expYear: _card.expYear
-                    );
-                    StripePayment.createTokenWithCard(testCard).then((token) {
-                      print(token.tokenId);
-                      checkoutBloc.createOrder(token:token);
+                        expYear: _card.expYear);
+                    StripePayment.createTokenWithCard(testCard)
+                        .then((token) async {
+                      AddOrderResponse response =
+                          await checkoutBloc.createOrder(token: token);
+                      if (response.error == null) {
+                        Navigator.of(context).pushNamed("orderConfirmationPage",
+                            arguments: response.order);
+                      } else
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text(
+                            tr(response.error),
+                          ),
+                          backgroundColor: Colors.redAccent,
+                        ));
 //                      createCharge(token.tokenId);
                     });
 //                    showDialog(

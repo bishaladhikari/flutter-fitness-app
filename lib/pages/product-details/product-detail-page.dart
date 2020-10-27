@@ -121,6 +121,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         );
+        Navigator.pop(context);
         _scaffoldKey.currentState.showSnackBar(snackbar);
       } else {
         var snackbar = SnackBar(
@@ -133,6 +134,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           ),
           backgroundColor: NPrimaryColor,
         );
+        Navigator.pop(context);
         _scaffoldKey.currentState.showSnackBar(snackbar);
       }
     }
