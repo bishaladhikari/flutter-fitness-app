@@ -70,20 +70,22 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage>
     with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  double myscroll = 1;
-  double appBarV = 0;
-  bool isClicked = false;
+
+//  double myscroll = 1;
+//  double appBarV = 0;
+//  bool isClicked = false;
+  int quantity = 1;
   ProductDetailBloc productDetailBloc;
   String slug;
   AnimationController _animationController;
   Animation _opacityTween;
   ReviewBloc reviewBloc = ReviewBloc();
 
-  setImages(value) {
-    setState(() {
-      widget.images = value;
-    });
-  }
+//  setImages(value) {
+//    setState(() {
+//      widget.images = value;
+//    });
+//  }
 
   _ProductDetailPageState();
 
@@ -109,6 +111,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   addToCart(context, params) async {
+
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
@@ -204,8 +207,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           ),
           splashRadius: 5.0,
           onPressed: () {
-//            if (cartItem.quantity > 1)
-//              cartBloc.updateCart(cartItem, "sub");
+            setState(() {
+              quantity--;
+            });
           },
         ),
         Container(
@@ -217,7 +221,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: Center(
             child: Text(
-              "1",
+              quantity.toString(),
               style: TextStyle(color: Colors.black),
             ),
           ),
@@ -230,7 +234,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           ),
           splashRadius: 5.0,
           onPressed: () {
-//            cartBloc.updateCart(cartItem, "add");
+            setState(() {
+              quantity++;
+            });
           },
         ),
       ],
@@ -613,13 +619,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   bounce: true,
                                   context: context,
                                   builder: (context, scrollController) {
-                                    var params = {
-                                      "attribute_id": attribute_id,
-                                      "combo_id": null,
-                                      "quantity": 1
-                                    };
-                                    return AddToCart(addToCart:addToCart(context, params),
-                                    product:widget.product,productDetailBloc:productDetailBloc);
+//                                    var params = {
+//                                      "attribute_id": attribute_id,
+//                                      "combo_id": null,
+//                                      "quantity": 1
+//                                    };
+//                                    return _buildBottomSheet(context);
+                                    return AddToCart(
+                                        addToCart: addToCart,
+                                        product: widget.product,
+                                        productDetailBloc: productDetailBloc);
                                   });
                             },
                           )
@@ -701,7 +710,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         productDetail: productDetail, productDetailBloc: productDetailBloc);
   }
 
-  Widget _buildBottomSheet() {
+  Widget _buildBottomSheet(context) {
     return StreamBuilder<ProductDetailResponse>(
         stream: productDetailBloc.subject.stream,
         builder: (context, snapshot) {
@@ -736,7 +745,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         var params = {
                           "attribute_id": attribute_id,
                           "combo_id": null,
-                          "quantity": 1
+                          "quantity": quantity
                         };
                         addToCart(context, params);
                       },

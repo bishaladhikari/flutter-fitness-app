@@ -12,14 +12,15 @@ class AddToCart extends StatefulWidget {
   ProductDetailBloc productDetailBloc;
   Product product;
 
-  AddToCart({this.addToCart,this.productDetailBloc,this.product});
+  AddToCart({this.addToCart, this.productDetailBloc, this.product});
 
   @override
   _AddToCartState createState() => _AddToCartState();
 }
 
 class _AddToCartState extends State<AddToCart> {
-  int quantity;
+  int quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductDetailResponse>(
@@ -53,7 +54,12 @@ class _AddToCartState extends State<AddToCart> {
                     child: FlatButton(
                       color: NPrimaryColor,
                       onPressed: () async {
-                        widget.addToCart(context);
+                        var params = {
+                          "attribute_id": attribute_id,
+                          "combo_id": null,
+                          "quantity": quantity
+                        };
+                        widget.addToCart(context, params);
                       },
                       child: Text(
                         "Add to cart".tr(),
@@ -68,8 +74,8 @@ class _AddToCartState extends State<AddToCart> {
             return Container();
         });
   }
+
   Widget _buildQuantity() {
-    int quantity;
     return Row(
       children: [
         Text(

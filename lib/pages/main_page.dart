@@ -162,13 +162,17 @@ class _MainPageState extends State<MainPage> {
                 padding: EdgeInsets.all(15),
                 onPressed: () => {changePage(1)},
               ),
-              IconButton(
-                icon: currentPage == 2
-                    ? SvgPicture.asset("assets/icons/Cart_03.svg",
+              Stack(
+                children:[
+                  IconButton(
+                    icon: currentPage == 2
+                        ? SvgPicture.asset("assets/icons/Cart_03.svg",
                         color: NPrimaryColor)
-                    : SvgPicture.asset("assets/icons/Cart_02.svg"),
-                padding: EdgeInsets.all(10),
-                onPressed: () => {changePage(2)},
+                        : SvgPicture.asset("assets/icons/Cart_02.svg"),
+                    padding: EdgeInsets.all(10),
+                    onPressed: () => {changePage(2)},
+                  ),
+                ]
               ),
               IconButton(
                 padding: EdgeInsets.all(10),
