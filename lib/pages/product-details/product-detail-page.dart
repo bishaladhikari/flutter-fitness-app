@@ -307,23 +307,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                StarRating(
-                                    rating: widget.product.avgRating, size: 10),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                // Text("(3) reviews"),
-                                Text("(" +
-                                    widget.product.reviewCount.toString() +
-                                    ")" +
-                                    " reviews")
-                              ],
-                            ),
-                          ),
                           StreamBuilder<ProductDetailResponse>(
                               stream: productDetailBloc.subject.stream,
                               builder: (context, snapshot) {
@@ -721,8 +704,26 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //        duration: Duration(milliseconds: 500));
 //    final animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 //    controller.forward();
-    return DetailWidget(
-        productDetail: productDetail, productDetailBloc: productDetailBloc);
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              StarRating(rating: productDetail.avgRating, size: 10),
+              SizedBox(
+                width: 8,
+              ),
+              // Text("(3) reviews"),
+              Text(
+                  "(" + productDetail.reviewCount.toString() + ")" + " reviews")
+            ],
+          ),
+        ),
+        DetailWidget(
+            productDetail: productDetail, productDetailBloc: productDetailBloc),
+      ],
+    );
   }
 
   Widget _buildBottomSheet(context) {

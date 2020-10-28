@@ -19,24 +19,27 @@ class ProductDetail {
   bool saved;
   Attribute selectedAttribute;
   Variant selectedVariant;
+  double avgRating;
+  int reviewCount;
 
-  ProductDetail({
-    this.id,
-    this.category,
-    this.brand,
-    this.soldBy,
-    this.storeSlug,
-    this.variantTitle,
-    this.variants,
-    this.attributes,
-    this.tags,
-    this.name,
-    this.description,
-    this.slug,
-    this.saved,
-    this.selectedAttribute,
-    this.selectedVariant
-  });
+  ProductDetail(
+      {this.id,
+      this.category,
+      this.brand,
+      this.soldBy,
+      this.storeSlug,
+      this.variantTitle,
+      this.variants,
+      this.attributes,
+      this.tags,
+      this.name,
+      this.description,
+      this.slug,
+      this.saved,
+      this.selectedAttribute,
+      this.selectedVariant,
+      this.avgRating,
+      this.reviewCount});
 
   ProductDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -65,7 +68,9 @@ class ProductDetail {
     description = json['description'];
     slug = json['slug'];
     saved = json['saved'];
-
+    avgRating =
+        json['avg_rating'] != null ? json['avg_rating'].toDouble() : 0.0;
+    reviewCount = json['total_review'];
     selectedAttribute = attributes[0];
     selectedVariant = selectedAttribute.variant;
   }

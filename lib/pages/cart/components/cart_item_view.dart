@@ -159,7 +159,6 @@ class CartItemView extends StatelessWidget {
     product.slug = cartItem.attribute.slug;
     product.imageThumbnail = cartItem.attribute.imageThumbnail;
     product.heroTag = cartItem.heroTag;
-    product.avgRating = 0;
 
     Navigator.pushNamed(context, "productDetailPage", arguments: product);
   }
