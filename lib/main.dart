@@ -17,7 +17,7 @@ void main() {
 //<string>en</string>
 //<string>nb</string>
 //</array>
-    child: MyApp(),
+    child: myApp,
     path: "assets/translations",
     saveLocale: true,
     supportedLocales: [
@@ -29,6 +29,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Locale _locale;
+
 //  final AuthBloc authBloc;
 //  MyApp({Key key,this.authBloc}):super(key:key);
   // This widget is the root of your application.
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
 //        systemNavigationBarIconBrightness: Brightness.light,
 ////        systemNavigationBarColor: Colors.white.withOpacity(0.1)
 //    ));
+    _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecapp',
@@ -60,4 +63,9 @@ class MyApp extends StatelessWidget {
       home: MainPage(),
     );
   }
+  get locale =>_locale;
+  //  BuildContext get context => _context;
+
 }
+
+final MyApp myApp = MyApp();
