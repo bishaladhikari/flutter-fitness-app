@@ -24,8 +24,7 @@ class _BodyState extends State<Body> {
           ListTile(
               title: Text('Address Book'),
               onTap: () {
-                Navigator.pushNamed(context, 'addressPage',
-                    arguments: false);
+                Navigator.pushNamed(context, 'addressPage', arguments: false);
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(builder: (context) => AddressPage()),
@@ -33,28 +32,29 @@ class _BodyState extends State<Body> {
               }),
           ListTile(
               title: Text('Language'),
-              subtitle:
-                  (EasyLocalization.of(context).locale.toString() == 'en_US')
-                      ? Text("English")
-                      : Text("EasyLocalization.of(context).locale.toString()"),
+              subtitle: Text(
+                  EasyLocalization.of(context).locale.languageCode.toString()),
               onTap: () {
                 _languageChange(context);
               }),
-          ListTile(title: Text('Review'),
-           onTap: () {
+          ListTile(
+              title: Text('Review'),
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ReviewPage()),
                 );
-              }
-          ),
+              }),
           ListTile(title: Text('Policies')),
           ListTile(title: Text('About')),
           ListTile(title: Text('Help')),
-          ListTile(title: Text('Logout'),onTap: (){
-            authBloc.logout();
-            Navigator.of(context).pop();
-          },),
+          ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              authBloc.logout();
+              Navigator.of(context).pop();
+            },
+          ),
         ],
       ),
     );
@@ -62,8 +62,6 @@ class _BodyState extends State<Body> {
 
   void _languageChange(context) {
     String radioItem = EasyLocalization.of(context).locale.toString();
-    print(radioItem);
-
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -102,20 +100,20 @@ class _BodyState extends State<Body> {
                         },
                       ),
                     ),
-                    // Expanded(
-                    //   child: RadioListTile<String>(
-                    //     groupValue: radioItem,
-                    //     title: Text('Japanese'),
-                    //     value: 'jp_JP',
-                    //     onChanged: (val) {
-                    //       setState(() {
-                    //         radioItem = val;
-                    //         EasyLocalization.of(context).locale =
-                    //             Locale('jp', 'JP');
-                    //       });
-                    //     },
-                    //   ),
-                    // ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        groupValue: radioItem,
+                        title: Text('Japanese'),
+                        value: 'ja_JP',
+                        onChanged: (val) {
+                          setState(() {
+                            radioItem = val;
+                            EasyLocalization.of(context).locale =
+                                Locale('ja', 'JP');
+                          });
+                        },
+                      ),
+                    ),
                   ]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
