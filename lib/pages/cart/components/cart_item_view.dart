@@ -1,5 +1,7 @@
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/cart_item.dart';
+import 'package:ecapp/models/combo.dart';
+import 'package:ecapp/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,24 +22,22 @@ class CartItemView extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-
-//      mainAxisAlignment: MainAxisAlignment.start,
-//      mainAxisSize: MainAxisSize.min,
             children: [
               Flexible(
-                child: Container(
-                  height: 60,
-                  width: width / 4,
-                  margin: const EdgeInsets.only(right: 10.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: NetworkImage(cartItem.imageThumbnail),
-                      fit: BoxFit.fitHeight,
-//                            image: Image.asset(cart[i]['image']),
+                child: Hero(
+                  tag: cartItem.heroTag,
+                  child: Container(
+                    height: 60,
+                    width: width / 4,
+                    margin: const EdgeInsets.only(right: 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      image: DecorationImage(
+                        image: NetworkImage(cartItem.imageThumbnail),
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
-//                        child: Image.asset(cart[i]['image']),
                 ),
               ),
               Flexible(
@@ -49,9 +49,9 @@ class CartItemView extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // var product = {'name': cartItem.name};
-                          // Navigator.pushNamed(context, "productDetailPage",
-                          //     arguments: product);
+                          cartItem.attribute != null
+                              ? _navigateToProductDetail(context)
+                              : _navigateToComboDetail(context);
                         },
                         child: Text(cartItem.name,
                             style: TextStyle(
@@ -151,5 +151,25 @@ class CartItemView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _navigateToProductDetail(BuildContext context) {
+    Product product = Product();
+    product.name = cartItem.attribute.productName;
+    product.slug = cartItem.attribute.slug;
+    product.imageThumbnail = cartItem.attribute.imageThumbnail;
+    product.heroTag = cartItem.heroTag;
+    product.avgRating = 0;
+
+    Navigator.pushNamed(context, "productDetailPage", arguments: product);
+  }
+
+  _navigateToComboDetail(BuildContext context) {
+    Combo combo = Combo();
+    combo.title = cartItem.combo.title;
+    combo.slug = cartItem.combo.slug;
+    combo.imageThumbnail = cartItem.combo.imageThumbnail;
+    combo.heroTag = cartItem.heroTag;
+    Navigator.pushNamed(context, "comboDetailPage", arguments: combo);
   }
 }

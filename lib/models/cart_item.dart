@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'attribute.dart';
 import 'combo.dart';
 
@@ -8,8 +10,15 @@ class CartItem {
   Combo combo;
   String price;
   bool availability;
+  String heroTag;
 
-  CartItem({this.id, this.quantity, this.attribute, this.combo, this.price});
+  CartItem(
+      {this.id,
+      this.quantity,
+      this.attribute,
+      this.combo,
+      this.price,
+      this.heroTag});
 
   CartItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,6 +32,7 @@ class CartItem {
         : combo.price.toString();
     availability =
         attribute != null ? attribute.availability : combo.availability;
+    heroTag = Uuid().v4();
   }
 
   Map<String, dynamic> toJson() {
