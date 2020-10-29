@@ -23,6 +23,7 @@ void main() {
     supportedLocales: [
       Locale('en', "US"),
       Locale('ja', "JP"),
+      Locale('vi', "VN"),
     ],
     fallbackLocale: Locale('en', 'US'),
   ));
