@@ -8,11 +8,19 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 5), () {
+
+    _animationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1000));
+    _animationController.forward();
+
+    Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => MainPage()));
     });
@@ -25,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
       fit: StackFit.expand,
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(color: NPrimaryColor),
+          decoration: BoxDecoration(color: Colors.green),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -36,42 +44,36 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 50.0,
-                      child: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.blueAccent,
-                        size: 50.0,
+                    SlideTransition(
+                      position:
+                          Tween<Offset>(begin: Offset(0, 1), end: Offset.zero)
+                              .animate(_animationController),
+                      child: Text(
+                        "Ecapp",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Quicksand'),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                    ),
-                    Text(
-                      "Ecapp",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                    ),
-                  ]),
-            )
+            // Expanded(
+            //   flex: 1,
+            //   child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: <Widget>[
+            //         CircularProgressIndicator(
+            //           backgroundColor: Colors.white,
+            //         ),
+            //         Padding(
+            //           padding: EdgeInsets.only(top: 20.0),
+            //         ),
+            //       ]),
+            // )
           ],
         )
       ],
