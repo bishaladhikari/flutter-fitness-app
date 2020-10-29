@@ -83,7 +83,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void dispose() {
     super.dispose();
-//    widget.productsByCategoryBloc..drainStream();
+    widget.productsByCategoryBloc..drainStream();
   }
 
   @override
