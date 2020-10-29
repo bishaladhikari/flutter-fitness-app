@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/get_categories_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/pages/home/components/best_sellers_products_list.dart';

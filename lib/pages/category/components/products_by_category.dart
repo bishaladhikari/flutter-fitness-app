@@ -1,4 +1,5 @@
-import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
+import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -12,9 +13,8 @@ class ProductsByCategory extends StatefulWidget {
   final String minPrice;
   final String maxPrice;
   final String types;
-  ProductsListByCategoryBloc _productsByCategoryBloc;
 
-  get productsByCategoryBloc => _productsByCategoryBloc;
+//  ProductsListByCategoryBloc _productsByCategoryBloc;
 
   ProductsByCategory(
       {Key key,
@@ -23,19 +23,24 @@ class ProductsByCategory extends StatefulWidget {
       this.sortBy,
       this.minPrice,
       this.maxPrice,
-      this.types}){
-    _productsByCategoryBloc = ProductsListByCategoryBloc();
+      this.types}) {
+//    _productsByCategoryBloc = ProductsListByCategoryBloc();
+//    categoryBloc.productsByCategoryBloc = _productsByCategoryBloc;
 //    super(key: key);
   }
 
   @override
-  _ProductsByCategoryState createState() => _ProductsByCategoryState(category, sortBy, minPrice, maxPrice, types);
+  _ProductsByCategoryState createState() =>
+      _ProductsByCategoryState(category, sortBy, minPrice, maxPrice, types);
+
   static _ProductsByCategoryState of(BuildContext context) {
-    final _ProductsByCategoryState navigator = context.ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
+    final _ProductsByCategoryState navigator = context
+        .ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
 
     assert(() {
       if (navigator == null) {
-        throw new FlutterError('Operation requested with a context that does ''not include a ProductDetailPage.');
+        throw new FlutterError('Operation requested with a context that does '
+            'not include a ProductsByCategory.');
       }
       return true;
     }());
@@ -58,23 +63,22 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
-//    productsByCategoryBloc = ProductsListByCategoryBloc();
-//    productsByCategoryBloc = widget._productsByCategoryBloc;
-//    widget._productsByCategoryBloc = ProductsListByCategoryBloc();
-    widget._productsByCategoryBloc
+    productsByCategoryBloc = ProductsListByCategoryBloc();
+    categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
+    productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
   }
 
   @override
   void dispose() {
     super.dispose();
-    productsByCategoryBloc..drainStream();
+//    categoryBloc.productsByCategoryBloc..drainStream();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: widget._productsByCategoryBloc.subject.stream,
+      stream: productsByCategoryBloc.subject.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

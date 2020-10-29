@@ -77,7 +77,6 @@ class Repository {
       InterceptorsWrapper(onRequest: (RequestOptions options) {
         if (!options.headers.containsKey("locale")) {
           _dio.lock();
-          print("mylocale: "+myApp.locale.languageCode.toString());
           options.headers["locale"] =myApp.locale?.languageCode.toString();
           _dio.unlock();
         }

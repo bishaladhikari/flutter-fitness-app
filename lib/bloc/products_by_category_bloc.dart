@@ -3,6 +3,8 @@ import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'categories_bloc.dart';
+
 class ProductsListByCategoryBloc {
   final Repository _repository = Repository();
 
@@ -16,6 +18,7 @@ class ProductsListByCategoryBloc {
     ProductResponse response = await _repository.getCategoryProducts(
         category, sortBy, minPrice, maxPrice, types);
     _subject.sink.add(response);
+//    categoryBloc.selectedCategory = category;
     _category.sink.add(category);
   }
 
@@ -37,4 +40,4 @@ class ProductsListByCategoryBloc {
   BehaviorSubject<String> get category => _category;
 }
 
-//final productsByCategoryBloc = ProductsListByCategoryBloc();
+final productsByCategoryBloc = ProductsListByCategoryBloc();

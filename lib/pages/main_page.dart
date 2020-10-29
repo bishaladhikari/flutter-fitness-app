@@ -1,6 +1,6 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/get_categories_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/home/home-page.dart';

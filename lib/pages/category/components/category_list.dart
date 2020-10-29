@@ -1,4 +1,5 @@
-import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
+import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
@@ -17,7 +18,7 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList>
     with SingleTickerProviderStateMixin {
   final List<Category> categories;
-  ProductsListByCategoryBloc productsByCategoryBloc;
+//  ProductsListByCategoryBloc productsByCategoryBloc;
 
   _CategoryListState(this.categories);
 
@@ -29,7 +30,7 @@ class _CategoryListState extends State<CategoryList>
     _tabController = TabController(vsync: this, length: categories.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-//        productsListByCategoryBloc..drainStream();
+        categoryBloc..drainStream();
       }
     });
   }
@@ -74,7 +75,7 @@ class _CategoryListState extends State<CategoryList>
             body: TabBarView(
               controller: _tabController,
               children: categories.map((Category category) {
-                return ProductsByCategory(category: category.slug,);
+                return ProductsByCategory(category: category.slug);
               }).toList(),
             )),
       ),

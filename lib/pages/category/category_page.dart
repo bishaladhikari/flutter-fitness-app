@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/get_products_byCategory_bloc.dart';
+import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/components/search_box.dart';
 import 'package:ecapp/pages/category/components/filter_list.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 import '../main_page.dart';
 import 'components/body.dart';
-import 'package:ecapp/bloc/get_categories_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -18,8 +18,7 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
-  ProductsListByCategoryBloc productsByCategoryBloc;
-
+//  ProductsListByCategoryBloc productsByCategoryBloc;
   Map<String, bool> values = {
     'featured': false,
     'best_sellers': false,
@@ -32,7 +31,7 @@ class _CategoryPageState extends State<CategoryPage>
 
   @override
   void initState() {
-    productsByCategoryBloc = ProductsListByCategoryBloc();
+//    productsByCategoryBloc = ProductsListByCategoryBloc();
     super.initState();
   }
 
@@ -128,27 +127,27 @@ class _CategoryPageState extends State<CategoryPage>
                       ListTile(
                           title: Text("Default"),
                           onTap: () {
-                            _sortProducts('default');
+                            categoryBloc.sortProducts(context,'default');
                           }),
                       ListTile(
                           title: Text("Popularity"),
                           onTap: () {
-                            _sortProducts('popularity');
+                            categoryBloc.sortProducts(context,'popularity');
                           }),
                       ListTile(
                           title: Text("Low - High Price"),
                           onTap: () {
-                            _sortProducts('price_asc');
+                            categoryBloc.sortProducts(context,'price_asc');
                           }),
                       ListTile(
                           title: Text("High - Low Price"),
                           onTap: () {
-                            _sortProducts('price_desc');
+                            categoryBloc.sortProducts(context,'price_desc');
                           }),
                       ListTile(
                           title: Text("Average Rating"),
                           onTap: () {
-                            _sortProducts('average_rating');
+                            categoryBloc.sortProducts(context,'average_rating');
                           }),
                     ],
                   ),
@@ -241,20 +240,20 @@ class _CategoryPageState extends State<CategoryPage>
         });
   }
 
-  void _sortProducts(String sortBy) {
-    const minPrice = '';
-    const maxPrice = '';
-    const types = '';
-
-    ProductsByCategory().productsByCategoryBloc
-      ..getCategoryProducts(
-          ProductsByCategory().productsByCategoryBloc.category.value,
-          sortBy,
-          minPrice,
-          maxPrice,
-          types);
-    Navigator.of(context).pop();
-  }
+//  void _sortProducts(context,String sortBy) {
+//    const minPrice = '';
+//    const maxPrice = '';
+//    const types = '';
+//
+//    productsByCategoryBloc
+//      ..getCategoryProducts(
+//          productsByCategoryBloc.category.value,
+//          sortBy,
+//          minPrice,
+//          maxPrice,
+//          types);
+//    Navigator.of(context).pop();
+//  }
 
   void _filterProducts(
       String sortBy, String minPrice, String maxPrice, String types) {
