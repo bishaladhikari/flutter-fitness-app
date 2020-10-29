@@ -18,11 +18,13 @@ class CategoryList extends StatefulWidget {
 class _CategoryListState extends State<CategoryList>
     with SingleTickerProviderStateMixin {
   final List<Category> categories;
+
 //  ProductsListByCategoryBloc productsByCategoryBloc;
 
   _CategoryListState(this.categories);
 
   TabController _tabController;
+  ProductsListByCategoryBloc productsByCategoryBloc;
 
   @override
   void initState() {
@@ -30,14 +32,19 @@ class _CategoryListState extends State<CategoryList>
     _tabController = TabController(vsync: this, length: categories.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        categoryBloc..drainStream();
+//        if (_tabController.index != _tabController.previousIndex)
+//          // Tab Changed swiping to a new tab
+//          categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
+////        productsByCategoryBloc = ProductsListByCategoryBloc();
+////        categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
+////        categoryBloc..drainStream();
       }
     });
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+//    _tabController.dispose();
     super.dispose();
   }
 
@@ -60,10 +67,9 @@ class _CategoryListState extends State<CategoryList>
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorWeight: 3,
                   controller: _tabController,
-
                   tabs: categories.map((Category category) {
                     return Container(
-                      padding: const EdgeInsets.all(6.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: new Text(category.name.toUpperCase(),
                             style: new TextStyle(
                                 fontSize: 14.0, fontWeight: FontWeight.bold)));

@@ -14,7 +14,7 @@ class ProductsByCategory extends StatefulWidget {
   final String maxPrice;
   final String types;
 
-//  ProductsListByCategoryBloc _productsByCategoryBloc;
+  ProductsListByCategoryBloc productsByCategoryBloc;
 
   ProductsByCategory(
       {Key key,
@@ -63,17 +63,31 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
-    productsByCategoryBloc = ProductsListByCategoryBloc();
+//    if(categoryBloc.productsByCategoryBloc!=null){
+//      productsByCategoryBloc = categoryBloc.productsByCategoryBloc;
+//    }else{
+//      productsByCategoryBloc =ProductsListByCategoryBloc();
+//      categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
+//    }
+//    productsByCategoryBloc = categoryBloc.productsByCategoryBloc!=null
+//        ? categoryBloc.productsByCategoryBloc
+//        : ProductsListByCategoryBloc();
+    productsByCategoryBloc =ProductsListByCategoryBloc();
     categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
     productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-//    categoryBloc.productsByCategoryBloc..drainStream();
-  }
+//  @override
+//  void didUpdateWidget(ProductsByCategory oldWidget) {
+//    categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
+//  }
+
+//  @override
+//  void dispose() {
+//    super.dispose();
+//    productsByCategoryBloc..drainStream();
+//  }
 
   @override
   Widget build(BuildContext context) {
