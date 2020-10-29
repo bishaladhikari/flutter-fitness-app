@@ -9,38 +9,20 @@ class CategoriesListBloc {
   final BehaviorSubject<CategoryResponse> _subject =
       BehaviorSubject<CategoryResponse>();
 
-  final BehaviorSubject<ProductsListByCategoryBloc> _productsByCategoryBloc = BehaviorSubject<ProductsListByCategoryBloc>();
-
-  set productsByCategoryBloc(productsByCategoryBloc) {
-    _productsByCategoryBloc.sink.add(productsByCategoryBloc);
-  }
-
   getCategories() async {
     CategoryResponse response = await _repository.getCategories();
     _subject.sink.add(response);
   }
-  sortProducts(context,String sortBy) {
-    const minPrice = '';
-    const maxPrice = '';
-    const types = '';
 
-    productsByCategoryBloc
-      .getCategoryProducts(productsByCategoryBloc.category.value, sortBy,
-          minPrice, maxPrice, types);
-    Navigator.of(context).pop();
-  }
   void drainStream() {
-//    _subject.value = null;
-    _productsByCategoryBloc.value = null;
+    _subject.value = null;
   }
 
   dispose() {
     _subject.close();
-    _productsByCategoryBloc.close();
   }
 
   BehaviorSubject<CategoryResponse> get subject => _subject;
-  get productsByCategoryBloc => _productsByCategoryBloc.value;
 }
 
 final categoryBloc = CategoriesListBloc();
