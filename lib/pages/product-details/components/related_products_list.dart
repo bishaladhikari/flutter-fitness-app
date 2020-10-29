@@ -94,7 +94,7 @@ class _ProductsListState extends State<RelatedProductsList> {
         Container(
             padding: EdgeInsets.all(10),
             child: SizedBox(
-              height: 260,
+              height: 265,
               child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
                   shrinkWrap: true,
