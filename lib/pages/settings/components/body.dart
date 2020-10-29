@@ -113,6 +113,7 @@ class _BodyState extends State<Body> {
                           EasyLocalization.of(context).locale =
                               Locale('ja', 'JP');
                         });
+                        Navigator.pushReplacementNamed(context, "mainPage");
                       },
                     ),
                   ),
