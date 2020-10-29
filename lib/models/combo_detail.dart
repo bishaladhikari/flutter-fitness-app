@@ -12,7 +12,7 @@ class ComboDetail {
   String imageThumbnail;
   int priceDifference;
   int actualQuantity;
-  Null avgRating;
+  double avgRating;
   int zeroStarCount;
   int oneStarCount;
   int twoStarCount;
@@ -65,7 +65,8 @@ class ComboDetail {
     imageThumbnail = json['image_thumbnail'];
     priceDifference = json['price_difference'];
     actualQuantity = json['actual_quantity'];
-    avgRating = json['avg_rating'];
+    avgRating =
+        json['avg_rating'] != null ? json['avg_rating'].toDouble() : 0.0;
     zeroStarCount = json['zero_star_count'];
     oneStarCount = json['one_star_count'];
     twoStarCount = json['two_star_count'];
@@ -212,7 +213,6 @@ class Attributes {
     return data;
   }
 }
-
 
 class Brand {
   int id;

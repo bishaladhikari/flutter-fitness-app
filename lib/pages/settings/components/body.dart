@@ -4,6 +4,7 @@ import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/review/review-page.dart';
 import 'package:flutter/material.dart';
 // import 'package:ecapp/components/search_box.dart';
@@ -80,6 +81,7 @@ class _BodyState extends State<Body> {
                         icon:
                             Icon(Icons.cancel, color: Colors.orange, size: 25),
                         onPressed: () {
+
                           Navigator.of(context).pop();
                         },
                       )
@@ -96,6 +98,7 @@ class _BodyState extends State<Body> {
                           EasyLocalization.of(context).locale =
                               Locale('en', 'US');
                         });
+                        Navigator.pushReplacementNamed(context, "mainPage");
                       },
                     ),
                   ),
@@ -110,6 +113,7 @@ class _BodyState extends State<Body> {
                           EasyLocalization.of(context).locale =
                               Locale('ja', 'JP');
                         });
+                        Navigator.pushReplacementNamed(context, "mainPage");
                       },
                     ),
                   ),
@@ -118,5 +122,8 @@ class _BodyState extends State<Body> {
             ),
           );
         });
+  }
+  initMain(){
+
   }
 }
