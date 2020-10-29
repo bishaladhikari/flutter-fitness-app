@@ -85,56 +85,34 @@ class _BodyState extends State<Body> {
                       )
                     ],
                   ),
-                  Row(children: <Widget>[
-                    Expanded(
-                      child: RadioListTile<String>(
-                        groupValue: radioItem,
-                        title: Text('English'),
-                        value: 'en_US',
-                        onChanged: (val) {
-                          setState(() {
-                            radioItem = val;
-                            EasyLocalization.of(context).locale =
-                                Locale('en', 'US');
-                          });
-                        },
-                      ),
+                  Expanded(
+                    child: RadioListTile<String>(
+                      groupValue: radioItem,
+                      title: Text('English'),
+                      value: 'en_US',
+                      onChanged: (val) {
+                        setState(() {
+                          radioItem = val;
+                          EasyLocalization.of(context).locale =
+                              Locale('en', 'US');
+                        });
+                      },
                     ),
-                    Expanded(
-                      child: RadioListTile<String>(
-                        groupValue: radioItem,
-                        title: Text('Japanese'),
-                        value: 'ja_JP',
-                        onChanged: (val) {
-                          setState(() {
-                            radioItem = val;
-                            EasyLocalization.of(context).locale =
-                                Locale('ja', 'JP');
-                          });
-                        },
-                      ),
+                  ),
+                  Expanded(
+                    child: RadioListTile<String>(
+                      groupValue: radioItem,
+                      title: Text('Japanese'),
+                      value: 'ja_JP',
+                      onChanged: (val) {
+                        setState(() {
+                          radioItem = val;
+                          EasyLocalization.of(context).locale =
+                              Locale('ja', 'JP');
+                        });
+                      },
                     ),
-                  ]),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      RaisedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        padding: const EdgeInsets.symmetric(horizontal: 96.0),
-                        color: Color(0xfff29f39),
-                        textColor: Colors.white,
-                        child: Text("SUBMIT"),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
+                  ),
                 ],
               ),
             ),
