@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/components/add_address.dart';
@@ -184,7 +185,7 @@ class _BodyState extends State<Body> {
             margin: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Text("There are no items in this cart"),
+                Text(tr("There are no items in this cart")),
                 SizedBox(
                   height: 8.0,
                 ),
