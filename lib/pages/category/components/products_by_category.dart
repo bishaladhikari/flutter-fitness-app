@@ -182,10 +182,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
             label: Flexible(
                 fit: FlexFit.loose,
                 child: Container(
-                  child: Text(
-                    "FILTER",
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  child: Text("FILTER", overflow: TextOverflow.ellipsis),
                 )),
             onPressed: () {
 //              _showFilterProduct(context);

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/pages/main_page.dart';
+import 'package:ecapp/pages/splash_screen.dart';
 import 'package:ecapp/routes.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       onGenerateRoute: Routes.materialPageRoute,
-      home: MainPage(),
+      home: SplashScreen(),
     );
   }
   get locale =>_locale;

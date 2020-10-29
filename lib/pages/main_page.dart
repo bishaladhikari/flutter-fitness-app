@@ -192,7 +192,9 @@ class _MainPageState extends State<MainPage> {
                           ),
                         );
                       else
-                        return Container(height: 14,);
+                        return Container(
+                          height: 14,
+                        );
                     }),
                 IconButton(
                   icon: currentPage == 2
@@ -202,7 +204,6 @@ class _MainPageState extends State<MainPage> {
                   padding: EdgeInsets.all(10),
                   onPressed: () => {changePage(2)},
                 ),
-
               ]),
               IconButton(
                 padding: EdgeInsets.all(10),
