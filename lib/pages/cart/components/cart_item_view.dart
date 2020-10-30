@@ -150,10 +150,13 @@ class CartItemView extends StatelessWidget {
                     },
                   ),
                 ],
-              ): Text(
-                        tr("Item Unavailable"),
-                        style: TextStyle(color: Colors.redAccent),
-                      )
+              ): Padding(
+                padding: const EdgeInsets.only(right:10.0),
+                child: Text(
+                          tr("Item Unavailable"),
+                          style: TextStyle(color: Colors.redAccent),
+                        ),
+              )
             ],
           )
         ],
