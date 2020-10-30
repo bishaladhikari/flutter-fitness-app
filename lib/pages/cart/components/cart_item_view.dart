@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/combo.dart';
@@ -150,7 +151,7 @@ class CartItemView extends StatelessWidget {
                   ),
                 ],
               ): Text(
-                        "Item Unavailable",
+                        tr("Item Unavailable"),
                         style: TextStyle(color: Colors.redAccent),
                       )
             ],
