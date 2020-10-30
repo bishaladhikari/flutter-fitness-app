@@ -82,17 +82,12 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   Animation _opacityTween;
   ReviewBloc reviewBloc = ReviewBloc();
 
-//  setImages(value) {
-//    setState(() {
-//      widget.images = value;
-//    });
-//  }
-
   _ProductDetailPageState();
 
   @override
   void initState() {
     super.initState();
+
     productDetailBloc = ProductDetailBloc();
 
     _animationController =
@@ -360,166 +355,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               return false;
             },
           ),
-//          AnimatedBuilder(
-//            animation: _animationController,
-//            builder: (BuildContext context, Widget child) {
-//              return Opacity(
-//                opacity: _opacityTween.value,
-//                child: Container(
-//                  height: 100,
-//                  padding: EdgeInsets.only(top: 15),
-//                  width: double.infinity,
-//                  color: Colors.white,
-//                  child: Row(
-//                    mainAxisSize: MainAxisSize.max,
-//                    mainAxisAlignment: MainAxisAlignment.start,
-//                    children: [
-//                      IconButton(
-//                        icon: Icon(Icons.arrow_back, color: Colors.black),
-//                        onPressed: () {
-//                          Navigator.pop(context);
-//                        },
-//                      ),
-//                      Text(
-//                        widget.product.name,
-//                        style: TextStyle(fontSize: 20, color: Colors.black),
-//                      ),
-//                      Spacer(),
-//                      StreamBuilder<ProductDetailResponse>(
-//                          stream: productDetailBloc.subject.stream,
-//                          builder: (context, snapshot) {
-//                            if (snapshot.hasData) {
-//                              return IconButton(
-//                                icon: snapshot.data.productDetail
-//                                        .selectedAttribute.saved
-//                                    ? Icon(Icons.favorite, color: Colors.green)
-//                                    : Icon(Icons.favorite_border),
-//                                onPressed: () {
-//                                  var params = {
-//                                    "attribute_id": snapshot.data.productDetail
-//                                        .selectedAttribute.id,
-//                                    "combo_id": null,
-//                                  };
-//                                  if (snapshot.data.productDetail
-//                                      .selectedAttribute.saved) {
-//                                    _removeFromWishlist(context);
-//                                  } else {
-//                                    _addToWishlist(context);
-//                                  }
-//                                },
-//                              );
-//                            }
-//                            return Container();
-//                          })
-//                    ],
-//                  ),
-//                ),
-//              );
-//            },
-//          ),
         ],
       ),
-//        body: CustomScrollView(slivers: [
-//    SliverAppBar(
-//    title: Text("Details"),
-//    actions: <Widget>[
-//    IconButton(
-//    icon: Icon(Icons.favorite_border),
-//    color: NPrimaryColor,
-//    splashRadius: 50,
-//    splashColor: Colors.white,
-//    onPressed: () {},
-//    ),
-//    ],
-//    iconTheme: IconThemeData(
-//    color: Colors.black, //change your color here
-//    ),
-//    backgroundColor: Colors.white,
-//    expandedHeight: MediaQuery.of(context).size.height / 2.6,
-//    floating: false,
-//    pinned: true,
-//    flexibleSpace: FlexibleSpaceBar(
-////                centerTitle: true,
-////                  title: Expanded(
-////                    child: Text(
-////                      "I have a very long name which is "+widget.product.name,
-////                      style: TextStyle(
-////                        color: Colors.black,
-////                        fontSize: 14.0,
-////                      ),
-////                    ),
-////                  ),
-//    background: StreamBuilder<ProductDetailResponse>(
-//    stream: productDetailBloc.subject.stream,
-//    builder: (context, snapshot) {
-//    if (snapshot.hasData) {
-//    ProductDetail productDetail = snapshot.data.productDetail;
-//    return dottedSlider(
-//    productDetail.selectedAttribute.images);
-//    }
-//    return dottedSlider(widget.images);
-//    }),
-//    )),
-//    SliverList(
-//    delegate: SliverChildListDelegate([
-//    Column(
-//    mainAxisAlignment: MainAxisAlignment.start,
-//    children: <Widget>[
-//    Padding(
-//    padding: const EdgeInsets.all(8.0),
-//    child: Row(
-//    mainAxisAlignment: MainAxisAlignment.start,
-//    children: [
-//    Text(
-//    widget.product.name,
-//    style: TextStyle(
-//    fontSize: 24,
-//    color: Colors.black,
-//    fontWeight: FontWeight.bold),
-//    ),
-//    ],
-//    ),
-//    ),
-//    SizedBox(height: 8),
-//    Padding(
-//    padding: const EdgeInsets.all(8.0),
-//    child: Row(
-//    children: [
-//    StarRating(rating: widget.product.avgRating, size: 10),
-//    SizedBox(
-//    width: 8,
-//    ),
-//    Text("(3) reviews")
-//    ],
-//    ),
-//    ),
-//    StreamBuilder<ProductDetailResponse>(
-//    stream: productDetailBloc.subject.stream,
-//    builder: (context, snapshot) {
-//    if (snapshot.hasData) {
-//    if (snapshot.data.error != null &&
-//    snapshot.data.error.length > 0) {
-//    return _buildErrorWidget(snapshot.data.error);
-//    }
-//    return _buildDetailWidget(snapshot.data);
-//    } else if (snapshot.hasError) {
-//    return _buildErrorWidget(snapshot.error);
-//    } else {
-//    return _buildLoadingWidget(context);
-//    }
-//    return _buildLoadingWidget(context);
-//    }),
-//    SizedBox(
-//    height: 10,
-//    ),
-//    _buildProducts(context),
-//    _buildSameSellerProducts(context),
-//    _buildComments(context),
-//    ],
-//    )
-//    ]),
-//    )
-//    ]),
       bottomNavigationBar: StreamBuilder<ProductDetailResponse>(
           stream: productDetailBloc.subject.stream,
           builder: (context, snapshot) {
@@ -625,7 +462,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   builder: (context, scrollController) {
                                     return AddToCart(
                                         addToCart: addToCart,
-                                        product: widget.product,
+                                        productDetail: productDetail,
                                         productDetailBloc: productDetailBloc);
                                   });
                             },
@@ -946,22 +783,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         ),
       ),
     );
-
-//      Hero(
-//      tag:widget.product.heroTag,
-//      child: Container(
-//        height: 200,
-//        width: double.infinity,
-//        decoration: BoxDecoration(
-//          image:
-//              DecorationImage(image: CachedNetworkImage(imageUrl:imageUrl,placeholder: ,), fit: BoxFit.contain),
-//        ),
-//      ),
-//    );
   }
 
   Widget dottedSlider(images) {
-//    List<AttributeImage> images = images;
     final children = <Widget>[];
     for (int i = 0; i < images?.length ?? 0; i++) {
       if (images[i] == null) {

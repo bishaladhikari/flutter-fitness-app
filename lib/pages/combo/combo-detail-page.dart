@@ -428,7 +428,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                                   builder: (context, scrollController) {
                                     return AddToCart(
                                         addToCart: addToCart,
-                                        combo: widget.combo,
+                                        comboDetail: comboDetail,
                                         comboDetailBloc: comboDetailBloc);
                                   });
                             },
