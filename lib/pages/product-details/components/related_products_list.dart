@@ -3,6 +3,7 @@ import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RelatedProductsList extends StatefulWidget {
@@ -90,16 +91,15 @@ class _ProductsListState extends State<RelatedProductsList> {
 
     return Container(
         padding: EdgeInsets.all(10),
-        child: SizedBox(
-          height: 275,
-          child: ListView.builder(
+        height: 275,
+//        width: double.infinity,
+        child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return ProductItem(product: products[index]);
-              }),
-        ));
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              return ProductItem(product: products[index]);
+            }));
   }
 }

@@ -622,6 +622,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
 
   _buildProducts(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -663,6 +664,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
 
   _buildSameSellerProducts(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
