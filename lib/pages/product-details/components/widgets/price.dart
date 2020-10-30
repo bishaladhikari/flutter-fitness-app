@@ -28,16 +28,6 @@ class _ProductPriceState extends State<ProductPrice> {
   }
   @override
   Widget build(BuildContext context) {
-//    StreamBuilder<ProductDetailResponse>(
-//      stream: productDetailBloc.subject.stream,
-//      builder: (context, snapshot) {
-//        if(snapshot.hasData){
-//          Attribute attribute = snapshot.data.productDetail.selectedAttribute;
-//          return _buildProductPrice(attribute);
-//        }
-//        return Container();
-//      }
-//    );
     return widget.productDetail != null ? _buildProductPrice(widget.productDetail.selectedAttribute) : _buildComboPrice(widget.comboDetail);
   }
 
