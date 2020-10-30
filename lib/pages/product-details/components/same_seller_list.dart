@@ -89,26 +89,20 @@ class _ProductsListState extends State<SameSellerList> {
     List<Product> products = data.products;
 //    return Text(products[0].name);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-            padding: EdgeInsets.all(10),
-            child: SizedBox(
-              height: 275,
-              child: ListView.builder(
+    return Container(
+        padding: EdgeInsets.all(10),
+        child: SizedBox(
+          height: 275,
+          child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return ProductItem(
-                            product: products[index],
-                          );
-                  }),
-            )),
-      ],
-    );
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return ProductItem(
+                        product: products[index],
+                      );
+              }),
+        ));
   }
 }
