@@ -108,10 +108,10 @@ class _BodyState extends State<Body> {
                                 },
                                 validator: (text) => _validationModel.validateNumber()
                                     ? null
-                                    : widget.cardNumberErrorText ?? CardNumberFormField.defaultErrorText,
-                                textStyle: widget.cardNumberTextStyle ?? CardNumberFormField.defaultTextStyle,
+                                    : CardNumberFormField.defaultErrorText,
+                                textStyle: CardNumberFormField.defaultTextStyle,
                                 onSaved: (text) => widget.card.number = text,
-                                decoration: widget.cardNumberDecoration ?? CardNumberFormField.defaultDecoration,
+                                decoration: CardNumberFormField.defaultDecoration,
                               ),
                             ),
                             Container(
