@@ -334,7 +334,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             ),
             onNotification: (notification) {
               //How many pixels scrolled from pervious frame
-              print("delta" + notification.metrics.pixels.toString());
 
               //List scroll position
 //          print(notification.metrics.pixels);
