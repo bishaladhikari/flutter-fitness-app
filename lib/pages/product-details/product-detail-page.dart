@@ -324,7 +324,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           ),
                           _buildProducts(context),
                           _buildSameSellerProducts(context),
-                          _buildComments(context),
+                          _buildReviews(context),
                         ],
                       )
                     ],
@@ -801,7 +801,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     );
   }
 
-  _buildComments(BuildContext context) {
+  _buildReviews(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         border: Border(
