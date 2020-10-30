@@ -333,20 +333,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               ],
             ),
             onNotification: (notification) {
-              //How many pixels scrolled from pervious frame
-
-              //List scroll position
-//          print(notification.metrics.pixels);
-//              setState(() {
-//                myscroll = 100 - notification.metrics.pixels;
-//                appBarV = (notification.metrics.pixels / 100);
-//                myscroll = (myscroll / 100);
-//                print(myscroll);
-//              });
-//              return true;
               if (notification.metrics.axis == Axis.vertical) {
-                print("current position" +
-                    notification.metrics.pixels.toString());
                 _animationController
                     .animateTo(notification.metrics.pixels / 400);
                 return true;
