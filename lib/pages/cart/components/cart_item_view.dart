@@ -109,43 +109,50 @@ class CartItemView extends StatelessWidget {
                 },
               ),
               Spacer(),
-              IconButton(
-                icon: Icon(
-                  Icons.remove,
-                  color: Colors.black87.withOpacity(0.5),
-                  size: 20,
-                ),
-                splashRadius: 5.0,
-                onPressed: () {
-                  if (cartItem.quantity > 1)
-                    cartBloc.updateCart(cartItem, "sub");
-                },
-              ),
-              Container(
-//                                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: kForeGroundColor)),
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                child: Center(
-                  child: Text(
-                    cartItem.quantity.toString(),
-                    style: TextStyle(color: Colors.black),
+              cartItem.availability
+              ?Row(
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.remove,
+                      color: Colors.black87.withOpacity(0.5),
+                      size: 20,
+                    ),
+                    splashRadius: 5.0,
+                    onPressed: () {
+                      if (cartItem.quantity > 1)
+                        cartBloc.updateCart(cartItem, "sub");
+                    },
                   ),
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.black87.withOpacity(0.5),
-                  size: 20,
-                ),
-                splashRadius: 5.0,
-                onPressed: () {
-                  cartBloc.updateCart(cartItem, "add");
-                },
-              ),
+                  Container(
+                    width: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: kForeGroundColor)),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: Center(
+                      child: Text(
+                        cartItem.quantity.toString(),
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.black87.withOpacity(0.5),
+                      size: 20,
+                    ),
+                    splashRadius: 5.0,
+                    onPressed: () {
+                      cartBloc.updateCart(cartItem, "add");
+                    },
+                  ),
+                ],
+              ): Text(
+                        "Item Unavailable",
+                        style: TextStyle(color: Colors.redAccent),
+                      )
             ],
           )
         ],
