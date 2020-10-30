@@ -57,6 +57,7 @@ class _DetailWidgetState extends State<DetailWidget> {
         ? Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
