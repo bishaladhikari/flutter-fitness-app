@@ -1,33 +1,56 @@
+import 'package:ecapp/bloc/product_detail_bloc.dart';
+import 'package:ecapp/models/attribute.dart';
+import 'package:ecapp/models/combo.dart';
+import 'package:ecapp/models/combo_detail.dart';
+import 'package:ecapp/models/product.dart';
+import 'package:ecapp/models/product_detail.dart';
+import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 
 class ProductPrice extends StatefulWidget {
-  final product;
-  final combo;
+  final ProductDetail productDetail;
+  final ComboDetail comboDetail;
 
-  const ProductPrice({Key key, this.product, this.combo}) : super(key: key);
+  const ProductPrice({Key key,this.comboDetail,this.productDetail}) : super(key: key);
 
   @override
   _ProductPriceState createState() => _ProductPriceState();
 }
 
 class _ProductPriceState extends State<ProductPrice> {
+  ProductDetailBloc productDetailBloc;
+  @override
+  void initState() {
+    productDetailBloc= ProductDetailBloc();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return widget.product != null ? _buildProductPrice() : _buildComboPrice();
+//    StreamBuilder<ProductDetailResponse>(
+//      stream: productDetailBloc.subject.stream,
+//      builder: (context, snapshot) {
+//        if(snapshot.hasData){
+//          Attribute attribute = snapshot.data.productDetail.selectedAttribute;
+//          return _buildProductPrice(attribute);
+//        }
+//        return Container();
+//      }
+//    );
+    return widget.productDetail != null ? _buildProductPrice(widget.productDetail.selectedAttribute) : _buildComboPrice(widget.comboDetail);
   }
 
-  Widget _buildProductPrice() {
+  Widget _buildProductPrice(Attribute attribute) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            widget.product.discountPrice != null
+            attribute.discountPrice != null
                 ? Text(
-                    "\¥" + widget.product.sellingPrice,
+                    "\¥" + attribute.sellingPrice,
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
@@ -38,9 +61,9 @@ class _ProductPriceState extends State<ProductPrice> {
               width: 6,
             ),
             Text(
-              widget.product.discountPrice != null
-                  ? "\¥" + widget.product.discountPrice
-                  : "\¥" + widget.product.sellingPrice,
+              attribute.discountPrice != null
+                  ? "\¥" + attribute.discountPrice
+                  : "\¥" + attribute.sellingPrice,
               style: TextStyle(
                   color: NPrimaryColor,
                   fontSize: 18,
@@ -52,16 +75,16 @@ class _ProductPriceState extends State<ProductPrice> {
     );
   }
 
-  Widget _buildComboPrice() {
+  Widget _buildComboPrice(ComboDetail comboDetail) {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            widget.combo.price != null
+            comboDetail.price != null
                 ? Text(
-                    "\¥" + widget.combo.actualPrice.toString(),
+                    "\¥" + comboDetail.actualPrice.toString(),
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18,
@@ -72,9 +95,9 @@ class _ProductPriceState extends State<ProductPrice> {
               width: 6,
             ),
             Text(
-              widget.combo.price != null
-                  ? "\¥" + widget.combo.price.toString()
-                  : "\¥" + widget.combo.actualPrice.toString(),
+              comboDetail.price != null
+                  ? "\¥" + comboDetail.price.toString()
+                  : "\¥" + comboDetail.actualPrice.toString(),
               style: TextStyle(
                   color: NPrimaryColor,
                   fontSize: 18,

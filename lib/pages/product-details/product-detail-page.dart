@@ -744,7 +744,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 18)),
-                  ProductPrice(product: widget.product),
+                  ProductPrice(productDetail: productDetail),
                   Variants(
                       productDetail: productDetail,
                       productDetailBloc: productDetailBloc),

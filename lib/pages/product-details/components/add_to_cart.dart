@@ -101,7 +101,9 @@ class _AddToCartState extends State<AddToCart> {
           if (snapshot.hasData) {
             var productDetail = snapshot.data.productDetail;
             var attribute_id = productDetail?.selectedAttribute?.id;
-            return Padding(
+            print("product dta:"+widget.product.id.toString());
+
+          return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -112,7 +114,7 @@ class _AddToCartState extends State<AddToCart> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 18)),
-                  ProductPrice(product: widget.product),
+                  ProductPrice(),
                   Variants(
                       productDetail: productDetail,
                       productDetailBloc: widget.productDetailBloc),
@@ -165,7 +167,7 @@ class _AddToCartState extends State<AddToCart> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 18)),
-                  ProductPrice(combo: widget.combo),
+                  ProductPrice(comboDetail: comboDetail),
                   // Variants(
                   //     productDetail: productDetail,
                   //     productDetailBloc: widget.productDetailBloc),

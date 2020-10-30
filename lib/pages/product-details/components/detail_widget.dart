@@ -40,7 +40,7 @@ class _DetailWidgetState extends State<DetailWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProductPrice(product: widget.selectedAttribute), //Product Info
+        ProductPrice(productDetail: widget.productDetail), //Product Info
         Variants(
             productDetail: widget.productDetail,
             productDetailBloc: widget.productDetailBloc),
