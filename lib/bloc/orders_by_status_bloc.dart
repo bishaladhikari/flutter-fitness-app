@@ -6,13 +6,13 @@ class OrdersListByStatusBloc {
   final Repository _repository = Repository();
 
   final BehaviorSubject<OrderResponse> _subject =
-      BehaviorSubject<OrderResponse>();
+  BehaviorSubject<OrderResponse>();
 
   OrderResponse orderResponse;
 
   getOrdersByStatus(String status, int pageNumber) async {
     OrderResponse response =
-        await _repository.getOrdersByStatus(status, pageNumber);
+    await _repository.getOrdersByStatus(status, pageNumber);
     if (response.error == null) {
       if (orderResponse != null && orderResponse.orders.length > 0) {
         orderResponse.orders.addAll(response.orders);
@@ -21,12 +21,7 @@ class OrdersListByStatusBloc {
       }
     }
     _subject.sink.add(orderResponse);
-    // return response;
   }
-
-  // get currentPageNumber{
-  //   return response.orders.meta
-  // }
 
   void drainStream() {
     _subject.value = null;

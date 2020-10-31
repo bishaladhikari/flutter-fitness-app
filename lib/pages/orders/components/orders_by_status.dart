@@ -39,7 +39,7 @@ class OrdersByStatus extends StatefulWidget {
 
 class _OrdersListByStatusState extends State<OrdersByStatus> {
   final String status;
-  int pageNumber = 1;
+  int page = 1;
 
   _OrdersListByStatusState(this.status);
 
@@ -56,8 +56,8 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
 
       if (currentPosition >= maxScrollExtent) {
         Meta meta = widget.ordersListByStatusBloc.subject.value.meta;
-        if (pageNumber < meta.lastPage) {
-          pageNumber++;
+        if (page < meta.lastPage) {
+          page++;
           getOrderByStatus();
         }
       }
@@ -78,7 +78,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
   }
 
   getOrderByStatus() {
-    widget._ordersListByStatusBloc..getOrdersByStatus(status, pageNumber);
+    widget._ordersListByStatusBloc..getOrdersByStatus(status, page);
   }
 
   @override
@@ -152,20 +152,27 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         ),
       );
     } else
-      return Container(
-          padding: EdgeInsets.only(top: 18),
-          child: ListView.builder(
-              controller: _scrollController,
-              itemCount: orders.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  child: _buildOrderList(orders[index]),
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed('orderDetailPage', arguments: orders[index]);
-                  },
-                );
-              }));
+      return RefreshIndicator(
+        onRefresh: () {},
+        child: Container(
+            padding: EdgeInsets.only(top: 18),
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: orders.length + 1,
+                itemExtent: 80,
+                itemBuilder: (context, index) {
+                  if (index == orders.length) {
+                    return Center(child: CupertinoActivityIndicator());
+                  }
+                  return GestureDetector(
+                    child: _buildOrderList(orders[index]),
+                    onTap: () {
+                      Navigator.of(context).pushNamed('orderDetailPage',
+                          arguments: orders[index]);
+                    },
+                  );
+                })),
+      );
   }
 
   Widget _buildOrderList(Order order) {
