@@ -132,6 +132,8 @@ class ProductItem extends StatelessWidget {
           ),
           Text(
             product.category.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
           ),
           SizedBox(height: 6),
