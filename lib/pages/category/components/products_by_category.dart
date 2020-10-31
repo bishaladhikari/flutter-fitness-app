@@ -64,21 +64,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
-//    if(categoryBloc.productsByCategoryBloc!=null){
-//      productsByCategoryBloc = categoryBloc.productsByCategoryBloc;
-//    }else{
-//      productsByCategoryBloc =ProductsListByCategoryBloc();
-//      categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
-//    }
-//    productsByCategoryBloc = categoryBloc.productsByCategoryBloc!=null
-//        ? categoryBloc.productsByCategoryBloc
-//        : ProductsListByCategoryBloc();
-//    productsByCategoryBloc =ProductsListByCategoryBloc();
-//    categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
     widget.productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
   }
-
 
   @override
   void dispose() {

@@ -8,8 +8,8 @@ class OrdersListByStatusBloc {
   final BehaviorSubject<OrderResponse> _orders =
       BehaviorSubject<OrderResponse>();
 
-  getOrdersByStatus(String status) async {
-    OrderResponse response = await _repository.getOrdersByStatus(status);
+  getOrdersByStatus(String status, int pageNumber) async {
+    OrderResponse response = await _repository.getOrdersByStatus(status, pageNumber);
     _orders.sink.add(response);
   }
 

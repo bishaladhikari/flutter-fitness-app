@@ -78,22 +78,14 @@ class _ProductsListState extends State<ProductsList> {
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: StaggeredGridView.countBuilder(
-//            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-////                childAspectRatio: (itemWidth / itemHeight)
-//            ),
-            crossAxisCount:4,
-            staggeredTileBuilder: (int index) =>
-            StaggeredTile.fit(2),
-//            mainAxisSpacing: 4.0,
-//            crossAxisSpacing: 4.0,
+            crossAxisCount: 4,
+            staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
             controller: ScrollController(keepScrollOffset: false),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return ProductItem(product: products[index],width: 180.0);
-            })
-    );
+              return ProductItem(product: products[index], width: 180.0);
+            }));
   }
 }

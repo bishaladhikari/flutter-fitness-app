@@ -53,7 +53,7 @@ class Repository {
 
   Repository() {
     BaseOptions options =
-    BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
+        BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
     _dio = Dio(options);
     _dio.interceptors.addAll([
       InterceptorsWrapper(onRequest: (Options options) async {
@@ -65,12 +65,11 @@ class Repository {
       // Append authorization
       InterceptorsWrapper(onRequest: (Options options) async {
         _dio.lock();
-        await getToken().then((token) =>
-        {
-          if (token != null)
-            options.headers["Authorization"] = "Bearer " + token
+        await getToken().then((token) => {
+              if (token != null)
+                options.headers["Authorization"] = "Bearer " + token
 //            options.headers["Authorization"] ="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c"
-        });
+            });
 
         _dio.unlock();
       }),
@@ -105,7 +104,7 @@ class Repository {
     print(credentials);
     try {
       Response response =
-      await _dio.post(loginUrl, queryParameters: credentials);
+          await _dio.post(loginUrl, queryParameters: credentials);
 //      print(response.data);
 //      SharedPreferences pref = await SharedPreferences.getInstance();
 //      pref.setString("token", json.encode(response.data['token']));
@@ -128,8 +127,10 @@ class Repository {
   }
 
   Future<ProductResponse> getProducts() async {
+    var params = {"per_page": 4, "page": 1};
+
     try {
-      Response response = await _dio.get(productsUrl);
+      Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -232,8 +233,8 @@ class Repository {
     }
   }
 
-  Future<OrderResponse> getOrdersByStatus(status) async {
-    var params = {"status": status};
+  Future<OrderResponse> getOrdersByStatus(status, pageNumber) async {
+    var params = {"status": status, "page": pageNumber};
     try {
       Response response = await _dio.get(ordersUrl, queryParameters: params);
       print("Response:" + response.toString());
@@ -258,7 +259,7 @@ class Repository {
     var params = {"order_id": id};
     try {
       Response response =
-      await _dio.get(orderProductsUrl + "/$id", queryParameters: params);
+          await _dio.get(orderProductsUrl + "/$id", queryParameters: params);
       return OrderProductDetailResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
@@ -279,7 +280,7 @@ class Repository {
   Future<RemoveFromWishlistResponse> deleteFromWishlist(params) async {
     try {
       Response response =
-      await _dio.post(removeFromWishlist, queryParameters: params);
+          await _dio.post(removeFromWishlist, queryParameters: params);
       return RemoveFromWishlistResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -297,15 +298,16 @@ class Repository {
     }
   }
 
-  updateAddress({@required id,
-    @required name,
-    phone,
-    email,
-    house,
-    zipCode,
-    city,
-    address,
-    prefecture}) async {
+  updateAddress(
+      {@required id,
+      @required name,
+      phone,
+      email,
+      house,
+      zipCode,
+      city,
+      address,
+      prefecture}) async {
     try {
       final data = {
         "full_name": "$name",
@@ -319,21 +321,22 @@ class Repository {
         "prefecture": "$prefecture",
       };
       Response response =
-      await _dio.put(addressUrl + "/$id", queryParameters: data);
+          await _dio.put(addressUrl + "/$id", queryParameters: data);
       return response;
     } catch (error, stacktrace) {
       return AddressResponse.withError(_handleError(error));
     }
   }
 
-  Future<dynamic> addAddress({@required name,
-    phone,
-    email,
-    house,
-    zipCode,
-    city,
-    address,
-    prefecture}) async {
+  Future<dynamic> addAddress(
+      {@required name,
+      phone,
+      email,
+      house,
+      zipCode,
+      city,
+      address,
+      prefecture}) async {
     try {
       final data = {
         "full_name": "$name",
@@ -460,7 +463,9 @@ class Repository {
       "sort_by": sortBy,
       "starting_price": minPrice,
       "ending_price": maxPrice,
-      "types": types
+      "types": types,
+      "per_page": 2,
+      "page": 1
     };
 
     try {
@@ -492,7 +497,7 @@ class Repository {
 
     try {
       Response response =
-      await _dio.get(reviewProductUrl, queryParameters: params);
+          await _dio.get(reviewProductUrl, queryParameters: params);
       return ReviewResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -503,7 +508,7 @@ class Repository {
   Future<OrderProductItemResponse> addProductReview(params) async {
     try {
       Response response =
-      await _dio.post(reviewProductUrl, queryParameters: params);
+          await _dio.post(reviewProductUrl, queryParameters: params);
       return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -514,7 +519,7 @@ class Repository {
   Future<OrderProductItemResponse> updateProductReview(params, id) async {
     try {
       Response response =
-      await _dio.put(reviewProductUrl + "/$id", queryParameters: params);
+          await _dio.put(reviewProductUrl + "/$id", queryParameters: params);
       return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -555,14 +560,14 @@ class Repository {
           break;
         case DioErrorType.DEFAULT:
           errorDescription =
-          "Connection to API server failed due to internet connection";
+              "Connection to API server failed due to internet connection";
           break;
         case DioErrorType.RECEIVE_TIMEOUT:
           errorDescription = "Receive timeout in connection with API server";
           break;
         case DioErrorType.RESPONSE:
           errorDescription =
-          "Received invalid status code: ${dioError.response.statusCode}";
+              "Received invalid status code: ${dioError.response.statusCode}";
           switch (dioError.response.statusCode) {
             case 401:
               errorDescription = "Invalid Credentials";

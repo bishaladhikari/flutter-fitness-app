@@ -38,21 +38,48 @@ class OrdersByStatus extends StatefulWidget {
 
 class _OrdersListByStatusState extends State<OrdersByStatus> {
   final String status;
+  int pageNumber = 1;
 
   OrdersListByStatusBloc ordersListByStatusBloc;
 
   _OrdersListByStatusState(this.status);
 
+  OrderResponse orderResponse;
+  ScrollController _scrollController;
+
+  @override
+  void didChangeDependencies() {
+    _scrollController = ScrollController();
+    this.getOrderByStatus();
+    _scrollController.addListener(() {
+      double currentPosition = _scrollController.position.pixels;
+      double maxScrollExtent = _scrollController.position.maxScrollExtent;
+
+      if (currentPosition >= maxScrollExtent) {
+        // this.pageNumber = 2;
+        // this.getOrderByStatus();
+        OrderResponse order;
+        print(order);
+        // print(ordersListByStatusBloc.orders);
+      }
+    });
+
+    super.didChangeDependencies();
+  }
+
   @override
   void initState() {
     super.initState();
-    widget._ordersListByStatusBloc..getOrdersByStatus(status);
   }
 
   @override
   void dispose() {
     super.dispose();
 //    ordersListByStatusBloc..drainStream();
+  }
+
+  getOrderByStatus() {
+    widget._ordersListByStatusBloc..getOrdersByStatus(status, pageNumber);
   }
 
   @override
@@ -129,12 +156,14 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       return Container(
           padding: EdgeInsets.only(top: 18),
           child: ListView.builder(
+              controller: _scrollController,
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   child: _buildOrderList(orders[index]),
                   onTap: () {
-                    Navigator.of(context).pushNamed('orderDetailPage', arguments: orders[index]);
+                    Navigator.of(context)
+                        .pushNamed('orderDetailPage', arguments: orders[index]);
                   },
                 );
               }));
@@ -174,7 +203,8 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           order.paymentStatus.toString(),
-          style: TextStyle(fontSize: 14, color: Colors.black38,fontStyle: FontStyle.italic),
+          style: TextStyle(
+              fontSize: 14, color: Colors.black38, fontStyle: FontStyle.italic),
         ),
       ),
     );
