@@ -118,9 +118,12 @@ class ProductItem extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
             product.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
           ),
