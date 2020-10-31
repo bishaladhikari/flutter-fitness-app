@@ -127,6 +127,16 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     ));
   }
 
+  Future<Null> refreshOrder() async {
+    await Future.delayed(Duration(seconds: 2));
+
+    setState(() {
+      new OrdersByStatus();
+    });
+
+    return null;
+  }
+
   Widget _buildHomeWidget(OrderResponse data) {
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height) / 2.5;
@@ -153,25 +163,31 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       );
     } else
       return RefreshIndicator(
-        onRefresh: () {},
-        child: Container(
-            padding: EdgeInsets.only(top: 18),
-            child: ListView.builder(
-                controller: _scrollController,
-                itemCount: orders.length + 1,
-                itemExtent: 80,
-                itemBuilder: (context, index) {
-                  if (index == orders.length) {
-                    return Center(child: CupertinoActivityIndicator());
-                  }
-                  return GestureDetector(
-                    child: _buildOrderList(orders[index]),
-                    onTap: () {
-                      Navigator.of(context).pushNamed('orderDetailPage',
-                          arguments: orders[index]);
-                    },
-                  );
-                })),
+        onRefresh: refreshOrder,
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          // ignore: missing_return
+          onNotification: (overscroll) {
+            overscroll.disallowGlow();
+          },
+          child: Container(
+              padding: EdgeInsets.only(top: 18),
+              child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: orders.length + 1,
+                  itemExtent: 80,
+                  itemBuilder: (context, index) {
+                    if (index == orders.length) {
+                      return Center(child: CupertinoActivityIndicator());
+                    }
+                    return GestureDetector(
+                      child: _buildOrderList(orders[index]),
+                      onTap: () {
+                        Navigator.of(context).pushNamed('orderDetailPage',
+                            arguments: orders[index]);
+                      },
+                    );
+                  })),
+        ),
       );
   }
 
