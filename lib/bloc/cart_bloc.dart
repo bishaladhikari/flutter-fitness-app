@@ -11,23 +11,43 @@ import 'package:rxdart/rxdart.dart';
 class CartBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<CartResponse> _subject =
-  BehaviorSubject<CartResponse>();
+      BehaviorSubject<CartResponse>();
   CartResponse response;
-  List<CartItem> _cartItems;
+
+//  List<CartItem> _cartItems;
+
+  List _products;
 
   getCart() async {
     response = await _repository.getCart();
     _subject.sink.add(response);
+    if (response.error == null) {
+      _products = List();
+      response.carts.forEach((cart) {
+        cart.items.forEach((item) {
+          var product = {
+            "attribute_id": item.attribute != null ? item.attribute.id : null,
+            "combo_id": item.combo != null ? item.combo.id : null,
+            "price":
+                item.combo != null ? item.combo.price : item.attribute.price,
+            "quantity": item.quantity,
+            "store_id": 2
+          };
+          _products.add(product);
+        });
+      });
+//       _cartItems = response.carts[0].items;
+    }
     return response;
-    // if (response.error == null) _cartItems = response.carts[0].items;
   }
 
-  get cartItems => _cartItems;
+//  get cartItems => _cartItems;
+  get products => _products;
 
   addToCart(params) async {
     AddToCartResponse addToCartresponse = await _repository.addToCart(params);
-    if (addToCartresponse.error == null){
-      response.totalItems+= params['quantity'];
+    if (addToCartresponse.error == null) {
+      response.totalItems += params['quantity'];
       _subject.sink.add(response);
     }
 

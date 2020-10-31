@@ -19,6 +19,7 @@ class Attribute {
   String variantTitle;
   String slug;
   bool saved;
+  String price;
 
   Attribute(
       {this.id,
@@ -62,6 +63,7 @@ class Attribute {
     slug = json['slug'];
     variantTitle = json['variant_title'];
     saved = json['saved'];
+    price = discountPrice != null ? discountPrice : sellingPrice;
   }
 
   Map<String, dynamic> toJson() {

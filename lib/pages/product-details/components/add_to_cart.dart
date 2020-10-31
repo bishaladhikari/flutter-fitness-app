@@ -97,47 +97,58 @@ class _AddToCartState extends State<AddToCart> {
   }
 
   Widget _buildProductCart() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.productDetail.name,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 18)),
-          ProductPrice(productDetail: widget.productDetail),
-          Variants(
-              productDetail: widget.productDetail,
-              productDetailBloc: widget.productDetailBloc),
-          _buildQuantity(),
-          SizedBox(
-            height: 10.0,
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: FlatButton(
-              color: NPrimaryColor,
-              onPressed: () async {
-                var params = {
-                  "attribute_id": widget.productDetail?.selectedAttribute?.id,
-                  "combo_id": null,
-                  "quantity": quantity
-                };
-                widget.addToCart(context, params);
-              },
-              child: Text(
-                "Add to cart".tr(),
-                style: TextStyle(color: Colors.white),
+    return StreamBuilder<ProductDetailResponse>(
+        stream: widget.productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData){
+            ProductDetail productDetail = snapshot.data.productDetail;
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(productDetail.name,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 18)),
+                  ProductPrice(productDetail: productDetail),
+                  Variants(
+                      productDetail: productDetail,
+                      productDetailBloc: widget.productDetailBloc),
+                  _buildQuantity(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: FlatButton(
+                      color: NPrimaryColor,
+                      onPressed: () async {
+                        var params = {
+                          "attribute_id":
+                          productDetail?.selectedAttribute?.id,
+                          "combo_id": null,
+                          "quantity": quantity
+                        };
+                        widget.addToCart(context, params);
+                      },
+                      child: Text(
+                        "Add to cart".tr(),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ),
-          )
-        ],
-      ),
-    );
+            );
+
+          }
+          else
+            return Container();
+        });
   }
 
   Widget _buildComboCart() {

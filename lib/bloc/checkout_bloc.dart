@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/attribute.dart';
@@ -60,21 +62,14 @@ class CheckoutBloc {
       "redeemed_points": "",
       "payment_method": paymentMethod,
       "billable_amount": "4444",
-//      "products": cartBloc.cartItems,
-      "products": [
-        {
-          "attribute_id": 2,
-          "combo_id": "",
-          "price": "1111.00",
-          "quantity": 4,
-          "store_id": 2
-        }
-      ],
+      "products": cartBloc.products,
       "note": "",
-      "achieved_promotions": [
-        {"id": 1, "discount": 1000}
-      ]
+//      "achieved_promotions": [
+//        {"id": 1, "discount": 1000}
+//      ],
+      "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
+    print("json"+json.encode(cartBloc.products));
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
     return response;
