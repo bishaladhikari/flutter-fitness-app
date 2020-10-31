@@ -14,7 +14,7 @@ class OrderResponse {
       : orders =
             (json["data"] as List).map((i) => new Order.fromJson(i)).toList(),
         meta = Meta.fromJson(json["meta"]),
-        error = "";
+        error = null;
 
   OrderResponse.withError(String errorValue)
       : orders = List(),

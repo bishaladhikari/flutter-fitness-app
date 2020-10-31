@@ -1,5 +1,6 @@
-import 'package:ecapp/bloc/orders_byStatus.dart';
+import 'package:ecapp/bloc/orders_by_status_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,27 +41,25 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
   final String status;
   int pageNumber = 1;
 
-  OrdersListByStatusBloc ordersListByStatusBloc;
-
   _OrdersListByStatusState(this.status);
 
-  OrderResponse orderResponse;
   ScrollController _scrollController;
 
   @override
   void didChangeDependencies() {
     _scrollController = ScrollController();
-    this.getOrderByStatus();
+    getOrderByStatus();
+
     _scrollController.addListener(() {
       double currentPosition = _scrollController.position.pixels;
       double maxScrollExtent = _scrollController.position.maxScrollExtent;
 
       if (currentPosition >= maxScrollExtent) {
-        // this.pageNumber = 2;
-        // this.getOrderByStatus();
-        OrderResponse order;
-        print(order);
-        // print(ordersListByStatusBloc.orders);
+        Meta meta = widget.ordersListByStatusBloc.subject.value.meta;
+        if (pageNumber < meta.lastPage) {
+          pageNumber++;
+          getOrderByStatus();
+        }
       }
     });
 
@@ -85,7 +84,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<OrderResponse>(
-      stream: widget._ordersListByStatusBloc.orders.stream,
+      stream: widget._ordersListByStatusBloc.subject.stream,
       builder: (context, AsyncSnapshot<OrderResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
