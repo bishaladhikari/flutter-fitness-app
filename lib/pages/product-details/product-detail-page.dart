@@ -112,17 +112,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
       if (response.error != null) {
+        Navigator.pop(context);
         var snackbar = SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         );
-        Navigator.pop(context);
         _scaffoldKey.currentState.showSnackBar(snackbar);
       } else {
         var snackbar = SnackBar(
           content: Row(
             children: [
-              Text("Item added to cart"),
+              Text(tr("Item added to cart")),
               Spacer(),
 //            GestureDetector(onTap: () {}, child: Text("Go to cart",style: TextStyle(color: Colors.red),))
             ],
