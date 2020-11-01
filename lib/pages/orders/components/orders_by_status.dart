@@ -1,12 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/orders_by_status_bloc.dart';
-import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
-import 'package:intl/intl.dart';
 
 class OrdersByStatus extends StatefulWidget {
   final String status;
@@ -122,7 +120,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Error occurred: $error"),
+        Text(tr("Error occurred: $error")),
       ],
     ));
   }
@@ -138,10 +136,6 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
   }
 
   Widget _buildHomeWidget(OrderResponse data) {
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<Order> orders = data.orders;
     if (orders.length == 0) {
       return Container(
@@ -153,7 +147,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
             Column(
               children: <Widget>[
                 Text(
-                  "No Orders Found",
+                  tr("No Orders Found"),
                   style: TextStyle(color: Colors.black45),
                 )
               ],
@@ -197,7 +191,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       title: Row(
         children: [
           Text(
-            "Order " + order.orderId,
+            tr("Order ") + order.orderId,
             style:
                 TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
           ),
@@ -215,9 +209,9 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Placed on " + order.createdDate),
+            Text(tr("Placed on ") + order.createdDate),
             SizedBox(height: 5.0),
-            Text("Total Items: " + order.totalQuantity.toString())
+            Text(tr("Total Items: ") + order.totalQuantity.toString())
           ],
         ),
       ),
