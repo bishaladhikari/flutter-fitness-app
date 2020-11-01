@@ -14,18 +14,20 @@ class OrdersListByStatusBloc {
 
   getOrdersByStatus(String status, int pageNumber) async {
     _loading.sink.add(true);
-    OrderResponse response =
-        await _repository.getOrdersByStatus(status, pageNumber);
+    OrderResponse response = await _repository.getOrdersByStatus(status, pageNumber);
+
     if (response.error == null) {
       if (orderResponse != null && orderResponse.orders.length > 0) {
         orderResponse.orders.addAll(response.orders);
       } else {
         orderResponse = response;
       }
+    } else {
+      orderResponse = response;
     }
+
     _loading.sink.add(false);
     _subject.sink.add(orderResponse);
-    print(response.error);
     return orderResponse;
   }
 

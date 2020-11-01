@@ -89,7 +89,6 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       builder: (context, AsyncSnapshot<OrderResponse> snapshot) {
         print(snapshot);
         if (snapshot.hasData) {
-          print('error inside');
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
@@ -151,63 +150,39 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
         ),
       );
     } else
-      return RefreshIndicator(
-        onRefresh: () async {
-          Completer<Null> completer = new Completer<Null>();
-          OrderResponse response =
-              await widget._ordersListByStatusBloc.getOrdersByStatus(status, 1);
-
-          String message;
-
-          message = response.error == null
-              ? tr("Refreshed Successfully")
-              : tr(response.error);
-
-          completer.complete();
-          Fluttertoast.showToast(
-              msg: message,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          return completer.future;
+      return NotificationListener<OverscrollIndicatorNotification>(
+        // ignore: missing_return
+        onNotification: (overscroll) {
+          overscroll.disallowGlow();
         },
-        child: NotificationListener<OverscrollIndicatorNotification>(
-          // ignore: missing_return
-          onNotification: (overscroll) {
-            overscroll.disallowGlow();
-          },
-          child: Container(
-              padding: EdgeInsets.only(top: 18),
-              child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: orders.length + 1,
-                  itemExtent: 80,
-                  itemBuilder: (context, index) {
-                    if (index == orders.length) {
-                      return StreamBuilder(
-                          stream: widget.ordersListByStatusBloc.loading,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              if (snapshot.data)
-                                return Center(
-                                    child: CupertinoActivityIndicator());
-                              return Container();
-                            }
+        child: Container(
+            padding: EdgeInsets.only(top: 18),
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: orders.length + 1,
+                itemExtent: 80,
+                itemBuilder: (context, index) {
+                  if (index == orders.length) {
+                    return StreamBuilder(
+                        stream: widget.ordersListByStatusBloc.loading,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (snapshot.data)
+                              return Center(
+                                  child: CupertinoActivityIndicator());
                             return Container();
-                          });
-                    }
-                    return GestureDetector(
-                      child: _buildOrderList(orders[index]),
-                      onTap: () {
-                        Navigator.of(context).pushNamed('orderDetailPage',
-                            arguments: orders[index]);
-                      },
-                    );
-                  })),
-        ),
+                          }
+                          return Container();
+                        });
+                  }
+                  return GestureDetector(
+                    child: _buildOrderList(orders[index]),
+                    onTap: () {
+                      Navigator.of(context).pushNamed('orderDetailPage',
+                          arguments: orders[index]);
+                    },
+                  );
+                })),
       );
   }
 
@@ -251,4 +226,23 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       ),
     );
   }
+
+// onRefresh: () async {
+// Completer<Null> completer = new Completer<Null>();
+// OrderResponse response =
+//     await widget._ordersListByStatusBloc.getOrdersByStatus(status, 1);
+//
+// completer.complete();
+// Fluttertoast.showToast(
+//     msg: response.error == null
+//         ? tr("Refreshed Successfully")
+//         : tr(response.error),
+//     toastLength: Toast.LENGTH_SHORT,
+//     gravity: ToastGravity.BOTTOM,
+//     timeInSecForIosWeb: 1,
+//     backgroundColor:
+//         response.error == null ? Colors.green : Colors.redAccent,
+//     textColor: Colors.white,
+//     fontSize: 16.0);
+// return completer.future;
 }
