@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/orders_by_status_bloc.dart';
 import 'package:ecapp/models/meta.dart';
@@ -5,6 +7,7 @@ import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class OrdersByStatus extends StatefulWidget {
   final String status;
@@ -84,7 +87,9 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     return StreamBuilder<OrderResponse>(
       stream: widget._ordersListByStatusBloc.subject.stream,
       builder: (context, AsyncSnapshot<OrderResponse> snapshot) {
+        print(snapshot);
         if (snapshot.hasData) {
+          print('error inside');
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
@@ -125,16 +130,6 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     ));
   }
 
-  Future<Null> refreshOrder() async {
-    await Future.delayed(Duration(seconds: 2));
-
-    setState(() {
-      new OrdersByStatus();
-    });
-
-    return null;
-  }
-
   Widget _buildHomeWidget(OrderResponse data) {
     List<Order> orders = data.orders;
     if (orders.length == 0) {
@@ -157,7 +152,28 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       );
     } else
       return RefreshIndicator(
-        onRefresh: refreshOrder,
+        onRefresh: () async {
+          Completer<Null> completer = new Completer<Null>();
+          OrderResponse response =
+              await widget._ordersListByStatusBloc.getOrdersByStatus(status, 1);
+
+          String message;
+
+          message = response.error == null
+              ? tr("Refreshed Successfully")
+              : tr(response.error);
+
+          completer.complete();
+          Fluttertoast.showToast(
+              msg: message,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          return completer.future;
+        },
         child: NotificationListener<OverscrollIndicatorNotification>(
           // ignore: missing_return
           onNotification: (overscroll) {
@@ -171,7 +187,17 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                   itemExtent: 80,
                   itemBuilder: (context, index) {
                     if (index == orders.length) {
-                      return Center(child: CupertinoActivityIndicator());
+                      return StreamBuilder(
+                          stream: widget.ordersListByStatusBloc.loading,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data)
+                                return Center(
+                                    child: CupertinoActivityIndicator());
+                              return Container();
+                            }
+                            return Container();
+                          });
                     }
                     return GestureDetector(
                       child: _buildOrderList(orders[index]),
