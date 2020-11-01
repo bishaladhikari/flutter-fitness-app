@@ -126,8 +126,8 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getProducts() async {
-    var params = {"per_page": 4, "page": 1};
+  Future<ProductResponse> getProducts(int page) async {
+    var params = {"per_page": 4, "page": page};
 
     try {
       Response response = await _dio.get(productsUrl, queryParameters: params);

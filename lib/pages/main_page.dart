@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     categoryBloc..getCategories();
     productsBloc..getFeaturedProducts();
-    productsBloc..getProducts();
+    productsBloc..getProducts(1);
     productsBloc..getNewArrivals();
     cartBloc..getCart();
 //    comboBloc.getComboProducts();

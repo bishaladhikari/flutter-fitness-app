@@ -3,7 +3,7 @@ class Meta {
   int from;
   int lastPage;
   String path;
-  int perPage;
+  // int perPage;
   int to;
   int total;
 
@@ -12,7 +12,7 @@ class Meta {
         this.from,
         this.lastPage,
         this.path,
-        this.perPage,
+        // this.perPage,
         this.to,
         this.total});
 
@@ -21,7 +21,7 @@ class Meta {
     from = json['from'];
     lastPage = json['last_page'];
     path = json['path'];
-    perPage = json['per_page'];
+    // perPage = json['per_page'];
     to = json['to'];
     total = json['total'];
   }
@@ -32,7 +32,7 @@ class Meta {
     data['from'] = this.from;
     data['last_page'] = this.lastPage;
     data['path'] = this.path;
-    data['per_page'] = this.perPage;
+    // data['per_page'] = this.perPage;
     data['to'] = this.to;
     data['total'] = this.total;
     return data;

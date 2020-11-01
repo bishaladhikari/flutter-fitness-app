@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
@@ -152,7 +153,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                 child: Container(
                   color: Colors.white,
                   child: Text(
-                    "SORT BY",
+                    tr("SORT BY"),
                     overflow: TextOverflow.ellipsis,
                   ),
                 )),

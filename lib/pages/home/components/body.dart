@@ -1,32 +1,54 @@
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/pages/home/components/category_tab.dart';
 import 'package:ecapp/pages/home/components/combo_products_list.dart';
 import 'package:ecapp/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/search_box.dart';
-
 import 'package:easy_localization/easy_localization.dart';
-
 import 'category_list.dart';
 import 'discount_card.dart';
 import 'featured_products_list.dart';
-import 'item_list.dart';
-import 'best_sellers_products_list.dart';
-import 'new_arrivals_products_list.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  int page = 1;
+  ScrollController _scrollController;
+
+  @override
+  void didChangeDependencies() {
+    _scrollController = ScrollController();
+    // productsBloc..getProducts(page);
+    _scrollController.addListener(() {
+      double currentPosition = _scrollController.position.pixels;
+      double maxScrollExtent = _scrollController.position.maxScrollExtent;
+
+      if (currentPosition == maxScrollExtent) {
+        Meta meta = productsBloc.forYou.value.meta;
+        print([meta.currentPage, meta.lastPage]);
+        if (page < meta.lastPage) {
+          page++;
+          productsBloc..getProducts(page);
+        }
+      }
+    });
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-//          SearchBox(
-//            onChanged: (value) {},
-//          ),
           CategoryList(),
           DiscountCard(),
-//          SizedBox(height: 10),
           CategoryTab(),
           SizedBox(height: 10),
           Padding(
@@ -47,23 +69,6 @@ class Body extends StatelessWidget {
             ),
           ),
           FeaturedProductsList(),
-//          Padding(
-//            padding: const EdgeInsets.symmetric(horizontal: 20),
-//            child: Text(
-//              "Best sellers Products".tr().toString(),
-//              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-//            ),
-//          ),
-//          BestSellersProductsList(),
-//          SizedBox(height: 5),
-//          Padding(
-//            padding: const EdgeInsets.symmetric(horizontal: 20),
-//            child: Text(
-//              "New Arrivals".tr().toString(),
-//              style: TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-//            ),
-//          ),
-//          NewArrivalsProductsList(),
           SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -72,7 +77,7 @@ class Body extends StatelessWidget {
                 Text(
                   "Combo Products".tr(),
                   style:
-                  TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                      TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                 ),
               ],
             ),
@@ -86,11 +91,11 @@ class Body extends StatelessWidget {
                   fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: ProductsList(),
-          ),
-          SizedBox(height: 5),
+          ProductsList(),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          //   child: ProductsList(),
+          // ),
         ],
       ),
     );

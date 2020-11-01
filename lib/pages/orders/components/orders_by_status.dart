@@ -169,7 +169,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                           if (snapshot.hasData) {
                             if (snapshot.data)
                               return Center(
-                                  child: CupertinoActivityIndicator());
+                                  child: CircularProgressIndicator());
                             return Container();
                           }
                           return Container();
