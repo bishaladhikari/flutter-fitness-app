@@ -118,7 +118,7 @@ class _DetailWidgetState extends State<DetailWidget> {
                     color: kTextColor)),
             ExpandableText(
               removeAllHtmlTags(descText) +
-                  " This is a long text description kerhgkj rehfkjer hfkjrhekj dfhkjred hfkjredfhkjerdfgr rderf rdefgkjrh aeidrfhkerdhf awekhferdrfhe defhuedfh udef ",
+                  " This is a long text description long text long text long text long text long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  ",
               style: TextStyle(fontSize: 15.0),
               expandText: 'Show More',
               collapseText: 'Show Less',
