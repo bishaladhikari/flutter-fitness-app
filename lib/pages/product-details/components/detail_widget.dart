@@ -95,9 +95,13 @@ class _DetailWidgetState extends State<DetailWidget> {
         : Container();
   }
 
+  String removeAllHtmlTags(String htmlText) {
+    RegExp descText = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return htmlText.replaceAll(descText, '');
+  }
+
   _buildDescription(BuildContext context) {
     String descText = widget.productDetail.description;
-    // bool descTextShowFlag = true;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 3.8,
@@ -108,11 +112,13 @@ class _DetailWidgetState extends State<DetailWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text("Description",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: kTextColor)),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: kTextColor)),
             ExpandableText(
-              descText +
-                  "This sis if kerhgkj rehfkjer hfkjrhekj dfhkjredhfkjredfhkjerdfgr rderf rdefgkjrh aeidrfhkerdhf awekhferdrfhe defhuedfh udef ",
+              removeAllHtmlTags(descText) +
+                  " This is a long text description kerhgkj rehfkjer hfkjrhekj dfhkjred hfkjredfhkjerdfgr rderf rdefgkjrh aeidrfhkerdhf awekhferdrfhe defhuedfh udef ",
               style: TextStyle(fontSize: 15.0),
               expandText: 'Show More',
               collapseText: 'Show Less',
@@ -120,9 +126,9 @@ class _DetailWidgetState extends State<DetailWidget> {
               linkColor: Colors.blue,
             ),
 
-            SizedBox(
-              height: 8,
-            ),
+            // SizedBox(
+            //   height: 8,
+            // ),
 //            OverflowBox(
 //              child: Html(
 //                data: description,
