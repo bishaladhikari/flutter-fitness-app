@@ -22,7 +22,6 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-
           title: Text('Change Password',
               style: TextStyle(
                   color: Colors.black,

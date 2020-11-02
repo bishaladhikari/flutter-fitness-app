@@ -1,9 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
@@ -15,7 +11,6 @@ import 'package:ecapp/models/response/customer_review_response.dart';
 import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
-import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_product_item_response.dart';
@@ -28,7 +23,6 @@ import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../main.dart';
 
 class Repository {
@@ -50,6 +44,8 @@ class Repository {
   var removeFromWishlist = '$appUrl/remove-from-wishlist';
   var reviewProductUrl = '$appUrl/reviews';
   var comboProductUrl = '$appUrl/combos';
+  var resendOTP = '$appUrl/resend-otp';
+  var forgotPassword = '$appUrl/customer/forget-password';
 
   Repository() {
     BaseOptions options =
@@ -541,6 +537,16 @@ class Repository {
       return OrderProductItemResponse.withError(_handleError(error));
     }
   }
+
+  // Future<AddToWishlistResponse> forgotPassword(params) async {
+  //   try {
+  //     Response response = await _dio.post(forgotPassword, queryParameters: params);
+  //     return AddToWishlistResponse.fromJson(response.data);
+  //   } catch (error, stacktrace) {
+  //     print("Exception occurred: $error stackTrace: $stacktrace");
+  //     return AddToWishlistResponse.withError(_handleError(error));
+  //   }
+  // }
 
   String _handleError(error) {
     String errorDescription = "";

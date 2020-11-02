@@ -2,6 +2,7 @@ import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:ecapp/pages/auth/email-confirm.dart';
+import 'package:ecapp/pages/auth/email-forgot-password-page.dart';
 import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
@@ -69,6 +70,10 @@ abstract class Routes {
         break;
       case 'forgetpasswordPage':
         return MaterialPageRoute(builder: (context) => ForgetPasswordPage());
+        break;
+      case 'emailForgotPasswordPage':
+        return MaterialPageRoute(
+            builder: (context) => EmailForgotPasswordPage());
         break;
       case 'addressFormPage':
         return MaterialPageRoute(
