@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ecapp/constants.dart';
 
-AppBar SelectPaymentMethodAppBar() {
+AppBar selectPaymentMethodAppBar() {
   return AppBar(
     backgroundColor: Colors.white,
 

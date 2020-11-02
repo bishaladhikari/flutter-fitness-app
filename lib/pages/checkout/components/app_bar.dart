@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ecapp/constants.dart';
 
 AppBar CheckoutAppBar() {
   return AppBar(

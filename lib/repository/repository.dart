@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
@@ -15,7 +12,6 @@ import 'package:ecapp/models/response/customer_review_response.dart';
 import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
-import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_product_item_response.dart';
