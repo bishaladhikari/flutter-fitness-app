@@ -22,14 +22,14 @@ class _BodyState extends State<Body> {
   @override
   void didChangeDependencies() {
     _scrollController = ScrollController();
-    // productsBloc..getProducts(page);
     _scrollController.addListener(() {
       double currentPosition = _scrollController.position.pixels;
       double maxScrollExtent = _scrollController.position.maxScrollExtent;
 
-      if (currentPosition == maxScrollExtent) {
+      var triggerFetchMoreSize = 0.8 * maxScrollExtent;
+      print([currentPosition, triggerFetchMoreSize]);
+      if (currentPosition > triggerFetchMoreSize) {
         Meta meta = productsBloc.forYou.value.meta;
-        print([meta.currentPage, meta.lastPage]);
         if (page < meta.lastPage) {
           page++;
           productsBloc..getProducts(page);

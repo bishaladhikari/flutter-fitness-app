@@ -123,7 +123,7 @@ class Repository {
   }
 
   Future<ProductResponse> getProducts(int page) async {
-    var params = {"per_page": 4, "page": page};
+    var params = {"page": page};
 
     try {
       Response response = await _dio.get(productsUrl, queryParameters: params);
