@@ -83,7 +83,7 @@ class _ProductsListState extends State<SameSellerList> {
     return Container(
         padding: EdgeInsets.all(10),
         child: SizedBox(
-          height: 275,
+          height: 280,
           child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
