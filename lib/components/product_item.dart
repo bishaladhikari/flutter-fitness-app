@@ -22,7 +22,7 @@ class ProductItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            height: 260,
+            height: 270,
             margin: EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: Colors.white,

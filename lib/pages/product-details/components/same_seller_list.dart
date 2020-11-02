@@ -80,7 +80,6 @@ class _ProductsListState extends State<SameSellerList> {
 
   Widget _buildProductsListWidget(ProductResponse data) {
     List<Product> products = data.products;
-
     return Container(
         padding: EdgeInsets.all(10),
         child: SizedBox(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 
+// ignore: must_be_immutable
 class Variants extends StatefulWidget {
   Variant selectedVariant;
   Attribute selectedAttribute;

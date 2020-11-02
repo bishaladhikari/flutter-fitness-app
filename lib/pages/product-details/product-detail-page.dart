@@ -34,6 +34,7 @@ import 'components/widgets/variants.dart';
 
 int ctQuantity = 1;
 
+// ignore: must_be_immutable
 class ProductDetailPage extends StatefulWidget {
   final Product product;
   final index;
@@ -52,6 +53,7 @@ class ProductDetailPage extends StatefulWidget {
 
   static _ProductDetailPageState of(BuildContext context) {
     final _ProductDetailPageState navigator = context
+        // ignore: deprecated_member_use
         .ancestorStateOfType(const TypeMatcher<_ProductDetailPageState>());
 
     assert(() {
@@ -552,7 +554,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var productDetail = snapshot.data.productDetail;
-            var attribute_id = productDetail?.selectedAttribute?.id;
+            var attributeId = productDetail?.selectedAttribute?.id;
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -579,7 +581,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       color: NPrimaryColor,
                       onPressed: () async {
                         var params = {
-                          "attribute_id": attribute_id,
+                          "attribute_id": attributeId,
                           "combo_id": null,
                           "quantity": quantity
                         };

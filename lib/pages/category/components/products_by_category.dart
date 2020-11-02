@@ -35,6 +35,7 @@ class ProductsByCategory extends StatefulWidget {
 
   static _ProductsByCategoryState of(BuildContext context) {
     final _ProductsByCategoryState navigator = context
+        // ignore: deprecated_member_use
         .ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
 
     assert(() {
