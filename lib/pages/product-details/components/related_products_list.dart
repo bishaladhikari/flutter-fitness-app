@@ -91,15 +91,17 @@ class _ProductsListState extends State<RelatedProductsList> {
 
     return Container(
         padding: EdgeInsets.all(10),
-        height: 275,
 //        width: double.infinity,
-        child: ListView.builder(
+        child: SizedBox(
+          height: 275,
+          child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return ProductItem(product: products[index]);
-            }));
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return ProductItem(product: products[index]);
+              }),
+        ));
   }
 }

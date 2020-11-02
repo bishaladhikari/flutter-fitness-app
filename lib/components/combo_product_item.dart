@@ -122,6 +122,8 @@ class ComboProductItem extends StatelessWidget {
         children: <Widget>[
           Text(
             combo.title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
           ),

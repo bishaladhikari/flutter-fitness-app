@@ -25,6 +25,7 @@ class ProductItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
+            height: 260,
             margin: EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -65,8 +66,7 @@ class ProductItem extends StatelessWidget {
       ),
       onTap: () {
 //        productDetailBloc..drainStream();
-        Navigator
-            .pushNamed(context,"productDetailPage", arguments: product);
+        Navigator.pushNamed(context, "productDetailPage", arguments: product);
       },
     );
   }
@@ -118,9 +118,12 @@ class ProductItem extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
             product.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
           ),
@@ -129,6 +132,8 @@ class ProductItem extends StatelessWidget {
           ),
           Text(
             product.category.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
           ),
           SizedBox(height: 6),
