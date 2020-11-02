@@ -11,7 +11,7 @@ class ProductItem extends StatelessWidget {
 //  final List<Color> gradientColors;
   final width;
 
-  ProductItem({this.product, this.width = 150.0});
+  ProductItem({this.product, this.width = 160.0});
 
   @override
   Widget build(BuildContext context) {
@@ -72,40 +72,45 @@ class ProductItem extends StatelessWidget {
     return Hero(
       tag: product.heroTag,
 //            tag:product.imageThumbnail,
-      child: CachedNetworkImage(
-        placeholder: (context, url) => Center(
-          child: Container(
-            height: 130,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/placeholder.png"),
-                  fit: BoxFit.cover),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CachedNetworkImage(
+            placeholder: (context, url) => Center(
+              child: Container(
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
             ),
-          ),
-        ),
-        imageUrl: product.imageThumbnail,
+            imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
-        imageBuilder: (context, imageProvider) => Container(
+            imageBuilder: (context, imageProvider) => Container(
 //              width: MediaQuery.of(context).size.width,
 //              width: 300,
-          height: 130,
-          width: 150,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.contain,
-          )),
-        ),
-        errorWidget: (context, url, error) => Center(
-          child: Container(
-            height: 130,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/placeholder.png"),
-                  fit: BoxFit.cover),
+              height: 130,
+              width: 150,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.contain,
+              )),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Container(
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
