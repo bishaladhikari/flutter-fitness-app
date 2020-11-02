@@ -8,7 +8,6 @@ class CartItem {
   int quantity;
   Attribute attribute;
   Combo combo;
-  String price;
   bool availability;
   String heroTag;
 
@@ -17,7 +16,6 @@ class CartItem {
       this.quantity,
       this.attribute,
       this.combo,
-      this.price,
       this.heroTag});
 
   CartItem.fromJson(Map<String, dynamic> json) {
@@ -27,9 +25,6 @@ class CartItem {
         ? new Attribute.fromJson(json['attribute'])
         : null;
     combo = json['combo'] != null ? new Combo.fromJson(json['combo']) : null;
-    price = attribute != null
-        ? attribute.price.toString()
-        : combo.price.toString();
     availability =
         attribute != null ? attribute.availability : combo.availability;
     heroTag = Uuid().v4();
@@ -50,6 +45,12 @@ class CartItem {
 
   get name {
     return attribute != null ? attribute.productName : combo.title;
+  }
+
+  get price {
+    return attribute != null
+        ? attribute.price.toString()
+        : combo.price.toString();
   }
 
   get imageThumbnail {
