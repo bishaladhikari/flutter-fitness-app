@@ -3,8 +3,6 @@ import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'categories_bloc.dart';
-
 class ProductsListByCategoryBloc {
   final Repository _repository = Repository();
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ecapp/constants.dart';
 
-AppBar CashOnDeliveryAppBar() {
+AppBar cashOnDeliveryAppBar() {
   return AppBar(
     backgroundColor: Colors.white,
-
     elevation: 1,
     title: Text("Cash On Delivery"),
   );

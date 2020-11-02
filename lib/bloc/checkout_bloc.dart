@@ -1,15 +1,12 @@
 import 'dart:convert';
-
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/address.dart';
-import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
-
 import 'address_bloc.dart';
 
 class CheckoutBloc {
@@ -69,7 +66,7 @@ class CheckoutBloc {
 //      ],
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
-    print("json"+json.encode(cartBloc.products));
+    print("json" + json.encode(cartBloc.products));
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
     return response;

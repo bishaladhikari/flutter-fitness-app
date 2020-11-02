@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ecapp/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DiscountCard extends StatelessWidget {
@@ -41,7 +39,8 @@ class DiscountCard extends StatelessWidget {
                             height: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("assets/images/placeholder.png"),
+                                  image: AssetImage(
+                                      "assets/images/placeholder.png"),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -53,16 +52,17 @@ class DiscountCard extends StatelessWidget {
                           height: 200,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              )),
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          )),
                         ),
                         errorWidget: (context, url, error) => Center(
                           child: Container(
                             height: 200,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("assets/images/placeholder.png"),
+                                  image: AssetImage(
+                                      "assets/images/placeholder.png"),
                                   fit: BoxFit.cover),
                             ),
                           ),

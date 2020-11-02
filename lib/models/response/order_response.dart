@@ -1,6 +1,4 @@
-import 'package:ecapp/models/links.dart';
 import 'package:ecapp/models/meta.dart';
-
 import '../order.dart';
 
 class OrderResponse {

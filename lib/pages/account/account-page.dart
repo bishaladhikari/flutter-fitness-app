@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
@@ -15,10 +13,7 @@ class _AccountPageState extends State<AccountPage>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Scaffold(
-        appBar: AccountAppBar(context),
-      body: Body()
-    );
+    return Scaffold(appBar: accountAppBar(context), body: Body());
   }
 
   @override

@@ -15,7 +15,7 @@ class Combo {
   int weight;
   String unit;
   bool saved;
-  int attributes_count;
+  int attributesCount;
   String heroTag;
 
   Combo(
@@ -32,7 +32,7 @@ class Combo {
       this.slug,
       this.weight,
       this.unit,
-      this.attributes_count,
+      this.attributesCount,
       this.heroTag,
       this.saved});
 
@@ -50,7 +50,7 @@ class Combo {
     slug = json['slug'];
     weight = json['weight'];
     unit = json['unit'];
-    attributes_count = json['attributes_count'];
+    attributesCount = json['attributes_count'];
     saved = json['saved'];
     heroTag = Uuid().v4();
   }
@@ -69,7 +69,7 @@ class Combo {
     data['price_difference'] = this.priceDifference;
     data['slug'] = this.slug;
     data['weight'] = this.weight;
-    data['attributes_count'] = this.attributes_count;
+    data['attributes_count'] = this.attributesCount;
     data['unit'] = this.unit;
     data['saved'] = this.saved;
 

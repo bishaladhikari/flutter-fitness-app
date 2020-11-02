@@ -1,6 +1,4 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
-import 'package:ecapp/components/combo_product_item.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -81,13 +79,7 @@ class _ProductsListState extends State<SameSellerList> {
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
-    var size = MediaQuery.of(context).size;
-
-//    final double itemHeight = (size.height) / 2.5;
-//    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
-//    return Text(products[0].name);
 
     return Container(
         padding: EdgeInsets.all(10),
@@ -100,8 +92,8 @@ class _ProductsListState extends State<SameSellerList> {
               itemCount: products.length,
               itemBuilder: (context, index) {
                 return ProductItem(
-                        product: products[index],
-                      );
+                  product: products[index],
+                );
               }),
         ));
   }

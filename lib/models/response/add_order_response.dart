@@ -1,7 +1,4 @@
-import 'package:ecapp/models/cart_item.dart';
-
 import '../order.dart';
-import '../product_detail.dart';
 
 class AddOrderResponse {
   Order order;

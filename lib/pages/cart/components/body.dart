@@ -4,7 +4,6 @@ import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import 'cart_item_view.dart';
