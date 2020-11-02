@@ -52,23 +52,11 @@ class _ProductsListState extends State<FeaturedProductsList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                children: [
-                  Container(height: 220, width: 150, color: Colors.black26),
-                ],
-              ),
-              SizedBox(width: 15),
-              Column(
-                children: [
-                  Container(height: 220, width: 150, color: Colors.black26),
-                ],
-              ),
-              SizedBox(width: 15),
-              Column(
-                children: [
-                  Container(height: 220, width: 10, color: Colors.black26),
-                ],
-              ),
+              Container(height: 260, width: 160, color: Colors.black26),
+              SizedBox(width: 5),
+              Container(height: 260, width: 160, color: Colors.black26),
+              SizedBox(width: 5),
+              Container(height: 260, width: 10, color: Colors.black26),
             ],
           ),
         ),
