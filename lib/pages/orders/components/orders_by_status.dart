@@ -165,7 +165,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             if (snapshot.data)
-                              return Center(child: CircularProgressIndicator());
+                              return Center(child: SizedBox(height:20,width: 20,child: CircularProgressIndicator()));
                             return Container();
                           }
                           return Container();
