@@ -4,7 +4,6 @@ import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/combo_detail.dart';
 import 'package:ecapp/models/product_detail.dart';
-import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/pages/product-details/components/widgets/price.dart';
 import 'package:ecapp/pages/product-details/components/widgets/variants.dart';

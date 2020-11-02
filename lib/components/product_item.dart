@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_icons/ionicons.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;

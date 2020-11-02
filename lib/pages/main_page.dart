@@ -10,9 +10,7 @@ import 'account/account-page.dart';
 import 'cart/cart-page.dart';
 import 'category/category_page.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
 
-//import 'package:path/path.dart';
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -66,7 +64,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   int currentPage = 0;
-  int cart_count = 0;
+  int cartCount = 0;
 
   void changePage(id) async {
     if (!await authBloc.isAuthenticated() && id == 2)

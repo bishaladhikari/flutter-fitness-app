@@ -788,91 +788,89 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   _buildReviews(BuildContext context) {
     return StreamBuilder<ProductDetailResponse>(
-      stream: productDetailBloc.subject.stream,
-      builder: (context, snapshot) {
-        if(snapshot.hasData){
-          ProductDetail productDetail = snapshot.data.productDetail;
-          return Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 1.0, color: Colors.black12),
-                bottom: BorderSide(width: 1.0, color: Colors.black12),
+        stream: productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            ProductDetail productDetail = snapshot.data.productDetail;
+            return Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 1.0, color: Colors.black12),
+                  bottom: BorderSide(width: 1.0, color: Colors.black12),
+                ),
               ),
-            ),
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Reviews",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black54),
-                      ),
-                      Text(
-                        "View All",
-                        style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                        textAlign: TextAlign.end,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      StarRating(rating: productDetail.avgRating, size: 20),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        productDetail.reviewCount.toString() + " Reviews",
-                        style: TextStyle(color: Colors.black54),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    child: Divider(
-                      color: Colors.black26,
-                      height: 4,
+              width: MediaQuery.of(context).size.width,
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Reviews",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54),
+                        ),
+                        Text(
+                          "View All",
+                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                          textAlign: TextAlign.end,
+                        ),
+                      ],
                     ),
-                    height: 24,
-                  ),
-                  _buildReviewView(context),
-                  // ListTile(
-                  //   leading: CircleAvatar(
-                  //     backgroundImage: NetworkImage(
-                  //         "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-                  //   ),
-                  //   subtitle: Text(
-                  //       "Cats are good pets, for they are clean and are not noisy."),
-                  //   title: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       StarRating(rating: 4, size: 15),
-                  //       SizedBox(
-                  //         width: 8,
-                  //       ),
-                  //       Text(
-                  //         "12 Sep 2019",
-                  //         style: TextStyle(fontSize: 12, color: Colors.black54),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
+                    SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: productDetail.avgRating, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          productDetail.reviewCount.toString() + " Reviews",
+                          style: TextStyle(color: Colors.black54),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      child: Divider(
+                        color: Colors.black26,
+                        height: 4,
+                      ),
+                      height: 24,
+                    ),
+                    _buildReviewView(context),
+                    // ListTile(
+                    //   leading: CircleAvatar(
+                    //     backgroundImage: NetworkImage(
+                    //         "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+                    //   ),
+                    //   subtitle: Text(
+                    //       "Cats are good pets, for they are clean and are not noisy."),
+                    //   title: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: <Widget>[
+                    //       StarRating(rating: 4, size: 15),
+                    //       SizedBox(
+                    //         width: 8,
+                    //       ),
+                    //       Text(
+                    //         "12 Sep 2019",
+                    //         style: TextStyle(fontSize: 12, color: Colors.black54),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
-        else
-          return Container();
-      }
-    );
+            );
+          } else
+            return Container();
+        });
   }
 
   _buildProducts(BuildContext context) {

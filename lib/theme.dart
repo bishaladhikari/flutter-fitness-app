@@ -35,8 +35,8 @@ InputDecorationTheme inputDecorationTheme() {
 
 TextTheme textTheme() {
   return TextTheme(
-    body1: TextStyle(color: ksecondaryColor),
-    body2: TextStyle(color: ksecondaryColor),
+    bodyText1: TextStyle(color: ksecondaryColor),
+    bodyText2: TextStyle(color: ksecondaryColor),
   );
 }
 

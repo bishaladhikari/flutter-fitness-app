@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/orders_by_status_bloc.dart';
 import 'package:ecapp/models/meta.dart';
@@ -7,7 +5,6 @@ import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class OrdersByStatus extends StatefulWidget {
   final String status;
@@ -168,8 +165,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             if (snapshot.data)
-                              return Center(
-                                  child: CircularProgressIndicator());
+                              return Center(child: CircularProgressIndicator());
                             return Container();
                           }
                           return Container();

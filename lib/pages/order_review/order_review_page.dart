@@ -3,8 +3,6 @@ import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/components/dialogs.dart';
 import 'package:ecapp/models/customer_review.dart';
 import 'package:ecapp/models/order_product_detail.dart';
-import 'package:ecapp/models/response/customer_review_response.dart';
-import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_product_item_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +35,6 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
   TextEditingController headingController = TextEditingController();
   TextEditingController messageController = TextEditingController();
 
-  bool _obscureText = true;
   bool _validate = false;
 
   CustomerReviewBloc customerReviewBloc;

@@ -1,15 +1,8 @@
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/components/search_box.dart';
-import 'package:ecapp/pages/category/components/filter_list.dart';
-import 'package:ecapp/pages/category/components/products_by_category.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_html/style.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../constants.dart';
 import '../main_page.dart';
 import 'components/body.dart';
-import 'package:ecapp/bloc/categories_bloc.dart';
 
 class CategoryPage extends StatefulWidget {
   @override

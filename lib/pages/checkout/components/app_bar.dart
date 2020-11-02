@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar CheckoutAppBar() {
+AppBar checkoutAppBar() {
   return AppBar(
     backgroundColor: Colors.white,
 

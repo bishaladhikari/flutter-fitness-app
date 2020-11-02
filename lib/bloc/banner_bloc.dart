@@ -1,5 +1,3 @@
-import 'package:ecapp/models/attribute.dart';
-import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';

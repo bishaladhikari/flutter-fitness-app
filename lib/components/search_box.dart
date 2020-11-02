@@ -1,4 +1,3 @@
-import 'package:ecapp/pages/search/search-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';

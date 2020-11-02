@@ -15,7 +15,6 @@ class _SettingsPageState extends State<SettingsPage>
     super.build(context);
 
     return Scaffold(
-//      backgroundColor: Svg.picture,
       appBar: accountAppBar(context),
       body: Body(),
     );

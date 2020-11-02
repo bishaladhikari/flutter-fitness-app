@@ -1,5 +1,4 @@
 import 'package:ecapp/models/cart.dart';
-import 'package:ecapp/models/wish.dart';
 
 class WishlistResponse {
   List<Cart> wishes;

@@ -28,7 +28,7 @@ class TitlePriceRating extends StatelessWidget {
               children: <Widget>[
                 Text(
                   name,
-                  style: Theme.of(context).textTheme.headline,
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 SizedBox(height: 10),
                 Row(

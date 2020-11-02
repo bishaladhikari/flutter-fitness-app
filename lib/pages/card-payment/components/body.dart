@@ -1,12 +1,9 @@
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/pages/card-payment/components/card_number_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:stripe_sdk/stripe_sdk_ui.dart';
 
 class Body extends StatefulWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final GlobalKey<FormState> formKey;
   final StripeCard card;
   final InputDecoration cardNumberDecoration;
@@ -20,22 +17,38 @@ class Body extends StatefulWidget {
   final String cardCvcErrorText;
   final Decoration cardDecoration;
 
-  Body({Key key, this.cardNumberDecoration, this.cardNumberTextStyle, this.cardExpiryDecoration, this.cardExpiryTextStyle, this.cardCvcDecoration, this.cardCvcTextStyle, this.cardNumberErrorText, this.cardExpiryErrorText, this.cardCvcErrorText, this.cardDecoration, this.formKey, this.card})
+  Body(
+      {Key key,
+      this.cardNumberDecoration,
+      this.cardNumberTextStyle,
+      this.cardExpiryDecoration,
+      this.cardExpiryTextStyle,
+      this.cardCvcDecoration,
+      this.cardCvcTextStyle,
+      this.cardNumberErrorText,
+      this.cardExpiryErrorText,
+      this.cardCvcErrorText,
+      this.cardDecoration,
+      this.formKey,
+      this.card})
       :
 //        card = StripeCard(),
 //        formKey = GlobalKey(),
         super(key: key);
+
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   final StripeCard _validationModel = StripeCard();
+
   @override
   Widget build(BuildContext context) {
     var cardExpiry = 'MM/YY';
     if (_validationModel.expMonth != null) {
-      cardExpiry = "${_validationModel.expMonth}/${_validationModel.expYear ?? 'YY'}";
+      cardExpiry =
+          "${_validationModel.expMonth}/${_validationModel.expYear ?? 'YY'}";
     }
     return SingleChildScrollView(
       child: Container(
@@ -100,26 +113,32 @@ class _BodyState extends State<Body> {
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               margin: const EdgeInsets.only(top: 16),
                               child: CustomCardNumberFormField(
-                                initialValue: _validationModel.number ?? widget.card.number,
+                                initialValue: _validationModel.number ??
+                                    widget.card.number,
                                 onChanged: (number) {
                                   setState(() {
                                     _validationModel.number = number;
                                   });
                                 },
-                                validator: (text) => _validationModel.validateNumber()
-                                    ? null
-                                    : CardNumberFormField.defaultErrorText,
+                                validator: (text) =>
+                                    _validationModel.validateNumber()
+                                        ? null
+                                        : CardNumberFormField.defaultErrorText,
                                 textStyle: CardNumberFormField.defaultTextStyle,
                                 onSaved: (text) => widget.card.number = text,
-                                decoration: CardNumberFormField.defaultDecoration,
+                                decoration:
+                                    CardNumberFormField.defaultDecoration,
                               ),
                             ),
                             Container(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 margin: const EdgeInsets.only(top: 8),
                                 child: CardExpiryFormField(
-                                  initialMonth: _validationModel.expMonth ?? widget.card.expMonth,
-                                  initialYear: _validationModel.expYear ?? widget.card.expYear,
+                                  initialMonth: _validationModel.expMonth ??
+                                      widget.card.expMonth,
+                                  initialYear: _validationModel.expYear ??
+                                      widget.card.expYear,
                                   onChanged: (int month, int year) {
                                     setState(() {
                                       _validationModel.expMonth = month;
@@ -130,31 +149,41 @@ class _BodyState extends State<Body> {
                                     widget.card.expMonth = month;
                                     widget.card.expYear = year;
                                   },
-                                  validator: (text) => _validationModel.validateDate()
+                                  validator: (text) => _validationModel
+                                          .validateDate()
                                       ? null
-                                      : widget.cardExpiryErrorText ?? CardExpiryFormField.defaultErrorText,
-                                  textStyle: widget.cardExpiryTextStyle ?? CardExpiryFormField.defaultTextStyle,
-                                  decoration: widget.cardExpiryDecoration ?? CardExpiryFormField.defaultDecoration,
+                                      : widget.cardExpiryErrorText ??
+                                          CardExpiryFormField.defaultErrorText,
+                                  textStyle: widget.cardExpiryTextStyle ??
+                                      CardExpiryFormField.defaultTextStyle,
+                                  decoration: widget.cardExpiryDecoration ??
+                                      CardExpiryFormField.defaultDecoration,
                                 )),
                             Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               margin: const EdgeInsets.only(top: 8),
                               child: CardCvcFormField(
-                                initialValue: _validationModel.cvc ?? widget.card.cvc,
-                                onChanged: (text) => setState(() => _validationModel.cvc = text),
+                                initialValue:
+                                    _validationModel.cvc ?? widget.card.cvc,
+                                onChanged: (text) =>
+                                    setState(() => _validationModel.cvc = text),
                                 onSaved: (text) => widget.card.cvc = text,
-                                validator: (text) => _validationModel.validateCVC()
-                                    ? null
-                                    : widget.cardCvcErrorText ?? CardCvcFormField.defaultErrorText,
-                                textStyle: widget.cardCvcTextStyle ?? CardCvcFormField.defaultTextStyle,
-                                decoration: widget.cardCvcDecoration ?? CardCvcFormField.defaultDecoration,
+                                validator: (text) =>
+                                    _validationModel.validateCVC()
+                                        ? null
+                                        : widget.cardCvcErrorText ??
+                                            CardCvcFormField.defaultErrorText,
+                                textStyle: widget.cardCvcTextStyle ??
+                                    CardCvcFormField.defaultTextStyle,
+                                decoration: widget.cardCvcDecoration ??
+                                    CardCvcFormField.defaultDecoration,
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),

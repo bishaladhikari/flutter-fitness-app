@@ -1,10 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
-import 'package:ecapp/widgets/widgets-index.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -15,7 +11,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -58,9 +53,7 @@ class _LoginPageState extends State<LoginPage>
         appBar: AppBar(
 //
           leading: IconButton(
-            onPressed: () => {
-              Navigator.pop(context)
-            },
+            onPressed: () => {Navigator.pop(context)},
             icon: Icon(Icons.close),
           ),
           title: Text('Sign In',

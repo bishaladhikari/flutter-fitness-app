@@ -56,7 +56,6 @@ class ProductDetail {
         variants.add(new Variant.fromJson(v));
       });
     }
-    ;
     if (json['attributes'] != null) {
       attributes = new List<Attribute>();
       json['attributes'].forEach((v) {

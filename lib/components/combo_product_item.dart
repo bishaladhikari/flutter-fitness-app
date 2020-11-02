@@ -1,14 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecapp/bloc/combo_bloc.dart';
-import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/combo.dart';
-import 'package:ecapp/models/product.dart';
-import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_icons/ionicons.dart';
 
 class ComboProductItem extends StatelessWidget {
   final Combo combo;
@@ -20,8 +14,6 @@ class ComboProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double trendCardWidth = width;
-
     return GestureDetector(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -131,7 +123,7 @@ class ComboProductItem extends StatelessWidget {
             height: 8,
           ),
           Text(
-            combo.attributes_count.toString() + " items",
+            combo.attributesCount.toString() + " items",
             style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
           ),
           SizedBox(height: 6),

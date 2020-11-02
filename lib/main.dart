@@ -1,12 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/splash_screen.dart';
 import 'package:ecapp/routes.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/constants.dart';
-import 'package:flutter/services.dart';
 
 void main() {
 //  WidgetsFlutterBinding.ensureInitialized();
@@ -65,8 +61,9 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
     );
   }
-  get locale =>_locale;
-  //  BuildContext get context => _context;
+
+  get locale => _locale;
+//  BuildContext get context => _context;
 
 }
 
