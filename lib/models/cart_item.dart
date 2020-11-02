@@ -28,7 +28,7 @@ class CartItem {
         : null;
     combo = json['combo'] != null ? new Combo.fromJson(json['combo']) : null;
     price = attribute != null
-        ? attribute.discountPrice.toString()
+        ? attribute.price.toString()
         : combo.price.toString();
     availability =
         attribute != null ? attribute.availability : combo.availability;
