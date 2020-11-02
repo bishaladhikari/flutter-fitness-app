@@ -2,10 +2,8 @@ import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
-import 'package:ecapp/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'item_card.dart';
 
 class ProductsList extends StatefulWidget {
   const ProductsList({
@@ -69,31 +67,18 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
-    var size = MediaQuery.of(context).size;
-
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: StaggeredGridView.countBuilder(
-//            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3,
-////                childAspectRatio: (itemWidth / itemHeight)
-//            ),
-            crossAxisCount:4,
-            staggeredTileBuilder: (int index) =>
-            StaggeredTile.fit(2),
-//            mainAxisSpacing: 4.0,
-//            crossAxisSpacing: 4.0,
+            crossAxisCount: 4,
+            staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
             controller: ScrollController(keepScrollOffset: false),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return ProductItem(product: products[index],width: 180.0);
-            })
-    );
+              return ProductItem(product: products[index], width: 180.0);
+            }));
   }
 }

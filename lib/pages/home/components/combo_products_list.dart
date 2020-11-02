@@ -1,16 +1,9 @@
 import 'package:ecapp/bloc/combo_bloc.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/combo_product_item.dart';
-import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/combo.dart';
-import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/combo_response.dart';
-import 'package:ecapp/models/response/featured_product_response.dart';
-import 'package:ecapp/models/response/product_response.dart';
-import 'package:ecapp/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'item_card.dart';
 
 class ComboProductsList extends StatefulWidget {
   const ComboProductsList({
@@ -48,8 +41,6 @@ class _ComboProductsListState extends State<ComboProductsList> {
   }
 
   Widget _buildLoadingWidget() {
-    var width = MediaQuery.of(context).size.width - 16;
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Shimmer.fromColors(
@@ -62,23 +53,11 @@ class _ComboProductsListState extends State<ComboProductsList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                children: [
-                  Container(height: 220, width: 150, color: Colors.black26),
-                ],
-              ),
-              SizedBox(width: 15),
-              Column(
-                children: [
-                  Container(height: 220, width: 150, color: Colors.black26),
-                ],
-              ),
-              SizedBox(width:15 ),
-              Column(
-                children: [
-                  Container(height: 220, width: 10, color: Colors.black26),
-                ],
-              ),
+              Container(height: 260, width: 160, color: Colors.black26),
+              SizedBox(width: 5),
+              Container(height: 260, width: 160, color: Colors.black26),
+              SizedBox(width: 5),
+              Container(height: 260, width: 10, color: Colors.black26),
             ],
           ),
         ),
@@ -97,14 +76,7 @@ class _ComboProductsListState extends State<ComboProductsList> {
   }
 
   Widget _buildComboProductsListWidget(ComboResponse data) {
-    var size = MediaQuery.of(context).size;
-
-//    final double itemHeight = (size.height) / 2.5;
-//    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<Combo> combos = data.combos;
-//    return Text(products[0].name);
-
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: SizedBox(

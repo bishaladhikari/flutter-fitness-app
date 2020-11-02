@@ -1,15 +1,8 @@
-import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/combo_detail_bloc.dart';
-import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/combo_detail.dart';
-import 'package:ecapp/models/product_detail.dart';
-import 'package:ecapp/models/user.dart';
 import 'package:ecapp/models/variant.dart';
-import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/search_box.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class DetailWidget extends StatefulWidget {
@@ -18,8 +11,7 @@ class DetailWidget extends StatefulWidget {
   ComboDetail comboDetail;
   ComboDetailBloc comboDetailBloc;
 
-  DetailWidget({this.comboDetail,this.comboDetailBloc}) {
-  }
+  DetailWidget({this.comboDetail, this.comboDetailBloc});
 
   @override
   _DetailWidgetState createState() => _DetailWidgetState();
@@ -42,7 +34,6 @@ class _DetailWidgetState extends State<DetailWidget> {
 //        _buildDescription(context),
       ],
     );
-    ;
   }
 
   _buildInfo(context) {
@@ -86,18 +77,14 @@ class _DetailWidgetState extends State<DetailWidget> {
       if (attributes[i] == null) {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
-
         children.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: OutlineButton(
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(8.0)),
             child: Text(attributes[i].productName,
-                style: TextStyle(
-                    color: Colors.black)),
-            onPressed: () {
-
-            }, //callback when button is clicked
+                style: TextStyle(color: Colors.black)),
+            onPressed: () {}, //callback when button is clicked
             borderSide: BorderSide(
               color: Colors.grey.withOpacity(0.3),
               //Color of the border
@@ -118,14 +105,16 @@ class _DetailWidgetState extends State<DetailWidget> {
       padding: EdgeInsets.all(4.0),
       width: MediaQuery.of(context).size.width,
 //      height: MediaQuery.of(context).size.height / 4,
-      child:
-      Padding(
+      child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("What's in the bundle?",style: TextStyle(color:Colors.black),),
+            Text(
+              "What's in the bundle?",
+              style: TextStyle(color: Colors.black),
+            ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(

@@ -1,7 +1,5 @@
 import 'package:ecapp/models/cart_item.dart';
 
-import '../product_detail.dart';
-
 class AddToCartResponse {
   CartItem cartItem;
   final String error;

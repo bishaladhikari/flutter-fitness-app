@@ -1,4 +1,3 @@
-import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,12 +16,34 @@ class ProductsListBloc {
 
   final BehaviorSubject<ProductResponse> _bestSellers =
       BehaviorSubject<ProductResponse>();
+
   final BehaviorSubject<ProductResponse> _topRated =
       BehaviorSubject<ProductResponse>();
 
-  getProducts() async {
-    ProductResponse response = await _repository.getProducts();
-    _forYou.sink.add(response);
+  final BehaviorSubject<bool> _loading = BehaviorSubject<bool>();
+
+  ProductResponse productResponse;
+
+  getProducts(int page) async {
+    // ProductResponse response = await _repository.getProducts(page);
+    // _forYou.sink.add(response);
+
+    _loading.sink.add(true);
+    ProductResponse response = await _repository.getProducts(page);
+
+    if (response.error == null) {
+      if (productResponse != null && productResponse.products.length > 0) {
+        productResponse.products.addAll(response.products);
+      } else {
+        productResponse = response;
+      }
+    } else {
+      productResponse = response;
+    }
+
+    _loading.sink.add(false);
+    _forYou.sink.add(productResponse);
+    // return orderResponse;
   }
 
   getFeaturedProducts() async {
@@ -73,6 +94,8 @@ class ProductsListBloc {
   BehaviorSubject<ProductResponse> get newArrivals => _newArrivals;
 
   BehaviorSubject<ProductResponse> get topRated => _topRated;
+
+  Stream<bool> get loading => _loading.stream;
 }
 
 final productsBloc = ProductsListBloc();

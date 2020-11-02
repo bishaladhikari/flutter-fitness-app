@@ -5,7 +5,6 @@ import 'package:ecapp/models/address.dart';
 import 'package:ecapp/pages/address-book/address_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 class AddressPage extends StatefulWidget {
   bool selectMode;

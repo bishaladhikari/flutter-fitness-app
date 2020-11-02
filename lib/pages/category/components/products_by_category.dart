@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/categories_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
@@ -35,6 +35,7 @@ class ProductsByCategory extends StatefulWidget {
 
   static _ProductsByCategoryState of(BuildContext context) {
     final _ProductsByCategoryState navigator = context
+        // ignore: deprecated_member_use
         .ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
 
     assert(() {
@@ -64,21 +65,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
-//    if(categoryBloc.productsByCategoryBloc!=null){
-//      productsByCategoryBloc = categoryBloc.productsByCategoryBloc;
-//    }else{
-//      productsByCategoryBloc =ProductsListByCategoryBloc();
-//      categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
-//    }
-//    productsByCategoryBloc = categoryBloc.productsByCategoryBloc!=null
-//        ? categoryBloc.productsByCategoryBloc
-//        : ProductsListByCategoryBloc();
-//    productsByCategoryBloc =ProductsListByCategoryBloc();
-//    categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
     widget.productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
   }
-
 
   @override
   void dispose() {
@@ -133,11 +122,6 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   }
 
   Widget _buildHomeWidget(ProductResponse data) {
-    var size = MediaQuery.of(context).size;
-
-    final double itemHeight = (size.height) / 2.5;
-    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
     return Scaffold(
       body: Container(
@@ -164,7 +148,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                 child: Container(
                   color: Colors.white,
                   child: Text(
-                    "SORT BY",
+                    tr("SORT BY"),
                     overflow: TextOverflow.ellipsis,
                   ),
                 )),

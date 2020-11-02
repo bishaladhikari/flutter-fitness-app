@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
@@ -15,7 +12,6 @@ import 'package:ecapp/models/response/customer_review_response.dart';
 import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
-import 'package:ecapp/models/response/featured_product_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_product_item_response.dart';
@@ -127,9 +123,11 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getProducts() async {
+  Future<ProductResponse> getProducts(int page) async {
+    var params = {"per_page": 10, "page": page};
+
     try {
-      Response response = await _dio.get(productsUrl);
+      Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -232,8 +230,8 @@ class Repository {
     }
   }
 
-  Future<OrderResponse> getOrdersByStatus(status) async {
-    var params = {"status": status};
+  Future<OrderResponse> getOrdersByStatus(status, pageNumber) async {
+    var params = {"status": status, "page": pageNumber};
     try {
       Response response = await _dio.get(ordersUrl, queryParameters: params);
       print("Response:" + response.toString());
@@ -460,7 +458,9 @@ class Repository {
       "sort_by": sortBy,
       "starting_price": minPrice,
       "ending_price": maxPrice,
-      "types": types
+      "types": types,
+      "per_page": 10,
+      "page": 1
     };
 
     try {

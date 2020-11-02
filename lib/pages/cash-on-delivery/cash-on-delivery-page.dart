@@ -20,7 +20,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: CashOnDeliveryAppBar(),
+      appBar: cashOnDeliveryAppBar(),
       body: Body(),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,

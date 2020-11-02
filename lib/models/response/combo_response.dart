@@ -1,5 +1,4 @@
 import '../combo.dart';
-import '../product.dart';
 
 class ComboResponse {
   final List<Combo> combos;
@@ -8,9 +7,8 @@ class ComboResponse {
   ComboResponse(this.combos, this.error);
 
   ComboResponse.fromJson(Map<String, dynamic> json)
-      : combos = (json["data"] as List)
-            .map((i) => new Combo.fromJson(i))
-            .toList(),
+      : combos =
+            (json["data"] as List).map((i) => new Combo.fromJson(i)).toList(),
         error = "";
 
   ComboResponse.withError(String errorValue)

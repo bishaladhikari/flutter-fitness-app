@@ -1,9 +1,6 @@
 import 'package:ecapp/components/search_box.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/bottom_nav_bar.dart';
-
 import '../main_page.dart';
-import 'components/app_bar.dart';
 import 'components/body.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,13 +18,14 @@ class _HomePageState extends State<HomePage>
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
+          children: [
             IconButton(
-                icon: Icon(Icons.menu,),
+                icon: Icon(
+                  Icons.menu,
+                ),
                 onPressed: () {
                   MainPage.of(context).scaffoldKey.currentState.openDrawer();
-                }
-            ),
+                }),
             SearchBox()
           ],
         ),

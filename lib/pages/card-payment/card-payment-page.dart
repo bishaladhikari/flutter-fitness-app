@@ -37,7 +37,7 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CardPaymentAppBar(),
+      appBar: cardPaymentAppBar(),
       body: Body(formKey: _formKey, card: _card),
       bottomNavigationBar:
       StreamBuilder<CartResponse>(

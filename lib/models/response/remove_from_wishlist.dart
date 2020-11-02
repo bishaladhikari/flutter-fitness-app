@@ -1,5 +1,3 @@
-import 'package:ecapp/models/cart_item.dart';
-
 class RemoveFromWishlistResponse {
   final String error;
 

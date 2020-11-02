@@ -1,8 +1,6 @@
 import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/components/bottom_nav_bar.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants.dart';
 import '../main_page.dart';
 import 'components/body.dart';

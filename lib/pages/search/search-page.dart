@@ -1,4 +1,3 @@
-import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,22 +9,23 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List cat = [
-    'Food','Male Fashion','Female Fashion'
-  ];
+  List cat = ['Food', 'Male Fashion', 'Female Fashion'];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(
+    return Scaffold(
+        appBar: AppBar(
       elevation: 1,
       backgroundColor: Colors.white,
       title: TextField(
         autofocus: true,
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            icon:  SvgPicture.asset("assets/icons/search.svg"), onPressed: () {  },
+            icon: SvgPicture.asset("assets/icons/search.svg"),
+            onPressed: () {},
           ),
-          contentPadding: new EdgeInsets.symmetric(
-              vertical: 15.0,horizontal: 15),
+          contentPadding:
+              new EdgeInsets.symmetric(vertical: 15.0, horizontal: 15),
           border: InputBorder.none,
 //          icon: SvgPicture.asset("assets/icons/search.svg"),
 //          icon:  IconButton(

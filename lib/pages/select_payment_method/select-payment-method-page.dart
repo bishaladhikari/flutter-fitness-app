@@ -15,7 +15,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SelectPaymentMethodAppBar(),
+      appBar: selectPaymentMethodAppBar(),
       body: SelectPaymentBody(),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,

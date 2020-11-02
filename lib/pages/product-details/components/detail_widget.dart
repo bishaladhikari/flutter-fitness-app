@@ -1,17 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product_detail.dart';
-import 'package:ecapp/models/user.dart';
 import 'package:ecapp/models/variant.dart';
-import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/product-details/components/widgets/variants.dart';
 import 'package:ecapp/pages/product-details/components/widgets/price.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/search_box.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class DetailWidget extends StatefulWidget {
@@ -49,7 +43,6 @@ class _DetailWidgetState extends State<DetailWidget> {
         _buildDescription(context),
       ],
     );
-    ;
   }
 
   _buildTags(BuildContext context) {

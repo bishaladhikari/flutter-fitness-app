@@ -2,12 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/models/cart.dart';
-import 'package:ecapp/models/attribute_image.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/models/wish.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
 
 class WishListPage extends StatefulWidget {
   WishListPage() {
@@ -37,7 +34,6 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text("Wish List"),
         backgroundColor: Colors.white,
       ),

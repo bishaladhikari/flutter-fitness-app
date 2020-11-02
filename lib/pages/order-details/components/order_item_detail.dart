@@ -3,7 +3,6 @@ import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/order_product_detail.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../constants.dart';
 
@@ -73,7 +72,6 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
   }
 
   Widget _buildLoadingWidget() {
-    var width = MediaQuery.of(context).size.width - 16;
     return Center(
         child: Padding(
       padding: const EdgeInsets.all(10.0),
