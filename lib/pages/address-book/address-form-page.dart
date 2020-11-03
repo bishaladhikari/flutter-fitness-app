@@ -1,7 +1,5 @@
-import 'package:async_loader/async_loader.dart';
 import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/models/address.dart';
-import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:ecapp/widgets/loadingIndicator.dart';
 import 'package:flutter/material.dart';
@@ -153,7 +151,6 @@ class _AddressFormPageState extends State<AddressFormPage> {
     return Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.white,
-
           centerTitle: true,
           title: new Text(
             'Add New Address',

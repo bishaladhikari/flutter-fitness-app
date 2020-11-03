@@ -1,5 +1,4 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -81,25 +80,21 @@ class _ProductsListState extends State<RelatedProductsList> {
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
-    var size = MediaQuery.of(context).size;
-
-//    final double itemHeight = (size.height) / 2.5;
-//    final double itemWidth = size.width / 2;
-    final orientation = MediaQuery.of(context).orientation;
     List<Product> products = data.products;
-//    return Text(products[0].name);
 
     return Container(
         padding: EdgeInsets.all(10),
-        height: 275,
 //        width: double.infinity,
-        child: ListView.builder(
+        child: SizedBox(
+          height: 280,
+          child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return ProductItem(product: products[index]);
-            }));
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return ProductItem(product: products[index]);
+              }),
+        ));
   }
 }

@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
-import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_icons/ionicons.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -14,7 +11,7 @@ class ProductItem extends StatelessWidget {
 //  final List<Color> gradientColors;
   final width;
 
-  ProductItem({this.product, this.width = 150.0});
+  ProductItem({this.product, this.width = 160.0});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +22,7 @@ class ProductItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
+            height: 270,
             margin: EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -65,8 +63,7 @@ class ProductItem extends StatelessWidget {
       ),
       onTap: () {
 //        productDetailBloc..drainStream();
-        Navigator
-            .pushNamed(context,"productDetailPage", arguments: product);
+        Navigator.pushNamed(context, "productDetailPage", arguments: product);
       },
     );
   }
@@ -75,40 +72,45 @@ class ProductItem extends StatelessWidget {
     return Hero(
       tag: product.heroTag,
 //            tag:product.imageThumbnail,
-      child: CachedNetworkImage(
-        placeholder: (context, url) => Center(
-          child: Container(
-            height: 130,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/placeholder.png"),
-                  fit: BoxFit.cover),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CachedNetworkImage(
+            placeholder: (context, url) => Center(
+              child: Container(
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
             ),
-          ),
-        ),
-        imageUrl: product.imageThumbnail,
+            imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
-        imageBuilder: (context, imageProvider) => Container(
+            imageBuilder: (context, imageProvider) => Container(
 //              width: MediaQuery.of(context).size.width,
 //              width: 300,
-          height: 130,
-          width: 150,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.contain,
-          )),
-        ),
-        errorWidget: (context, url, error) => Center(
-          child: Container(
-            height: 130,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/placeholder.png"),
-                  fit: BoxFit.cover),
+              height: 130,
+              width: 150,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.contain,
+              )),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Container(
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/placeholder.png"),
+                      fit: BoxFit.cover),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -118,9 +120,12 @@ class ProductItem extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
             product.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
           ),
@@ -129,6 +134,8 @@ class ProductItem extends StatelessWidget {
           ),
           Text(
             product.category.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
           ),
           SizedBox(height: 6),

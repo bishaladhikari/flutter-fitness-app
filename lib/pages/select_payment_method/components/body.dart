@@ -1,6 +1,4 @@
-import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:stripe_payment/stripe_payment.dart';
 
 class SelectPaymentBody extends StatefulWidget {
   @override
@@ -35,7 +33,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pushNamed(context, "cardPaymentPage");
             },
             child: Container(
@@ -49,7 +47,10 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Image.asset("assets/icons/creditdebit.png",scale:2,),
+                    child: Image.asset(
+                      "assets/icons/creditdebit.png",
+                      scale: 2,
+                    ),
                   ),
                   Wrap(
                     children: [
@@ -67,7 +68,10 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Image.asset("assets/icons/card_type_logo.png",scale: 6,),
+                              Image.asset(
+                                "assets/icons/card_type_logo.png",
+                                scale: 6,
+                              ),
 //                            Icon(Icons.home),
                             ],
                           ),
@@ -80,7 +84,10 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                       child: Container(
                     alignment: Alignment.centerRight,
                     child: IconButton(
-                        iconSize: 18, icon: Icon(Icons.arrow_forward_ios)),
+                      iconSize: 18,
+                      icon: Icon(Icons.arrow_forward_ios),
+                      onPressed: () {},
+                    ),
                   ))
                 ],
               ),
@@ -97,7 +104,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pushNamed(context, "cashOnDeliveryPage");
             },
             child: Container(
@@ -115,7 +122,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Image.asset("assets/icons/cash_on_delivery.png",scale:2),
+                      child: Image.asset("assets/icons/cash_on_delivery.png",
+                          scale: 2),
                     ),
                     Wrap(
                       children: [
@@ -126,8 +134,9 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                             Text(
                               "Cash On Delivery",
                               style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,),
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
                             ),
                           ],
                         ),
@@ -139,6 +148,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                       child: IconButton(
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 18,
+                        onPressed: () {},
                       ),
                     ))
                   ],

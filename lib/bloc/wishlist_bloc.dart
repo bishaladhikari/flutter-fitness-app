@@ -1,6 +1,4 @@
-import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/models/wish.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
@@ -24,9 +22,12 @@ class WishListBloc {
     print("response:" + response.toString());
   }
 
-  void drainStream(){ _subject.value = null; }
+  void drainStream() {
+    _subject.value = null;
+  }
+
   @mustCallSuper
-  void dispose() async{
+  void dispose() async {
     await _subject.drain();
     _subject.close();
   }

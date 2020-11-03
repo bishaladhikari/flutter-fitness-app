@@ -3,9 +3,7 @@ import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/pages/category/components/category_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ecapp/models/category.dart';
-import 'dart:developer';
 
 class CategoryBody extends StatefulWidget {
   @override

@@ -26,7 +26,7 @@ class Review {
     imageThumbnail = json['image_thumbnail'].cast<String>();
     message = json['message'];
     orderAttributeId = json['order_attribute_id'];
-    rating = double.parse(json['rating']);
+    rating = json['rating'].toDouble();
     reviewedDate = json['reviewed_date'];
     userName = json['user_name'];
     customerImage = json['customer_image'];

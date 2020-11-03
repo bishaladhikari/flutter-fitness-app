@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
@@ -17,8 +15,7 @@ class _SettingsPageState extends State<SettingsPage>
     super.build(context);
 
     return Scaffold(
-//      backgroundColor: Svg.picture,
-      appBar: AccountAppBar(context),
+      appBar: accountAppBar(context),
       body: Body(),
     );
   }

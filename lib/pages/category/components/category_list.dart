@@ -1,4 +1,3 @@
-import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/category.dart';

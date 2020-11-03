@@ -1,10 +1,7 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/models/attribute.dart';
-import 'package:ecapp/models/combo.dart';
 import 'package:ecapp/models/combo_detail.dart';
-import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/product_detail.dart';
-import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
@@ -13,7 +10,8 @@ class ProductPrice extends StatefulWidget {
   final ProductDetail productDetail;
   final ComboDetail comboDetail;
 
-  const ProductPrice({Key key,this.comboDetail,this.productDetail}) : super(key: key);
+  const ProductPrice({Key key, this.comboDetail, this.productDetail})
+      : super(key: key);
 
   @override
   _ProductPriceState createState() => _ProductPriceState();
@@ -21,14 +19,18 @@ class ProductPrice extends StatefulWidget {
 
 class _ProductPriceState extends State<ProductPrice> {
   ProductDetailBloc productDetailBloc;
+
   @override
   void initState() {
-    productDetailBloc= ProductDetailBloc();
+    productDetailBloc = ProductDetailBloc();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return widget.productDetail != null ? _buildProductPrice(widget.productDetail.selectedAttribute) : _buildComboPrice(widget.comboDetail);
+    return widget.productDetail != null
+        ? _buildProductPrice(widget.productDetail.selectedAttribute)
+        : _buildComboPrice(widget.comboDetail);
   }
 
   Widget _buildProductPrice(Attribute attribute) {

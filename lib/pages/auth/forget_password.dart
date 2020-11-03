@@ -28,6 +28,9 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
   @override
   void dispose() {
     super.dispose();
+    codeController.dispose();
+    newPasswordController.dispose();
+    reTypePasswordController.dispose();
   }
 
   @override

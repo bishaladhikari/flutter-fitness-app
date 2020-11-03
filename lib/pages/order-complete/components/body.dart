@@ -1,9 +1,7 @@
-import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:flutter/material.dart';
 
-import '../../main_page.dart';
 
 class Body extends StatefulWidget {
   Order order;

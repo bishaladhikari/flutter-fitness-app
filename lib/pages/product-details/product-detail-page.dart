@@ -17,11 +17,9 @@ import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/review.dart';
 import 'package:ecapp/models/variant.dart';
-import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/product-details/components/add_to_cart.dart';
 import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -36,6 +34,7 @@ import 'components/widgets/variants.dart';
 
 int ctQuantity = 1;
 
+// ignore: must_be_immutable
 class ProductDetailPage extends StatefulWidget {
   final Product product;
   final index;
@@ -54,6 +53,7 @@ class ProductDetailPage extends StatefulWidget {
 
   static _ProductDetailPageState of(BuildContext context) {
     final _ProductDetailPageState navigator = context
+        // ignore: deprecated_member_use
         .ancestorStateOfType(const TypeMatcher<_ProductDetailPageState>());
 
     assert(() {
@@ -112,17 +112,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
       if (response.error != null) {
+        Navigator.pop(context);
         var snackbar = SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         );
-        Navigator.pop(context);
         _scaffoldKey.currentState.showSnackBar(snackbar);
       } else {
         var snackbar = SnackBar(
           content: Row(
             children: [
-              Text("Item added to cart"),
+              Text(tr("Item added to cart")),
               Spacer(),
 //            GestureDetector(onTap: () {}, child: Text("Go to cart",style: TextStyle(color: Colors.red),))
             ],
@@ -317,7 +317,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 } else {
                                   return _buildLoadingWidget(context);
                                 }
-                                return _buildLoadingWidget(context);
                               }),
                           SizedBox(
                             height: 10,
@@ -348,7 +347,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var productDetail = snapshot.data.productDetail;
-              var attribute_id = productDetail?.selectedAttribute?.id;
+              var attributeId = productDetail?.selectedAttribute?.id;
               return Container(
                 color: Theme.of(context).backgroundColor,
                 width: MediaQuery.of(context).size.width,
@@ -461,7 +460,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       FlatButton(
                         onPressed: () {
                           var params = {
-                            "attribute_id": attribute_id,
+                            "attribute_id": attributeId,
                             "combo_id": null,
                             "quantity": 1
                           };
@@ -555,7 +554,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var productDetail = snapshot.data.productDetail;
-            var attribute_id = productDetail?.selectedAttribute?.id;
+            var attributeId = productDetail?.selectedAttribute?.id;
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -582,7 +581,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       color: NPrimaryColor,
                       onPressed: () async {
                         var params = {
-                          "attribute_id": attribute_id,
+                          "attribute_id": attributeId,
                           "combo_id": null,
                           "quantity": quantity
                         };
@@ -789,91 +788,89 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   _buildReviews(BuildContext context) {
     return StreamBuilder<ProductDetailResponse>(
-      stream: productDetailBloc.subject.stream,
-      builder: (context, snapshot) {
-        if(snapshot.hasData){
-          ProductDetail productDetail = snapshot.data.productDetail;
-          return Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 1.0, color: Colors.black12),
-                bottom: BorderSide(width: 1.0, color: Colors.black12),
+        stream: productDetailBloc.subject.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            ProductDetail productDetail = snapshot.data.productDetail;
+            return Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 1.0, color: Colors.black12),
+                  bottom: BorderSide(width: 1.0, color: Colors.black12),
+                ),
               ),
-            ),
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Reviews",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black54),
-                      ),
-                      Text(
-                        "View All",
-                        style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                        textAlign: TextAlign.end,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      StarRating(rating: productDetail.avgRating, size: 20),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        productDetail.reviewCount.toString() + " Reviews",
-                        style: TextStyle(color: Colors.black54),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    child: Divider(
-                      color: Colors.black26,
-                      height: 4,
+              width: MediaQuery.of(context).size.width,
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Reviews",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54),
+                        ),
+                        Text(
+                          "View All",
+                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                          textAlign: TextAlign.end,
+                        ),
+                      ],
                     ),
-                    height: 24,
-                  ),
-                  _buildReviewView(context),
-                  // ListTile(
-                  //   leading: CircleAvatar(
-                  //     backgroundImage: NetworkImage(
-                  //         "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-                  //   ),
-                  //   subtitle: Text(
-                  //       "Cats are good pets, for they are clean and are not noisy."),
-                  //   title: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       StarRating(rating: 4, size: 15),
-                  //       SizedBox(
-                  //         width: 8,
-                  //       ),
-                  //       Text(
-                  //         "12 Sep 2019",
-                  //         style: TextStyle(fontSize: 12, color: Colors.black54),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
+                    SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: productDetail.avgRating, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          productDetail.reviewCount.toString() + " Reviews",
+                          style: TextStyle(color: Colors.black54),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      child: Divider(
+                        color: Colors.black26,
+                        height: 4,
+                      ),
+                      height: 24,
+                    ),
+                    _buildReviewView(context),
+                    // ListTile(
+                    //   leading: CircleAvatar(
+                    //     backgroundImage: NetworkImage(
+                    //         "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+                    //   ),
+                    //   subtitle: Text(
+                    //       "Cats are good pets, for they are clean and are not noisy."),
+                    //   title: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: <Widget>[
+                    //       StarRating(rating: 4, size: 15),
+                    //       SizedBox(
+                    //         width: 8,
+                    //       ),
+                    //       Text(
+                    //         "12 Sep 2019",
+                    //         style: TextStyle(fontSize: 12, color: Colors.black54),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
-        else
-          return Container();
-      }
-    );
+            );
+          } else
+            return Container();
+        });
   }
 
   _buildProducts(BuildContext context) {

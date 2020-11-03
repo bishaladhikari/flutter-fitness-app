@@ -1,7 +1,5 @@
-import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/repository/repository.dart';
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CategoriesListBloc {

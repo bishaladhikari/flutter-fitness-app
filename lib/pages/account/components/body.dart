@@ -1,9 +1,6 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/user.dart';
-import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/components/search_box.dart';
 
 class Body extends StatefulWidget {
   @override

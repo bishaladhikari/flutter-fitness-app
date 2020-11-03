@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class _OrdersListPageState extends State<OrdersListPage>
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
-            title: Text("Orders"),
+            title: Text(tr("Orders")),
             backgroundColor: Colors.white,
             bottom: TabBar(
               controller: _tabController,

@@ -1,10 +1,8 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:ecapp/widgets/loadingIndicator.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -13,7 +11,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage>
     with SingleTickerProviderStateMixin {
-  bool _isLoading = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -28,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage>
   bool _validate = false;
 
   AnimationController _controller;
+
   validate() async {
     {
       print("email" + emailController.text.toString());
@@ -59,7 +57,6 @@ class _RegisterPageState extends State<RegisterPage>
   void _registerSuccess() {
     Navigator.pushReplacementNamed(context, 'emailConfirmPage');
   }
-
 
   void _showErrorMessage(context, String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -111,7 +108,6 @@ class _RegisterPageState extends State<RegisterPage>
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-
           leading: IconButton(
             onPressed: () => {},
             icon: Icon(Icons.close),
