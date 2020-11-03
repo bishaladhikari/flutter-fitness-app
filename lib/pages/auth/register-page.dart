@@ -55,7 +55,8 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   void _registerSuccess() {
-    Navigator.pushReplacementNamed(context, 'emailConfirmPage');
+    Navigator.pushReplacementNamed(context, 'emailConfirmPage',
+        arguments: emailController.text);
   }
 
   void _showErrorMessage(context, String message) {
@@ -64,10 +65,6 @@ class _RegisterPageState extends State<RegisterPage>
       backgroundColor: Colors.redAccent,
     ));
     authBloc..drainStream();
-
-//    Scaffold.of(context).showSnackBar(SnackBar(
-//      content: Text(message),
-//    ));
   }
 
   void _toggle() {
@@ -255,15 +252,6 @@ class _RegisterPageState extends State<RegisterPage>
               ),
             ),
             SizedBox(height: 10),
-
-            // Container(
-            //   alignment: Alignment.centerRight,
-            //   child: Padding(
-            //     padding: EdgeInsets.all(16.0),
-            //     child: Text('Forget Password?',
-            //         style: TextStyle(color: Colors.black, fontSize: 15.0)),
-            //   ),
-            // ),
             GestureDetector(
               onTap: () => validate(),
               child: Container(

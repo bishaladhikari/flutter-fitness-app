@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
@@ -63,21 +64,7 @@ class _LoginPageState extends State<LoginPage>
                   fontSize: 20.0)),
           backgroundColor: Colors.white,
         ),
-        body:
-//      StreamBuilder<LoginResponse>(
-//        stream: authBloc.subject.stream,
-//        builder: (context, snapshot) {
-//          if (snapshot.hasData) {
-//            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-//              WidgetsBinding.instance.addPostFrameCallback(
-//                  (_) => _buildErrorWidget(context, snapshot.data.error));
-//              return _buildLoginFormWidget(snapshot.data);
-//            }
-//          }
-//          return _buildLoginFormWidget(snapshot.data);
-//        },
-//      ),
-            _buildLoginFormWidget());
+        body: _buildLoginFormWidget());
   }
 
   void _showErrorMessage(context, String message) {
@@ -86,10 +73,6 @@ class _LoginPageState extends State<LoginPage>
       backgroundColor: Colors.redAccent,
     ));
     authBloc..drainStream();
-
-//    Scaffold.of(context).showSnackBar(SnackBar(
-//      content: Text(message),
-//    ));
   }
 
   void _loginSuccess(BuildContext context) {
@@ -168,27 +151,32 @@ class _LoginPageState extends State<LoginPage>
               child: Container(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text('Forget Password?',
-                      style: TextStyle(color: Colors.black, fontSize: 15.0)),
-                ),
+                    padding: EdgeInsets.all(16.0),
+                    child: InkWell(
+                        child: Text('Forget Password',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline)))),
               ),
             ),
             GestureDetector(
               onTap: () => validateLogin(context),
               child: Container(
-//              padding: const EdgeInsets.all(5.0),
-//              margin: const EdgeInsets.all(20.0),
                 height: 50.0,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
                     color: NPrimaryColor,
                     borderRadius: BorderRadius.circular(5.0)),
                 child: Center(
                     child: Text(
-                  "SIGN IN",
-                  style: TextStyle(fontSize: 14, color: Colors.white),
-                )),
+                      "SIGN IN",
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    )),
               ),
             ),
             Align(
@@ -285,26 +273,25 @@ class _LoginPageState extends State<LoginPage>
 //                  ),
               ],
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context, rootNavigator: true)
-                    .pushReplacementNamed('registerPage');
-              },
-              child: Container(
-                padding: const EdgeInsets.all(5.0),
-                margin: const EdgeInsets.all(10.0),
-                height: 50.0,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Colors.grey, width: 1.0),
-                      top: BorderSide(color: Colors.grey, width: 1.0),
-                      right: BorderSide(color: Colors.grey, width: 1.0),
-                      left: BorderSide(color: Colors.grey, width: 1.0),
-                    ),
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Center(child: Text("New? Create an Account")),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'New to Ecapp ?',
+                  style: TextStyle(fontFamily: 'quicksand'),
+                ),
+                SizedBox(width: 5.0),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .pushReplacementNamed('registerPage');
+                  },
+                  child: Text(tr('Register'), style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline)),
+                ),
+              ],
             )
           ],
         ),

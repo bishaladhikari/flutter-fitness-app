@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
     with SingleTickerProviderStateMixin {
   String email;
   bool _validate = false;
+  bool _passwordObscureText = true;
+  bool _conformObscureText = true;
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -33,12 +36,24 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
     reTypePasswordController.dispose();
   }
 
+  void _toggle() {
+    setState(() {
+      _passwordObscureText = !_passwordObscureText;
+    });
+  }
+
+  void _resetToggle() {
+    setState(() {
+      _conformObscureText = !_conformObscureText;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text('Change Password',
+          title: Text(tr('Change Password'),
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -57,8 +72,12 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  "Rest your password with the help of code sent to your mail",
-                  style: TextStyle(color: Colors.black87, fontSize: 20),
+                  tr(
+                      "Reset your password with the help of code sent to your mail"),
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
             ),
             SizedBox(height: 10),
@@ -88,14 +107,21 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
                     controller: newPasswordController,
                     style: TextStyle(color: Color(0xFF000000)),
                     cursorColor: Color(0xFF9b9b9b),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                          icon: Icon(_passwordObscureText
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: _toggle,
+                        ),
                         border: OutlineInputBorder(),
                         contentPadding: new EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
                         hintStyle: TextStyle(color: Colors.grey),
                         hintText: "New Password"),
+                    obscureText: _passwordObscureText,
                     validator: MultiValidator([
                       PatternValidator(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
@@ -108,14 +134,21 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
                       controller: reTypePasswordController,
                       style: TextStyle(color: Color(0xFF000000)),
                       cursorColor: Color(0xFF9b9b9b),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            icon: Icon(_conformObscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: _resetToggle,
+                          ),
                           border: OutlineInputBorder(),
                           contentPadding: new EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
                           hintStyle: TextStyle(color: Colors.grey),
                           hintText: "Retype Password"),
+                      obscureText: _conformObscureText,
                       validator: (val) {
                         if (val.isEmpty) return 'Empty';
                         if (val != newPasswordController.text)
