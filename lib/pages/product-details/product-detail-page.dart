@@ -860,7 +860,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         SizedBox(
                           child: VerticalDivider(
                             color: Colors.black26,
-                            thickness: 4,
+                            thickness: 3,
                             // height: 4,
                           ),
                           height: 100,
