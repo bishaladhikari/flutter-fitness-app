@@ -818,143 +818,128 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     ),
                     SizedBox(height: 12),
                     Row(
-                      children: [
-                        Text(
-                          productDetail.avgRating.toString() + "/5",
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 40,
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        StarRating(rating: productDetail.avgRating, size: 20),
-                        SizedBox(
-                          width: 8,
+                        Container(
+                            padding: EdgeInsets.all(5.0),
+                            child: Column(children: <Widget>[
+                              Row(
+                                children: [
+                                  Text(
+                                    productDetail.avgRating.toString() + "/5",
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 40,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  StarRating(
+                                      rating: productDetail.avgRating,
+                                      size: 20),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    productDetail.reviewCount.toString() +
+                                        " Customer Ratings",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54),
+                                  ),
+                                ],
+                              ),
+                            ])),
+                        VerticalDivider(
+                          color: Colors.black,
+                          thickness: 5,
                         ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          productDetail.reviewCount.toString() +
-                              " Customer Ratings",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black54),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      child: Divider(
-                        color: Colors.black26,
-                        height: 4,
-                      ),
-                      height: 24,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: 5, size: 20),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              productDetail.fiveStarCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: 4, size: 20),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              productDetail.fourStarCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: 3, size: 20),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              productDetail.threeStarCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: 2, size: 20),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              productDetail.twoStarCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: 1, size: 20),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              productDetail.oneStarCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54),
-                            )
-                          ],
-                        )
+                        Container(
+                            padding: EdgeInsets.all(5.0),
+                            child: Column(children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  StarRating(rating: 5, size: 20),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    productDetail.fiveStarCount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  StarRating(rating: 4, size: 20),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    productDetail.fourStarCount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  StarRating(rating: 3, size: 20),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    productDetail.threeStarCount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  StarRating(rating: 2, size: 20),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    productDetail.twoStarCount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  StarRating(rating: 1, size: 20),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    productDetail.oneStarCount.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                            ])),
                       ],
                     ),
                     SizedBox(
