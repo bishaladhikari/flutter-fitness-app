@@ -820,7 +820,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     Row(
                       children: <Widget>[
                         Container(
-                            padding: EdgeInsets.all(5.0),
+                            padding: EdgeInsets.all(15.0),
                             child: Column(children: <Widget>[
                               Row(
                                 children: [
@@ -850,19 +850,23 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                     productDetail.reviewCount.toString() +
                                         " Customer Ratings",
                                     style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 13,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black54),
                                   ),
                                 ],
                               ),
                             ])),
-                        VerticalDivider(
-                          color: Colors.black,
-                          thickness: 5,
+                        SizedBox(
+                          child: VerticalDivider(
+                            color: Colors.black26,
+                            thickness: 4,
+                            // height: 4,
+                          ),
+                          height: 100,
                         ),
                         Container(
-                            padding: EdgeInsets.all(5.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Column(children: <Widget>[
                               Row(
                                 children: <Widget>[
