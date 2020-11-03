@@ -50,7 +50,7 @@ class CheckoutBloc {
 
     print("addressId " + addressId.toString());
     var params = {
-      "shipping_cost": 0,
+      "shipping_cost": cartBloc.subject.value.shippingCost,
       "weight": cartBloc.subject.value.totalWeight,
       "address_id": addressId,
       "store_id": 2,
@@ -64,6 +64,10 @@ class CheckoutBloc {
 //      "achieved_promotions": [
 //        {"id": 1, "discount": 1000}
 //      ],
+//    if user gets two cash discounts of 500 and 300, then bulk_cash_discount will be 800
+
+//      billable amount :item total+shipping cost-discount-redeemed amnt
+
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
     print("json" + json.encode(cartBloc.products));
