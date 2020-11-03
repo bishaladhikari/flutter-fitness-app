@@ -808,6 +808,119 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
+                          "Ratings",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Text(
+                          productDetail.avgRating.toString() + "/5",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 40,
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: productDetail.avgRating, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          productDetail.reviewCount.toString() +
+                              " Customer Ratings",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      child: Divider(
+                        color: Colors.black26,
+                        height: 4,
+                      ),
+                      height: 24,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: 5, size: 20),
+                        productDetail.avgRating == 5
+                            ? Row(
+                                children: [
+                                  Text(
+                                    productDetail.avgRating.toString(),
+                                  )
+                                ],
+                              )
+                            : Text("0"),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: 4, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: 3, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: 2, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        StarRating(rating: 1, size: 20),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      child: Divider(
+                        color: Colors.black26,
+                        height: 4,
+                      ),
+                      height: 24,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
                           "Reviews",
                           style: TextStyle(
                               fontSize: 16,
@@ -822,26 +935,26 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ],
                     ),
                     SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        StarRating(rating: productDetail.avgRating, size: 20),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          productDetail.reviewCount.toString() + " Reviews",
-                          style: TextStyle(color: Colors.black54),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      child: Divider(
-                        color: Colors.black26,
-                        height: 4,
-                      ),
-                      height: 24,
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: <Widget>[
+                    //     StarRating(rating: productDetail.avgRating, size: 20),
+                    //     SizedBox(
+                    //       width: 8,
+                    //     ),
+                    //     Text(
+                    //       productDetail.reviewCount.toString() + " Reviews",
+                    //       style: TextStyle(color: Colors.black54),
+                    //     )
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   child: Divider(
+                    //     color: Colors.black26,
+                    //     height: 4,
+                    //   ),
+                    //   height: 24,
+                    // ),
                     _buildReviewView(context),
                     // ListTile(
                     //   leading: CircleAvatar(
