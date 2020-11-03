@@ -49,6 +49,17 @@ class AuthBloc {
     return response;
   }
 
+  emailForgotPassword(email) async {
+    var response = await _repository.emailForgotPassword(email);
+    return response;
+  }
+
+
+  forgotPasswordUpdate(params) async {
+    var response = await _repository.forgotPasswordUpdate(params);
+    return response;
+  }
+
   _setPref(response) async {
     print("setting pref");
     pref = await SharedPreferences.getInstance();
@@ -86,7 +97,9 @@ class AuthBloc {
 
   get user async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString("user") != null ? User.fromJson(json.decode(pref.getString("user"))) : User();
+    return pref.getString("user") != null
+        ? User.fromJson(json.decode(pref.getString("user")))
+        : User();
   }
 
 //  get token async {

@@ -68,8 +68,8 @@ abstract class Routes {
       case 'emailConfirmPage':
         return MaterialPageRoute(builder: (context) => EmailConfirmPage());
         break;
-      case 'forgetpasswordPage':
-        return MaterialPageRoute(builder: (context) => ForgetPasswordPage());
+      case 'forgetPasswordPage':
+        return MaterialPageRoute(builder: (context) => ForgetPasswordPage(email:arguments));
         break;
       case 'emailForgotPasswordPage':
         return MaterialPageRoute(

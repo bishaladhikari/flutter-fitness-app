@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 class EmailForgotPasswordPage extends StatefulWidget {
@@ -119,11 +120,23 @@ class _EmailForgotPasswordPageState extends State<EmailForgotPasswordPage>
     );
   }
 
-  validateEmail(BuildContext context) {
+  validateEmail(BuildContext context) async {
     if (_formKey.currentState.validate()) {
-      //  await authBloc.login({
-      //   "email": "${emailController.text)}",
-      // });
+      var response = await authBloc
+          .emailForgotPassword({"email": "${emailController.text}"});
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+            msg: "Email sent successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.of(context, rootNavigator: true).pushReplacementNamed(
+            'forgetPasswordPage',
+            arguments: emailController.text);
+      }
     } else {
       setState(() => _validate = true);
     }
