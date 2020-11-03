@@ -860,20 +860,23 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         StarRating(rating: 5, size: 20),
-                        productDetail.avgRating == 5
-                            ? Row(
-                                children: [
-                                  Text(
-                                    productDetail.avgRating.toString(),
-                                  )
-                                ],
-                              )
-                            : Text("0"),
                         SizedBox(
                           width: 8,
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              productDetail.fiveStarCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54),
+                            )
+                          ],
+                        )
                       ],
                     ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -881,6 +884,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         SizedBox(
                           width: 8,
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              productDetail.fourStarCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54),
+                            )
+                          ],
+                        )
                       ],
                     ),
                     Row(
@@ -890,6 +904,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         SizedBox(
                           width: 8,
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              productDetail.threeStarCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54),
+                            )
+                          ],
+                        )
                       ],
                     ),
                     Row(
@@ -899,6 +924,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         SizedBox(
                           width: 8,
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              productDetail.twoStarCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54),
+                            )
+                          ],
+                        )
                       ],
                     ),
                     Row(
@@ -908,6 +944,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         SizedBox(
                           width: 8,
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              productDetail.oneStarCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54),
+                            )
+                          ],
+                        )
                       ],
                     ),
                     SizedBox(
