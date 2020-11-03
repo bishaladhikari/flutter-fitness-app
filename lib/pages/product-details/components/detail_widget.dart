@@ -1,10 +1,10 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:ecapp/pages/product-details/components/widgets/variants.dart';
 import 'package:ecapp/pages/product-details/components/widgets/price.dart';
-import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -25,6 +25,7 @@ class DetailWidget extends StatefulWidget {
 
 class _DetailWidgetState extends State<DetailWidget> {
 //  _ProductInfoState(productDetail);
+  bool _showFullText=false;
 
   @override
   void initState() {
@@ -88,74 +89,41 @@ class _DetailWidgetState extends State<DetailWidget> {
         : Container();
   }
 
-  String removeAllHtmlTags(String htmlText) {
-    RegExp descText = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
-    return htmlText.replaceAll(descText, '');
-  }
 
   _buildDescription(BuildContext context) {
     String descText = widget.productDetail.description;
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 3.8,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text("Description",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: kTextColor)),
-            ExpandableText(
-              removeAllHtmlTags(descText) +
-                  " This is a long text description long text long text long text long text long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  long text  ",
-              style: TextStyle(fontSize: 15.0),
-              expandText: 'Show More',
-              collapseText: 'Show Less',
-              maxLines: 3,
-              linkColor: Colors.blue,
-            ),
-
-            // SizedBox(
-            //   height: 8,
-            // ),
-//            OverflowBox(
-//              child: Html(
-//                data: description,
-//                //Optional parameters:
-////          backgroundColor: Colors.white70,
-//                onLinkTap: (url) {
-//                  // open url in a webview
-//                },
-//
-//                onImageTap: (src) {
-//                  // Display the image in large form.
-//                },
-//              ),
-//            ),
-            SizedBox(
-              height: 8,
-            ),
-            // Center(
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       _settingModalBottomSheet(
-            //           context, widget.productDetail.description);
-            //     },
-            //     child: Text(
-            //       "View More",
-            //       style: TextStyle(
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.blueGrey,
-            //           fontSize: 16),
-            //     ),
-            //   ),
-            // )
-          ],
-        ),
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text("Description",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: kTextColor)),
+          Html(data:descText),
+          SizedBox(
+            height: 8,
+          ),
+          // Center(
+          //   child: GestureDetector(
+          //     onTap: () {
+          //       _settingModalBottomSheet(
+          //           context, widget.productDetail.description);
+          //     },
+          //     child: Text(
+          //       "View More",
+          //       style: TextStyle(
+          //           fontWeight: FontWeight.bold,
+          //           color: Colors.blueGrey,
+          //           fontSize: 16),
+          //     ),
+          //   ),
+          // )
+        ],
       ),
     );
   }
