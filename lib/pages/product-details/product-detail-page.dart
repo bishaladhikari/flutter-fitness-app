@@ -1281,8 +1281,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         width: 8,
                       ),
                       Text(
-                        "12 Sep 2019",
-                        style: TextStyle(fontSize: 12, color: Colors.black54),
+                        review.reviewedDate,
+                        style: TextStyle(fontSize: 10, color: Colors.black54),
                       ),
                     ],
                   ),
