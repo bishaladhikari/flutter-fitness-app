@@ -214,6 +214,7 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
         ),
+          resizeToAvoidBottomInset: false,
       ),
     );
   }
