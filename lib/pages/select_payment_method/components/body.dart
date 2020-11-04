@@ -60,7 +60,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                         ],
                       ),
                       Text(
-                        'You can use your reward points and card payment/ cash on deliery options simultaneously.',
+                        'You can use your reward points and card payment/ cash on delivery options simultaneously.',
                         style: TextStyle(
                             color: Colors.black45, fontWeight: FontWeight.bold),
                       ),
