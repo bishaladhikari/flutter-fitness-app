@@ -859,21 +859,28 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             ])),
                         SizedBox(
                           child: VerticalDivider(
-                            color: Colors.black26,
-                            thickness: 3,
+                            color: Colors.black12,
+                            thickness: 1,
                             // height: 4,
                           ),
                           height: 100,
                         ),
                         Container(
                             padding: EdgeInsets.all(10.0),
-                            child: Column(children: <Widget>[
-                              Row(
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  StarRating(rating: 5, size: 20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  StarRating(rating: 5, size: 15),
+                                  SizedBox(width: 10,),
                                   SizedBox(
-                                    width: 8,
+                                    width: 20,
+                                    child: Divider(thickness: 2,color: kPrimaryColor,),
                                   ),
+                                  SizedBox(width: 10,),
                                   Text(
                                     productDetail.fiveStarCount.toString(),
                                     style: TextStyle(
@@ -884,11 +891,15 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 ],
                               ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
-                                  StarRating(rating: 4, size: 20),
+                                  StarRating(rating: 5, size: 15),
+                                  SizedBox(width: 10,),
                                   SizedBox(
-                                    width: 8,
+                                    width: 20,
+                                    child: Divider(thickness: 2,color: kPrimaryColor,),
                                   ),
+                                  SizedBox(width: 10,),
                                   Text(
                                     productDetail.fourStarCount.toString(),
                                     style: TextStyle(
@@ -898,12 +909,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   )
                                 ],
                               ),
+
                               Row(
                                 children: <Widget>[
-                                  StarRating(rating: 3, size: 20),
+                                  StarRating(rating: 4, size: 15),
+                                  SizedBox(width: 10,),
                                   SizedBox(
-                                    width: 8,
+                                    width: 20,
+                                    child: Divider(thickness: 2,color: kPrimaryColor,),
                                   ),
+                                  SizedBox(width: 10,),
                                   Text(
                                     productDetail.threeStarCount.toString(),
                                     style: TextStyle(
@@ -915,10 +930,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               ),
                               Row(
                                 children: <Widget>[
-                                  StarRating(rating: 2, size: 20),
+                                  StarRating(rating: 2, size: 15),
+                                  SizedBox(width: 10,),
                                   SizedBox(
-                                    width: 8,
+                                    width: 20,
+                                    child: Divider(thickness: 2,color: kPrimaryColor,),
                                   ),
+                                  SizedBox(width: 10,),
                                   Text(
                                     productDetail.twoStarCount.toString(),
                                     style: TextStyle(
@@ -930,10 +948,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               ),
                               Row(
                                 children: <Widget>[
-                                  StarRating(rating: 1, size: 20),
+                                  StarRating(rating: 1, size: 15),
+                                  SizedBox(width: 10,),
                                   SizedBox(
-                                    width: 8,
+                                    width: 20,
+                                    child: Divider(thickness: 2,color: kPrimaryColor,),
                                   ),
+                                  SizedBox(width: 10,),
                                   Text(
                                     productDetail.oneStarCount.toString(),
                                     style: TextStyle(
@@ -991,7 +1012,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     //   ),
                     //   height: 24,
                     // ),
-                    _buildReviewView(context),
+                    _buildReviewsView(context),
                     // ListTile(
                     //   leading: CircleAvatar(
                     //     backgroundImage: NetworkImage(
@@ -1209,7 +1230,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     );
   }
 
-  _buildReviewView(BuildContext context) {
+  _buildReviewsView(BuildContext context) {
     return StreamBuilder<ReviewResponse>(
       stream: reviewBloc.review.stream,
       builder: (context, AsyncSnapshot<ReviewResponse> snapshot) {
