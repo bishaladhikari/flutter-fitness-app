@@ -373,7 +373,9 @@ class _MainPageState extends State<MainPage> {
                       fontWeight: FontWeight.w600,
                       color: blackColor)),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, "privacyPage");
+            },
           ),
 //        ListTile(
 //          trailing: Icon(

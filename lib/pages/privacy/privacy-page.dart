@@ -7,14 +7,31 @@ class PrivacyPage extends StatefulWidget {
 }
 
 class _PrivacyPageState extends State<PrivacyPage> {
+  bool isLoading=true;
+  final _key = UniqueKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
           title: Text("Privacy Policy"),
         ),
-        body: WebView(
-          initialUrl: "http://ecsite.eeeinnovation.com/en/privacy-policy",
+        body:Stack(
+          children: <Widget>[
+            WebView(
+              key: _key,
+              initialUrl:  "http://ecsite.eeeinnovation.com/en/privacy-policy",
+              javascriptMode: JavascriptMode.unrestricted,
+              onPageFinished: (finish) {
+                setState(() {
+                  isLoading = false;
+                });
+              },
+            ),
+            isLoading ? Center( child: CircularProgressIndicator(),)
+                : Stack(),
+          ],
         ));
   }
 }
