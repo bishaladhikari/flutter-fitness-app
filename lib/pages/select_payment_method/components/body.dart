@@ -79,7 +79,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                       triggerCheckbox = false;
                                     });
                                   },
-                                  icon: Icon(Icons.radio_button_checked),
+                                  icon: Icon(Icons.check_box),
                                 )
                               : IconButton(
                                   color: NPrimaryColor,
@@ -88,7 +88,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                       triggerCheckbox = true;
                                     });
                                   },
-                                  icon: Icon(Icons.radio_button_unchecked),
+                                  icon: Icon(Icons.check_box_outline_blank),
                                 ),
                         ],
                       ),
