@@ -838,7 +838,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 children: <Widget>[
                                   StarRating(
                                       rating: productDetail.avgRating,
-                                      size: 20),
+                                      size: 15),
                                   SizedBox(
                                     width: 8,
                                   ),
