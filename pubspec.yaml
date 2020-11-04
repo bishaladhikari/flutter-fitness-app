@@ -28,6 +28,7 @@ dependencies:
   stripe_payment:
   stripe_sdk: ^3.0.1+1
   expandable_text: 0.1.0
+  webview_flutter:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

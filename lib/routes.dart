@@ -13,6 +13,7 @@ import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
 import 'package:ecapp/pages/order_review/order_review_page.dart';
+import 'package:ecapp/pages/privacy/privacy-page.dart';
 import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
@@ -28,6 +29,9 @@ abstract class Routes {
     switch (routeSettings.name) {
       case 'mainPage':
         return MaterialPageRoute(builder: (context) => MainPage());
+        break;
+      case 'privacyPage':
+        return MaterialPageRoute(builder: (context) => PrivacyPage());
         break;
       case 'wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
