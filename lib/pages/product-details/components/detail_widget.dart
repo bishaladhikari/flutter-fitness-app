@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/variant.dart';
@@ -24,6 +25,7 @@ class DetailWidget extends StatefulWidget {
 
 class _DetailWidgetState extends State<DetailWidget> {
 //  _ProductInfoState(productDetail);
+  bool _showFullText=false;
 
   @override
   void initState() {
@@ -48,100 +50,80 @@ class _DetailWidgetState extends State<DetailWidget> {
     List<String> tags = widget.productDetail.tags;
     return widget.productDetail.tags.length > 0
         ? Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                alignment: Alignment.topLeft, child: Text("Tags")),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: tags.map((title) {
-                  return Container(
-                    padding: const EdgeInsets.all(6.0),
-                    child: OutlineButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(5.0)),
-                      child: Text(title,
-                          style: TextStyle(color: Colors.black.withOpacity(0.6))),
-                      onPressed: () {}, //callback when button is clicked
-                      borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.4),
-                        //Color of the border
-                        style: BorderStyle.solid,
-                        //Style of the border
-                        width: 0.8, //width of the border
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      alignment: Alignment.topLeft, child: Text("Tags")),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: tags.map((title) {
+                    return Container(
+                      padding: const EdgeInsets.all(6.0),
+                      child: OutlineButton(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(5.0)),
+                        child: Text(title,
+                            style: TextStyle(
+                                color: Colors.black.withOpacity(0.6))),
+                        onPressed: () {}, //callback when button is clicked
+                        borderSide: BorderSide(
+                          color: Colors.black.withOpacity(0.4),
+                          //Color of the border
+                          style: BorderStyle.solid,
+                          //Style of the border
+                          width: 0.8, //width of the border
+                        ),
                       ),
-                    ),
-                  );
-                }).toList()),
-          ),
-        ],
-      ),
-    )
+                    );
+                  }).toList()),
+                ),
+              ],
+            ),
+          )
         : Container();
   }
 
+
   _buildDescription(BuildContext context) {
-    String description = widget.productDetail.description;
+    String descText = widget.productDetail.description;
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 3.8,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              "Description",
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text("Description",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black45,
-                fontSize: 18,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-//            OverflowBox(
-//              child: Html(
-//                data: description,
-//                //Optional parameters:
-////          backgroundColor: Colors.white70,
-//                onLinkTap: (url) {
-//                  // open url in a webview
-//                },
-//
-//                onImageTap: (src) {
-//                  // Display the image in large form.
-//                },
-//              ),
-//            ),
-            SizedBox(
-              height: 8,
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  _settingModalBottomSheet(
-                      context, widget.productDetail.description);
-                },
-                child: Text(
-                  "View More",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey,
-                      fontSize: 16),
-                ),
-              ),
-            )
-          ],
-        ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: kTextColor)),
+          Html(data:descText),
+          SizedBox(
+            height: 8,
+          ),
+          // Center(
+          //   child: GestureDetector(
+          //     onTap: () {
+          //       _settingModalBottomSheet(
+          //           context, widget.productDetail.description);
+          //     },
+          //     child: Text(
+          //       "View More",
+          //       style: TextStyle(
+          //           fontWeight: FontWeight.bold,
+          //           color: Colors.blueGrey,
+          //           fontSize: 16),
+          //     ),
+          //   ),
+          // )
+        ],
       ),
     );
   }
