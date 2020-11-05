@@ -56,6 +56,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   final String minPrice;
   final String maxPrice;
   final String types;
+  String sort_type = "default";
 
 //  ProductsListByCategoryBloc productsByCategoryBloc;
 
@@ -201,27 +202,47 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ListTile(
-                          title: Text("Default"),
+                          title: Text("Default",
+                              style: TextStyle(
+                                  fontWeight: sort_type == "default"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
-                            sortProducts(context, 'default');
+                            sortProducts(context, "default");
                           }),
                       ListTile(
-                          title: Text("Popularity"),
+                          title: Text("Popularity",
+                              style: TextStyle(
+                                  fontWeight: sort_type == "popularity"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'popularity');
                           }),
                       ListTile(
-                          title: Text("Low - High Price"),
+                          title: Text("Low - High Price",
+                              style: TextStyle(
+                                  fontWeight: sort_type == "price_asc"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_asc');
                           }),
                       ListTile(
-                          title: Text("High - Low Price"),
+                          title: Text("High - Low Price",
+                              style: TextStyle(
+                                  fontWeight: sort_type == "price_desc"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_desc');
                           }),
                       ListTile(
-                          title: Text("Average Rating"),
+                          title: Text("Average Rating",
+                              style: TextStyle(
+                                  fontWeight: sort_type == "average_rating"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'average_rating');
                           }),
@@ -238,6 +259,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     const minPrice = '';
     const maxPrice = '';
     const types = '';
+    setState(() {
+      sort_type = sortBy;
+    });
     widget.productsByCategoryBloc.getCategoryProducts(
         widget.productsByCategoryBloc.category.value,
         sortBy,

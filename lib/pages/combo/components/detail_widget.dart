@@ -128,61 +128,39 @@ class _DetailWidgetState extends State<DetailWidget> {
   }
 
 //  _buildDescription(BuildContext context) {
-//    String description = widget.comboDetail.description;
+//    String descText = widget.comboDetail.;
 //    return Container(
-//      width: MediaQuery.of(context).size.width,
-//      height: MediaQuery.of(context).size.height / 3.8,
-//      child: Container(
-//        padding: EdgeInsets.all(16.0),
-//        child: Column(
-//          crossAxisAlignment: CrossAxisAlignment.start,
-//          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//          children: <Widget>[
-//            Text(
-//              "Description",
+//      padding: EdgeInsets.all(16.0),
+//      child: Column(
+//        crossAxisAlignment: CrossAxisAlignment.start,
+//        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//        mainAxisSize: MainAxisSize.min,
+//        children: <Widget>[
+//          Text("Description",
 //              style: TextStyle(
-//                fontWeight: FontWeight.bold,
-//                color: Colors.black45,
-//                fontSize: 18,
-//              ),
-//            ),
-//            SizedBox(
-//              height: 8,
-//            ),
-////            OverflowBox(
-////              child: Html(
-////                data: description,
-////                //Optional parameters:
-//////          backgroundColor: Colors.white70,
-////                onLinkTap: (url) {
-////                  // open url in a webview
-////                },
-////
-////                onImageTap: (src) {
-////                  // Display the image in large form.
-////                },
-////              ),
-////            ),
-//            SizedBox(
-//              height: 8,
-//            ),
-//            Center(
-//              child: GestureDetector(
-//                onTap: () {
-//                  _settingModalBottomSheet(
-//                      context, widget.comboDetail.description);
-//                },
-//                child: Text(
-//                  "View More",
-//                  style: TextStyle(
-//                      fontWeight: FontWeight.bold,
-//                      color: Colors.blueGrey,
-//                      fontSize: 16),
-//                ),
-//              ),
-//            )
-//          ],
-//        ),
+//                  fontWeight: FontWeight.bold,
+//                  fontSize: 15,
+//                  color: kTextColor)),
+//          Html(data:descText),
+//          SizedBox(
+//            height: 8,
+//          ),
+//          // Center(
+//          //   child: GestureDetector(
+//          //     onTap: () {
+//          //       _settingModalBottomSheet(
+//          //           context, widget.productDetail.description);
+//          //     },
+//          //     child: Text(
+//          //       "View More",
+//          //       style: TextStyle(
+//          //           fontWeight: FontWeight.bold,
+//          //           color: Colors.blueGrey,
+//          //           fontSize: 16),
+//          //     ),
+//          //   ),
+//          // )
+//        ],
 //      ),
 //    );
 //  }
