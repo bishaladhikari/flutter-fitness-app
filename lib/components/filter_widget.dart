@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
+  Function applyFilters;
   @override
   _FilterWidgetState createState() => _FilterWidgetState();
 }
@@ -9,15 +10,18 @@ class _FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     //category
-    return Column(
-      children: [
-        _buildCategory(),
-        //Brands
-        _buildBrands(),
-        // Pricerange
-        _buildPriceRange()
-
-      ],
+    return Scaffold(
+      appBar: AppBar(title: Text("Filters"),),
+      body: Column(
+        children: [
+          _buildCategory(),
+          //Brands
+          _buildBrands(),
+          // Pricerange
+          _buildPriceRange()
+        ],
+      ),
+//      bottomNavigationBar: ,
     );
 
 //    return Container(
@@ -96,12 +100,12 @@ class _FilterWidgetState extends State<FilterWidget> {
 //    );
   }
   _buildCategory(){
-
+    return Text("Category");
   }
   _buildBrands(){
-
+    return Text("Brands");
   }
   _buildPriceRange(){
-
+    return Text("Price");
   }
 }

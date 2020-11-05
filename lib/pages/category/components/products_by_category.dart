@@ -171,7 +171,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   child: Text("FILTER", overflow: TextOverflow.ellipsis),
                 )),
             onPressed: () {
-//              _showFilterProduct(context);
+              _showFilterProduct(context);
             },
           ),
         ),
@@ -277,8 +277,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext bc) {
-          FilterWidget();
-
+          return FilterWidget();
         });
   }
 }
