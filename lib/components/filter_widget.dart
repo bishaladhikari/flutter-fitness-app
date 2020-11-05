@@ -1,3 +1,4 @@
+import 'package:ecapp/models/brand.dart';
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -7,6 +8,9 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
+//  List<Brand> brands;
+  List<Brand> selectedBrands;
+
   @override
   Widget build(BuildContext context) {
     //category
