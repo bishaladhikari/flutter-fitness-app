@@ -878,7 +878,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   SizedBox(width: 10,),
                                   SizedBox(
                                     width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor,),
+                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
                                   ),
                                   SizedBox(width: 10,),
                                   Text(
@@ -897,7 +897,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   SizedBox(width: 10,),
                                   SizedBox(
                                     width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor,),
+                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
                                   ),
                                   SizedBox(width: 10,),
                                   Text(
@@ -916,7 +916,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   SizedBox(width: 10,),
                                   SizedBox(
                                     width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor,),
+                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
                                   ),
                                   SizedBox(width: 10,),
                                   Text(
@@ -934,7 +934,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   SizedBox(width: 10,),
                                   SizedBox(
                                     width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor,),
+                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
                                   ),
                                   SizedBox(width: 10,),
                                   Text(
@@ -952,7 +952,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                   SizedBox(width: 10,),
                                   SizedBox(
                                     width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor,),
+                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
                                   ),
                                   SizedBox(width: 10,),
                                   Text(

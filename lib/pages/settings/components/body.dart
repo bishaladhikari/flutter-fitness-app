@@ -40,9 +40,6 @@ class _BodyState extends State<Body> {
                   MaterialPageRoute(builder: (context) => ReviewPage()),
                 );
               }),
-          ListTile(title: Text('Policies')),
-          ListTile(title: Text('About')),
-          ListTile(title: Text('Help')),
           ListTile(
             title: Text('Logout'),
             onTap: () {
