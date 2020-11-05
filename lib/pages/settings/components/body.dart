@@ -28,7 +28,7 @@ class _BodyState extends State<Body> {
           ListTile(
               title: Text('Language'),
               subtitle: Text(
-                  EasyLocalization.of(context).locale.languageCode.toString()),
+                  EasyLocalization.of(context).locale.toLanguageTag().toString()),
               onTap: () {
                 _languageChange(context);
               }),
