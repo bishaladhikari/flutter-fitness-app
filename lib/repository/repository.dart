@@ -5,6 +5,7 @@ import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
+import 'package:ecapp/models/response/brand_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/customer_review_response.dart';
@@ -39,6 +40,7 @@ class Repository {
   var wishlistUrl = '$appUrl/wishlist';
   var cartUrl = '$appUrl/cart';
   var addressUrl = '$appUrl/addresses';
+  var brandsUrl = '$appUrl/brands';
   var bannerUrl = '$appUrl/all-banners';
   var registerUrl = '$appUrl/customer-register';
   var orderProductsUrl = '$appUrl/order-products';
@@ -229,6 +231,16 @@ class Repository {
       return AddressResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return AddressResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<BrandResponse> getBrands() async {
+    try {
+      Response response = await _dio.get(brandsUrl);
+
+      return BrandResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return BrandResponse.withError(_handleError(error));
     }
   }
 
