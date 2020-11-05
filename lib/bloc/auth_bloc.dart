@@ -51,12 +51,12 @@ class AuthBloc {
   }
 
   emailForgotPassword(email) async {
-    var response = await _repository.emailForgotPassword(email);
+    MessageResponse response = await _repository.emailForgotPassword(email);
     return response;
   }
 
   forgotPasswordUpdate(params) async {
-    var response = await _repository.forgotPasswordUpdate(params);
+    MessageResponse response = await _repository.forgotPasswordUpdate(params);
     return response;
   }
 

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/response/message_response.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -126,7 +127,7 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
                       PatternValidator(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
                           errorText:
-                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                          'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
                     ]),
                   ),
                   SizedBox(height: 20),
@@ -163,15 +164,18 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
               onTap: () => validateUpdatePassword(context),
               child: Container(
                 height: 50.0,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
                     color: NPrimaryColor,
                     borderRadius: BorderRadius.circular(5.0)),
                 child: Center(
                     child: Text(
-                  "Change Password",
-                  style: TextStyle(fontSize: 14, color: Colors.white),
-                )),
+                      "Change Password",
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    )),
               ),
             ),
           ],
@@ -182,31 +186,24 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
 
   validateUpdatePassword(BuildContext context) async {
     if (_formKey.currentState.validate()) {
-      var response = await authBloc.forgotPasswordUpdate({
+      MessageResponse response = await authBloc.forgotPasswordUpdate({
         "email": "${widget.email}",
         "opt": "${codeController.text}",
         "password": "${newPasswordController.text}"
       });
-      if (response.statusCode == 200) {
-        Fluttertoast.showToast(
-            msg: "Password reset successfully",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
+
+      Fluttertoast.showToast(
+          msg: response.error == null ? response.message : response.error,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: response.error == null ? Colors.green : Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      if (response.error == null) {
         Navigator.of(context, rootNavigator: true)
             .pushReplacementNamed('loginPage');
-      } else {
-        Fluttertoast.showToast(
-            msg: "Error! Try Again.",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
       }
     } else {
       setState(() => _validate = true);

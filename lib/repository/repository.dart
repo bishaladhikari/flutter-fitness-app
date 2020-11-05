@@ -357,7 +357,13 @@ class Repository {
   }
 
   Future<dynamic> registerCustomer(
-      {@required fname, lname, email, mobile, password, cpassword}) async {
+      {@required fname,
+      lname,
+      email,
+      mobile,
+      password,
+      cpassword,
+      referCode}) async {
     try {
       final data = {
         "first_name": "$fname",
@@ -366,6 +372,7 @@ class Repository {
         "email": "$email",
         "password": "$password",
         "confirm_password": "$cpassword",
+        "refer_code": "$referCode"
       };
       final response = await _dio.post(registerUrl, queryParameters: data);
       return response;
@@ -546,23 +553,23 @@ class Repository {
     }
   }
 
-  emailForgotPassword(params) async {
+  Future<MessageResponse> emailForgotPassword(params) async {
     try {
       Response response =
           await _dio.post(forgotPasswordUrl, queryParameters: params);
-      return response;
+      return MessageResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      return _handleError(error);
+      return MessageResponse.withError(_handleError(error));
     }
   }
 
-  forgotPasswordUpdate(params) async {
+  Future<MessageResponse> forgotPasswordUpdate(params) async {
     try {
       Response response =
           await _dio.post(forgotPasswordUpdateUrl, queryParameters: params);
-      return response;
+      return MessageResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      return _handleError(error);
+      return MessageResponse.withError(_handleError(error));
     }
   }
 

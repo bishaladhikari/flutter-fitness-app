@@ -68,15 +68,6 @@ class _BodyState extends State<Body> {
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {},
           ),
-          AppBarIconText(
-            iconData: Icons.email,
-            title: "Email Verification",
-            subtitle: "Help regarding your recent Purchases.",
-            tralingIcon: Icons.keyboard_arrow_right,
-            onPressed: () {
-              Navigator.of(context).pushNamed('emailConfirmPage');
-            },
-          ),
           Divider(
             height: 1.0,
             color: Colors.grey,
