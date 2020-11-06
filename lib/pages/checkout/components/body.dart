@@ -46,11 +46,13 @@ class _BodyState extends State<Body> {
                     stream: checkoutBloc.defaultAddress,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        if (snapshot.data != null)
+//                        if (snapshot.data != null)
                           return _buildAddressWidget(snapshot.data);
-                        else
-                          return AddAddress();
+//                        else
+//                          return AddAddress();
                       }
+                      return AddAddress();
+
                       return _buildLoadingWidget();
                     }),
               ],

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecapp/models/response/login_response.dart';
+import 'package:ecapp/models/response/message_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -49,6 +50,26 @@ class AuthBloc {
     return response;
   }
 
+  emailForgotPassword(email) async {
+    MessageResponse response = await _repository.emailForgotPassword(email);
+    return response;
+  }
+
+  forgotPasswordUpdate(params) async {
+    MessageResponse response = await _repository.forgotPasswordUpdate(params);
+    return response;
+  }
+
+  confirmEmailOTP(params) async {
+    MessageResponse response = await _repository.confirmEmailOTP(params);
+    return response;
+  }
+
+  resendOTPCode(email) async {
+    MessageResponse response = await _repository.resendOTPCode(email);
+    return response;
+  }
+
   _setPref(response) async {
     print("setting pref");
     pref = await SharedPreferences.getInstance();
@@ -86,7 +107,9 @@ class AuthBloc {
 
   get user async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString("user") != null ? User.fromJson(json.decode(pref.getString("user"))) : User();
+    return pref.getString("user") != null
+        ? User.fromJson(json.decode(pref.getString("user")))
+        : User();
   }
 
 //  get token async {

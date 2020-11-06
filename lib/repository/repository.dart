@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
@@ -13,18 +12,20 @@ import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
+import 'package:ecapp/models/response/loyalty_point_response.dart';
+import 'package:ecapp/models/response/message_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_product_item_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/models/response/redeem_point_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../main.dart';
 
 class Repository {
@@ -46,7 +47,12 @@ class Repository {
   var removeFromWishlist = '$appUrl/remove-from-wishlist';
   var reviewProductUrl = '$appUrl/reviews';
   var comboProductUrl = '$appUrl/combos';
+  var resendOTPUrl = '$appUrl/resend-otp';
+  var confirmOTPUrl = '$appUrl/otp-confirmation';
+  var forgotPasswordUrl = '$appUrl/customer/forget-password';
+  var forgotPasswordUpdateUrl = '$appUrl/customer/update-password';
   var loyaltyPointsUrl = '$appUrl/loyalty-points';
+  var redeemLoyaltyPointsUrl = '$appUrl/redeem-points';
 
   Repository() {
     BaseOptions options =
@@ -355,7 +361,13 @@ class Repository {
   }
 
   Future<dynamic> registerCustomer(
-      {@required fname, lname, email, mobile, password, cpassword}) async {
+      {@required fname,
+      lname,
+      email,
+      mobile,
+      password,
+      cpassword,
+      referCode}) async {
     try {
       final data = {
         "first_name": "$fname",
@@ -364,6 +376,7 @@ class Repository {
         "email": "$email",
         "password": "$password",
         "confirm_password": "$cpassword",
+        "refer_code": "$referCode"
       };
       final response = await _dio.post(registerUrl, queryParameters: data);
       return response;
@@ -541,6 +554,68 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return OrderProductItemResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<MessageResponse> emailForgotPassword(params) async {
+    try {
+      Response response =
+          await _dio.post(forgotPasswordUrl, queryParameters: params);
+      return MessageResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return MessageResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<MessageResponse> forgotPasswordUpdate(params) async {
+    try {
+      Response response =
+          await _dio.post(forgotPasswordUpdateUrl, queryParameters: params);
+      return MessageResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return MessageResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<MessageResponse> resendOTPCode(params) async {
+    try {
+      Response response =
+          await _dio.post(resendOTPUrl, queryParameters: params);
+      return MessageResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return MessageResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<MessageResponse> confirmEmailOTP(params) async {
+    try {
+      Response response =
+          await _dio.post(confirmOTPUrl, queryParameters: params);
+      return MessageResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return MessageResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<LoyaltyPointResponse> loyaltyPoints(amount) async {
+    var params = {'amount': amount};
+
+    try {
+      Response response =
+          await _dio.post(loyaltyPointsUrl, queryParameters: params);
+      return LoyaltyPointResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return LoyaltyPointResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<RedeemPointResponse> redeemLoyaltyPoints(params) async {
+    try {
+      Response response =
+          await _dio.post(redeemLoyaltyPointsUrl, queryParameters: params);
+      return RedeemPointResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return RedeemPointResponse.withError(_handleError(error));
     }
   }
 

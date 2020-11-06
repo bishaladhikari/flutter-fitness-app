@@ -118,7 +118,9 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             title: "Privacy Policy ",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "privacyPage");
+            },
           ),
 //          DiscountCard(),
         ],

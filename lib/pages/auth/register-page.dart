@@ -20,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage>
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cpasswordController = TextEditingController();
+  TextEditingController referCodeController = TextEditingController();
 
   bool _obscureText = true;
   bool _validate = false;
@@ -32,12 +33,13 @@ class _RegisterPageState extends State<RegisterPage>
       if (_formKey.currentState.validate()) {
         try {
           final response = await Repository().registerCustomer(
-            fname: fnameController.text,
-            lname: lnameController.text,
-            email: emailController.text,
-            mobile: mobileController.text,
-            password: passwordController.text,
-            cpassword: cpasswordController.text,
+              fname: fnameController.text,
+              lname: lnameController.text,
+              email: emailController.text,
+              mobile: mobileController.text,
+              password: passwordController.text,
+              cpassword: cpasswordController.text,
+              referCode: referCodeController.text
           );
           print("RegisterRes:" + response.toString());
           _registerSuccess();
@@ -55,7 +57,8 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   void _registerSuccess() {
-    Navigator.pushReplacementNamed(context, 'emailConfirmPage');
+    Navigator.pushReplacementNamed(context, 'emailConfirmPage',
+        arguments: emailController.text);
   }
 
   void _showErrorMessage(context, String message) {
@@ -64,10 +67,6 @@ class _RegisterPageState extends State<RegisterPage>
       backgroundColor: Colors.redAccent,
     ));
     authBloc..drainStream();
-
-//    Scaffold.of(context).showSnackBar(SnackBar(
-//      content: Text(message),
-//    ));
   }
 
   void _toggle() {
@@ -93,6 +92,7 @@ class _RegisterPageState extends State<RegisterPage>
     emailController.dispose();
     cpasswordController.dispose();
     passwordController.dispose();
+    referCodeController.dispose();
   }
 
   String validatepass(value) {
@@ -223,7 +223,7 @@ class _RegisterPageState extends State<RegisterPage>
                       PatternValidator(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
                           errorText:
-                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                          'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
                     ]),
                   ),
                   SizedBox(height: 10),
@@ -255,28 +255,36 @@ class _RegisterPageState extends State<RegisterPage>
               ),
             ),
             SizedBox(height: 10),
-
-            // Container(
-            //   alignment: Alignment.centerRight,
-            //   child: Padding(
-            //     padding: EdgeInsets.all(16.0),
-            //     child: Text('Forget Password?',
-            //         style: TextStyle(color: Colors.black, fontSize: 15.0)),
-            //   ),
-            // ),
+            TextFormField(
+              controller: referCodeController,
+              style: TextStyle(color: Color(0xFF000000)),
+              cursorColor: Color(0xFF9b9b9b),
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                  // prefixIcon: const Icon(Icons.mail_outline),
+                  border: OutlineInputBorder(),
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
+                  hintStyle: TextStyle(color: Colors.grey),
+                  hintText: "Referral Code (Optional)"),
+            ),
+            SizedBox(height: 20),
             GestureDetector(
               onTap: () => validate(),
               child: Container(
                 height: 50.0,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
                     color: NPrimaryColor,
                     borderRadius: BorderRadius.circular(5.0)),
                 child: Center(
                     child: Text(
-                  "SIGN UP",
-                  style: TextStyle(fontSize: 14, color: Colors.white),
-                )),
+                      "SIGN UP",
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    )),
               ),
             ),
             Align(
@@ -309,7 +317,10 @@ class _RegisterPageState extends State<RegisterPage>
                   padding: const EdgeInsets.all(4.0),
                   margin: const EdgeInsets.all(4.0),
                   height: 50.0,
-                  width: (MediaQuery.of(context).size.width) / 2.4,
+                  width: (MediaQuery
+                      .of(context)
+                      .size
+                      .width) / 2.4,
                   decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: NPrimaryColor, width: 1.0),
@@ -342,7 +353,10 @@ class _RegisterPageState extends State<RegisterPage>
                   padding: const EdgeInsets.all(4.0),
                   margin: const EdgeInsets.all(4.0),
                   height: 50.0,
-                  width: (MediaQuery.of(context).size.width) / 2.4,
+                  width: (MediaQuery
+                      .of(context)
+                      .size
+                      .width) / 2.4,
                   decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: NPrimaryColor, width: 1.0),
@@ -382,7 +396,10 @@ class _RegisterPageState extends State<RegisterPage>
                 padding: const EdgeInsets.all(5.0),
                 margin: const EdgeInsets.all(10.0),
                 height: 50.0,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(color: Colors.grey, width: 1.0),

@@ -1,3 +1,5 @@
+import 'package:simple_moment/simple_moment.dart';
+
 class Review {
   int id;
   String headline;
@@ -27,7 +29,9 @@ class Review {
     message = json['message'];
     orderAttributeId = json['order_attribute_id'];
     rating = json['rating'].toDouble();
-    reviewedDate = json['reviewed_date'];
+    reviewedDate = json['reviewed_date'] != null
+        ? Moment.parse(json['reviewed_date']).format("dd MMM yyyy")
+        : "";
     userName = json['user_name'];
     customerImage = json['customer_image'];
   }

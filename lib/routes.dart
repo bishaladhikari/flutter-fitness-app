@@ -1,6 +1,7 @@
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:ecapp/pages/auth/email-confirm.dart';
+import 'package:ecapp/pages/auth/email-forgot-password-page.dart';
 import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';
 import 'package:ecapp/pages/auth/register-page.dart';
@@ -13,6 +14,7 @@ import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
 import 'package:ecapp/pages/order_review/order_review_page.dart';
+import 'package:ecapp/pages/privacy/privacy-page.dart';
 import 'package:ecapp/pages/product-details/product-detail-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
@@ -28,6 +30,9 @@ abstract class Routes {
     switch (routeSettings.name) {
       case 'mainPage':
         return MaterialPageRoute(builder: (context) => MainPage());
+        break;
+      case 'privacyPage':
+        return MaterialPageRoute(builder: (context) => PrivacyPage());
         break;
       case 'wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
@@ -64,10 +69,16 @@ abstract class Routes {
             builder: (context) => AddressPage(selectMode: arguments));
         break;
       case 'emailConfirmPage':
-        return MaterialPageRoute(builder: (context) => EmailConfirmPage());
+        return MaterialPageRoute(
+            builder: (context) => EmailConfirmPage(email: arguments));
         break;
-      case 'forgetpasswordPage':
-        return MaterialPageRoute(builder: (context) => ForgetPasswordPage());
+      case 'forgetPasswordPage':
+        return MaterialPageRoute(
+            builder: (context) => ForgetPasswordPage(email: arguments));
+        break;
+      case 'emailForgotPasswordPage':
+        return MaterialPageRoute(
+            builder: (context) => EmailForgotPasswordPage());
         break;
       case 'addressFormPage':
         return MaterialPageRoute(

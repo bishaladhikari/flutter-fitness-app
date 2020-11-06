@@ -28,7 +28,7 @@ class _BodyState extends State<Body> {
           ListTile(
               title: Text('Language'),
               subtitle: Text(
-                  EasyLocalization.of(context).locale.languageCode.toString()),
+                  EasyLocalization.of(context).locale.toLanguageTag().toString()),
               onTap: () {
                 _languageChange(context);
               }),
@@ -40,9 +40,6 @@ class _BodyState extends State<Body> {
                   MaterialPageRoute(builder: (context) => ReviewPage()),
                 );
               }),
-          ListTile(title: Text('Policies')),
-          ListTile(title: Text('About')),
-          ListTile(title: Text('Help')),
           ListTile(
             title: Text('Logout'),
             onTap: () {

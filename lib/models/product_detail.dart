@@ -20,6 +20,13 @@ class ProductDetail {
   Attribute selectedAttribute;
   Variant selectedVariant;
   double avgRating;
+  int zeroStarCount;
+  int oneStarCount;
+  int twoStarCount;
+  int threeStarCount;
+  int fourStarCount;
+  int fiveStarCount;
+  int totalReview;
   int reviewCount;
 
   ProductDetail(
@@ -39,6 +46,13 @@ class ProductDetail {
       this.selectedAttribute,
       this.selectedVariant,
       this.avgRating,
+      this.zeroStarCount,
+      this.oneStarCount,
+      this.twoStarCount,
+      this.threeStarCount,
+      this.fourStarCount,
+      this.fiveStarCount,
+      this.totalReview,
       this.reviewCount});
 
   ProductDetail.fromJson(Map<String, dynamic> json) {
@@ -69,6 +83,13 @@ class ProductDetail {
     saved = json['saved'];
     avgRating =
         json['avg_rating'] != null ? json['avg_rating'].toDouble() : 0.0;
+    zeroStarCount = json['zero_star_count'];
+    oneStarCount = json['one_star_count'];
+    twoStarCount = json['two_star_count'];
+    threeStarCount = json['three_star_count'];
+    fourStarCount = json['four_star_count'];
+    fiveStarCount = json['five_star_count'];
+    totalReview = json['total_review'];
     reviewCount = json['total_review'];
     selectedAttribute = attributes[0];
     selectedVariant = selectedAttribute.variant;
