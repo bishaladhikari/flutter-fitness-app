@@ -234,9 +234,9 @@ class Repository {
     }
   }
 
-  Future<BrandResponse> getBrands() async {
+  Future<BrandResponse> getBrands(category) async {
     try {
-      Response response = await _dio.get(brandsUrl);
+      Response response = await _dio.get(brandsUrl + "?category=" + category);
 
       return BrandResponse.fromJson(response.data);
     } catch (error, stacktrace) {

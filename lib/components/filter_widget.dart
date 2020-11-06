@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
   Function applyFilters;
+
   @override
   _FilterWidgetState createState() => _FilterWidgetState();
 }
@@ -15,7 +16,9 @@ class _FilterWidgetState extends State<FilterWidget> {
   Widget build(BuildContext context) {
     //category
     return Scaffold(
-      appBar: AppBar(title: Text("Filters"),),
+      appBar: AppBar(
+        title: Text("Filters"),
+      ),
       body: Column(
         children: [
           _buildCategory(),
@@ -103,13 +106,16 @@ class _FilterWidgetState extends State<FilterWidget> {
 //      ),
 //    );
   }
-  _buildCategory(){
+
+  _buildCategory() {
     return Text("Category");
   }
-  _buildBrands(){
+
+  _buildBrands() {
     return Text("Brands");
   }
-  _buildPriceRange(){
+
+  _buildPriceRange() {
     return Text("Price");
   }
 }

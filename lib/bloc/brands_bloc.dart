@@ -11,8 +11,8 @@ class AddressBloc {
       BehaviorSubject<BrandResponse>();
   BrandResponse response;
 
-  getBrands() async {
-    response = await _repository.getBrands();
+  getBrands({category}) async {
+    response = await _repository.getBrands(category);
     _subject.sink.add(response);
 //    return response;
   }
