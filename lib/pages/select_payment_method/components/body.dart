@@ -113,7 +113,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                   height: 3,
                                 ),
                                 RaisedButton(
-                                  color : NPrimaryColor,
+                                  color: NPrimaryColor,
                                   textColor: Colors.white,
                                   elevation: .2,
 
@@ -127,20 +127,20 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: NPrimaryColor,
                                         textColor: Colors.white,
-                                        fontSize: 14.0
-                                    );
+                                        fontSize: 14.0);
                                   },
                                   child: Text('Redeem'),
-
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
                                   color: NPrimaryColor.withOpacity(.2),
                                   child: Text(
                                     'Note: 1 reward point is equal to ¥1',
-                                    style:
-                                    TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        color: Colors.black45,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
