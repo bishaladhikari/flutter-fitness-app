@@ -1,4 +1,6 @@
+import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/models/brand.dart';
+import 'package:ecapp/models/response/brand_response.dart';
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -16,17 +18,21 @@ class _FilterWidgetState extends State<FilterWidget> {
   Widget build(BuildContext context) {
     //category
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Filters"),
-      ),
-      body: Column(
-        children: [
-          _buildCategory(),
-          //Brands
-          _buildBrands(),
-          // Pricerange
-          _buildPriceRange()
-        ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 50,),
+              _buildCategory(),
+              //Brands
+              _buildBrands(),
+              // Pricerange
+              _buildPriceRange()
+            ],
+          ),
+        ),
       ),
 //      bottomNavigationBar: ,
     );
@@ -112,7 +118,14 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBrands() {
-    return Text("Brands");
+    return StreamBuilder<BrandResponse>(
+      stream: brandsBloc.brands,
+      builder: (context, snapshot) {
+        if(snapshot.hasData)
+        return Text("Brands");
+        return Container();
+      }
+    );
   }
 
   _buildPriceRange() {

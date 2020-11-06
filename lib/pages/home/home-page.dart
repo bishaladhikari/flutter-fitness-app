@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage>
       ),
 //      appBar: homeAppBar(context),
 //      bottomNavigationBar: BottomNavBar(),
-      body: Body(),
+      body: SafeArea(child: Body()),
     );
   }
 

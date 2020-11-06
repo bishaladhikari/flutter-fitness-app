@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/components/filter_widget.dart';
 import 'package:ecapp/components/product_item.dart';
@@ -69,12 +70,15 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     super.initState();
     widget.productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
+    brandsBloc.getBrands(category: category);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.productsByCategoryBloc..drainStream();
+    widget.productsByCategoryBloc.drainStream();
+    widget.productsByCategoryBloc.drainCategoryStream();
+    brandsBloc.drainStream();
   }
 
   @override
@@ -257,6 +261,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   }
 
   sortProducts(context, String sortBy) {
+    widget.productsByCategoryBloc.drainStream();
     const minPrice = '';
     const maxPrice = '';
     const types = '';
@@ -276,7 +281,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
-        builder: (BuildContext bc) {
+        builder: (BuildContext context) {
           return FilterWidget();
         });
   }

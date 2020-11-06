@@ -22,6 +22,8 @@ class ProductsListByCategoryBloc {
 
   void drainStream() {
     _subject.value = null;
+  }
+  void drainCategoryStream(){
     _category.value = null;
   }
 

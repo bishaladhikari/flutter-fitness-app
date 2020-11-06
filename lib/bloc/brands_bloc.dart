@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AddressBloc {
+class BrandsBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<BrandResponse> _subject =
       BehaviorSubject<BrandResponse>();
@@ -27,4 +27,4 @@ class AddressBloc {
   Stream<BrandResponse> get brands => _subject.stream;
 }
 
-final AddressBloc addressBloc = AddressBloc();
+final BrandsBloc brandsBloc = BrandsBloc();
