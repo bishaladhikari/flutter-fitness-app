@@ -24,7 +24,19 @@ class _FilterWidgetState extends State<FilterWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                children: [Text("Filters"), Spacer(), Text("clear all")],
+              ),
+              Divider(
+                thickness: 1,
+                height: MediaQuery.of(context).size.width,
+              ),
+              SizedBox(
+                height: 10,
+              ),
               _buildCategory(),
               //Brands
               _buildBrands(),
@@ -119,16 +131,54 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   _buildBrands() {
     return StreamBuilder<BrandResponse>(
-      stream: brandsBloc.brands,
-      builder: (context, snapshot) {
-        if(snapshot.hasData)
-        return Text("Brands");
-        return Container();
-      }
-    );
+        stream: brandsBloc.brands,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+              return _buildErrorWidget(snapshot.data.error);
+            }
+            return _buildBrandWidget(snapshot.data);
+          } else if (snapshot.hasError) {
+            return _buildErrorWidget(snapshot.error);
+          } else {
+            return _buildLoadingWidget();
+          }
+        });
   }
 
   _buildPriceRange() {
     return Text("Price");
+  }
+
+  Widget _buildLoadingWidget() {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
+  }
+
+  Widget _buildErrorWidget(String error) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
+  }
+
+  Widget _buildBrandWidget(BrandResponse data) {
+    List<Brand> brands = data.brands;
+    return Text("Brand");
   }
 }
