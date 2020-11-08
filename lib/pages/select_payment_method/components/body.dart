@@ -179,6 +179,77 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
 //                         color: Colors.black, fontWeight: FontWeight.bold),
 //                   ),
 //                 ),
+            SizedBox(height: 20),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              color: Colors.black.withOpacity(.01),
+              child: Column(
+                children: [
+                  StreamBuilder<LoyaltyPointResponse>(
+                      stream: loyaltyPointBloc.subject.stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(
+                            tr(snapshot.data.points.toString() +
+                                ' Reward Points to spend.'),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
+                  SizedBox(height: 20),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 7,
+                          child: Form(
+                            key: formKey,
+                            autovalidate: _validate,
+                            child: TextFormField(
+                              controller: redeemPointController,
+                              style: TextStyle(color: Color(0xFF000000)),
+                              cursorColor: Color(0xFF9b9b9b),
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                  contentPadding: new EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  hintText: tr("Redeem Points (Amount)")),
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: "Please enter the amount."),
+                              ]),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Expanded(
+                          flex: 3,
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: RaisedButton(
+                              color: NPrimaryColor,
+                              textColor: Colors.white,
+                              elevation: .2,
+                              onPressed: () {
+                                validateRedeemPoint(context);
+                              },
+                              child: Text('Redeem'),
+                            ),
+                          ),
+                        )
+                      ])
+                ],
+              ),
+            ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -199,8 +270,6 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-
-//            mainAxisAlignment:,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -266,16 +335,12 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
               },
               child: Container(
                 color: Colors.white,
-
                 height: 50,
-//          padding: EdgeInsets.symmetric( vertical: 10),
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-
-//            mainAxisAlignment:,
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -313,179 +378,122 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              color: Colors.black.withOpacity(.01),
-              child: Text(
-                'Redeem Points',
-                style: TextStyle(
-                    color: Colors.black45, fontWeight: FontWeight.bold),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                _showRedeemPointWidget(context);
-                // Navigator.pushNamed(context, "cashOnDeliveryPage");
-              },
-              child: Container(
-                color: Colors.white,
-                height: 50,
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Image.asset("assets/icons/cash_on_delivery.png",
-                            scale: 2),
-                      ),
-                      Wrap(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tr("Redeem Your Point For Cash"),
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                          child: Container(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_forward_ios),
-                          iconSize: 18,
-                          onPressed: () {},
-                        ),
-                      ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  void _showRedeemPointWidget(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: MediaQuery.of(context).size.height * .50,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(tr("Redeem Point"),
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.black)),
-                        StreamBuilder<LoyaltyPointResponse>(
-                            stream: loyaltyPointBloc.subject.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Container(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        tr(snapshot.data.points.toString() +
-                                            ' Reward Points to spend.'),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
-                                      SizedBox(height: 20.0),
-                                      Text(
-                                        'You can use your reward points and card payment/ cash on delivery options simultaneously.',
-                                        style: TextStyle(
-                                            color: Colors.black45,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(height: 20.0),
-                                      Container(
-                                        width: double.infinity,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 10),
-                                        color: NPrimaryColor.withOpacity(.2),
-                                        child: Text(
-                                          'Note: 1 reward point is equal to ¥1',
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Form(
-                                        key: formKey,
-                                        autovalidate: _validate,
-                                        child: TextFormField(
-                                          controller: redeemPointController,
-                                          style: TextStyle(
-                                              color: Color(0xFF000000)),
-                                          cursorColor: Color(0xFF9b9b9b),
-                                          keyboardType: TextInputType.text,
-                                          decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              contentPadding:
-                                                  new EdgeInsets.symmetric(
-                                                      vertical: 10.0,
-                                                      horizontal: 10.0),
-                                              hintStyle:
-                                                  TextStyle(color: Colors.grey),
-                                              hintText:
-                                                  "Redeem Points (Amount)"),
-                                          validator: MultiValidator([
-                                            RequiredValidator(
-                                                errorText:
-                                                    "Please enter the amount."),
-                                          ]),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: double.infinity,
-                                        child: RaisedButton(
-                                          color: NPrimaryColor,
-                                          textColor: Colors.white,
-                                          elevation: .2,
-                                          onPressed: () {
-                                            validateRedeemPoint(context);
-                                          },
-                                          child: Text('Redeem'),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  // void _showRedeemPointWidget(context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return SingleChildScrollView(
+  //           child: Container(
+  //             height: MediaQuery.of(context).size.height * .100,
+  //             child: Padding(
+  //               padding: const EdgeInsets.all(10.0),
+  //               child: Column(
+  //                 children: <Widget>[
+  //                   Padding(
+  //                     padding: const EdgeInsets.all(10.0),
+  //                     child: Column(
+  //                       children: <Widget>[
+  //                         Text(tr("Redeem Point"),
+  //                             style:
+  //                                 TextStyle(fontSize: 18, color: Colors.black)),
+  //                         StreamBuilder<LoyaltyPointResponse>(
+  //                             stream: loyaltyPointBloc.subject.stream,
+  //                             builder: (context, snapshot) {
+  //                               if (snapshot.hasData) {
+  //                                 return Container(
+  //                                   child: Column(
+  //                                     children: [
+  //                                       Text(
+  //                                         tr(snapshot.data.points.toString() +
+  //                                             ' Reward Points to spend.'),
+  //                                         style: TextStyle(
+  //                                             color: Colors.black,
+  //                                             fontWeight: FontWeight.bold,
+  //                                             fontSize: 20),
+  //                                       ),
+  //                                       SizedBox(height: 20.0),
+  //                                       Text(
+  //                                         'You can use your reward points and card payment/ cash on delivery options simultaneously.',
+  //                                         style: TextStyle(
+  //                                             color: Colors.black45,
+  //                                             fontWeight: FontWeight.bold),
+  //                                       ),
+  //                                       SizedBox(height: 20.0),
+  //                                       Container(
+  //                                         width: double.infinity,
+  //                                         padding: EdgeInsets.symmetric(
+  //                                             horizontal: 10, vertical: 10),
+  //                                         color: NPrimaryColor.withOpacity(.2),
+  //                                         child: Text(
+  //                                           'Note: 1 reward point is equal to ¥1',
+  //                                           style: TextStyle(
+  //                                               color: Colors.black45,
+  //                                               fontWeight: FontWeight.bold),
+  //                                         ),
+  //                                       ),
+  //                                       SizedBox(height: 10.0),
+  //                                       Form(
+  //                                         key: formKey,
+  //                                         autovalidate: _validate,
+  //                                         child: TextFormField(
+  //                                           controller: redeemPointController,
+  //                                           style: TextStyle(
+  //                                               color: Color(0xFF000000)),
+  //                                           cursorColor: Color(0xFF9b9b9b),
+  //                                           keyboardType: TextInputType.text,
+  //                                           decoration: InputDecoration(
+  //                                               border: OutlineInputBorder(),
+  //                                               contentPadding:
+  //                                                   new EdgeInsets.symmetric(
+  //                                                       vertical: 10.0,
+  //                                                       horizontal: 10.0),
+  //                                               hintStyle: TextStyle(
+  //                                                   color: Colors.grey),
+  //                                               hintText:
+  //                                                   "Redeem Points (Amount)"),
+  //                                           validator: MultiValidator([
+  //                                             RequiredValidator(
+  //                                                 errorText:
+  //                                                     "Please enter the amount."),
+  //                                           ]),
+  //                                         ),
+  //                                       ),
+  //                                       SizedBox(
+  //                                         width: double.infinity,
+  //                                         child: RaisedButton(
+  //                                           color: NPrimaryColor,
+  //                                           textColor: Colors.white,
+  //                                           elevation: .2,
+  //                                           onPressed: () {
+  //                                             validateRedeemPoint(context);
+  //                                           },
+  //                                           child: Text('Redeem'),
+  //                                         ),
+  //                                       ),
+  //                                     ],
+  //                                   ),
+  //                                 );
+  //                               } else {
+  //                                 return Container();
+  //                               }
+  //                             }),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         );
+  //       },
+  //       enableDrag: false);
+  // }
 
   validateRedeemPoint(BuildContext context) async {
     if (formKey.currentState.validate()) {
@@ -501,10 +509,6 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
           backgroundColor: response.error == null ? Colors.green : Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-
-      if (response.error == null) {
-        Navigator.of(context).pop();
-      }
     } else {
       setState(() => _validate = true);
     }
