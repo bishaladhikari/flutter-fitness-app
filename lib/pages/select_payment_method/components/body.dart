@@ -509,6 +509,10 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
           backgroundColor: response.error == null ? Colors.green : Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+
+      if (response.error == null) {
+        redeemPointController.clear();
+      }
     } else {
       setState(() => _validate = true);
     }
