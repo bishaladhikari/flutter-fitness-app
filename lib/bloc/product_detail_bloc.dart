@@ -22,14 +22,15 @@ class ProductDetailBloc {
     return response;
   }
 
-  getRelatedProduct({slug, isCombo=false}) async {
+  getRelatedProduct({slug, isCombo = false}) async {
     ProductResponse response =
         await _repository.getRelatedProduct(slug, isCombo);
     _related.sink.add(response);
   }
 
-  getSameSellerProduct({slug,isCombo=false}) async {
-    ProductResponse response = await _repository.getSameSellerProduct(slug,isCombo);
+  getSameSellerProduct({slug, isCombo = false}) async {
+    ProductResponse response =
+        await _repository.getSameSellerProduct(slug, isCombo);
     _fromSameSeller.sink.add(response);
   }
 
@@ -41,10 +42,11 @@ class ProductDetailBloc {
     AddToWishlistResponse res = await _repository.addToWishlist(params);
     // response.productDetail.attributes.where((element) => element.id == params["attribute_id"]).saved = true;
     if (res.error == null) {
-      var attributes = response.productDetail.attributes;
-      var index = attributes
-          .indexWhere((element) => element.id == params["attribute_id"]);
-      if (index > -1) response.productDetail.attributes[index].saved = true;
+      response.productDetail.selectedAttribute.saved = true;
+//      var attributes = response.productDetail.attributes;
+//      var index = attributes
+//          .indexWhere((element) => element.id == params["attribute_id"]);
+//      if (index > -1) response.productDetail.attributes[index].saved = true;
     }
     return res;
   }
@@ -57,10 +59,12 @@ class ProductDetailBloc {
     RemoveFromWishlistResponse res =
         await _repository.deleteFromWishlist(params);
     if (res.error == null) {
-      var attributes = response.productDetail.attributes;
-      var index = attributes
-          .indexWhere((element) => element.id == params["attribute_id"]);
-      if (index > -1) response.productDetail.attributes[index].saved = false;
+      response.productDetail.selectedAttribute.saved = false;
+
+//      var attributes = response.productDetail.attributes;
+//      var index = attributes
+//          .indexWhere((element) => element.id == params["attribute_id"]);
+//      if (index > -1) response.productDetail.attributes[index].saved = false;
     }
     return res;
   }
