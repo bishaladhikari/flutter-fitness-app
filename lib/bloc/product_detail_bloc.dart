@@ -43,10 +43,7 @@ class ProductDetailBloc {
     // response.productDetail.attributes.where((element) => element.id == params["attribute_id"]).saved = true;
     if (res.error == null) {
       response.productDetail.selectedAttribute.saved = true;
-//      var attributes = response.productDetail.attributes;
-//      var index = attributes
-//          .indexWhere((element) => element.id == params["attribute_id"]);
-//      if (index > -1) response.productDetail.attributes[index].saved = true;
+      _subject.sink.add(response);
     }
     return res;
   }
@@ -60,11 +57,7 @@ class ProductDetailBloc {
         await _repository.deleteFromWishlist(params);
     if (res.error == null) {
       response.productDetail.selectedAttribute.saved = false;
-
-//      var attributes = response.productDetail.attributes;
-//      var index = attributes
-//          .indexWhere((element) => element.id == params["attribute_id"]);
-//      if (index > -1) response.productDetail.attributes[index].saved = false;
+      _subject.sink.add(response);
     }
     return res;
   }

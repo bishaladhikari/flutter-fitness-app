@@ -579,7 +579,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   Widget _buildAddToWishListWidget(context, ProductDetailResponse data) {
     ProductDetail productDetail = data.productDetail;
     var saved = productDetail.selectedAttribute.saved;
-    print("saved state:" + productDetail.selectedAttribute.saved.toString());
     return FloatingActionButton(
       backgroundColor: saved ? NPrimaryColor : Colors.white,
       onPressed: () {
