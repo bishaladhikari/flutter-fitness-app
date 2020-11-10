@@ -263,7 +263,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   } else if (snapshot.hasError) {
                     return _buildErrorWidget(snapshot.error);
                   } else {
-                    return _buildLoadingWidget();
+                    return Container();
                   }
                 },
               ),
