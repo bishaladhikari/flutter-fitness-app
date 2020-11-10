@@ -70,7 +70,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     super.initState();
     widget.productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
-    brandsBloc.getBrands(category: category);
+//    brandsBloc.getBrands(category: category);
   }
 
   @override
@@ -282,7 +282,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return FilterWidget();
+          return FilterWidget(productsByCategoryBloc:widget.productsByCategoryBloc);
         });
   }
 }

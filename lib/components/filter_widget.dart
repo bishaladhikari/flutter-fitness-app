@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/brands_bloc.dart';
+import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/brand.dart';
 import 'package:ecapp/models/response/brand_response.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
   Function applyFilters;
+  ProductsListByCategoryBloc productsByCategoryBloc;
+
+  FilterWidget({this.productsByCategoryBloc});
 
   @override
   _FilterWidgetState createState() => _FilterWidgetState();
@@ -14,6 +18,8 @@ class FilterWidget extends StatefulWidget {
 class _FilterWidgetState extends State<FilterWidget> {
 //  List<Brand> brands;
   List<Brand> selectedBrands;
+  bool showBrands = false;
+  bool showCategories = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,54 +32,9 @@ class _FilterWidgetState extends State<FilterWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 50,
+                height: 30,
               ),
-              Row(
-                children: [
-                  Text(
-                    "Filters",
-                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
-                  ),
-                  Spacer(),
-                  Text("clear all",style: TextStyle(color: Colors.black),)
-                ],
-              ),
-              Divider(
-                thickness: 1,
-//                height: MediaQuery.of(context).size.width,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ListTile(
-                title: Text("Category"),
-                contentPadding: const EdgeInsets.all(1.0),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
-                ),
-              ),
-              ListTile(
-                title: Text("Brands"),
-                contentPadding: const EdgeInsets.all(1.0),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
-                ),
-              ),
-              ListTile(
-                title: Text("Price Range"),
-                contentPadding: const EdgeInsets.all(1.0),
-//                trailing: Icon(
-//                  Icons.arrow_forward_ios,
-//                  size: 14,
-//                ),
-              ),
-//              _buildCategory(),
-//              //Brands
-//              _buildBrands(),
-//              // Pricerange
-//              _buildPriceRange()
+              _buildBody()
             ],
           ),
         ),
@@ -186,13 +147,76 @@ class _FilterWidgetState extends State<FilterWidget> {
 //    );
   }
 
+  _buildBody() {
+    brandsBloc.getBrands(category: widget.productsByCategoryBloc.category.value);
+//    brandsBloc.getBrands(category: "grocery");
+    if (showBrands)
+      return _buildBrands();
+    else if (showCategories)
+      return _buildCategory();
+    else
+      return Column(
+        children: [
+          ListTile(
+            contentPadding: EdgeInsets.all(0),
+            title: Text(
+              "Filters",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 16),
+            ),
+            trailing: Text(
+              "clear all",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          Divider(
+            thickness: 1,
+//                height: MediaQuery.of(context).size.width,
+          ),
+//          SizedBox(
+//            height: 10,
+//          ),
+          ListTile(
+            title: Text("Category"),
+            contentPadding: const EdgeInsets.all(1.0),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 14,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              setState(() {
+                showBrands = true;
+              });
+            },
+            title: Text("Brands"),
+            contentPadding: const EdgeInsets.all(1.0),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 14,
+            ),
+          ),
+          ListTile(
+            title: Text("Price Range"),
+            contentPadding: const EdgeInsets.all(1.0),
+//                trailing: Icon(
+//                  Icons.arrow_forward_ios,
+//                  size: 14,
+//                ),
+          ),
+        ],
+      );
+  }
+
   _buildCategory() {
     return Text("Category");
   }
 
   _buildBrands() {
+//    return Text("brands widget");
     return StreamBuilder<BrandResponse>(
-        stream: brandsBloc.brands,
+        stream: brandsBloc.subject.stream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -239,7 +263,30 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   Widget _buildBrandWidget(BrandResponse data) {
+//    print("building brand widget");
     List<Brand> brands = data.brands;
-    return Text("Brand");
+//    print("brands listing"+brands[0].name.toString());
+    return  Column(
+      children: [
+        Row(
+          children: [
+            IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+              setState(() {
+                showBrands = false;
+              });
+            },),
+            Text("Brands",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black),),
+          ],
+        ),
+        ListView.builder(
+//            controller: ScrollController(keepScrollOffset: false),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: brands.length,
+            itemBuilder: (context, index) {
+              return ListTile(title: Text(brands[index].name),);
+            }),
+      ],
+    );
   }
 }

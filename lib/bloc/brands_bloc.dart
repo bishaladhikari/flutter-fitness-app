@@ -24,7 +24,7 @@ class BrandsBloc {
     _subject.close();
   }
 
-  Stream<BrandResponse> get brands => _subject.stream;
+  BehaviorSubject<BrandResponse> get subject => _subject;
 }
 
 final BrandsBloc brandsBloc = BrandsBloc();
