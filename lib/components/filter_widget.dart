@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/brands_bloc.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/brand.dart';
 import 'package:ecapp/models/response/brand_response.dart';
 import 'package:flutter/material.dart';
@@ -28,25 +29,85 @@ class _FilterWidgetState extends State<FilterWidget> {
                 height: 50,
               ),
               Row(
-                children: [Text("Filters"), Spacer(), Text("clear all")],
+                children: [
+                  Text(
+                    "Filters",
+                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+                  ),
+                  Spacer(),
+                  Text("clear all",style: TextStyle(color: Colors.black),)
+                ],
               ),
               Divider(
                 thickness: 1,
-                height: MediaQuery.of(context).size.width,
+//                height: MediaQuery.of(context).size.width,
               ),
               SizedBox(
                 height: 10,
               ),
-              _buildCategory(),
-              //Brands
-              _buildBrands(),
-              // Pricerange
-              _buildPriceRange()
+              ListTile(
+                title: Text("Category"),
+                contentPadding: const EdgeInsets.all(1.0),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                ),
+              ),
+              ListTile(
+                title: Text("Brands"),
+                contentPadding: const EdgeInsets.all(1.0),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                ),
+              ),
+              ListTile(
+                title: Text("Price Range"),
+                contentPadding: const EdgeInsets.all(1.0),
+//                trailing: Icon(
+//                  Icons.arrow_forward_ios,
+//                  size: 14,
+//                ),
+              ),
+//              _buildCategory(),
+//              //Brands
+//              _buildBrands(),
+//              // Pricerange
+//              _buildPriceRange()
             ],
           ),
         ),
       ),
-//      bottomNavigationBar: ,
+      bottomNavigationBar: Row(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {},
+                color: ksecondaryColor,
+                textColor: Colors.white,
+                child: Text("Cancel"),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {},
+                color: NPrimaryColor,
+                textColor: Colors.white,
+                child: Text("Apply"),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
 
 //    return Container(
