@@ -27,7 +27,7 @@ class OrderReviewPage extends StatefulWidget {
 class _OrderReviewPageState extends State<OrderReviewPage> {
   FToast fToast;
   OrderProductDetail orderProductItem;
-  int rating = 0;
+  double rating = 0.0;
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -48,7 +48,8 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
 
     orderProductItem = widget.orderProductItem;
     if (widget.customerReview != null) {
-      rating = int.parse(widget.customerReview.rating) ?? 0;
+//      rating = int.parse(widget.customerReview.rating) ?? 0;
+      rating = widget.customerReview.rating;
       headingController = TextEditingController(
           text: widget.customerReview.headline == null
               ? ""
@@ -128,7 +129,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                       allowHalfRating: false,
                       onRated: (v) {
                         setState(() {
-                          rating = v.toInt();
+                          rating = v;
                         });
                       },
                       starCount: 5,
