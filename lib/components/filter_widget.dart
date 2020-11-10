@@ -374,6 +374,11 @@ class _FilterWidgetState extends State<FilterWidget> {
                   setState(() {
                     if (!selectedBrands.contains(brand.slug))
                       selectedBrands.add(brand.slug);
+                    else {
+                      int index = selectedBrands
+                          .indexWhere((element) => element == brand.slug);
+                      selectedBrands.removeAt(index);
+                    }
                   });
                 },
                 title: Text(brands[index].name),
