@@ -153,7 +153,6 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBody() {
-    brandsBloc.getBrands(category: currentCategory);
 //    brandsBloc.getBrands(category: "grocery");
     if (showBrands)
       return _buildBrands();
@@ -182,6 +181,11 @@ class _FilterWidgetState extends State<FilterWidget> {
 //            height: 10,
 //          ),
           ListTile(
+            onTap: (){
+              setState(() {
+                showCategories = true;
+              });
+            },
             title: Text("Category"),
             contentPadding: const EdgeInsets.all(1.0),
             trailing: Icon(
@@ -235,6 +239,7 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBrands() {
+    brandsBloc.getBrands(category: currentCategory);
 //    return Text("brands widget");
     return StreamBuilder<BrandResponse>(
         stream: brandsBloc.subject.stream,
