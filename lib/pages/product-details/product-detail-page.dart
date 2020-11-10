@@ -24,6 +24,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sliver_fab/sliver_fab.dart';
 import '../../constants.dart';
 import 'components/related_products_list.dart';
 import 'components/same_seller_list.dart';
@@ -247,7 +248,26 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       body: Stack(
         children: [
           NotificationListener<ScrollUpdateNotification>(
-            child: CustomScrollView(
+            child: SliverFab(
+              floatingPosition: FloatingPosition(right: 20),
+              floatingWidget: StreamBuilder<ProductDetailResponse>(
+                stream: productDetailBloc.subject.stream,
+                builder:
+                    (context, AsyncSnapshot<ProductDetailResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0) {
+                      return _buildErrorWidget(snapshot.data.error);
+                    }
+                    return _buildAddToWishListWidget(context, snapshot.data);
+                  } else if (snapshot.hasError) {
+                    return _buildErrorWidget(snapshot.error);
+                  } else {
+                    return _buildLoadingWidget();
+                  }
+                },
+              ),
+              expandedHeight: 290.0,
               slivers: [
                 SliverAppBar(
                   backgroundColor: Colors.white,
@@ -288,16 +308,18 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.product.name,
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: Text(
+                                    widget.product.name,
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),
@@ -315,7 +337,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 } else if (snapshot.hasError) {
                                   return _buildErrorWidget(snapshot.error);
                                 } else {
-                                  return _buildLoadingWidget(context);
+                                  return _buildLoadingWidget();
                                 }
                               }),
                           SizedBox(
@@ -537,14 +559,38 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 width: 8,
               ),
               // Text("(3) reviews"),
-              Text(
-                  "(" + productDetail.reviewCount.toString() + ")" + " reviews")
+              Text("(" +
+                  productDetail.reviewCount.toString() +
+                  ")" +
+                  " reviews"),
+//              Spacer(),
+//              IconButton(
+//                icon: Icon(Icons.favorite_border,color: Colors.black26,), onPressed: () {  },
+//              )
             ],
           ),
         ),
         DetailWidget(
             productDetail: productDetail, productDetailBloc: productDetailBloc),
       ],
+    );
+  }
+
+  Widget _buildAddToWishListWidget(context, ProductDetailResponse data) {
+    ProductDetail productDetail = data.productDetail;
+    var saved = productDetail.selectedAttribute.saved;
+    return FloatingActionButton(
+      backgroundColor: saved ? NPrimaryColor : Colors.white,
+      onPressed: () {
+        if (saved)
+          _removeFromWishlist(context);
+        else
+          _addToWishlist(context);
+      },
+      child: Icon(
+        Icons.favorite_border,
+        color: saved ? Colors.white : Colors.black38,
+      ),
     );
   }
 
@@ -601,7 +647,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         });
   }
 
-  Widget _buildLoadingWidget(BuildContext context) {
+  Widget _buildLoadingWidget() {
     var width = MediaQuery.of(context).size.width - 16;
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -871,100 +917,134 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  StarRating(rating: 5, size: 15),
-                                  SizedBox(width: 10,),
-                                  SizedBox(
-                                    width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      StarRating(rating: 5, size: 15),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: kPrimaryColor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        productDetail.fiveStarCount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black54),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                    productDetail.fiveStarCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  StarRating(rating: 5, size: 15),
-                                  SizedBox(width: 10,),
-                                  SizedBox(
-                                    width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      StarRating(rating: 5, size: 15),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: kPrimaryColor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        productDetail.fourStarCount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black54),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                    productDetail.fourStarCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54),
-                                  )
-                                ],
-                              ),
-
-                              Row(
-                                children: <Widget>[
-                                  StarRating(rating: 4, size: 15),
-                                  SizedBox(width: 10,),
-                                  SizedBox(
-                                    width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
+                                  Row(
+                                    children: <Widget>[
+                                      StarRating(rating: 4, size: 15),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: kPrimaryColor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        productDetail.threeStarCount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black54),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                    productDetail.threeStarCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  StarRating(rating: 2, size: 15),
-                                  SizedBox(width: 10,),
-                                  SizedBox(
-                                    width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
+                                  Row(
+                                    children: <Widget>[
+                                      StarRating(rating: 2, size: 15),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: kPrimaryColor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        productDetail.twoStarCount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black54),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                    productDetail.twoStarCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  StarRating(rating: 1, size: 15),
-                                  SizedBox(width: 10,),
-                                  SizedBox(
-                                    width: 20,
-                                    child: Divider(thickness: 2,color: kPrimaryColor.withOpacity(0.5),),
+                                  Row(
+                                    children: <Widget>[
+                                      StarRating(rating: 1, size: 15),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: kPrimaryColor.withOpacity(0.5),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        productDetail.oneStarCount.toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black54),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                    productDetail.oneStarCount.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54),
-                                  )
-                                ],
-                              ),
-                            ])),
+                                ])),
                       ],
                     ),
                     SizedBox(
@@ -1242,7 +1322,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget(context);
+          return _buildLoadingWidget();
         }
       },
     );
