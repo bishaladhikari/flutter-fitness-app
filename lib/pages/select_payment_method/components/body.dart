@@ -190,63 +190,91 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                       stream: loyaltyPointBloc.subject.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Text(
-                            tr(snapshot.data.points.toString() +
-                                ' Reward Points to spend.'),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          );
+                          return snapshot.data.points.toString() == null
+                              ? Column(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        tr(snapshot.data.points.toString() +
+                                            ' Reward Points to spend.'),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 7,
+                                            child: Form(
+                                              key: formKey,
+                                              autovalidate: _validate,
+                                              child: TextFormField(
+                                                controller:
+                                                    redeemPointController,
+                                                style: TextStyle(
+                                                    color: Color(0xFF000000)),
+                                                cursorColor: Color(0xFF9b9b9b),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                decoration: InputDecoration(
+                                                    isDense: true,
+                                                    border:
+                                                        OutlineInputBorder(),
+                                                    contentPadding:
+                                                        new EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 10.0,
+                                                            horizontal: 10.0),
+                                                    hintStyle: TextStyle(
+                                                        color: Colors.grey),
+                                                    hintText: tr(
+                                                        "Redeem Points (Amount)")),
+                                                validator: MultiValidator([
+                                                  RequiredValidator(
+                                                      errorText:
+                                                          "Please enter the amount."),
+                                                ]),
+                                              ),
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Expanded(
+                                            flex: 3,
+                                            child: SizedBox(
+                                              width: double.infinity,
+                                              child: RaisedButton(
+                                                color: NPrimaryColor,
+                                                textColor: Colors.white,
+                                                elevation: .2,
+                                                onPressed: () {
+                                                  validateRedeemPoint(context);
+                                                },
+                                                child: Text('Redeem'),
+                                              ),
+                                            ),
+                                          )
+                                        ])
+                                  ],
+                                )
+                              : Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    tr('Currently, you don\'t have any reward points to redeem. Refer your friends or family to get reward points.'),
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 14),
+                                  ),
+                                );
                         } else {
                           return Container();
                         }
                       }),
-                  SizedBox(height: 20),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 7,
-                          child: Form(
-                            key: formKey,
-                            autovalidate: _validate,
-                            child: TextFormField(
-                              controller: redeemPointController,
-                              style: TextStyle(color: Color(0xFF000000)),
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  isDense: true,
-                                  border: OutlineInputBorder(),
-                                  contentPadding: new EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10.0),
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  hintText: tr("Redeem Points (Amount)")),
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "Please enter the amount."),
-                              ]),
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: RaisedButton(
-                              color: NPrimaryColor,
-                              textColor: Colors.white,
-                              elevation: .2,
-                              onPressed: () {
-                                validateRedeemPoint(context);
-                              },
-                              child: Text('Redeem'),
-                            ),
-                          ),
-                        )
-                      ])
                 ],
               ),
             ),

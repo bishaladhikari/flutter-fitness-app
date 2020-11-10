@@ -165,6 +165,7 @@ class _MainPageState extends State<MainPage> {
                 StreamBuilder<CartResponse>(
                     stream: cartBloc.subject.stream,
                     builder: (context, snapshot) {
+                      print(['prabin', snapshot.data]);
                       if (snapshot.hasData)
                         return Positioned(
                           right: 4,
@@ -180,7 +181,9 @@ class _MainPageState extends State<MainPage> {
                               minHeight: 14,
                             ),
                             child: Text(
-                              snapshot.data.totalItems.toString(),
+                              snapshot.data.totalItems.toString() == null
+                                  ? '0'
+                                  : snapshot.data.totalItems.toString(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 9,
@@ -214,7 +217,7 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
         ),
-          resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: false,
       ),
     );
   }
