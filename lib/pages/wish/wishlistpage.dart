@@ -2,9 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/models/cart.dart';
+import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
+import 'package:ecapp/pages/wish/wish_item_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 
 class WishListPage extends StatefulWidget {
   WishListPage() {
@@ -21,7 +24,7 @@ class _WishListPageState extends State<WishListPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (authBloc.isAuthenticated() == false) wishListBloc.getWishlist();
+    wishListBloc.getWishlist();
   }
 
   @override
@@ -37,21 +40,23 @@ class _WishListPageState extends State<WishListPage> {
         title: Text("Wish List"),
         backgroundColor: Colors.white,
       ),
-      body: StreamBuilder<WishlistResponse>(
-          stream: wishListBloc.subject.stream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.error != null &&
-                  snapshot.data.error.length > 0) {
-                return _buildErrorWidget(snapshot.data.error);
+      body: SingleChildScrollView(
+        child: StreamBuilder<WishlistResponse>(
+            stream: wishListBloc.subject.stream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.error != null &&
+                    snapshot.data.error.length > 0) {
+                  return _buildErrorWidget(snapshot.data.error);
+                }
+                return _buildWishlistWidget(snapshot.data);
+              } else if (snapshot.hasError) {
+                return _buildErrorWidget(snapshot.error);
+              } else {
+                return _buildLoadingWidget();
               }
-              return _buildWishlistWidget(snapshot.data);
-            } else if (snapshot.hasError) {
-              return _buildErrorWidget(snapshot.error);
-            } else {
-              return _buildLoadingWidget();
-            }
-          }),
+            }),
+      ),
       // body: Center(
       //   child: Text("I am wish list page"),
       // ),
@@ -59,10 +64,77 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   Widget _buildWishlistWidget(WishlistResponse data) {
-    List<Cart> wishes = data.wishes;
-    return ListView.builder(
-      itemCount: wishes.length,
-      itemBuilder: (context, index) => WishlistItemView(wish: wishes[index]),
+    List<Cart> carts = data.wishes;
+    final cartChildren = <Widget>[];
+    for (int i = 0; i < carts?.length ?? 0; i++) {
+      List<CartItem> cartItems = carts[i].items;
+      int itemCount = cartItems.length;
+      final itemChildren = <Widget>[];
+      for (int i = 0; i < cartItems?.length ?? 0; i++) {
+        itemChildren.add(WishItemView(cartItem: cartItems[i]));
+      }
+      cartChildren.add(Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(children: [
+                Text(
+                  carts[i].soldBy + " ($itemCount items)",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {},
+                )
+              ]),
+            ),
+          ),
+          Container(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: itemChildren),
+          ),
+        ],
+      ));
+    }
+    if (carts.length == 0)
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            margin: const EdgeInsets.only(top: 50),
+            child: Column(
+              children: [
+                Text(
+                  "There are no items in this cart",
+                  style: TextStyle(color: Colors.black87),
+                ),
+                SizedBox(
+                  height: 8.0,
+                ),
+                FlatButton(
+                  onPressed: () {
+                    // MainPage.of(context).changePage(0);
+                  },
+                  color: NPrimaryColor,
+                  textColor: Colors.white,
+                  child: Text("CONTINUE SHOPPING"),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    return Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
     );
   }
 
@@ -123,79 +195,6 @@ class ListTileItem extends StatelessWidget {
               children: [Text(title), Text(subtitle)]),
         )
       ]),
-    );
-  }
-}
-
-class WishlistItemView extends StatelessWidget {
-  final wish;
-
-  WishlistItemView({this.wish});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.only(bottom: 1),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: Container(
-              height: 83.5,
-              decoration: BoxDecoration(
-                color: Colors.white,
-//                          image: DecorationImage(
-//                            image: NetworkImage(
-//                              wish.imageThumbnail
-//                            ),
-//                            fit: BoxFit.fitHeight,
-////                            image: Image.asset(cart[i]['image']),
-//                          ),
-              ),
-//                        child: Image.asset(cart[i]['image']),
-            ),
-          ),
-          Expanded(
-            child: Container(
-//                        padding:
-//                            EdgeInsets.symmetric(horizontal: 10, vertical: 23),
-//                        height: 100,
-              width: 200,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      wish.attribute != null
-                          ? wish.attribute.productName
-                          : wish.combo.title,
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
-                  SizedBox(height: 10),
-                  Text("250",
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey))
-                ],
-              ),
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: IconButton(
-                icon: Icon(Icons.delete),
-                color: Colors.black26,
-                onPressed: () {
-                  wishListBloc.deleteFromWishList(wish.id);
-                },
-              ))
-        ],
-      ),
     );
   }
 }
