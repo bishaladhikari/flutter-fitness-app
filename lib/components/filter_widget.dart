@@ -6,6 +6,7 @@ import 'package:ecapp/models/brand.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/brand_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -20,7 +21,7 @@ class FilterWidget extends StatefulWidget {
 
 class _FilterWidgetState extends State<FilterWidget> {
 //  List<Brand> brands;
-  List<Brand> selectedBrands;
+  List<String> selectedBrands = [];
   bool showBrands = false;
   bool showCategories = false;
   var currentCategory;
@@ -164,13 +165,16 @@ class _FilterWidgetState extends State<FilterWidget> {
       return _buildCategory();
     else
       return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
             contentPadding: EdgeInsets.all(0),
             title: Text(
               "Filters",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 16),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 16),
             ),
             trailing: Text(
               "clear all",
@@ -185,7 +189,7 @@ class _FilterWidgetState extends State<FilterWidget> {
 //            height: 10,
 //          ),
           ListTile(
-            onTap: (){
+            onTap: () {
               setState(() {
                 showCategories = true;
               });
@@ -218,6 +222,48 @@ class _FilterWidgetState extends State<FilterWidget> {
 //                  size: 14,
 //                ),
           ),
+          Row(
+            children: [
+              Flexible(
+                child: TextFormField(
+//            controller: minController,
+                  style: TextStyle(color: Color(0xFF000000)),
+                  cursorColor: Color(0xFF9b9b9b),
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Min"),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "-",
+                style: TextStyle(fontSize: 40),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: TextFormField(
+//            controller: maxController,
+                  style: TextStyle(color: Color(0xFF000000)),
+                  cursorColor: Color(0xFF9b9b9b),
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Max"),
+                ),
+              ),
+            ],
+          ),
         ],
       );
   }
@@ -239,7 +285,6 @@ class _FilterWidgetState extends State<FilterWidget> {
 //            return _buildLoadingWidget();
 //          }
 //        });
-
   }
 
   _buildBrands() {
@@ -296,16 +341,25 @@ class _FilterWidgetState extends State<FilterWidget> {
 //    print("building brand widget");
     List<Brand> brands = data.brands;
 //    print("brands listing"+brands[0].name.toString());
-    return  Column(
+    return Column(
       children: [
         Row(
           children: [
-            IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-              setState(() {
-                showBrands = false;
-              });
-            },),
-            Text("Brands",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black),),
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                setState(() {
+                  showBrands = false;
+                });
+              },
+            ),
+            Text(
+              "Brands",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black),
+            ),
           ],
         ),
         ListView.builder(
@@ -314,26 +368,54 @@ class _FilterWidgetState extends State<FilterWidget> {
             scrollDirection: Axis.vertical,
             itemCount: brands.length,
             itemBuilder: (context, index) {
-              return ListTile(title: Text(brands[index].name),);
+              var brand = brands[index];
+              return ListTile(
+                onTap: () {
+                  setState(() {
+                    if (!selectedBrands.contains(brand.slug))
+                      selectedBrands.add(brand.slug);
+                  });
+                },
+                title: Text(brands[index].name),
+                trailing: selectedBrands.contains(brand.slug)
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.blueAccent,
+                        size: 16,
+                      )
+                    : Text(""),
+              );
             }),
       ],
     );
   }
+
   Widget _buildCategoryListWidget() {
-    List<Category> categories = categoryBloc.subject.value.categories.firstWhere((c) => c.slug==currentCategory).subCategories;
+    List<Category> categories = categoryBloc.subject.value.categories
+        .firstWhere((c) => c.slug == currentCategory)
+        .subCategories;
 //    print("building brand widget");
 //    List<Category> categories = data.categories;
 //    print("brands listing"+brands[0].name.toString());
-    return  Column(
+    return Column(
       children: [
         Row(
           children: [
-            IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
-              setState(() {
-                showCategories = false;
-              });
-            },),
-            Text("Categories",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black),),
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                setState(() {
+                  showCategories = false;
+                });
+              },
+            ),
+            Text(
+              "Categories",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black),
+            ),
           ],
         ),
         ListView.builder(
@@ -342,10 +424,11 @@ class _FilterWidgetState extends State<FilterWidget> {
             scrollDirection: Axis.vertical,
             itemCount: categories.length,
             itemBuilder: (context, index) {
-              return ListTile(title: Text(categories[index].name),);
+              return ListTile(
+                title: Text(categories[index].name),
+              );
             }),
       ],
     );
   }
-
 }
