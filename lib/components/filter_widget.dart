@@ -1,8 +1,11 @@
 import 'package:ecapp/bloc/brands_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/brand.dart';
+import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/brand_response.dart';
+import 'package:ecapp/models/response/category_response.dart';
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -20,9 +23,11 @@ class _FilterWidgetState extends State<FilterWidget> {
   List<Brand> selectedBrands;
   bool showBrands = false;
   bool showCategories = false;
+  var currentCategory;
 
   @override
   Widget build(BuildContext context) {
+    currentCategory = widget.productsByCategoryBloc.category.value;
     //category
     return Scaffold(
       body: SafeArea(
@@ -148,7 +153,7 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBody() {
-    brandsBloc.getBrands(category: widget.productsByCategoryBloc.category.value);
+    brandsBloc.getBrands(category: currentCategory);
 //    brandsBloc.getBrands(category: "grocery");
     if (showBrands)
       return _buildBrands();
@@ -210,7 +215,23 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildCategory() {
-    return Text("Category");
+    return _buildCategoryListWidget();
+
+//    return StreamBuilder<CategoryResponse>(
+//        stream: categoryBloc.subject.stream,
+//        builder: (context, snapshot) {
+//          if (snapshot.hasData) {
+//            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+//              return _buildErrorWidget(snapshot.data.error);
+//            }
+//            return _buildCategoryListWidget(snapshot.data);
+//          } else if (snapshot.hasError) {
+//            return _buildErrorWidget(snapshot.error);
+//          } else {
+//            return _buildLoadingWidget();
+//          }
+//        });
+
   }
 
   _buildBrands() {
@@ -222,7 +243,7 @@ class _FilterWidgetState extends State<FilterWidget> {
             if (snapshot.data.error != null && snapshot.data.error.length > 0) {
               return _buildErrorWidget(snapshot.data.error);
             }
-            return _buildBrandWidget(snapshot.data);
+            return _buildBrandListWidget(snapshot.data);
           } else if (snapshot.hasError) {
             return _buildErrorWidget(snapshot.error);
           } else {
@@ -262,7 +283,7 @@ class _FilterWidgetState extends State<FilterWidget> {
     ));
   }
 
-  Widget _buildBrandWidget(BrandResponse data) {
+  Widget _buildBrandListWidget(BrandResponse data) {
 //    print("building brand widget");
     List<Brand> brands = data.brands;
 //    print("brands listing"+brands[0].name.toString());
@@ -289,4 +310,33 @@ class _FilterWidgetState extends State<FilterWidget> {
       ],
     );
   }
+  Widget _buildCategoryListWidget() {
+    List<Category> categories = categoryBloc.subject.value.categories.firstWhere((c) => c.slug==currentCategory).subCategories;
+//    print("building brand widget");
+//    List<Category> categories = data.categories;
+//    print("brands listing"+brands[0].name.toString());
+    return  Column(
+      children: [
+        Row(
+          children: [
+            IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
+              setState(() {
+                showCategories = false;
+              });
+            },),
+            Text("Categories",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black),),
+          ],
+        ),
+        ListView.builder(
+//            controller: ScrollController(keepScrollOffset: false),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              return ListTile(title: Text(categories[index].name),);
+            }),
+      ],
+    );
+  }
+
 }
