@@ -207,7 +207,17 @@ class _FilterWidgetState extends State<FilterWidget> {
                 showBrands = true;
               });
             },
-            title: Text("Brands"),
+            title: Row(
+              children: [
+                Text("Brands"),
+                SizedBox(width: 2.0,),
+                Expanded(
+                  child: Text(selectedBrands.join(", "),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold),),
+                )
+              ],
+            ),
             contentPadding: const EdgeInsets.all(1.0),
             trailing: Icon(
               Icons.arrow_forward_ios,
