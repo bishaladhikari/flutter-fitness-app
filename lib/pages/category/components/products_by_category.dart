@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
+import 'package:ecapp/components/filter_widget.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -68,12 +70,15 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     super.initState();
     widget.productsByCategoryBloc
       ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
+//    brandsBloc.getBrands(category: category);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.productsByCategoryBloc..drainStream();
+    widget.productsByCategoryBloc.drainStream();
+    widget.productsByCategoryBloc.drainCategoryStream();
+    brandsBloc.drainStream();
   }
 
   @override
@@ -170,7 +175,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   child: Text("FILTER", overflow: TextOverflow.ellipsis),
                 )),
             onPressed: () {
-//              _showFilterProduct(context);
+              _showFilterProduct(context);
             },
           ),
         ),
@@ -256,6 +261,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   }
 
   sortProducts(context, String sortBy) {
+    widget.productsByCategoryBloc.drainStream();
     const minPrice = '';
     const maxPrice = '';
     const types = '';
@@ -271,85 +277,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     Navigator.of(context).pop();
   }
 
-//  void _showFilterProduct(context) {
-//    showModalBottomSheet(
-//        isScrollControlled: true,
-//        context: context,
-//        builder: (BuildContext bc) {
-//          return Container(
-//            child: Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Column(
-//                children: <Widget>[
-//                  Text(
-//                    'Filter Products',
-//                    textAlign: TextAlign.center,
-//                    overflow: TextOverflow.ellipsis,
-//                    style: TextStyle(
-//                        fontWeight: FontWeight.bold,
-//                        color: Colors.black,
-//                        fontSize: 20),
-//                  ),
-//                  Column(
-//                    children: values.keys.map((String key) {
-//                      return new CheckboxListTile(
-//                        title: Text(key),
-//                        value: values[key],
-//                        onChanged: (bool value) {
-//                          print(value);
-//                          setState(() {
-//                            values[key] = value;
-//                          });
-//                        },
-//                      );
-//                    }).toList(),
-//                  ),
-//                  TextFormField(
-//                    controller: minController,
-//                    style: TextStyle(color: Color(0xFF000000)),
-//                    cursorColor: Color(0xFF9b9b9b),
-//                    keyboardType: TextInputType.text,
-//                    decoration: InputDecoration(
-//                        border: OutlineInputBorder(),
-//                        contentPadding: new EdgeInsets.symmetric(
-//                            vertical: 10.0, horizontal: 10.0),
-//                        hintStyle: TextStyle(color: Colors.grey),
-//                        hintText: "Min"),
-//                  ),
-//                  SizedBox(height: 10),
-//                  TextFormField(
-//                    controller: maxController,
-//                    style: TextStyle(color: Color(0xFF000000)),
-//                    cursorColor: Color(0xFF9b9b9b),
-//                    keyboardType: TextInputType.text,
-//                    decoration: InputDecoration(
-//                        border: OutlineInputBorder(),
-//                        contentPadding: new EdgeInsets.symmetric(
-//                            vertical: 10.0, horizontal: 10.0),
-//                        hintStyle: TextStyle(color: Colors.grey),
-//                        hintText: "Max"),
-//                  ),
-//                  Container(
-//                    alignment: Alignment.bottomCenter,
-//                    child: RaisedButton(
-//                      shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(18.0),
-//                          side: BorderSide(color: Colors.green)),
-//                      onPressed: () {
-//                        _filterProducts('sortBy', minController.text.trim(),
-//                            maxController.text.trim(), 'types');
-//                      },
-//                      child:
-//                      const Text('Filter', style: TextStyle(fontSize: 20)),
-//                      color: Colors.green,
-//                      textColor: Colors.white,
-//                      elevation: 5,
-//                    ),
-//                  )
-//                ],
-//              ),
-//            ),
-//          );
-//        });
-//  }
+  void _showFilterProduct(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return FilterWidget(productsByCategoryBloc:widget.productsByCategoryBloc);
+        });
+  }
 }

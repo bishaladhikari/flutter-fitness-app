@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,14 @@ class ProductsListByCategoryBloc {
 //    categoryBloc.selectedCategory = category;
     _category.sink.add(category);
   }
+//  getBrands(){
+//    brandsBloc.getBrands(category: _category.value);
+//  }
 
   void drainStream() {
     _subject.value = null;
+  }
+  void drainCategoryStream(){
     _category.value = null;
   }
 

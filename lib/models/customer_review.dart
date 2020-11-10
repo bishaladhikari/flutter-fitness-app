@@ -5,7 +5,7 @@ class CustomerReview {
   List<dynamic> images;
   String headline;
   String message;
-  String rating;
+  double rating;
   String deletedAt;
   String createdAt;
   String updatedAt;
@@ -37,7 +37,7 @@ class CustomerReview {
     // images = json['images'].cast<String>();
     headline = json['headline'];
     message = json['message'];
-    rating = json['rating'];
+    rating = json['rating'].toDouble();
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
