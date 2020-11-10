@@ -52,7 +52,9 @@ class _FilterWidgetState extends State<FilterWidget> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 color: ksecondaryColor,
                 textColor: Colors.white,
                 child: Text("Cancel"),
@@ -65,7 +67,9 @@ class _FilterWidgetState extends State<FilterWidget> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 color: NPrimaryColor,
                 textColor: Colors.white,
                 child: Text("Apply"),
