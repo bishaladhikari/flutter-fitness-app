@@ -21,17 +21,17 @@ class FilterWidget extends StatefulWidget {
 
 class _FilterWidgetState extends State<FilterWidget> {
 //  List<Brand> brands;
-  List<String> selectedBrands = [];
+  List<String> brandFilters = [];
+  List<String> categoryFilters = [];
   bool showBrands = false;
   bool showCategories = false;
   var currentCategory;
 
   @override
   Widget build(BuildContext context) {
-    currentCategory = widget.productsByCategoryBloc.category.value;
-    selectedBrands = widget.productsByCategoryBloc.brands.value != null
-        ? widget.productsByCategoryBloc.brands.value
-        : [];
+    currentCategory = widget.productsByCategoryBloc.currentCategory.value;
+    brandFilters = widget.productsByCategoryBloc.brandFilters.value;
+    categoryFilters = widget.productsByCategoryBloc.categoryFilters.value;
     //category
     return Scaffold(
       body: SafeArea(
@@ -61,7 +61,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 },
                 color: ksecondaryColor,
                 textColor: Colors.white,
-                child: Text("Cancel"),
+                child: Text("RESET"),
               ),
             ),
           ),
@@ -72,15 +72,15 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  widget.productsByCategoryBloc.getCategoryProducts(
-                      category: widget.productsByCategoryBloc.category.value,
-                      brands:
-                          widget.productsByCategoryBloc.brands.value.join(","));
+//                  widget.productsByCategoryBloc.getCategoryProducts(
+//                      category: widget.productsByCategoryBloc.category.value,
+//                      brands:
+//                          widget.productsByCategoryBloc.brands.value.join(","));
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
                 textColor: Colors.white,
-                child: Text("Apply"),
+                child: Text("DONE"),
               ),
             ),
           ),
@@ -126,7 +126,22 @@ class _FilterWidgetState extends State<FilterWidget> {
                 showCategories = true;
               });
             },
-            title: Text("Category"),
+            title: Row(
+              children: [
+                Text("Category"),
+                SizedBox(
+                  width: 2.0,
+                ),
+                Expanded(
+                  child: Text(
+                    categoryFilters.join(", "),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            ),
             contentPadding: const EdgeInsets.all(1.0),
             trailing: Icon(
               Icons.arrow_forward_ios,
@@ -147,7 +162,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 ),
                 Expanded(
                   child: Text(
-                    selectedBrands.join(", "),
+                    brandFilters.join(", "),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.blueAccent, fontWeight: FontWeight.bold),
@@ -319,20 +334,25 @@ class _FilterWidgetState extends State<FilterWidget> {
               return ListTile(
                 onTap: () {
                   setState(() {
-                    if (!selectedBrands.contains(brand.slug))
-                      widget.productsByCategoryBloc.brands.value
+                    if (!brandFilters.contains(brand.slug))
+                      widget.productsByCategoryBloc.brandFilters.value
                           .add(brand.slug);
                     else {
-                      int index = selectedBrands
+                      int index = brandFilters
                           .indexWhere((element) => element == brand.slug);
-                      widget.productsByCategoryBloc.brands.value
+                      widget.productsByCategoryBloc.brandFilters.value
                           .removeAt(index);
                     }
-//                    selectedBrands = widget.productsByCategoryBloc.brands.value;
+                    widget.productsByCategoryBloc.getCategoryProducts(
+                        category: widget
+                            .productsByCategoryBloc.categoryFilters.value
+                            .join(","),
+                        brands: widget.productsByCategoryBloc.brandFilters.value
+                            .join(","));
                   });
                 },
                 title: Text(brands[index].name),
-                trailing: selectedBrands.contains(brand.slug)
+                trailing: brandFilters.contains(brand.slug)
                     ? Icon(
                         Icons.check,
                         color: Colors.blueAccent,
@@ -379,8 +399,35 @@ class _FilterWidgetState extends State<FilterWidget> {
             scrollDirection: Axis.vertical,
             itemCount: categories.length,
             itemBuilder: (context, index) {
+              var category = categories[index];
               return ListTile(
+                onTap: () {
+                  setState(() {
+                    if (!categoryFilters.contains(category.slug))
+                      widget.productsByCategoryBloc.categoryFilters.value
+                          .add(category.slug);
+                    else {
+                      int index = categoryFilters
+                          .indexWhere((element) => element == category.slug);
+                      widget.productsByCategoryBloc.categoryFilters.value
+                          .removeAt(index);
+                    }
+                    widget.productsByCategoryBloc.getCategoryProducts(
+                        category: widget
+                            .productsByCategoryBloc.categoryFilters.value
+                            .join(","),
+                        brands: widget.productsByCategoryBloc.brandFilters.value
+                            .join(","));
+                  });
+                },
                 title: Text(categories[index].name),
+                trailing: categoryFilters.contains(category.slug)
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.blueAccent,
+                        size: 16,
+                      )
+                    : Text(""),
               );
             }),
       ],

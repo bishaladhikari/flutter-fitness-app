@@ -73,7 +73,7 @@ class _CategoryPageState extends State<CategoryPage>
   void _filterProducts(
       String sortBy, String minPrice, String maxPrice, String types) {
     productsByCategoryBloc
-      .getCategoryProducts(category:productsByCategoryBloc.category.value, sortBy:sortBy,
+      .getCategoryProducts(category:productsByCategoryBloc.currentCategory.value, sortBy:sortBy,
           minPrice:minPrice, maxPrice:maxPrice, types:types);
     Navigator.of(context).pop();
   }

@@ -9,12 +9,14 @@ class ProductsListByCategoryBloc {
 
   final BehaviorSubject<ProductResponse> _subject =
       BehaviorSubject<ProductResponse>();
-  final BehaviorSubject<List<String>> _brands = BehaviorSubject<List<String>>();
+  final BehaviorSubject<List<String>> _brandFilters = BehaviorSubject<List<String>>();
+  final BehaviorSubject<List<String>> _categoryFilters = BehaviorSubject<List<String>>();
 
-  final BehaviorSubject<String> _category = BehaviorSubject<String>();
+  final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
 
   ProductsListByCategoryBloc() {
-    _brands.value = [];
+    _brandFilters.value = [];
+    _categoryFilters.value = [];
   }
 
   getCategoryProducts(
@@ -33,7 +35,7 @@ class ProductsListByCategoryBloc {
         brands: brands);
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
-    _category.sink.add(category);
+    _currentCategory.sink.add(category);
   }
 
 //  getBrands(){
@@ -42,26 +44,28 @@ class ProductsListByCategoryBloc {
 
   void drainStream() {
     _subject.value = null;
-    _brands.value = [];
+    _brandFilters.value = [];
+    _categoryFilters.value = [];
   }
 
   void drainCategoryStream() {
-    _category.value = null;
+    _currentCategory.value = null;
   }
 
   @mustCallSuper
   void dispose() async {
     await _subject.drain();
     _subject.close();
-    await _category.drain();
-    _category.close();
+    await _currentCategory.drain();
+    _currentCategory.close();
   }
 
   BehaviorSubject<ProductResponse> get subject => _subject;
 
-  BehaviorSubject<String> get category => _category;
+  BehaviorSubject<String> get currentCategory => _currentCategory;
 
-  BehaviorSubject<List<String>> get brands => _brands;
+  BehaviorSubject<List<String>> get brandFilters => _brandFilters;
+  BehaviorSubject<List<String>> get categoryFilters => _categoryFilters;
 
 //  set addBrands(brand) => _brands.add(brand);
 }

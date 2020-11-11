@@ -261,7 +261,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
       sort_type = sortBy;
     });
     widget.productsByCategoryBloc.getCategoryProducts(
-        category:widget.productsByCategoryBloc.category.value,
+        category:widget.productsByCategoryBloc.currentCategory.value,
         sortBy:sortBy);
     Navigator.of(context).pop();
   }
