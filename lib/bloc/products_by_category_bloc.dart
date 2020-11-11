@@ -12,10 +12,10 @@ class ProductsListByCategoryBloc {
 
   final BehaviorSubject<String> _category = BehaviorSubject<String>();
 
-  getCategoryProducts(String category, String sortBy, String minPrice,
-      String maxPrice, String types) async {
+  getCategoryProducts({String category, String sortBy, String minPrice,
+      String maxPrice, String types,String brands}) async {
     ProductResponse response = await _repository.getCategoryProducts(
-        category, sortBy, minPrice, maxPrice, types);
+        category:category, sortBy:sortBy, minPrice:minPrice, maxPrice:maxPrice, types:types,brands:brands);
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
     _category.sink.add(category);

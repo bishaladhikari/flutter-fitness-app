@@ -33,7 +33,7 @@ class ProductsByCategory extends StatefulWidget {
 
   @override
   _ProductsByCategoryState createState() =>
-      _ProductsByCategoryState(category, sortBy, minPrice, maxPrice, types);
+      _ProductsByCategoryState();
 
   static _ProductsByCategoryState of(BuildContext context) {
     final _ProductsByCategoryState navigator = context
@@ -53,23 +53,15 @@ class ProductsByCategory extends StatefulWidget {
 }
 
 class _ProductsByCategoryState extends State<ProductsByCategory> {
-  final String category;
-  final String sortBy;
-  final String minPrice;
-  final String maxPrice;
-  final String types;
   String sort_type = "default";
 
 //  ProductsListByCategoryBloc productsByCategoryBloc;
-
-  _ProductsByCategoryState(
-      this.category, this.sortBy, this.minPrice, this.maxPrice, this.types);
 
   @override
   void initState() {
     super.initState();
     widget.productsByCategoryBloc
-      ..getCategoryProducts(category, sortBy, minPrice, maxPrice, types);
+      ..getCategoryProducts(category:widget.category);
 //    brandsBloc.getBrands(category: category);
   }
 
@@ -269,11 +261,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
       sort_type = sortBy;
     });
     widget.productsByCategoryBloc.getCategoryProducts(
-        widget.productsByCategoryBloc.category.value,
-        sortBy,
-        minPrice,
-        maxPrice,
-        types);
+        category:widget.productsByCategoryBloc.category.value,
+        sortBy:sortBy);
     Navigator.of(context).pop();
   }
 

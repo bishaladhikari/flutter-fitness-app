@@ -478,16 +478,22 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getCategoryProducts(String category, String sortBy,
-      String minPrice, String maxPrice, String types) async {
+  Future<ProductResponse> getCategoryProducts(
+      {String category,
+      String sortBy,
+      String minPrice,
+      String maxPrice,
+      String types,
+      String brands}) async {
     var params = {
       "category": category,
+      "brands":brands,
       "sort_by": sortBy,
       "starting_price": minPrice,
       "ending_price": maxPrice,
       "types": types,
       "per_page": 10,
-      "page": 1
+      "page": 1,
     };
 
     try {

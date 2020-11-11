@@ -69,6 +69,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
+                  widget.productsByCategoryBloc.getCategoryProducts(category:currentCategory,brands:selectedBrands.join(","));
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
