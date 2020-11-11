@@ -16,8 +16,8 @@ class ProductsListByCategoryBloc {
 
   ProductsListByCategoryBloc() {
     _brandFilters.value = [];
-    _categoryFilters.value = [];
-    _categoryFilters.value.add(_currentCategory.value);
+    _categoryFilters.value = [_currentCategory.value];
+//    _categoryFilters.value.add(_currentCategory.value);
   }
 
   getCategoryProducts(
