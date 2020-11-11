@@ -27,6 +27,10 @@ class _FilterWidgetState extends State<FilterWidget> {
   bool showCategories = false;
   var currentCategory;
 
+  TextEditingController minController = new TextEditingController();
+  TextEditingController maxController = new TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     currentCategory = widget.productsByCategoryBloc.currentCategory.value;
@@ -72,10 +76,11 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-//                  widget.productsByCategoryBloc.getCategoryProducts(
-//                      category: widget.productsByCategoryBloc.category.value,
-//                      brands:
-//                          widget.productsByCategoryBloc.brands.value.join(","));
+                  widget.productsByCategoryBloc.minRange.value =
+                      minController.text;
+                  widget.productsByCategoryBloc.maxRange.value =
+                      maxController.text;
+                  widget.productsByCategoryBloc.getCategoryProducts();
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
@@ -188,10 +193,10 @@ class _FilterWidgetState extends State<FilterWidget> {
             children: [
               Flexible(
                 child: TextFormField(
-//            controller: minController,
+                  controller: minController,
                   style: TextStyle(color: Color(0xFF000000)),
                   cursorColor: Color(0xFF9b9b9b),
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       contentPadding: new EdgeInsets.symmetric(
@@ -212,10 +217,10 @@ class _FilterWidgetState extends State<FilterWidget> {
               ),
               Flexible(
                 child: TextFormField(
-//            controller: maxController,
+                  controller: maxController,
                   style: TextStyle(color: Color(0xFF000000)),
                   cursorColor: Color(0xFF9b9b9b),
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       contentPadding: new EdgeInsets.symmetric(
@@ -343,9 +348,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsByCategoryBloc.brandFilters.value
                           .removeAt(index);
                     }
-                    widget
-                        .productsByCategoryBloc.categoryFilters.value.add( widget
-                        .productsByCategoryBloc.currentCategory.value);
+                    widget.productsByCategoryBloc.categoryFilters.value.add(
+                        widget.productsByCategoryBloc.currentCategory.value);
                     widget.productsByCategoryBloc.getCategoryProducts();
                   });
                 },
@@ -410,9 +414,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsByCategoryBloc.categoryFilters.value
                           .removeAt(index);
                     }
-                    widget
-                        .productsByCategoryBloc.categoryFilters.value.add( widget
-                        .productsByCategoryBloc.currentCategory.value);
+                    widget.productsByCategoryBloc.categoryFilters.value.add(
+                        widget.productsByCategoryBloc.currentCategory.value);
 
                     widget.productsByCategoryBloc.getCategoryProducts(
                         category: widget
