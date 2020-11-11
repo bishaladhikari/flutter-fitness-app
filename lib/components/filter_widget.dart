@@ -27,9 +27,21 @@ class _FilterWidgetState extends State<FilterWidget> {
   bool showCategories = false;
   var currentCategory;
 
-  TextEditingController minController = new TextEditingController();
-  TextEditingController maxController = new TextEditingController();
+  TextEditingController minController = TextEditingController();
+  TextEditingController maxController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    minController = TextEditingController(
+        text: widget.productsByCategoryBloc.minRange.value == null
+            ? ""
+            : widget.productsByCategoryBloc.minRange.value);
+    maxController = TextEditingController(
+        text: widget.productsByCategoryBloc.maxRange.value == null
+            ? ""
+            : widget.productsByCategoryBloc.maxRange.value);
+  }
 
   @override
   Widget build(BuildContext context) {
