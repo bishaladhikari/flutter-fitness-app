@@ -343,9 +343,6 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsByCategoryBloc.brandFilters.value
                           .removeAt(index);
                     }
-                    widget
-                        .productsByCategoryBloc.categoryFilters.value.add( widget
-                        .productsByCategoryBloc.currentCategory.value);
                     widget.productsByCategoryBloc.getCategoryProducts();
                   });
                 },
@@ -410,16 +407,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsByCategoryBloc.categoryFilters.value
                           .removeAt(index);
                     }
-                    widget
-                        .productsByCategoryBloc.categoryFilters.value.add( widget
-                        .productsByCategoryBloc.currentCategory.value);
-
-                    widget.productsByCategoryBloc.getCategoryProducts(
-                        category: widget
-                            .productsByCategoryBloc.categoryFilters.value
-                            .join(","),
-                        brands: widget.productsByCategoryBloc.brandFilters.value
-                            .join(","));
+                    widget.productsByCategoryBloc.getCategoryProducts();
                   });
                 },
                 title: Text(categories[index].name),

@@ -33,7 +33,7 @@ class ProductsListByCategoryBloc {
         minPrice: minPrice,
         maxPrice: maxPrice,
         types: types,
-        brands: brands);
+        brands: _brandFilters.value.join(","));
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
 //    _currentCategory.sink.add(category);
