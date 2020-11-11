@@ -343,6 +343,9 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsByCategoryBloc.brandFilters.value
                           .removeAt(index);
                     }
+                    widget
+                        .productsByCategoryBloc.categoryFilters.value.add( widget
+                        .productsByCategoryBloc.currentCategory.value);
                     widget.productsByCategoryBloc.getCategoryProducts(
                         category: widget
                             .productsByCategoryBloc.categoryFilters.value
@@ -412,6 +415,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsByCategoryBloc.categoryFilters.value
                           .removeAt(index);
                     }
+                    widget
+                        .productsByCategoryBloc.categoryFilters.value.add( widget
+                        .productsByCategoryBloc.currentCategory.value);
+
                     widget.productsByCategoryBloc.getCategoryProducts(
                         category: widget
                             .productsByCategoryBloc.categoryFilters.value
