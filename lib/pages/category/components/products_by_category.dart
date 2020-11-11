@@ -60,8 +60,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
+    widget.productsByCategoryBloc.currentCategory.value = widget.category;
     widget.productsByCategoryBloc
-      ..getCategoryProducts(category:widget.category);
+      ..getCategoryProducts();
 //    brandsBloc.getBrands(category: category);
   }
 

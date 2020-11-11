@@ -28,7 +28,7 @@ class ProductsListByCategoryBloc {
       String types,
       String brands}) async {
     ProductResponse response = await _repository.getCategoryProducts(
-        category:category,
+        category:_currentCategory.value,
         sortBy: sortBy,
         minPrice: minPrice,
         maxPrice: maxPrice,
@@ -36,7 +36,7 @@ class ProductsListByCategoryBloc {
         brands: brands);
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
-    _currentCategory.sink.add(category);
+//    _currentCategory.sink.add(category);
   }
 
 //  getBrands(){
