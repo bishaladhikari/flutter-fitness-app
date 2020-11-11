@@ -264,7 +264,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                               : Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    tr('Currently, you don\'t have any reward points to redeem. Refer your friends or family to get reward points.'),
+                                    tr("Currently you don't have any reward points to redeem. Refer your friends or family to get reward points."),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
