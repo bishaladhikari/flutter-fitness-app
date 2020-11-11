@@ -9,17 +9,33 @@ class ProductsListByCategoryBloc {
 
   final BehaviorSubject<ProductResponse> _subject =
       BehaviorSubject<ProductResponse>();
+  final BehaviorSubject<List<String>> _brands = BehaviorSubject<List<String>>();
 
   final BehaviorSubject<String> _category = BehaviorSubject<String>();
 
-  getCategoryProducts({String category, String sortBy, String minPrice,
-      String maxPrice, String types,String brands}) async {
+  ProductsListByCategoryBloc() {
+    _brands.value = [];
+  }
+
+  getCategoryProducts(
+      {String category,
+      String sortBy,
+      String minPrice,
+      String maxPrice,
+      String types,
+      String brands}) async {
     ProductResponse response = await _repository.getCategoryProducts(
-        category:category, sortBy:sortBy, minPrice:minPrice, maxPrice:maxPrice, types:types,brands:brands);
+        category:category,
+        sortBy: sortBy,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        types: types,
+        brands: brands);
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
     _category.sink.add(category);
   }
+
 //  getBrands(){
 //    brandsBloc.getBrands(category: _category.value);
 //  }
@@ -27,7 +43,8 @@ class ProductsListByCategoryBloc {
   void drainStream() {
     _subject.value = null;
   }
-  void drainCategoryStream(){
+
+  void drainCategoryStream() {
     _category.value = null;
   }
 
@@ -42,6 +59,10 @@ class ProductsListByCategoryBloc {
   BehaviorSubject<ProductResponse> get subject => _subject;
 
   BehaviorSubject<String> get category => _category;
+
+  BehaviorSubject<List<String>> get brands => _brands;
+
+//  set addBrands(brand) => _brands.add(brand);
 }
 
 final productsByCategoryBloc = ProductsListByCategoryBloc();

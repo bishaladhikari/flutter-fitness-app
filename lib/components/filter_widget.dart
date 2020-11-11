@@ -29,6 +29,7 @@ class _FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     currentCategory = widget.productsByCategoryBloc.category.value;
+    selectedBrands = widget.productsByCategoryBloc.brands.value!=null?widget.productsByCategoryBloc.brands.value:[];
     //category
     return Scaffold(
       body: SafeArea(
@@ -69,7 +70,8 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  widget.productsByCategoryBloc.getCategoryProducts(category:currentCategory,brands:selectedBrands.join(","));
+                  widget.productsByCategoryBloc.getCategoryProducts(category: widget.productsByCategoryBloc.category.value,
+                  brands: widget.productsByCategoryBloc.brands.value.join(","));
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
@@ -81,81 +83,6 @@ class _FilterWidgetState extends State<FilterWidget> {
         ],
       ),
     );
-
-//    return Container(
-//      child: Padding(
-//        padding: const EdgeInsets.all(8.0),
-//        child: Column(
-//          children: <Widget>[
-//            Text(
-//              'Filter Products',
-//              textAlign: TextAlign.center,
-//              overflow: TextOverflow.ellipsis,
-//              style: TextStyle(
-//                  fontWeight: FontWeight.bold,
-//                  color: Colors.black,
-//                  fontSize: 20),
-//            ),
-//            Column(
-//              children: values.keys.map((String key) {
-//                return new CheckboxListTile(
-//                  title: Text(key),
-//                  value: values[key],
-//                  onChanged: (bool value) {
-//                    print(value);
-//                    setState(() {
-//                      values[key] = value;
-//                    });
-//                  },
-//                );
-//              }).toList(),
-//            ),
-//            TextFormField(
-//              controller: minController,
-//              style: TextStyle(color: Color(0xFF000000)),
-//              cursorColor: Color(0xFF9b9b9b),
-//              keyboardType: TextInputType.text,
-//              decoration: InputDecoration(
-//                  border: OutlineInputBorder(),
-//                  contentPadding: new EdgeInsets.symmetric(
-//                      vertical: 10.0, horizontal: 10.0),
-//                  hintStyle: TextStyle(color: Colors.grey),
-//                  hintText: "Min"),
-//            ),
-//            SizedBox(height: 10),
-//            TextFormField(
-//              controller: maxController,
-//              style: TextStyle(color: Color(0xFF000000)),
-//              cursorColor: Color(0xFF9b9b9b),
-//              keyboardType: TextInputType.text,
-//              decoration: InputDecoration(
-//                  border: OutlineInputBorder(),
-//                  contentPadding: new EdgeInsets.symmetric(
-//                      vertical: 10.0, horizontal: 10.0),
-//                  hintStyle: TextStyle(color: Colors.grey),
-//                  hintText: "Max"),
-//            ),
-//            Container(
-//              alignment: Alignment.bottomCenter,
-//              child: RaisedButton(
-//                shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.circular(18.0),
-//                    side: BorderSide(color: Colors.green)),
-//                onPressed: () {
-//                  _filterProducts('sortBy', minController.text.trim(),
-//                      maxController.text.trim(), 'types');
-//                },
-//                child:
-//                const Text('Filter', style: TextStyle(fontSize: 20)),
-//                color: Colors.green,
-//                textColor: Colors.white,
-//                elevation: 5,
-//              ),
-//            )
-//          ],
-//        ),
-//      ),
-//    );
   }
 
   _buildBody() {
@@ -384,12 +311,13 @@ class _FilterWidgetState extends State<FilterWidget> {
                 onTap: () {
                   setState(() {
                     if (!selectedBrands.contains(brand.slug))
-                      selectedBrands.add(brand.slug);
+                      widget.productsByCategoryBloc.brands.value.add(brand.slug);
                     else {
                       int index = selectedBrands
                           .indexWhere((element) => element == brand.slug);
-                      selectedBrands.removeAt(index);
+                      widget.productsByCategoryBloc.brands.value.removeAt(index);
                     }
+//                    selectedBrands = widget.productsByCategoryBloc.brands.value;
                   });
                 },
                 title: Text(brands[index].name),
