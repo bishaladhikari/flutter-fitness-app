@@ -70,13 +70,13 @@ class _CategoryPageState extends State<CategoryPage>
 //    Navigator.of(context).pop();
 //  }
 
-  void _filterProducts(
-      String sortBy, String minPrice, String maxPrice, String types) {
-    productsByCategoryBloc
-      .getCategoryProducts(category:productsByCategoryBloc.currentCategory.value, sortBy:sortBy,
-          minPrice:minPrice, maxPrice:maxPrice, types:types);
-    Navigator.of(context).pop();
-  }
+//  void _filterProducts(
+//      String sortBy, String minPrice, String maxPrice, String types) {
+//    productsByCategoryBloc
+//      .getCategoryProducts(category:productsByCategoryBloc.currentCategory.value, sortBy:sortBy,
+//          minPrice:minPrice, maxPrice:maxPrice, types:types);
+//    Navigator.of(context).pop();
+//  }
 
   @override
   bool get wantKeepAlive => true;
