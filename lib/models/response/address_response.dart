@@ -1,4 +1,3 @@
-
 import '../address.dart';
 
 class AddressResponse {

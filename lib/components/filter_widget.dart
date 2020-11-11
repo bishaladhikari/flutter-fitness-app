@@ -29,7 +29,9 @@ class _FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     currentCategory = widget.productsByCategoryBloc.category.value;
-    selectedBrands = widget.productsByCategoryBloc.brands.value!=null?widget.productsByCategoryBloc.brands.value:[];
+    selectedBrands = widget.productsByCategoryBloc.brands.value != null
+        ? widget.productsByCategoryBloc.brands.value
+        : [];
     //category
     return Scaffold(
       body: SafeArea(
@@ -70,8 +72,10 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  widget.productsByCategoryBloc.getCategoryProducts(category: widget.productsByCategoryBloc.category.value,
-                  brands: widget.productsByCategoryBloc.brands.value.join(","));
+                  widget.productsByCategoryBloc.getCategoryProducts(
+                      category: widget.productsByCategoryBloc.category.value,
+                      brands:
+                          widget.productsByCategoryBloc.brands.value.join(","));
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
@@ -138,11 +142,16 @@ class _FilterWidgetState extends State<FilterWidget> {
             title: Row(
               children: [
                 Text("Brands"),
-                SizedBox(width: 2.0,),
+                SizedBox(
+                  width: 2.0,
+                ),
                 Expanded(
-                  child: Text(selectedBrands.join(", "),
+                  child: Text(
+                    selectedBrands.join(", "),
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold),),
+                    style: TextStyle(
+                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                  ),
                 )
               ],
             ),
@@ -311,11 +320,13 @@ class _FilterWidgetState extends State<FilterWidget> {
                 onTap: () {
                   setState(() {
                     if (!selectedBrands.contains(brand.slug))
-                      widget.productsByCategoryBloc.brands.value.add(brand.slug);
+                      widget.productsByCategoryBloc.brands.value
+                          .add(brand.slug);
                     else {
                       int index = selectedBrands
                           .indexWhere((element) => element == brand.slug);
-                      widget.productsByCategoryBloc.brands.value.removeAt(index);
+                      widget.productsByCategoryBloc.brands.value
+                          .removeAt(index);
                     }
 //                    selectedBrands = widget.productsByCategoryBloc.brands.value;
                   });

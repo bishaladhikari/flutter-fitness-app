@@ -34,9 +34,9 @@ class _AddressPageState extends State<AddressPage> {
           child: Column(children: <Widget>[
             AddAddress(),
             StreamBuilder(
-                stream: addressBloc.addresses,
+                stream: addressBloc.subject.stream,
                 builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data.addresses.isNotEmpty) {
+                  if (snapshot.hasData) {
                     List<Address> addresses = snapshot.data.addresses;
                     return ListView.builder(
                         itemCount: snapshot.data.addresses.length,

@@ -50,9 +50,9 @@ class Address {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     isDefault = json['is_default'];
-    customer = json['customer'] != null
-        ? new Customer.fromJson(json['customer'])
-        : null;
+//    customer = json['customer'] != null
+//        ? new Customer.fromJson(json['customer'])
+//        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -83,7 +83,7 @@ class Customer {
   int id;
   int userId;
   int addressId;
-  Null referredBy;
+  String referredBy;
   String referToken;
   Null image;
   Null description;
@@ -92,14 +92,14 @@ class Customer {
   bool verified;
   String createdAt;
   String updatedAt;
-  Null deletedAt;
+  String deletedAt;
   String ip;
   String actor;
   String subject;
   String imageLink;
-  int totalPoints;
+  String totalPoints;
   int totalReferrals;
-  int totalReferralPoints;
+  String totalReferralPoints;
   int totalOrderPoints;
 
   Customer(
@@ -143,9 +143,9 @@ class Customer {
     actor = json['actor'];
     subject = json['subject'];
     imageLink = json['image_link'];
-    totalPoints = json['total_points'];
+//    totalPoints = json['total_points'];
     totalReferrals = json['total_referrals'];
-    totalReferralPoints = json['total_referral_points'];
+//    totalReferralPoints = json['total_referral_points'];
     totalOrderPoints = json['total_order_points'];
   }
 

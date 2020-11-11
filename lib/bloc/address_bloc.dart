@@ -41,7 +41,7 @@ class AddressBloc {
     _subject.close();
   }
 
-  BehaviorSubject<AddressResponse> get addresses => _subject.stream;
+  BehaviorSubject<AddressResponse> get subject => _subject;
 }
 
 final AddressBloc addressBloc = AddressBloc();

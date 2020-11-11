@@ -232,8 +232,11 @@ class Repository {
     try {
       Response response = await _dio.get(addressUrl);
 
+      print('successfull address');
       return AddressResponse.fromJson(response.data);
     } catch (error, stacktrace) {
+      print('error address');
+
       return AddressResponse.withError(_handleError(error));
     }
   }
