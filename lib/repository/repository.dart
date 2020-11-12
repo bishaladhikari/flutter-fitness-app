@@ -396,7 +396,7 @@ class Repository {
 
   deleteWishlist(id) async {
     try {
-      Response response = await _dio.post(wishlistUrl + "/$id");
+      Response response = await _dio.delete(wishlistUrl + "/$id");
       // return WishlistResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return WishlistResponse.withError(_handleError(error));

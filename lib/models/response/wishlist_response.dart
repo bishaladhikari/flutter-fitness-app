@@ -5,7 +5,10 @@ class WishlistResponse {
   final String error;
 
   void deleteFromWishList(id) {
-    wishes.removeWhere((element) => element.id == id);
+    wishes.forEach((wish) {
+      wish.items.removeWhere((item) => item.id == id);
+    });
+//    wishes.removeWhere((element) => element.items == id);
   }
 
 //
