@@ -48,7 +48,6 @@ class CheckoutBloc {
 //                  weight: 4444
     var addressId = _defaultAddress.value.id;
 
-    print("addressId " + addressId.toString());
     var params = {
       "shipping_cost": cartBloc.subject.value.shippingCost,
       "weight": cartBloc.subject.value.totalWeight,
@@ -70,7 +69,6 @@ class CheckoutBloc {
 
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
-    print("json" + json.encode(cartBloc.products));
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
     return response;

@@ -18,7 +18,6 @@ class AuthBloc {
 
 //  Function(PrefsData) get changePrefs => _changePreference.sink.add;
   AuthBloc() {
-    print("constructor called");
     _loadSharedPreferences();
 //    _changePreference.stream.listen(_setPref);
 //    _changePreference.stream.listen(logout);
@@ -29,12 +28,10 @@ class AuthBloc {
   }
 
   Future<void> _loadSharedPreferences() async {
-    print("loaded sharedpref");
     pref = await SharedPreferences.getInstance();
     final user = pref.getString("user") != null
         ? User.fromJson(json.decode(pref.getString("user")))
         : User();
-    print(pref.getString("user"));
     final token = pref.getString("token");
     _currentPreference.sink
         .add(PrefsData(user, token, token != null ? true : false));
@@ -42,7 +39,6 @@ class AuthBloc {
 
   login(credentials) async {
     LoginResponse response = await _repository.login(credentials);
-    print("Response:" + response.toString());
     _subject.sink.add(response);
     if (response.token != null) {
       _setPref(response);
@@ -71,10 +67,8 @@ class AuthBloc {
   }
 
   _setPref(response) async {
-    print("setting pref");
     pref = await SharedPreferences.getInstance();
     pref.setString("token", response.token);
-    print(response.user.fullName);
     pref.setString("user", json.encode(response.user.toJson()));
     pref.commit();
     _currentPreference.sink.add(PrefsData(
@@ -117,7 +111,6 @@ class AuthBloc {
 //    return json.decode(pref.getString("token"));
 //  }
   void logout() async {
-    print("logging out");
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("token", null);
     pref.setString("user", null);

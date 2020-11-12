@@ -25,7 +25,6 @@ class OrderProductDetailBloc {
     if (itemResponse.error == null) {
       var index = response.orderProductDetails.indexWhere((element) =>
           element.orderAttributeId == params["order_attribute_id"]);
-      print(index);
       if (index > -1)
         response.orderProductDetails[index] = itemResponse.orderProductItem;
     }
@@ -39,7 +38,6 @@ class OrderProductDetailBloc {
     if (res.error == null) {
       var index = response.orderProductDetails.indexWhere((element) =>
           element.orderAttributeId == params["order_attribute_id"]);
-      print(index);
       if (index > -1)
         response.orderProductDetails[index] = res.orderProductItem;
     }

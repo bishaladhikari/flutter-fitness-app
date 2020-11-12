@@ -106,11 +106,9 @@ class Repository {
   }
 
   Future<LoginResponse> login(credentials) async {
-    print(credentials);
     try {
       Response response =
           await _dio.post(loginUrl, queryParameters: credentials);
-//      print(response.data);
 //      SharedPreferences pref = await SharedPreferences.getInstance();
 //      pref.setString("token", json.encode(response.data['token']));
 //      pref.setString("user", json.encode(response.data['user']));
@@ -251,7 +249,6 @@ class Repository {
     var params = {"status": status, "page": pageNumber};
     try {
       Response response = await _dio.get(ordersUrl, queryParameters: params);
-      print("Response:" + response.toString());
       return OrderResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -520,7 +517,6 @@ class Repository {
       "combo": combo,
       "slug": slug,
     };
-    print(params);
 
     try {
       Response response =

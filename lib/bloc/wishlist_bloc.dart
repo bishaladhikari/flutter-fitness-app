@@ -19,7 +19,6 @@ class WishListBloc {
     response.deleteFromWishList(id);
     _subject.sink.add(response);
 
-    print("response:" + response.toString());
   }
 
   void drainStream() {

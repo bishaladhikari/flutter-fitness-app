@@ -11,21 +11,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProductsByCategory extends StatefulWidget {
   final String category;
-  final String sortBy;
-  final String minPrice;
-  final String maxPrice;
-  final String types;
 
   ProductsListByCategoryBloc productsByCategoryBloc;
 
-  ProductsByCategory(
-      {Key key,
-//      this.productsByCategoryBloc,
-      this.category,
-      this.sortBy,
-      this.minPrice,
-      this.maxPrice,
-      this.types}) {
+  ProductsByCategory({Key key, this.category}) {
     productsByCategoryBloc = ProductsListByCategoryBloc();
 //    categoryBloc.productsByCategoryBloc = _productsByCategoryBloc;
 //    super(key: key);
@@ -52,9 +41,7 @@ class ProductsByCategory extends StatefulWidget {
 }
 
 class _ProductsByCategoryState extends State<ProductsByCategory> {
-  String sort_type = "default";
-
-//  ProductsListByCategoryBloc productsByCategoryBloc;
+  // var sortType = widget.productsByCategoryBloc.sortBy.value;
 
   @override
   void initState() {
@@ -200,7 +187,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Default",
                               style: TextStyle(
-                                  fontWeight: sort_type == "default"
+                                  fontWeight: widget.productsByCategoryBloc
+                                              .sortBy.value ==
+                                          "default"
                                       ? FontWeight.bold
                                       : FontWeight.normal)),
                           onTap: () {
@@ -209,7 +198,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Popularity",
                               style: TextStyle(
-                                  fontWeight: sort_type == "popularity"
+                                  fontWeight: widget.productsByCategoryBloc
+                                              .sortBy.value ==
+                                          "popularity"
                                       ? FontWeight.bold
                                       : FontWeight.normal)),
                           onTap: () {
@@ -218,7 +209,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Low - High Price",
                               style: TextStyle(
-                                  fontWeight: sort_type == "price_asc"
+                                  fontWeight: widget.productsByCategoryBloc
+                                              .sortBy.value ==
+                                          "price_asc"
                                       ? FontWeight.bold
                                       : FontWeight.normal)),
                           onTap: () {
@@ -227,7 +220,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("High - Low Price",
                               style: TextStyle(
-                                  fontWeight: sort_type == "price_desc"
+                                  fontWeight: widget.productsByCategoryBloc
+                                              .sortBy.value ==
+                                          "price_desc"
                                       ? FontWeight.bold
                                       : FontWeight.normal)),
                           onTap: () {
@@ -236,7 +231,9 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Average Rating",
                               style: TextStyle(
-                                  fontWeight: sort_type == "average_rating"
+                                  fontWeight: widget.productsByCategoryBloc
+                                              .sortBy.value ==
+                                          "average_rating"
                                       ? FontWeight.bold
                                       : FontWeight.normal)),
                           onTap: () {
@@ -253,6 +250,11 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
 
   sortProducts(context, String sortBy) {
     widget.productsByCategoryBloc.sortBy.value = sortBy;
+
+    // setState(() {
+    //   sort_type = sortBy;
+    // });
+
     widget.productsByCategoryBloc.getCategoryProducts();
     Navigator.of(context).pop();
   }

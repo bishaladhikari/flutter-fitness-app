@@ -27,19 +27,13 @@ class ProductsListByCategoryBloc {
     _sortBy.value = 'default';
   }
 
-  getCategoryProducts(
-      {String category,
-      String sortBy,
-      String minPrice,
-      String maxPrice,
-      String types,
-      String brands}) async {
+  getCategoryProducts() async {
     ProductResponse response = await _repository.getCategoryProducts(
         category: _currentCategory.value,
         sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
-        types: types,
+        // types: types,
         brands: _brandFilters.value.join(","));
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
