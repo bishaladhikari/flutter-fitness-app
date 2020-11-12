@@ -254,21 +254,6 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   _buildCategory() {
     return _buildCategoryListWidget();
-
-//    return StreamBuilder<CategoryResponse>(
-//        stream: categoryBloc.subject.stream,
-//        builder: (context, snapshot) {
-//          if (snapshot.hasData) {
-//            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-//              return _buildErrorWidget(snapshot.data.error);
-//            }
-//            return _buildCategoryListWidget(snapshot.data);
-//          } else if (snapshot.hasError) {
-//            return _buildErrorWidget(snapshot.error);
-//          } else {
-//            return _buildLoadingWidget();
-//          }
-//        });
   }
 
   _buildBrands() {
