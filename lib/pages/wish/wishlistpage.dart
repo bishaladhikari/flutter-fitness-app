@@ -22,7 +22,6 @@ class WishListPage extends StatefulWidget {
 class _WishListPageState extends State<WishListPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     wishListBloc.getWishlist();
   }
@@ -40,10 +39,9 @@ class _WishListPageState extends State<WishListPage> {
         title: Text("Wish List"),
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        child: StreamBuilder<WishlistResponse>(
-            stream: wishListBloc.subject.stream,
-            builder: (context, snapshot) {
+      body: StreamBuilder<WishlistResponse>(
+          stream: wishListBloc.subject.stream,
+          builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.error != null &&
                     snapshot.data.error.length > 0) {
@@ -52,11 +50,9 @@ class _WishListPageState extends State<WishListPage> {
                 return _buildWishlistWidget(snapshot.data);
               } else if (snapshot.hasError) {
                 return _buildErrorWidget(snapshot.error);
-              } else {
-                return _buildLoadingWidget();
               }
-            }),
-      ),
+            return _buildLoadingWidget();
+          }),
       // body: Center(
       //   child: Text("I am wish list page"),
       // ),
@@ -113,7 +109,7 @@ class _WishListPageState extends State<WishListPage> {
             child: Column(
               children: [
                 Text(
-                  "There are no items in this cart",
+                  "There are no items in your wishlist.",
                   style: TextStyle(color: Colors.black87),
                 ),
                 SizedBox(
@@ -132,22 +128,25 @@ class _WishListPageState extends State<WishListPage> {
           ),
         ),
       );
-    return Container(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
+      ),
     );
   }
 
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
           height: 25.0,
           width: 25.0,
           child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
             strokeWidth: 4.0,
           ),
         )
