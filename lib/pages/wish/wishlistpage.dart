@@ -129,10 +129,8 @@ class _WishListPageState extends State<WishListPage> {
         ),
       );
     return SingleChildScrollView(
-      child: Container(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
-      ),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
     );
   }
 
