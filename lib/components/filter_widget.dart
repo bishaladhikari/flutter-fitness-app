@@ -258,7 +258,6 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   _buildBrands() {
     brandsBloc.getBrands(category: currentCategory);
-//    return Text("brands widget");
     return StreamBuilder<BrandResponse>(
         stream: brandsBloc.subject.stream,
         builder: (context, snapshot) {
@@ -341,12 +340,12 @@ class _FilterWidgetState extends State<FilterWidget> {
               return ListTile(
                 onTap: () {
                   setState(() {
-                    if (!brandFilters.contains(brand.slug))
+                    if (!brandFilters.contains(brand.name))
                       widget.productsByCategoryBloc.brandFilters.value
-                          .add(brand.slug);
+                          .add(brand.name);
                     else {
                       int index = brandFilters
-                          .indexWhere((element) => element == brand.slug);
+                          .indexWhere((element) => element == brand.name);
                       widget.productsByCategoryBloc.brandFilters.value
                           .removeAt(index);
                     }
