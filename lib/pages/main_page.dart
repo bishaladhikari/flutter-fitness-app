@@ -165,7 +165,6 @@ class _MainPageState extends State<MainPage> {
                 StreamBuilder<CartResponse>(
                     stream: cartBloc.subject.stream,
                     builder: (context, snapshot) {
-                      print(['prabin', snapshot.data]);
                       if (snapshot.hasData)
                         return Positioned(
                           right: 4,

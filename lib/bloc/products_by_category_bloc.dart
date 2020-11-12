@@ -17,13 +17,14 @@ class ProductsListByCategoryBloc {
   final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
   final BehaviorSubject<String> _minRange = BehaviorSubject<String>();
   final BehaviorSubject<String> _maxRange = BehaviorSubject<String>();
+  final BehaviorSubject<String> _sortBy = BehaviorSubject<String>();
 
   ProductsListByCategoryBloc() {
     _brandFilters.value = [];
     _categoryFilters.value = [];
     _minRange.value = null;
     _maxRange.value = null;
-//    _categoryFilters.value.add(_currentCategory.value);
+    _sortBy.value = 'default';
   }
 
   getCategoryProducts(
@@ -35,7 +36,7 @@ class ProductsListByCategoryBloc {
       String brands}) async {
     ProductResponse response = await _repository.getCategoryProducts(
         category: _currentCategory.value,
-        sortBy: sortBy,
+        sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
         types: types,
@@ -55,12 +56,14 @@ class ProductsListByCategoryBloc {
     _categoryFilters.value = [];
     _minRange.value = null;
     _maxRange.value = null;
+    _sortBy.value = 'default';
   }
 
   void drainCategoryStream() {
     _currentCategory.value = null;
     _minRange.value = null;
     _maxRange.value = null;
+    _sortBy.value = 'default';
   }
 
   @mustCallSuper
@@ -75,6 +78,9 @@ class ProductsListByCategoryBloc {
 
     await _maxRange.drain();
     _maxRange.close();
+
+    await _sortBy.drain();
+    _sortBy.close();
   }
 
   BehaviorSubject<ProductResponse> get subject => _subject;
@@ -88,6 +94,8 @@ class ProductsListByCategoryBloc {
   BehaviorSubject<String> get minRange => _minRange;
 
   BehaviorSubject<String> get maxRange => _maxRange;
+
+  BehaviorSubject<String> get sortBy => _sortBy;
 
 //  set addBrands(brand) => _brands.add(brand);
 }

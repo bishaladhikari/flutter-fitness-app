@@ -8,6 +8,7 @@ import 'package:ecapp/models/response/brand_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FilterWidget extends StatefulWidget {
   Function applyFilters;
@@ -20,7 +21,6 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-//  List<Brand> brands;
   List<String> brandFilters = [];
   List<String> categoryFilters = [];
   bool showBrands = false;
@@ -48,6 +48,9 @@ class _FilterWidgetState extends State<FilterWidget> {
     currentCategory = widget.productsByCategoryBloc.currentCategory.value;
     brandFilters = widget.productsByCategoryBloc.brandFilters.value;
     categoryFilters = widget.productsByCategoryBloc.categoryFilters.value;
+    widget.productsByCategoryBloc.minRange.value = minController.text;
+    widget.productsByCategoryBloc.maxRange.value = maxController.text;
+
     //category
     return Scaffold(
       body: SafeArea(
@@ -88,10 +91,6 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  widget.productsByCategoryBloc.minRange.value =
-                      minController.text;
-                  widget.productsByCategoryBloc.maxRange.value =
-                      maxController.text;
                   widget.productsByCategoryBloc.getCategoryProducts();
                   Navigator.pop(context);
                 },
@@ -208,6 +207,9 @@ class _FilterWidgetState extends State<FilterWidget> {
                   controller: minController,
                   style: TextStyle(color: Color(0xFF000000)),
                   cursorColor: Color(0xFF9b9b9b),
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -232,6 +234,9 @@ class _FilterWidgetState extends State<FilterWidget> {
                   controller: maxController,
                   style: TextStyle(color: Color(0xFF000000)),
                   cursorColor: Color(0xFF9b9b9b),
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),

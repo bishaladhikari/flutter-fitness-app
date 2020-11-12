@@ -32,8 +32,7 @@ class ProductsByCategory extends StatefulWidget {
   }
 
   @override
-  _ProductsByCategoryState createState() =>
-      _ProductsByCategoryState();
+  _ProductsByCategoryState createState() => _ProductsByCategoryState();
 
   static _ProductsByCategoryState of(BuildContext context) {
     final _ProductsByCategoryState navigator = context
@@ -61,8 +60,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   void initState() {
     super.initState();
     widget.productsByCategoryBloc.currentCategory.value = widget.category;
-    widget.productsByCategoryBloc
-      ..getCategoryProducts();
+    widget.productsByCategoryBloc..getCategoryProducts();
 //    brandsBloc.getBrands(category: category);
   }
 
@@ -254,16 +252,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   }
 
   sortProducts(context, String sortBy) {
-    widget.productsByCategoryBloc.drainStream();
-    const minPrice = '';
-    const maxPrice = '';
-    const types = '';
-    setState(() {
-      sort_type = sortBy;
-    });
-    widget.productsByCategoryBloc.getCategoryProducts(
-        category:widget.productsByCategoryBloc.currentCategory.value,
-        sortBy:sortBy);
+    widget.productsByCategoryBloc.sortBy.value = sortBy;
+    widget.productsByCategoryBloc.getCategoryProducts();
     Navigator.of(context).pop();
   }
 
@@ -272,7 +262,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return FilterWidget(productsByCategoryBloc:widget.productsByCategoryBloc);
+          return FilterWidget(
+              productsByCategoryBloc: widget.productsByCategoryBloc);
         });
   }
 }
