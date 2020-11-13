@@ -113,7 +113,7 @@ class WishItemView extends StatelessWidget {
               Spacer(),
               IconButton(
                 icon: Icon(
-                  Icons.shopping_cart,
+                  Icons.add_shopping_cart,
                   color: Colors.black87.withOpacity(0.3),
                   size: 20,
                 ),
