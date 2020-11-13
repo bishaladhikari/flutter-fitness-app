@@ -35,6 +35,8 @@ class Search extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty ? recentSearch : products;
+    print("query"+query);
+    //call searchBloc.searchSuggestion()
     return ListView.builder(
         itemCount: suggestionList.length,
         itemBuilder: (context, index) => ListTile(
