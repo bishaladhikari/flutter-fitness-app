@@ -1,3 +1,4 @@
+// import 'dart:js';
 import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
@@ -21,7 +22,7 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  List<String> brandFilters = [];
+  List<dynamic> brandFilters = [];
   List<String> categoryFilters = [];
   bool showBrands = false;
   bool showCategories = false;
@@ -178,7 +179,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 ),
                 Expanded(
                   child: Text(
-                    brandFilters.join(", "),
+                    brandFilters.map((e) => e.name).join(", "),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.blueAccent, fontWeight: FontWeight.bold),
@@ -340,12 +341,13 @@ class _FilterWidgetState extends State<FilterWidget> {
               return ListTile(
                 onTap: () {
                   setState(() {
-                    if (!brandFilters.contains(brand.name))
+                    if (brandFilters.indexWhere((x) => x.slug == brand.slug) ==
+                        -1)
                       widget.productsByCategoryBloc.brandFilters.value
-                          .add(brand.name);
+                          .add(brand);
                     else {
                       int index = brandFilters
-                          .indexWhere((element) => element == brand.name);
+                          .indexWhere((element) => element.slug == brand.slug);
                       widget.productsByCategoryBloc.brandFilters.value
                           .removeAt(index);
                     }
@@ -353,13 +355,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                   });
                 },
                 title: Text(brands[index].name),
-                trailing: brandFilters.contains(brand.slug)
-                    ? Icon(
-                        Icons.check,
-                        color: Colors.blueAccent,
-                        size: 16,
-                      )
-                    : Text(""),
+                trailing:
+                    brandFilters.indexWhere((x) => x.slug == brand.slug) > -1
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.blueAccent,
+                            size: 16,
+                          )
+                        : Text(""),
               );
             }),
       ],

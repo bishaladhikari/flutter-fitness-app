@@ -1,4 +1,6 @@
-import 'package:ecapp/bloc/brands_bloc.dart';
+// import 'dart:js';
+// import 'package:ecapp/bloc/brands_bloc.dart';
+import 'package:ecapp/models/brand.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,8 @@ class ProductsListByCategoryBloc {
 
   final BehaviorSubject<ProductResponse> _subject =
       BehaviorSubject<ProductResponse>();
-  final BehaviorSubject<List<String>> _brandFilters =
-      BehaviorSubject<List<String>>();
+  final BehaviorSubject<List<Brand>> _brandFilters =
+      BehaviorSubject<List<Brand>>();
   final BehaviorSubject<List<String>> _categoryFilters =
       BehaviorSubject<List<String>>();
 
@@ -28,13 +30,14 @@ class ProductsListByCategoryBloc {
   }
 
   getCategoryProducts() async {
+    print(['hello', _brandFilters.value.map((e) => e.slug).join(",")]);
     ProductResponse response = await _repository.getCategoryProducts(
         category: _currentCategory.value,
         sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
         // types: types,
-        brands: _brandFilters.value.join(","));
+        brands: _brandFilters.value.map((e) => e.slug).join(","));
     _subject.sink.add(response);
 //    categoryBloc.selectedCategory = category;
 //    _currentCategory.sink.add(category);
@@ -81,7 +84,7 @@ class ProductsListByCategoryBloc {
 
   BehaviorSubject<String> get currentCategory => _currentCategory;
 
-  BehaviorSubject<List<String>> get brandFilters => _brandFilters;
+  BehaviorSubject<List<Brand>> get brandFilters => _brandFilters;
 
   BehaviorSubject<List<String>> get categoryFilters => _categoryFilters;
 
