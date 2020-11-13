@@ -30,7 +30,6 @@ class ProductsListByCategoryBloc {
   }
 
   getCategoryProducts() async {
-    print(['hello', _brandFilters.value.map((e) => e.slug).join(",")]);
     ProductResponse response = await _repository.getCategoryProducts(
         category: _currentCategory.value,
         sortBy: _sortBy.value,

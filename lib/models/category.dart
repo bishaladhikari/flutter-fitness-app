@@ -15,7 +15,9 @@ class Category {
         slug = json["slug"],
         imageLink = json["image_link"],
         imageThumbnail = json["image_thumbnail"],
-        subCategories = (json["sub_categories"] as List)?.map((i) => new Category.fromJson(i))?.toList();
+        subCategories = (json["sub_categories"] as List)
+            ?.map((i) => new Category.fromJson(i))
+            ?.toList();
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -24,7 +26,8 @@ class Category {
     data['slug'] = this.slug;
     data['image_link'] = this.imageLink;
     data['image_thumbnail'] = this.imageThumbnail;
-    data['sub_categories'] = this.subCategories;
+    data['sub_categories'] =
+        this.subCategories != null ? this.subCategories : null;
     return data;
   }
 }

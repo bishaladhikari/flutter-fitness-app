@@ -1,4 +1,4 @@
-// import 'dart:js';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_by_category_bloc.dart';
@@ -6,7 +6,6 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/brand.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/brand_response.dart';
-import 'package:ecapp/models/response/category_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +25,9 @@ class _FilterWidgetState extends State<FilterWidget> {
   List<String> categoryFilters = [];
   bool showBrands = false;
   bool showCategories = false;
+  bool showSubCategories = false;
   var currentCategory;
+  var subCategory;
 
   TextEditingController minController = TextEditingController();
   TextEditingController maxController = TextEditingController();
@@ -107,11 +108,12 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBody() {
-//    brandsBloc.getBrands(category: "grocery");
     if (showBrands)
       return _buildBrands();
     else if (showCategories)
       return _buildCategory();
+    else if (showSubCategories)
+      return _buildSubCategories();
     else
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -373,9 +375,6 @@ class _FilterWidgetState extends State<FilterWidget> {
     List<Category> categories = categoryBloc.subject.value.categories
         .firstWhere((c) => c.slug == currentCategory)
         .subCategories;
-//    print("building brand widget");
-//    List<Category> categories = data.categories;
-//    print("brands listing"+brands[0].name.toString());
     return Column(
       children: [
         Row(
@@ -398,7 +397,88 @@ class _FilterWidgetState extends State<FilterWidget> {
           ],
         ),
         ListView.builder(
-//            controller: ScrollController(keepScrollOffset: false),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              var category = categories[index];
+              return ListTile(
+                onTap: () {
+                  setState(() {
+                    if (category.subCategories.length >= 1) {
+                      showCategories = false;
+                      showSubCategories = true;
+                      subCategory = category;
+                    } else {
+                      if (!categoryFilters.contains(category.slug))
+                        widget.productsByCategoryBloc.categoryFilters.value
+                            .add(category.slug);
+                      else {
+                        int index = categoryFilters
+                            .indexWhere((element) => element == category.slug);
+                        widget.productsByCategoryBloc.categoryFilters.value
+                            .removeAt(index);
+                      }
+                      widget.productsByCategoryBloc.getCategoryProducts();
+                    }
+                  });
+                },
+                title: Text(categories[index].name),
+                trailing: _buildCategoryHasSubcategoryIcon(categories[index]),
+              );
+            }),
+      ],
+    );
+  }
+
+  Widget _buildCategoryHasSubcategoryIcon(category) {
+    if (category.subCategories.length >= 1) {
+      return Icon(
+        Icons.keyboard_arrow_right,
+        color: Colors.blueAccent,
+        size: 16,
+      );
+    } else {
+      return categoryFilters.contains(category.slug)
+          ? Icon(
+              Icons.check,
+              color: Colors.blueAccent,
+              size: 16,
+            )
+          : Text("");
+    }
+  }
+
+  Widget _buildSubCategories() {
+    return _buildSubCategoryListWidget();
+  }
+
+  Widget _buildSubCategoryListWidget() {
+    List<Category> categories = subCategory.subCategories;
+    categories.add(subCategory);
+    return Column(
+      children: [
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                setState(() {
+                  showCategories = true;
+                  showSubCategories = false;
+                });
+              },
+            ),
+            Text(
+              tr(subCategory.name),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black),
+            ),
+          ],
+        ),
+        ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: categories.length,
