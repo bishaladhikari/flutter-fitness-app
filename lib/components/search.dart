@@ -1,9 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Search extends SearchDelegate {
   final products = ['jam', 'mango', 'apple', 'Red Lentil'];
   final recentSearch = ['jam', 'mango'];
+
+  Search()
+      : super(
+          searchFieldLabel: tr("Search here"),
+        );
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -50,6 +57,16 @@ class Search extends SearchDelegate {
               size: 14,
               color: Colors.black26,
             ),
-            title: Text(suggestionList[index],)));
+            title: RichText(
+              text: TextSpan(
+                  text: suggestionList[index].substring(0, query.length),
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                  children: [
+                    TextSpan(
+                        text: suggestionList[index].substring(query.length),
+                        style: TextStyle(color: Colors.grey))
+                  ]),
+            )));
   }
 }
