@@ -1,3 +1,4 @@
+import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
 
 class Search extends SearchDelegate {
@@ -10,7 +11,7 @@ class Search extends SearchDelegate {
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
-          query="";
+          query = "";
         },
       )
     ];
@@ -35,11 +36,20 @@ class Search extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty ? recentSearch : products;
-    print("query"+query);
+    print("query" + query);
     //call searchBloc.searchSuggestion()
     return ListView.builder(
         itemCount: suggestionList.length,
         itemBuilder: (context, index) => ListTile(
-            trailing: Icon(Icons.search), title: Text(suggestionList[index])));
+            leading: Icon(
+              Icons.search,
+              color: Colors.black26,
+            ),
+            trailing: Icon(
+              Icons.call_made,
+              size: 14,
+              color: Colors.black26,
+            ),
+            title: Text(suggestionList[index],)));
   }
 }
