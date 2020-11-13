@@ -1,3 +1,4 @@
+import 'package:ecapp/components/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ecapp/constants.dart';
@@ -24,7 +25,8 @@ class SearchBox extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, "searchPage");
+//            Navigator.pushNamed(context, "searchPage");
+          showSearch(context: context, delegate: Search());
           },
           child: TextField(
             autofocus: false,
