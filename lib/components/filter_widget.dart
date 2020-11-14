@@ -82,7 +82,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 },
                 color: ksecondaryColor,
                 textColor: Colors.white,
-                child: Text("RESET"),
+                child: Text("CANCEL"),
               ),
             ),
           ),
@@ -119,19 +119,26 @@ class _FilterWidgetState extends State<FilterWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ListTile(
-            contentPadding: EdgeInsets.all(0),
-            title: Text(
-              "Filters",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 16),
-            ),
-            trailing: Text(
-              "clear all",
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
+              contentPadding: EdgeInsets.all(0),
+              title: Text(
+                "Filters",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 16),
+              ),
+              trailing: GestureDetector(
+                  onTap: () {
+                    widget.productsByCategoryBloc.brandFilters.value = [];
+                    widget.productsByCategoryBloc.categoryFilters.value = [];
+                    widget.productsByCategoryBloc.minRange.value = null;
+                    widget.productsByCategoryBloc.maxRange.value = null;
+                    widget.productsByCategoryBloc.sortBy.value = 'default';
+                  },
+                  child: Text(tr("Clear All"),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16)))),
           Divider(
             thickness: 1,
 //                height: MediaQuery.of(context).size.width,
@@ -416,8 +423,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                         widget.productsByCategoryBloc.categoryFilters.value
                             .add(category);
                       else {
-                        int index = categoryFilters
-                            .indexWhere((element) => element.slug == category.slug);
+                        int index = categoryFilters.indexWhere(
+                            (element) => element.slug == category.slug);
                         widget.productsByCategoryBloc.categoryFilters.value
                             .removeAt(index);
                       }
@@ -483,9 +490,11 @@ class _FilterWidgetState extends State<FilterWidget> {
         ListTile(
           onTap: () {
             setState(() {
-              if (categoryFilters.indexWhere((c)=>c.slug==subCategory.slug)==-1)
+              if (categoryFilters
+                      .indexWhere((c) => c.slug == subCategory.slug) ==
+                  -1)
                 widget.productsByCategoryBloc.categoryFilters.value
-                    .add(subCategory.slug);
+                    .add(subCategory);
               else {
                 int index = categoryFilters
                     .indexWhere((element) => element.slug == subCategory.slug);
@@ -496,13 +505,14 @@ class _FilterWidgetState extends State<FilterWidget> {
             });
           },
           title: Text(subCategory.name),
-          trailing: categoryFilters.contains(subCategory.slug)
-              ? Icon(
-                  Icons.check,
-                  color: Colors.blueAccent,
-                  size: 16,
-                )
-              : Text(""),
+          trailing:
+              categoryFilters.indexWhere((c) => c.slug == subCategory.slug) > -1
+                  ? Icon(
+                      Icons.check,
+                      color: Colors.blueAccent,
+                      size: 16,
+                    )
+                  : Text(""),
         ),
         ListView.builder(
             shrinkWrap: true,
@@ -527,7 +537,6 @@ class _FilterWidgetState extends State<FilterWidget> {
                     widget.productsByCategoryBloc.getCategoryProducts();
                   });
                 },
-                leading: Text(""),
                 title: Text(categories[index].name),
                 trailing:
                     categoryFilters.indexWhere((c) => c.slug == category.slug) >
