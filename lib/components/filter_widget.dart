@@ -483,12 +483,12 @@ class _FilterWidgetState extends State<FilterWidget> {
         ListTile(
           onTap: () {
             setState(() {
-              if (!categoryFilters.contains(subCategory.slug))
+              if (categoryFilters.indexWhere((c)=>c.slug==subCategory.slug)==-1)
                 widget.productsByCategoryBloc.categoryFilters.value
                     .add(subCategory.slug);
               else {
                 int index = categoryFilters
-                    .indexWhere((element) => element == subCategory.slug);
+                    .indexWhere((element) => element.slug == subCategory.slug);
                 widget.productsByCategoryBloc.categoryFilters.value
                     .removeAt(index);
               }
