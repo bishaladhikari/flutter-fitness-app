@@ -455,7 +455,7 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   Widget _buildSubCategoryListWidget() {
     List<Category> categories = subCategory.subCategories;
-    categories.add(subCategory);
+    // categories.add(subCategory);
     return Column(
       children: [
         Row(
@@ -478,6 +478,30 @@ class _FilterWidgetState extends State<FilterWidget> {
             ),
           ],
         ),
+        ListTile(
+          onTap: () {
+            setState(() {
+              if (!categoryFilters.contains(subCategory.slug))
+                widget.productsByCategoryBloc.categoryFilters.value
+                    .add(subCategory.slug);
+              else {
+                int index = categoryFilters
+                    .indexWhere((element) => element == subCategory.slug);
+                widget.productsByCategoryBloc.categoryFilters.value
+                    .removeAt(index);
+              }
+              widget.productsByCategoryBloc.getCategoryProducts();
+            });
+          },
+          title: Text(subCategory.name),
+          trailing: categoryFilters.contains(subCategory.slug)
+              ? Icon(
+                  Icons.check,
+                  color: Colors.blueAccent,
+                  size: 16,
+                )
+              : Text(""),
+        ),
         ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
@@ -499,6 +523,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     widget.productsByCategoryBloc.getCategoryProducts();
                   });
                 },
+                leading: Text(""),
                 title: Text(categories[index].name),
                 trailing: categoryFilters.contains(category.slug)
                     ? Icon(
