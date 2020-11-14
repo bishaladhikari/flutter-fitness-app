@@ -31,7 +31,9 @@ class ProductsListByCategoryBloc {
 
   getCategoryProducts() async {
     ProductResponse response = await _repository.getCategoryProducts(
-        category: _currentCategory.value,
+        category: _categoryFilters.value.length > 0
+            ? _categoryFilters.value.join(",")
+            : _currentCategory.value,
         sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
