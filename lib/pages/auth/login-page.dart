@@ -85,126 +85,126 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildLoginFormWidget() {
-    return ListView(children: [
-      Container(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Form(
-              key: _formKey,
-              autovalidate: _validate,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: emailController,
-                    style: TextStyle(color: Color(0xFF000000)),
-                    cursorColor: Color(0xFF9b9b9b),
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.mail_outline),
-                        border: OutlineInputBorder(),
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "Email"),
-                    validator: MultiValidator([
-                      RequiredValidator(errorText: "Email is required"),
-                      EmailValidator(errorText: "Not A Valid Email"),
-                    ]),
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    controller: passwordController,
-                    style: TextStyle(color: Color(0xFF000000)),
-                    cursorColor: Color(0xFF9b9b9b),
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.lock_outline),
-                        suffixIcon: IconButton(
-                          icon: Icon(_obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: _toggle,
-                        ),
-                        contentPadding: new EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        border: OutlineInputBorder(),
-                        hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "Password"),
-                    obscureText: _obscureText,
-                    validator: MultiValidator([
-                      RequiredValidator(errorText: "Password is required"),
+    return Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          SizedBox(height: 50,),
+          Form(
+            key: _formKey,
+            autovalidate: _validate,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: emailController,
+                  style: TextStyle(color: Color(0xFF000000)),
+                  cursorColor: Color(0xFF9b9b9b),
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.mail_outline),
+                      border: OutlineInputBorder(),
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Email"),
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "Email is required"),
+                    EmailValidator(errorText: "Not A Valid Email"),
+                  ]),
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: passwordController,
+                  style: TextStyle(color: Color(0xFF000000)),
+                  cursorColor: Color(0xFF9b9b9b),
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        icon: Icon(_obscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: _toggle,
+                      ),
+                      contentPadding: new EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      border: OutlineInputBorder(),
+                      hintStyle: TextStyle(color: Colors.grey),
+                      hintText: "Password"),
+                  obscureText: _obscureText,
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "Password is required"),
 //                      PatternValidator(
 //                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
 //                          errorText:
 //                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
-                    ]),
+                  ]),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context, rootNavigator: true)
+                  .pushReplacementNamed('emailForgotPasswordPage');
+            },
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: InkWell(
+                      child: Text('Forget Password',
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline)))),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => validateLogin(context),
+            child: Container(
+              height: 50.0,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              decoration: BoxDecoration(
+                  color: NPrimaryColor,
+                  borderRadius: BorderRadius.circular(5.0)),
+              child: Center(
+                  child: Text(
+                    "SIGN IN",
+                    style: TextStyle(fontSize: 14, color: Colors.white),
+                  )),
+            ),
+          ),
+          Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: Divider(
+                        color: Colors.grey,
+                        height: 1.0,
+                      )),
+                  Flexible(
+                    flex: 1,
+                    child: Text("or"),
                   ),
+                  Expanded(
+                      flex: 2,
+                      child: Divider(
+                        color: Colors.grey,
+                        height: 1.0,
+                      ))
                 ],
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context, rootNavigator: true)
-                    .pushReplacementNamed('emailForgotPasswordPage');
-              },
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: InkWell(
-                        child: Text('Forget Password',
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline)))),
-              ),
-            ),
-            GestureDetector(
-              onTap: () => validateLogin(context),
-              child: Container(
-                height: 50.0,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                decoration: BoxDecoration(
-                    color: NPrimaryColor,
-                    borderRadius: BorderRadius.circular(5.0)),
-                child: Center(
-                    child: Text(
-                      "SIGN IN",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
-              ),
-            ),
-            Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: Divider(
-                          color: Colors.grey,
-                          height: 1.0,
-                        )),
-                    Flexible(
-                      flex: 1,
-                      child: Text("or"),
-                    ),
-                    Expanded(
-                        flex: 2,
-                        child: Divider(
-                          color: Colors.grey,
-                          height: 1.0,
-                        ))
-                  ],
-                )),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
+              )),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
 //                  Container(
 //                    padding: const EdgeInsets.all(4.0),
 //                    margin: const EdgeInsets.all(4.0),
@@ -271,32 +271,31 @@ class _LoginPageState extends State<LoginPage>
 //                      ],
 //                    ),
 //                  ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'New to Ecapp ?',
-                  style: TextStyle(fontFamily: 'quicksand'),
-                ),
-                SizedBox(width: 5.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .pushReplacementNamed('registerPage');
-                  },
-                  child: Text(tr('Register'), style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline)),
-                ),
-              ],
-            )
-          ],
-        ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'New to Ecapp ?',
+                style: TextStyle(fontFamily: 'quicksand'),
+              ),
+              SizedBox(width: 5.0),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true)
+                      .pushReplacementNamed('registerPage');
+                },
+                child: Text(tr('Register'), style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline)),
+              ),
+            ],
+          )
+        ],
       ),
-    ]);
+    );
   }
 
   validateLogin(context) async {
