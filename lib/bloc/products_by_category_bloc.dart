@@ -1,6 +1,7 @@
 // import 'dart:js';
 // import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/models/brand.dart';
+import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ class ProductsListByCategoryBloc {
       BehaviorSubject<ProductResponse>();
   final BehaviorSubject<List<Brand>> _brandFilters =
       BehaviorSubject<List<Brand>>();
-  final BehaviorSubject<List<String>> _categoryFilters =
-      BehaviorSubject<List<String>>();
+  final BehaviorSubject<List<Category>> _categoryFilters =
+      BehaviorSubject<List<Category>>();
 
   final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
   final BehaviorSubject<String> _minRange = BehaviorSubject<String>();
@@ -31,7 +32,9 @@ class ProductsListByCategoryBloc {
 
   getCategoryProducts() async {
     ProductResponse response = await _repository.getCategoryProducts(
-        category: _currentCategory.value,
+        category: _categoryFilters.value.length > 0
+            ? _categoryFilters.value.map((e) => e.slug).join(",")
+            : _currentCategory.value,
         sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
@@ -85,7 +88,7 @@ class ProductsListByCategoryBloc {
 
   BehaviorSubject<List<Brand>> get brandFilters => _brandFilters;
 
-  BehaviorSubject<List<String>> get categoryFilters => _categoryFilters;
+  BehaviorSubject<List<Category>> get categoryFilters => _categoryFilters;
 
   BehaviorSubject<String> get minRange => _minRange;
 

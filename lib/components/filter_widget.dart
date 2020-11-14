@@ -21,8 +21,8 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  List<dynamic> brandFilters = [];
-  List<String> categoryFilters = [];
+  List<Brand> brandFilters = [];
+  List<Category> categoryFilters = [];
   bool showBrands = false;
   bool showCategories = false;
   bool showSubCategories = false;
@@ -153,7 +153,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 ),
                 Expanded(
                   child: Text(
-                    categoryFilters.join(", "),
+                    categoryFilters.map((e) => e.name).join(", "),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.blueAccent, fontWeight: FontWeight.bold),
@@ -410,12 +410,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                       showSubCategories = true;
                       subCategory = category;
                     } else {
-                      if (!categoryFilters.contains(category.slug))
+                      if (categoryFilters
+                              .indexWhere((c) => c.slug == category.slug) ==
+                          -1)
                         widget.productsByCategoryBloc.categoryFilters.value
-                            .add(category.slug);
+                            .add(category);
                       else {
                         int index = categoryFilters
-                            .indexWhere((element) => element == category.slug);
+                            .indexWhere((element) => element.slug == category.slug);
                         widget.productsByCategoryBloc.categoryFilters.value
                             .removeAt(index);
                       }
@@ -439,7 +441,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         size: 16,
       );
     } else {
-      return categoryFilters.contains(category.slug)
+      return categoryFilters.indexWhere((c) => c.slug == category.slug) > -1
           ? Icon(
               Icons.check,
               color: Colors.blueAccent,
@@ -455,7 +457,7 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   Widget _buildSubCategoryListWidget() {
     List<Category> categories = subCategory.subCategories;
-    categories.add(subCategory);
+    // categories.add(subCategory);
     return Column(
       children: [
         Row(
@@ -470,13 +472,37 @@ class _FilterWidgetState extends State<FilterWidget> {
               },
             ),
             Text(
-              tr(subCategory.name),
+              tr("categories"),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: Colors.black),
             ),
           ],
+        ),
+        ListTile(
+          onTap: () {
+            setState(() {
+              if (!categoryFilters.contains(subCategory.slug))
+                widget.productsByCategoryBloc.categoryFilters.value
+                    .add(subCategory.slug);
+              else {
+                int index = categoryFilters
+                    .indexWhere((element) => element == subCategory.slug);
+                widget.productsByCategoryBloc.categoryFilters.value
+                    .removeAt(index);
+              }
+              widget.productsByCategoryBloc.getCategoryProducts();
+            });
+          },
+          title: Text(subCategory.name),
+          trailing: categoryFilters.contains(subCategory.slug)
+              ? Icon(
+                  Icons.check,
+                  color: Colors.blueAccent,
+                  size: 16,
+                )
+              : Text(""),
         ),
         ListView.builder(
             shrinkWrap: true,
@@ -487,26 +513,31 @@ class _FilterWidgetState extends State<FilterWidget> {
               return ListTile(
                 onTap: () {
                   setState(() {
-                    if (!categoryFilters.contains(category.slug))
+                    if (categoryFilters
+                            .indexWhere((c) => c.slug == category.slug) ==
+                        -1)
                       widget.productsByCategoryBloc.categoryFilters.value
-                          .add(category.slug);
+                          .add(category);
                     else {
-                      int index = categoryFilters
-                          .indexWhere((element) => element == category.slug);
+                      int index = categoryFilters.indexWhere(
+                          (element) => element.slug == category.slug);
                       widget.productsByCategoryBloc.categoryFilters.value
                           .removeAt(index);
                     }
                     widget.productsByCategoryBloc.getCategoryProducts();
                   });
                 },
+                leading: Text(""),
                 title: Text(categories[index].name),
-                trailing: categoryFilters.contains(category.slug)
-                    ? Icon(
-                        Icons.check,
-                        color: Colors.blueAccent,
-                        size: 16,
-                      )
-                    : Text(""),
+                trailing:
+                    categoryFilters.indexWhere((c) => c.slug == category.slug) >
+                            -1
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.blueAccent,
+                            size: 16,
+                          )
+                        : Text(""),
               );
             }),
       ],
