@@ -108,6 +108,10 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBody() {
+    List<Category> categories = categoryBloc.subject.value.categories
+        .firstWhere((c) => c.slug == currentCategory)
+        .subCategories;
+    print(['hell', categories]);
     if (showBrands)
       return _buildBrands();
     else if (showCategories)
@@ -136,9 +140,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     widget.productsByCategoryBloc.sortBy.value = 'default';
                   },
                   child: Text(tr("Clear All"),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16)))),
+                      style: TextStyle(color: Colors.black, fontSize: 16)))),
           Divider(
             thickness: 1,
 //                height: MediaQuery.of(context).size.width,
@@ -146,34 +148,37 @@ class _FilterWidgetState extends State<FilterWidget> {
 //          SizedBox(
 //            height: 10,
 //          ),
-          ListTile(
-            onTap: () {
-              setState(() {
-                showCategories = true;
-              });
-            },
-            title: Row(
-              children: [
-                Text("Category"),
-                SizedBox(
-                  width: 2.0,
-                ),
-                Expanded(
-                  child: Text(
-                    categoryFilters.map((e) => e.name).join(", "),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
+          categories.length > 1
+              ? ListTile(
+                  onTap: () {
+                    setState(() {
+                      showCategories = true;
+                    });
+                  },
+                  title: Row(
+                    children: [
+                      Text("Category"),
+                      SizedBox(
+                        width: 2.0,
+                      ),
+                      Expanded(
+                        child: Text(
+                          categoryFilters.map((e) => e.name).join(", "),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ),
+                  contentPadding: const EdgeInsets.all(1.0),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
                   ),
                 )
-              ],
-            ),
-            contentPadding: const EdgeInsets.all(1.0),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              size: 14,
-            ),
-          ),
+              : Container(),
           ListTile(
             onTap: () {
               setState(() {

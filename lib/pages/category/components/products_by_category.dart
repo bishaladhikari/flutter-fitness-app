@@ -108,18 +108,22 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   Widget _buildHomeWidget(ProductResponse data) {
     List<Product> products = data.products;
     return Scaffold(
-      body: Container(
-          padding: EdgeInsets.only(top: 18),
-          child: StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-              controller: ScrollController(keepScrollOffset: false),
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return ProductItem(product: products[index], width: 200.0);
-              })),
+      body: products.length > 1
+          ? Container(
+              padding: EdgeInsets.only(top: 18),
+              child: StaggeredGridView.countBuilder(
+                  crossAxisCount: 4,
+                  staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+                  controller: ScrollController(keepScrollOffset: false),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return ProductItem(product: products[index], width: 200.0);
+                  }))
+          : Center(
+              child: Text(tr("No Product Found")),
+            ),
       bottomNavigationBar: Row(children: <Widget>[
         Container(
           height: 50,
