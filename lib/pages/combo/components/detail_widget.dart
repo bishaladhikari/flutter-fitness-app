@@ -1,6 +1,7 @@
 import 'package:ecapp/bloc/combo_detail_bloc.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/combo_detail.dart';
+import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -84,7 +85,15 @@ class _DetailWidgetState extends State<DetailWidget> {
                 borderRadius: new BorderRadius.circular(8.0)),
             child: Text(attributes[i].productName,
                 style: TextStyle(color: Colors.black)),
-            onPressed: () {}, //callback when button is clicked
+            onPressed: () {
+              Product product = Product();
+              product.name = attributes[i].productName;
+              product.slug =attributes[i].slug;
+              product.imageThumbnail = attributes[i].images[0].imageThumbnail;
+              product.heroTag = attributes[i].heroTag;
+
+              Navigator.pushNamed(context, "productDetailPage", arguments: product);
+            }, //callback when button is clicked
             borderSide: BorderSide(
               color: Colors.grey.withOpacity(0.3),
               //Color of the border

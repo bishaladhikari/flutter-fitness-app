@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import 'category.dart';
 
 class ComboDetail {
@@ -134,6 +136,8 @@ class Attributes {
   String slug;
   int quantity;
   List<Null> tags;
+
+  get heroTag => Uuid().v4();
 
   Attributes(
       {this.id,

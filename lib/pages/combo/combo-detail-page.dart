@@ -7,6 +7,7 @@ import 'package:ecapp/bloc/review_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/combo.dart';
 import 'package:ecapp/models/combo_detail.dart';
+import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -268,7 +269,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                               children: [
                                 Expanded(
                                   child: Text(
-                                   widget.combo.title,
+                                    widget.combo.title,
                                     style: TextStyle(
                                         fontSize: 22,
                                         color: Colors.black,
@@ -307,8 +308,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                                   return _buildDetailWidget(snapshot.data);
                                 } else if (snapshot.hasError) {
                                   return _buildErrorWidget(snapshot.error);
-                                } else {
-                                  return _buildLoadingWidget(context);
                                 }
                                 return _buildLoadingWidget(context);
                               }),
@@ -378,7 +377,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                                         decoration: new BoxDecoration(
                                           color: kPrimaryColor,
                                           borderRadius:
-                                          BorderRadius.circular(8),
+                                              BorderRadius.circular(8),
                                         ),
                                         constraints: BoxConstraints(
                                           minWidth: 14,
@@ -401,7 +400,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                                 }),
                             IconButton(
                               icon:
-                              SvgPicture.asset("assets/icons/Cart_02.svg"),
+                                  SvgPicture.asset("assets/icons/Cart_02.svg"),
                               color: Colors.black26,
                               onPressed: () {
                                 cartBloc.getCart();
@@ -529,14 +528,11 @@ class _ComboDetailPageState extends State<ComboDetailPage>
 
   _buildDetailWidget(ComboDetailResponse data) {
     ComboDetail comboDetail = data.comboDetail;
-//    final controller = AnimationController(
-//      vsync: this,
-//        duration: Duration(milliseconds: 500));
-//    final animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-//    controller.forward();
     return DetailWidget(
         comboDetail: comboDetail, comboDetailBloc: comboDetailBloc);
   }
+
+
 
   Widget _buildLoadingWidget(BuildContext context) {
     var width = MediaQuery.of(context).size.width - 16;
