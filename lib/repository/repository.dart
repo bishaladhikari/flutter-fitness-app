@@ -476,13 +476,15 @@ class Repository {
 
   Future<ProductResponse> getCategoryProducts(
       {String category,
+        String categoryFilters,
       String sortBy,
       String minPrice,
       String maxPrice,
       String types,
       String brands}) async {
     var params = {
-      "category": category,
+      "category": categoryFilters==null?category:null,
+      "sub_categories": categoryFilters,
       "brands":brands,
       "sort_by": sortBy,
       "starting_price": minPrice,
