@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sliver_fab/sliver_fab.dart';
 import '../../constants.dart';
 import 'components/detail_widget.dart';
 
@@ -174,7 +175,26 @@ class _ComboDetailPageState extends State<ComboDetailPage>
       body: Stack(
         children: [
           NotificationListener<ScrollUpdateNotification>(
-            child: CustomScrollView(
+            child: SliverFab(
+              floatingPosition: FloatingPosition(right: 20),
+              floatingWidget: StreamBuilder<ComboDetailResponse>(
+                stream: comboDetailBloc.subject.stream,
+                builder:
+                    (context, AsyncSnapshot<ComboDetailResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0) {
+                      return _buildErrorWidget(snapshot.data.error);
+                    }
+                    return _buildAddToWishListWidget(context, snapshot.data);
+                  } else if (snapshot.hasError) {
+                    return _buildErrorWidget(snapshot.error);
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+              expandedHeight: 290.0,
               slivers: [
                 SliverAppBar(
                   backgroundColor: Colors.white,
@@ -246,12 +266,14 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.combo.title,
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: Text(
+                                   widget.combo.title,
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),
@@ -484,6 +506,24 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                   )),
             );
           }),
+    );
+  }
+
+  Widget _buildAddToWishListWidget(context, ComboDetailResponse data) {
+    ComboDetail comboDetail = data.comboDetail;
+    var saved = comboDetail.saved;
+    return FloatingActionButton(
+      backgroundColor: saved ? NPrimaryColor : Colors.white,
+      onPressed: () {
+        if (saved)
+          _removeFromWishlist(context);
+        else
+          _addToWishlist(context);
+      },
+      child: Icon(
+        Icons.favorite_border,
+        color: saved ? Colors.white : Colors.black38,
+      ),
     );
   }
 
