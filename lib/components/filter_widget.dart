@@ -72,7 +72,10 @@ class _FilterWidgetState extends State<FilterWidget> {
       bottomNavigationBar: Row(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width / 2,
             height: 60,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -87,7 +90,10 @@ class _FilterWidgetState extends State<FilterWidget> {
             ),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width / 2,
             height: 60,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -284,28 +290,28 @@ class _FilterWidgetState extends State<FilterWidget> {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 25.0,
+              width: 25.0,
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                strokeWidth: 4.0,
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occurred: $error"),
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Error occurred: $error"),
+          ],
+        ));
   }
 
   Widget _buildBrandListWidget(BrandResponse data) {
@@ -358,13 +364,13 @@ class _FilterWidgetState extends State<FilterWidget> {
                 },
                 title: Text(brands[index].name),
                 trailing:
-                    brandFilters.indexWhere((x) => x.slug == brand.slug) > -1
-                        ? Icon(
-                            Icons.check,
-                            color: Colors.blueAccent,
-                            size: 16,
-                          )
-                        : Text(""),
+                brandFilters.indexWhere((x) => x.slug == brand.slug) > -1
+                    ? Icon(
+                  Icons.check,
+                  color: Colors.blueAccent,
+                  size: 16,
+                )
+                    : Text(""),
               );
             }),
       ],
@@ -441,10 +447,10 @@ class _FilterWidgetState extends State<FilterWidget> {
     } else {
       return categoryFilters.contains(category.slug)
           ? Icon(
-              Icons.check,
-              color: Colors.blueAccent,
-              size: 16,
-            )
+        Icons.check,
+        color: Colors.blueAccent,
+        size: 16,
+      )
           : Text("");
     }
   }
@@ -470,7 +476,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               },
             ),
             Text(
-              tr(subCategory.name),
+              tr("categories"),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -496,10 +502,10 @@ class _FilterWidgetState extends State<FilterWidget> {
           title: Text(subCategory.name),
           trailing: categoryFilters.contains(subCategory.slug)
               ? Icon(
-                  Icons.check,
-                  color: Colors.blueAccent,
-                  size: 16,
-                )
+            Icons.check,
+            color: Colors.blueAccent,
+            size: 16,
+          )
               : Text(""),
         ),
         ListView.builder(
@@ -527,10 +533,10 @@ class _FilterWidgetState extends State<FilterWidget> {
                 title: Text(categories[index].name),
                 trailing: categoryFilters.contains(category.slug)
                     ? Icon(
-                        Icons.check,
-                        color: Colors.blueAccent,
-                        size: 16,
-                      )
+                  Icons.check,
+                  color: Colors.blueAccent,
+                  size: 16,
+                )
                     : Text(""),
               );
             }),
