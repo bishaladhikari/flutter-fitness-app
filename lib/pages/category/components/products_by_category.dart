@@ -108,7 +108,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   Widget _buildHomeWidget(ProductResponse data) {
     List<Product> products = data.products;
     return Scaffold(
-      body: products.length > 1
+      body: products.length > 0
           ? Container(
               padding: EdgeInsets.only(top: 18),
               child: StaggeredGridView.countBuilder(
@@ -122,7 +122,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                     return ProductItem(product: products[index], width: 200.0);
                   }))
           : Center(
-              child: Text(tr("No Product Found")),
+              child: Text(tr("No Products Found")),
             ),
       bottomNavigationBar: Row(children: <Widget>[
         Container(
