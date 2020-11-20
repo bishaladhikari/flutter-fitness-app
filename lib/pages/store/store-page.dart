@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
 
-class AccountPage extends StatefulWidget {
+class StorePage extends StatefulWidget {
   @override
-  _AccountPageState createState() => _AccountPageState();
+  _StorePageState createState() => _StorePageState();
 }
 
-class _AccountPageState extends State<AccountPage>
+class _StorePageState extends State<StorePage>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Scaffold(appBar: AccountAppBar(context), body: Body());
+    return Scaffold(appBar: StoreAppBar(context), body: Body());
   }
 
   @override

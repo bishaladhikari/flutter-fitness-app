@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../main_page.dart';
 
-AppBar accountAppBar(BuildContext context) {
+AppBar AccountAppBar(BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: Colors.white,
