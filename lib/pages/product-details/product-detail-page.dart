@@ -487,9 +487,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           };
                           addToCart(context, params);
                           Navigator.pushNamed(context, "checkoutPage");
-//                          setState(() {
-//                            isClicked = !isClicked;
-//                          });
                         },
                         textColor: Colors.white,
                         padding: const EdgeInsets.all(0.0),
@@ -1066,7 +1063,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         GestureDetector(
                           onTap: () => {
                             Navigator.pushNamed(context, "ratingsReviewsPage",
-                                arguments: slug)
+                                arguments: productDetail)
                           },
                           child: Text(
                             "View All",
