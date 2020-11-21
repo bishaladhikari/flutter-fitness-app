@@ -1063,10 +1063,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               fontWeight: FontWeight.w600,
                               color: Colors.black54),
                         ),
-                        Text(
-                          "View All",
-                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                          textAlign: TextAlign.end,
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.pushNamed(context, "ratingsReviewsPage")
+                          },
+                          child: Text(
+                            "View All",
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.blue),
+                            textAlign: TextAlign.end,
+                          ),
                         ),
                       ],
                     ),
