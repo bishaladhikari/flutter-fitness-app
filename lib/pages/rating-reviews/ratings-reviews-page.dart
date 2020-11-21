@@ -101,7 +101,7 @@ class _RatingsReviewsPageState extends State<RatingsReviewsPage> {
             padding: const EdgeInsets.all(4.0),
             child: Image(
               image: NetworkImage(review.imageThumbnail[i]),
-              height: 60,
+              height: 120,
             )),
       ));
     }
@@ -156,7 +156,8 @@ class _RatingsReviewsPageState extends State<RatingsReviewsPage> {
           ),
           SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Container(child: Row(children: children))),
+              child: Container(
+                  child: Row(children: children))),
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [
