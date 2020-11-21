@@ -84,7 +84,6 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     return StreamBuilder<OrderResponse>(
       stream: widget._ordersListByStatusBloc.subject.stream,
       builder: (context, AsyncSnapshot<OrderResponse> snapshot) {
-        print(snapshot);
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);

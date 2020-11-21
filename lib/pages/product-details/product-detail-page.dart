@@ -1065,7 +1065,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         ),
                         GestureDetector(
                           onTap: () => {
-                            Navigator.pushNamed(context, "ratingsReviewsPage")
+                            Navigator.pushNamed(context, "ratingsReviewsPage",
+                                arguments: slug)
                           },
                           child: Text(
                             "View All",
