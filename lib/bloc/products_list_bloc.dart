@@ -16,6 +16,8 @@ class ProductsListBloc {
       BehaviorSubject<List<Brand>>();
   final BehaviorSubject<List<Category>> _categoryFilters =
       BehaviorSubject<List<Category>>();
+  final BehaviorSubject<String> _searchTerm =
+  BehaviorSubject<String>();
 
   final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
   final BehaviorSubject<String> _minRange = BehaviorSubject<String>();
@@ -25,6 +27,7 @@ class ProductsListBloc {
   ProductsListBloc() {
     _brandFilters.value = [];
     _categoryFilters.value = [];
+    _searchTerm.value = "";
     _minRange.value = null;
     _maxRange.value = null;
     _sortBy.value = 'default';
@@ -39,7 +42,7 @@ class ProductsListBloc {
         sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
-        searchTerm: searchTerm,
+        searchTerm: _searchTerm.value,
         // types: types,
         brands: _brandFilters.value.map((e) => e.slug).join(","));
     _subject.sink.add(response);
@@ -91,6 +94,8 @@ class ProductsListBloc {
   BehaviorSubject<List<Brand>> get brandFilters => _brandFilters;
 
   BehaviorSubject<List<Category>> get categoryFilters => _categoryFilters;
+
+  BehaviorSubject<String> get searchTerm => _searchTerm;
 
   BehaviorSubject<String> get minRange => _minRange;
 
