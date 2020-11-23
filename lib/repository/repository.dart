@@ -535,7 +535,7 @@ class Repository {
   Future<ReviewResponse> getProductReview(
       String combo, String slug, int page) async {
     _dio.options.headers['user'] = 3;
-    var params = {"combo": combo, "slug": slug, "per_page": 2, "page": page};
+    var params = {"combo": combo, "slug": slug, "per_page": 10, "page": page};
 
     try {
       Response response =
