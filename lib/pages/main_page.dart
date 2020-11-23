@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
@@ -38,6 +39,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    bannerBloc..getBanners();
     categoryBloc..getCategories();
     productsBloc..getFeaturedProducts();
     productsBloc..getProducts(1);

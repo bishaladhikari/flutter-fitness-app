@@ -96,7 +96,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     slug = widget.product.slug;
 
     productDetailBloc.getProductDetail(slug);
-    reviewBloc.getProductReview("false", slug);
+    reviewBloc.getProductReview("false", slug, 1);
   }
 
   @override
@@ -1316,7 +1316,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   _buildReviewsView(BuildContext context) {
     return StreamBuilder<ReviewResponse>(
-      stream: reviewBloc.review.stream,
+      stream: reviewBloc.subject.stream,
       builder: (context, AsyncSnapshot<ReviewResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
