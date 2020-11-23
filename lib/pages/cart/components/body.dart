@@ -49,21 +49,26 @@ class CartBody extends StatelessWidget {
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(children: [
-                Text(
-                  carts[i].soldBy + " ($itemCount items)",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey,
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context,"storePage");
+                },
+                child: Row(children: [
+                  Text(
+                    carts[i].soldBy + " ($itemCount items)",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
-                  onPressed: () {},
-                )
-              ]),
+                  IconButton(
+                    icon: Icon(
+                      Icons.chevron_right,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {},
+                  )
+                ]),
+              ),
             ),
           ),
           Container(
