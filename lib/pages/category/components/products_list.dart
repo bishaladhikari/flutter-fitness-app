@@ -9,29 +9,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class ProductsByCategory extends StatefulWidget {
+class ProductsList extends StatefulWidget {
   final String category;
 
   ProductsListBloc productsListBloc;
 
-  ProductsByCategory({Key key, this.category}) {
+  ProductsList({Key key, this.category}) {
     productsListBloc = ProductsListBloc();
 //    categoryBloc.productsListBloc = _productsListBloc;
 //    super(key: key);
   }
 
   @override
-  _ProductsByCategoryState createState() => _ProductsByCategoryState();
+  _ProductsListState createState() => _ProductsListState();
 
-  static _ProductsByCategoryState of(BuildContext context) {
-    final _ProductsByCategoryState navigator = context
+  static _ProductsListState of(BuildContext context) {
+    final _ProductsListState navigator = context
         // ignore: deprecated_member_use
-        .ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
+        .ancestorStateOfType(const TypeMatcher<_ProductsListState>());
 
     assert(() {
       if (navigator == null) {
         throw new FlutterError('Operation requested with a context that does '
-            'not include a ProductsByCategory.');
+            'not include a ProductsList.');
       }
       return true;
     }());
@@ -40,7 +40,7 @@ class ProductsByCategory extends StatefulWidget {
   }
 }
 
-class _ProductsByCategoryState extends State<ProductsByCategory> {
+class _ProductsListState extends State<ProductsList> {
   // var sortType = widget.productsListBloc.sortBy.value;
 
   @override
