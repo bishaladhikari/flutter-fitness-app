@@ -476,16 +476,16 @@ class Repository {
 
   Future<ProductResponse> getCategoryProducts(
       {String category,
-        String categoryFilters,
+      String categoryFilters,
       String sortBy,
       String minPrice,
       String maxPrice,
       String types,
       String brands}) async {
     var params = {
-      "category": categoryFilters==null?category:null,
+      "category": categoryFilters == null ? category : null,
       "sub_categories": categoryFilters,
-      "brands":brands,
+      "brands": brands,
       "sort_by": sortBy,
       "starting_price": minPrice,
       "ending_price": maxPrice,
@@ -513,12 +513,10 @@ class Repository {
     }
   }
 
-  Future<ReviewResponse> getProductReview(String combo, String slug) async {
+  Future<ReviewResponse> getProductReview(
+      String combo, String slug, int page) async {
     _dio.options.headers['user'] = 3;
-    var params = {
-      "combo": combo,
-      "slug": slug,
-    };
+    var params = {"combo": combo, "slug": slug, "per_page": 2, "page": page};
 
     try {
       Response response =
