@@ -22,7 +22,7 @@ class ProductsListBloc {
   final BehaviorSubject<String> _maxRange = BehaviorSubject<String>();
   final BehaviorSubject<String> _sortBy = BehaviorSubject<String>();
 
-  ProductsListByCategoryBloc() {
+  ProductsListBloc() {
     _brandFilters.value = [];
     _categoryFilters.value = [];
     _minRange.value = null;
@@ -30,8 +30,8 @@ class ProductsListBloc {
     _sortBy.value = 'default';
   }
 
-  getCategoryProducts() async {
-    ProductResponse response = await _repository.getCategoryProducts(
+  getProducts() async {
+    ProductResponse response = await _repository.getProducts(
         category:  _currentCategory.value,
         categoryFilters:_categoryFilters.value.length > 0
             ? _categoryFilters.value.map((e) => e.slug).join(",")

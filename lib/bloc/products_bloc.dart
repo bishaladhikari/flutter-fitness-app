@@ -29,7 +29,7 @@ class ProductsBloc {
     // _forYou.sink.add(response);
 
     _loading.sink.add(true);
-    ProductResponse response = await _repository.getProducts(page);
+    ProductResponse response = await _repository.getProducts(page:page);
 
     if (response.error == null) {
       if (productResponse != null && productResponse.products.length > 0) {

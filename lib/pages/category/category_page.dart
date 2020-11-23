@@ -61,7 +61,7 @@ class _CategoryPageState extends State<CategoryPage>
 //    const types = '';
 //
 //    productsByCategoryBloc
-//      ..getCategoryProducts(
+//      ..getProducts(
 //          productsByCategoryBloc.category.value,
 //          sortBy,
 //          minPrice,
@@ -73,7 +73,7 @@ class _CategoryPageState extends State<CategoryPage>
 //  void _filterProducts(
 //      String sortBy, String minPrice, String maxPrice, String types) {
 //    productsByCategoryBloc
-//      .getCategoryProducts(category:productsByCategoryBloc.currentCategory.value, sortBy:sortBy,
+//      .getProducts(category:productsByCategoryBloc.currentCategory.value, sortBy:sortBy,
 //          minPrice:minPrice, maxPrice:maxPrice, types:types);
 //    Navigator.of(context).pop();
 //  }

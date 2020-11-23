@@ -93,7 +93,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  widget.productsListBloc.getCategoryProducts();
+                  widget.productsListBloc.getProducts();
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
@@ -365,7 +365,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsListBloc.brandFilters.value
                           .removeAt(index);
                     }
-                    widget.productsListBloc.getCategoryProducts();
+                    widget.productsListBloc.getProducts();
                   });
                 },
                 title: Text(brands[index].name),
@@ -433,7 +433,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                         widget.productsListBloc.categoryFilters.value
                             .removeAt(index);
                       }
-                      widget.productsListBloc.getCategoryProducts();
+                      widget.productsListBloc.getProducts();
                     }
                   });
                 },
@@ -506,7 +506,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 widget.productsListBloc.categoryFilters.value
                     .removeAt(index);
               }
-              widget.productsListBloc.getCategoryProducts();
+              widget.productsListBloc.getProducts();
             });
           },
           title: Text(subCategory.name),
@@ -539,7 +539,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       widget.productsListBloc.categoryFilters.value
                           .removeAt(index);
                     }
-                    widget.productsListBloc.getCategoryProducts();
+                    widget.productsListBloc.getProducts();
                   });
                 },
                 title: Text(categories[index].name),

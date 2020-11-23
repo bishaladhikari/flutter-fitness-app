@@ -47,7 +47,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   void initState() {
     super.initState();
     widget.productsListBloc.currentCategory.value = widget.category;
-    widget.productsListBloc..getCategoryProducts();
+    widget.productsListBloc..getProducts();
 //    brandsBloc.getBrands(category: category);
   }
 
@@ -259,7 +259,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     //   sort_type = sortBy;
     // });
 
-    widget.productsListBloc.getCategoryProducts();
+    widget.productsListBloc.getProducts();
     Navigator.of(context).pop();
   }
 
