@@ -21,6 +21,7 @@ import 'package:ecapp/pages/rating-reviews/ratings-reviews-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
+import 'package:ecapp/pages/store/store-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
 import 'package:ecapp/pages/orders/orders_page.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,9 @@ abstract class Routes {
         break;
       case 'privacyPage':
         return MaterialPageRoute(builder: (context) => PrivacyPage());
+        break;
+      case 'storePage':
+        return MaterialPageRoute(builder: (context) => StorePage());
         break;
       case 'wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
