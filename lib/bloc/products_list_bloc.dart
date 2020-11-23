@@ -30,7 +30,7 @@ class ProductsListBloc {
     _sortBy.value = 'default';
   }
 
-  getProducts() async {
+  getProducts({String searchTerm}) async {
     ProductResponse response = await _repository.getProducts(
         category: _currentCategory.value,
         categoryFilters: _categoryFilters.value.length > 0
@@ -39,6 +39,7 @@ class ProductsListBloc {
         sortBy: _sortBy.value,
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
+        searchTerm: searchTerm,
         // types: types,
         brands: _brandFilters.value.map((e) => e.slug).join(","));
     _subject.sink.add(response);
@@ -100,4 +101,4 @@ class ProductsListBloc {
 //  set addBrands(brand) => _brands.add(brand);
 }
 
-final productsListBloc = ProductsListBloc();
+//final productsListBloc = ProductsListBloc();

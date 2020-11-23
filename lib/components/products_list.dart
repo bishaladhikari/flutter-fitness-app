@@ -11,10 +11,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProductsList extends StatefulWidget {
   final String category;
+  final String searchTerm;
 
   ProductsListBloc productsListBloc;
 
-  ProductsList({Key key, this.category}) {
+  ProductsList({Key key, this.category,this.searchTerm}) {
 
     productsListBloc = ProductsListBloc();
 //    categoryBloc.productsListBloc = _productsListBloc;
@@ -48,7 +49,7 @@ class _ProductsListState extends State<ProductsList> {
   void initState() {
     super.initState();
     widget.productsListBloc.currentCategory.value = widget.category;
-    widget.productsListBloc..getProducts();
+    widget.productsListBloc..getProducts(searchTerm:widget.searchTerm);
 //    brandsBloc.getBrands(category: category);
   }
 

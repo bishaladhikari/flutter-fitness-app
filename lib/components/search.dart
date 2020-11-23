@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/bloc/search_bloc.dart';
+import 'package:ecapp/components/products_list.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/SearchSuggestion.dart';
 import 'package:ecapp/models/product.dart';
@@ -43,6 +45,12 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+//    if(query.isEmpty) return  ;
+//    ProductsListBloc productsListBloc = ProductsListBloc();
+    print("here is search term:"+query);
+//    productsListBloc.getProducts(searchTerm: query);
+
+    return ProductsList(searchTerm: query,);
   }
 
   @override
@@ -57,7 +65,7 @@ class Search extends SearchDelegate {
             if (snapshot.data.error != null && snapshot.data.error.length > 0) {
               return _buildErrorWidget(snapshot.data.error);
             }
-            return _buildSuggestionsWidget(context,snapshot.data);
+            return _buildSuggestionsWidget(context, snapshot.data);
           } else if (snapshot.hasError) {
             return _buildErrorWidget(snapshot.error);
           } else {
@@ -66,7 +74,7 @@ class Search extends SearchDelegate {
         });
   }
 
-  Widget _buildSuggestionsWidget(context,SearchSuggestionResponse data) {
+  Widget _buildSuggestionsWidget(context, SearchSuggestionResponse data) {
     List<SearchSuggestion> suggestions = data.suggestions;
 
     return ListView.builder(
@@ -78,14 +86,15 @@ class Search extends SearchDelegate {
               .indexOf(query.toLowerCase());
 
           return InkWell(
-            onTap: (){
+            onTap: () {
               Product product = Product();
               product.name = suggestions[index].name;
               product.slug = suggestions[index].slug;
               product.imageThumbnail = suggestions[index].imageThumbnail;
-              product.heroTag =  Uuid().v4();
+              product.heroTag = Uuid().v4();
 
-              Navigator.pushNamed(context, "productDetailPage", arguments: product);
+              Navigator.pushNamed(context, "productDetailPage",
+                  arguments: product);
             },
             child: ListTile(
                 leading: Icon(
@@ -104,11 +113,11 @@ class Search extends SearchDelegate {
                         style: TextStyle(color: Colors.grey),
                         children: [
                           TextSpan(
-                            text: suggestions[index]
-                                .name
-                                .substring(startIndex, startIndex + query.length),
+                            text: suggestions[index].name.substring(
+                                startIndex, startIndex + query.length),
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.black),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                           TextSpan(
                             text: suggestions[index]

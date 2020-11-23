@@ -513,6 +513,7 @@ class Repository {
       String minPrice,
       String maxPrice,
       String types,
+      String searchTerm,
       int page,
       String brands}) async {
     var params = {
@@ -523,6 +524,7 @@ class Repository {
       "starting_price": minPrice,
       "ending_price": maxPrice,
       "types": types,
+      "search_term": searchTerm,
       "per_page": 10,
       "page": 1,
     };
