@@ -774,6 +774,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   Widget _productSlideImage(String imageUrl) {
+//    imageUrl = imageUrl != null ? imageUrl : "assets/images/placeholder.png";
     return Center(
       child: Hero(
         tag: widget.product.heroTag,

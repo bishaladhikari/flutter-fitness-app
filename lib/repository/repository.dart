@@ -23,6 +23,7 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/response/redeem_point_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
+import 'package:ecapp/models/response/search_suggestion_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -55,6 +56,7 @@ class Repository {
   var forgotPasswordUpdateUrl = '$appUrl/customer/update-password';
   var loyaltyPointsUrl = '$appUrl/loyalty-points';
   var redeemLoyaltyPointsUrl = '$appUrl/redeem-points';
+  var searchSuggestionUrl = '$appUrl/search';
 
   Repository() {
     BaseOptions options =
@@ -191,6 +193,17 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return WishlistResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<SearchSuggestionResponse> getSearchSuggestions(query) async {
+    try {
+      Response response =
+          await _dio.get(searchSuggestionUrl + '?search_term=' + query);
+      return SearchSuggestionResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return SearchSuggestionResponse.withError(_handleError(error));
     }
   }
 
