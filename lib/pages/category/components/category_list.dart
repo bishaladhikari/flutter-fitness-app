@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/products_by_category_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/pages/category/components/products_by_category.dart';
@@ -18,12 +18,12 @@ class _CategoryListState extends State<CategoryList>
     with SingleTickerProviderStateMixin {
   final List<Category> categories;
 
-//  ProductsListByCategoryBloc productsByCategoryBloc;
+//  ProductsListByCategoryBloc productsListBloc;
 
   _CategoryListState(this.categories);
 
   TabController _tabController;
-  ProductsListByCategoryBloc productsByCategoryBloc;
+  ProductsListBloc productsListBloc;
 
   @override
   void initState() {
@@ -33,9 +33,9 @@ class _CategoryListState extends State<CategoryList>
       if (_tabController.indexIsChanging) {
 //        if (_tabController.index != _tabController.previousIndex)
 //          // Tab Changed swiping to a new tab
-//          categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
-////        productsByCategoryBloc = ProductsListByCategoryBloc();
-////        categoryBloc.productsByCategoryBloc = productsByCategoryBloc;
+//          categoryBloc.productsListBloc = productsListBloc;
+////        productsListBloc = ProductsListByCategoryBloc();
+////        categoryBloc.productsListBloc = productsListBloc;
 ////        categoryBloc..drainStream();
       }
     });

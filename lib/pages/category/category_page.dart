@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/products_by_category_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/search_box.dart';
 import 'package:flutter/material.dart';
 import '../main_page.dart';

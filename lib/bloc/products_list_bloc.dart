@@ -7,7 +7,7 @@ import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ProductsListByCategoryBloc {
+class ProductsListBloc {
   final Repository _repository = Repository();
 
   final BehaviorSubject<ProductResponse> _subject =
@@ -100,4 +100,4 @@ class ProductsListByCategoryBloc {
 //  set addBrands(brand) => _brands.add(brand);
 }
 
-final productsByCategoryBloc = ProductsListByCategoryBloc();
+final productsListBloc = ProductsListBloc();
