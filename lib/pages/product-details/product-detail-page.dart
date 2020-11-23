@@ -1183,23 +1183,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   textAlign: TextAlign.start,
                 ),
               ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    print("Clicked");
-                  },
-                  child: Text(
-                    "View All",
-                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
         SameSellerList(slug: slug),
-        // buildTrending()
       ],
     );
   }

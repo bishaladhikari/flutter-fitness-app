@@ -25,9 +25,6 @@ class ProductsListBloc {
   ProductResponse productResponse;
 
   getProducts(int page) async {
-    // ProductResponse response = await _repository.getProducts(page);
-    // _forYou.sink.add(response);
-
     _loading.sink.add(true);
     ProductResponse response = await _repository.getProducts(page);
 

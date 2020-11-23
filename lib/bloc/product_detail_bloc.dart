@@ -14,7 +14,11 @@ class ProductDetailBloc {
       BehaviorSubject<ProductResponse>();
   final BehaviorSubject<ProductResponse> _fromSameSeller =
       BehaviorSubject<ProductResponse>();
+
+  final BehaviorSubject<bool> _loading = BehaviorSubject<bool>();
+
   ProductDetailResponse response;
+  ProductResponse productResponse;
 
   getProductDetail(String slug) async {
     response = await _repository.getProductDetail(slug);
@@ -28,10 +32,29 @@ class ProductDetailBloc {
     _related.sink.add(response);
   }
 
-  getSameSellerProduct({slug, isCombo = false}) async {
-    ProductResponse response =
-        await _repository.getSameSellerProduct(slug, isCombo);
-    _fromSameSeller.sink.add(response);
+  // getSameSellerProduct({slug, isCombo = false}) async {
+  //   ProductResponse response =
+  //       await _repository.getSameSellerProduct(slug, isCombo);
+  //   _fromSameSeller.sink.add(response);
+  // }
+
+  getSameSellerProduct({page, slug, isCombo}) async {
+    _loading.sink.add(true);
+    ProductResponse response = await _repository.getSameSellerProduct(page,slug,isCombo);
+
+    if (response.error == null) {
+      if (productResponse != null && productResponse.products.length > 0) {
+        productResponse.products.addAll(response.products);
+      } else {
+        productResponse = response;
+      }
+    } else {
+      productResponse = response;
+    }
+
+    _loading.sink.add(false);
+    _fromSameSeller.sink.add(productResponse);
+    // return orderResponse;
   }
 
   addToWishlist() async {
@@ -87,6 +110,8 @@ class ProductDetailBloc {
   BehaviorSubject<ProductResponse> get related => _related;
 
   BehaviorSubject<ProductResponse> get fromSameSeller => _fromSameSeller;
+
+  Stream<bool> get loading => _loading.stream;
 }
 
 //final productDetailBloc = ProductDetailBloc();

@@ -10,6 +10,7 @@ import 'package:ecapp/pages/cart/cart-page.dart';
 import 'package:ecapp/pages/cash-on-delivery/cash-on-delivery-page.dart';
 import 'package:ecapp/pages/checkout/checkout-page.dart';
 import 'package:ecapp/pages/combo/combo-detail-page.dart';
+import 'package:ecapp/pages/from-same-seller/from-same-seller-page.dart';
 import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
@@ -118,6 +119,10 @@ abstract class Routes {
       case 'ratingsReviewsPage':
         return MaterialPageRoute(
             builder: (context) => RatingsReviewsPage(productDetail: arguments));
+        break;
+      case 'fromSameSellerPage':
+        return MaterialPageRoute(
+            builder: (context) => FromSameSellerPage(slug: arguments));
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());

@@ -141,6 +141,24 @@ class Repository {
     }
   }
 
+  Future<ProductResponse> getProductsFromSameSeller(
+      int page, String slug) async {
+    var params = {
+      "per_page": 10,
+      "page": page,
+      "products_from_same_seller": slug,
+      "combo": false
+    };
+
+    try {
+      Response response = await _dio.get(productsUrl, queryParameters: params);
+      return ProductResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return ProductResponse.withError(_handleError(error));
+    }
+  }
+
   Future<ProductResponse> getRelatedProduct(slug, isCombo) async {
     try {
       Response response = await _dio.get(productsUrl,
@@ -152,9 +170,10 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getSameSellerProduct(slug, isCombo) async {
+  Future<ProductResponse> getSameSellerProduct(page, slug, isCombo) async {
     try {
       Response response = await _dio.get(productsUrl, queryParameters: {
+        "page": page,
         "products_from_same_seller": slug,
         "combo": isCombo
       });

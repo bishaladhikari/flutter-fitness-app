@@ -94,7 +94,10 @@ class _ProductsListState extends State<SameSellerList> {
               itemBuilder: (context, index) {
                 if (index == products.length - 1) {
                   return GestureDetector(
-                    onTap: () => {},
+                    onTap: () => {
+                      Navigator.pushNamed(context, "fromSameSellerPage",
+                          arguments: widget.slug)
+                    },
                     child: Container(
                         width: 160.0,
                         height: 270,
