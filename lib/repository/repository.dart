@@ -23,6 +23,7 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/models/response/redeem_point_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
+import 'package:ecapp/models/response/search_suggestion_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -55,6 +56,7 @@ class Repository {
   var forgotPasswordUpdateUrl = '$appUrl/customer/update-password';
   var loyaltyPointsUrl = '$appUrl/loyalty-points';
   var redeemLoyaltyPointsUrl = '$appUrl/redeem-points';
+  var searchSuggestionUrl = '$appUrl/search';
 
   Repository() {
     BaseOptions options =
@@ -172,6 +174,17 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return WishlistResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<SearchSuggestionResponse> getSearchSuggestions(query) async {
+    try {
+      Response response =
+          await _dio.get(searchSuggestionUrl + '?search_term=' + query);
+      return SearchSuggestionResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return SearchSuggestionResponse.withError(_handleError(error));
     }
   }
 
@@ -476,16 +489,16 @@ class Repository {
 
   Future<ProductResponse> getCategoryProducts(
       {String category,
-        String categoryFilters,
+      String categoryFilters,
       String sortBy,
       String minPrice,
       String maxPrice,
       String types,
       String brands}) async {
     var params = {
-      "category": categoryFilters==null?category:null,
+      "category": categoryFilters == null ? category : null,
       "sub_categories": categoryFilters,
-      "brands":brands,
+      "brands": brands,
       "sort_by": sortBy,
       "starting_price": minPrice,
       "ending_price": maxPrice,
@@ -513,12 +526,10 @@ class Repository {
     }
   }
 
-  Future<ReviewResponse> getProductReview(String combo, String slug) async {
+  Future<ReviewResponse> getProductReview(
+      String combo, String slug, int page) async {
     _dio.options.headers['user'] = 3;
-    var params = {
-      "combo": combo,
-      "slug": slug,
-    };
+    var params = {"combo": combo, "slug": slug, "per_page": 2, "page": page};
 
     try {
       Response response =

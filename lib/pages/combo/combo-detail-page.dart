@@ -7,7 +7,6 @@ import 'package:ecapp/bloc/review_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/models/combo.dart';
 import 'package:ecapp/models/combo_detail.dart';
-import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -79,7 +78,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
     comboDetailBloc.getComboDetail(slug);
     // productDetailBloc.getSameSellerProduct(slug);
     // productDetailBloc.getRelatedProduct(slug);
-    reviewBloc.getProductReview("false", slug);
+    reviewBloc.getProductReview("false", slug, 1);
   }
 
   @override
@@ -532,8 +531,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
         comboDetail: comboDetail, comboDetailBloc: comboDetailBloc);
   }
 
-
-
   Widget _buildLoadingWidget(BuildContext context) {
     var width = MediaQuery.of(context).size.width - 16;
     return Padding(
@@ -734,7 +731,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
 
   _buildReviewView(BuildContext context) {
     return StreamBuilder<ReviewResponse>(
-      stream: reviewBloc.review.stream,
+      stream: reviewBloc.subject.stream,
       builder: (context, AsyncSnapshot<ReviewResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

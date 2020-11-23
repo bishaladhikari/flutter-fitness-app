@@ -27,7 +27,6 @@ class _BodyState extends State<Body> {
       double maxScrollExtent = _scrollController.position.maxScrollExtent;
 
       var triggerFetchMoreSize = 0.8 * maxScrollExtent;
-      print([currentPosition, triggerFetchMoreSize]);
       if (currentPosition > triggerFetchMoreSize) {
         Meta meta = productsBloc.forYou.value.meta;
         if (page < meta.lastPage) {
@@ -60,11 +59,6 @@ class _BodyState extends State<Body> {
                   style:
                       TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                 ),
-//                Spacer(),
-//                IconButton(
-//                  icon: Icon(Icons.arrow_forward),
-//                  color:NPrimaryColor, onPressed: () {  },
-//                )
               ],
             ),
           ),
@@ -92,10 +86,6 @@ class _BodyState extends State<Body> {
             ),
           ),
           ProductsList(),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          //   child: ProductsList(),
-          // ),
         ],
       ),
     );

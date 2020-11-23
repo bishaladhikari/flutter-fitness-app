@@ -11,7 +11,6 @@ class DiscountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bannerBloc.getBanners();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

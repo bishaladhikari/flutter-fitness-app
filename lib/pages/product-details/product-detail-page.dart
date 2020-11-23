@@ -96,7 +96,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     slug = widget.product.slug;
 
     productDetailBloc.getProductDetail(slug);
-    reviewBloc.getProductReview("false", slug);
+    reviewBloc.getProductReview("false", slug, 1);
   }
 
   @override
@@ -487,9 +487,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           };
                           addToCart(context, params);
                           Navigator.pushNamed(context, "checkoutPage");
-//                          setState(() {
-//                            isClicked = !isClicked;
-//                          });
                         },
                         textColor: Colors.white,
                         padding: const EdgeInsets.all(0.0),
@@ -777,6 +774,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   }
 
   Widget _productSlideImage(String imageUrl) {
+//    imageUrl = imageUrl != null ? imageUrl : "assets/images/placeholder.png";
     return Center(
       child: Hero(
         tag: widget.product.heroTag,
@@ -1063,10 +1061,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               fontWeight: FontWeight.w600,
                               color: Colors.black54),
                         ),
-                        Text(
-                          "View All",
-                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                          textAlign: TextAlign.end,
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.pushNamed(context, "ratingsReviewsPage",
+                                arguments: productDetail)
+                          },
+                          child: Text(
+                            "View All",
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.blue),
+                            textAlign: TextAlign.end,
+                          ),
                         ),
                       ],
                     ),
@@ -1311,7 +1316,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   _buildReviewsView(BuildContext context) {
     return StreamBuilder<ReviewResponse>(
-      stream: reviewBloc.review.stream,
+      stream: reviewBloc.subject.stream,
       builder: (context, AsyncSnapshot<ReviewResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
