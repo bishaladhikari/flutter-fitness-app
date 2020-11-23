@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/products_list_bloc.dart';
+import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/pages/home/components/category_tab.dart';

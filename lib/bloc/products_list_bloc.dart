@@ -1,98 +1,103 @@
+// import 'dart:js';
+// import 'package:ecapp/bloc/brands_bloc.dart';
+import 'package:ecapp/models/brand.dart';
+import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductsListBloc {
   final Repository _repository = Repository();
 
-  final BehaviorSubject<ProductResponse> _forYou =
+  final BehaviorSubject<ProductResponse> _subject =
       BehaviorSubject<ProductResponse>();
+  final BehaviorSubject<List<Brand>> _brandFilters =
+      BehaviorSubject<List<Brand>>();
+  final BehaviorSubject<List<Category>> _categoryFilters =
+      BehaviorSubject<List<Category>>();
 
-  final BehaviorSubject<ProductResponse> _featured =
-      BehaviorSubject<ProductResponse>();
+  final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
+  final BehaviorSubject<String> _minRange = BehaviorSubject<String>();
+  final BehaviorSubject<String> _maxRange = BehaviorSubject<String>();
+  final BehaviorSubject<String> _sortBy = BehaviorSubject<String>();
 
-  final BehaviorSubject<ProductResponse> _newArrivals =
-      BehaviorSubject<ProductResponse>();
-
-  final BehaviorSubject<ProductResponse> _bestSellers =
-      BehaviorSubject<ProductResponse>();
-
-  final BehaviorSubject<ProductResponse> _topRated =
-      BehaviorSubject<ProductResponse>();
-
-  final BehaviorSubject<bool> _loading = BehaviorSubject<bool>();
-
-  ProductResponse productResponse;
-
-  getProducts(int page) async {
-    _loading.sink.add(true);
-    ProductResponse response = await _repository.getProducts(page);
-
-    if (response.error == null) {
-      if (productResponse != null && productResponse.products.length > 0) {
-        productResponse.products.addAll(response.products);
-      } else {
-        productResponse = response;
-      }
-    } else {
-      productResponse = response;
-    }
-
-    _loading.sink.add(false);
-    _forYou.sink.add(productResponse);
-    // return orderResponse;
+  ProductsListBloc() {
+    _brandFilters.value = [];
+    _categoryFilters.value = [];
+    _minRange.value = null;
+    _maxRange.value = null;
+    _sortBy.value = 'default';
   }
 
-  getFeaturedProducts() async {
-    ProductResponse response = await _repository.getFeaturedProducts();
-    _featured.sink.add(response);
+  getProducts() async {
+    ProductResponse response = await _repository.getProducts(
+        category: _currentCategory.value,
+        categoryFilters: _categoryFilters.value.length > 0
+            ? _categoryFilters.value.map((e) => e.slug).join(",")
+            : null,
+        sortBy: _sortBy.value,
+        minPrice: _minRange.value,
+        maxPrice: _maxRange.value,
+        // types: types,
+        brands: _brandFilters.value.map((e) => e.slug).join(","));
+    _subject.sink.add(response);
+//    categoryBloc.selectedCategory = category;
+//    _currentCategory.sink.add(category);
   }
 
-  getBestSellers() async {
-    ProductResponse response = await _repository.getBestSellers();
-    _bestSellers.sink.add(response);
+//  getBrands(){
+//    brandsBloc.getBrands(category: _category.value);
+//  }
+
+  void drainStream() {
+    _subject.value = null;
+    _brandFilters.value = [];
+    _categoryFilters.value = [];
+    _minRange.value = null;
+    _maxRange.value = null;
+    _sortBy.value = 'default';
   }
 
-  getTopRated() async {
-    ProductResponse response = await _repository.getTopRated();
-    _topRated.sink.add(response);
+  void drainCategoryStream() {
+    _currentCategory.value = null;
+    _minRange.value = null;
+    _maxRange.value = null;
+    _sortBy.value = 'default';
   }
 
-  getNewArrivals() async {
-    ProductResponse response = await _repository.getNewArrivals();
-    _newArrivals.sink.add(response);
+  @mustCallSuper
+  void dispose() async {
+    await _subject.drain();
+    _subject.close();
+    await _currentCategory.drain();
+    _currentCategory.close();
+
+    await _minRange.drain();
+    _minRange.close();
+
+    await _maxRange.drain();
+    _maxRange.close();
+
+    await _sortBy.drain();
+    _sortBy.close();
   }
 
-  drainBestSellersStream() {
-    _bestSellers.value = null;
-  }
+  BehaviorSubject<ProductResponse> get subject => _subject;
 
-  drainNewArrivalsStream() {
-    _newArrivals.value = null;
-  }
+  BehaviorSubject<String> get currentCategory => _currentCategory;
 
-  drainTopRatedStream() {
-    _topRated.value = null;
-  }
+  BehaviorSubject<List<Brand>> get brandFilters => _brandFilters;
 
-  dispose() {
-    _forYou.close();
-    _featured.close();
-    _bestSellers.close();
-    _newArrivals.close();
-  }
+  BehaviorSubject<List<Category>> get categoryFilters => _categoryFilters;
 
-  BehaviorSubject<ProductResponse> get forYou => _forYou;
+  BehaviorSubject<String> get minRange => _minRange;
 
-  BehaviorSubject<ProductResponse> get featured => _featured;
+  BehaviorSubject<String> get maxRange => _maxRange;
 
-  BehaviorSubject<ProductResponse> get bestSellers => _bestSellers;
+  BehaviorSubject<String> get sortBy => _sortBy;
 
-  BehaviorSubject<ProductResponse> get newArrivals => _newArrivals;
-
-  BehaviorSubject<ProductResponse> get topRated => _topRated;
-
-  Stream<bool> get loading => _loading.stream;
+//  set addBrands(brand) => _brands.add(brand);
 }
 
-final productsBloc = ProductsListBloc();
+final productsListBloc = ProductsListBloc();

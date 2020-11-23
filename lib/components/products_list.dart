@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/brands_bloc.dart';
-import 'package:ecapp/bloc/products_by_category_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/filter_widget.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
@@ -9,29 +9,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class ProductsByCategory extends StatefulWidget {
+class ProductsList extends StatefulWidget {
   final String category;
 
-  ProductsListByCategoryBloc productsByCategoryBloc;
+  ProductsListBloc productsListBloc;
 
-  ProductsByCategory({Key key, this.category}) {
-    productsByCategoryBloc = ProductsListByCategoryBloc();
-//    categoryBloc.productsByCategoryBloc = _productsByCategoryBloc;
+  ProductsList({Key key, this.category}) {
+
+    productsListBloc = ProductsListBloc();
+//    categoryBloc.productsListBloc = _productsListBloc;
 //    super(key: key);
   }
 
   @override
-  _ProductsByCategoryState createState() => _ProductsByCategoryState();
+  _ProductsListState createState() => _ProductsListState();
 
-  static _ProductsByCategoryState of(BuildContext context) {
-    final _ProductsByCategoryState navigator = context
+  static _ProductsListState of(BuildContext context) {
+    final _ProductsListState navigator = context
         // ignore: deprecated_member_use
-        .ancestorStateOfType(const TypeMatcher<_ProductsByCategoryState>());
+        .ancestorStateOfType(const TypeMatcher<_ProductsListState>());
 
     assert(() {
       if (navigator == null) {
         throw new FlutterError('Operation requested with a context that does '
-            'not include a ProductsByCategory.');
+            'not include a ProductsList.');
       }
       return true;
     }());
@@ -40,29 +41,29 @@ class ProductsByCategory extends StatefulWidget {
   }
 }
 
-class _ProductsByCategoryState extends State<ProductsByCategory> {
-  // var sortType = widget.productsByCategoryBloc.sortBy.value;
+class _ProductsListState extends State<ProductsList> {
+  // var sortType = widget.productsListBloc.sortBy.value;
 
   @override
   void initState() {
     super.initState();
-    widget.productsByCategoryBloc.currentCategory.value = widget.category;
-    widget.productsByCategoryBloc..getCategoryProducts();
+    widget.productsListBloc.currentCategory.value = widget.category;
+    widget.productsListBloc..getProducts();
 //    brandsBloc.getBrands(category: category);
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.productsByCategoryBloc.drainStream();
-    widget.productsByCategoryBloc.drainCategoryStream();
+    widget.productsListBloc.drainStream();
+    widget.productsListBloc.drainCategoryStream();
     brandsBloc.drainStream();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: widget.productsByCategoryBloc.subject.stream,
+      stream: widget.productsListBloc.subject.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -191,7 +192,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Default",
                               style: TextStyle(
-                                  fontWeight: widget.productsByCategoryBloc
+                                  fontWeight: widget.productsListBloc
                                               .sortBy.value ==
                                           "default"
                                       ? FontWeight.bold
@@ -202,7 +203,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Popularity",
                               style: TextStyle(
-                                  fontWeight: widget.productsByCategoryBloc
+                                  fontWeight: widget.productsListBloc
                                               .sortBy.value ==
                                           "popularity"
                                       ? FontWeight.bold
@@ -213,7 +214,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Low - High Price",
                               style: TextStyle(
-                                  fontWeight: widget.productsByCategoryBloc
+                                  fontWeight: widget.productsListBloc
                                               .sortBy.value ==
                                           "price_asc"
                                       ? FontWeight.bold
@@ -224,7 +225,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("High - Low Price",
                               style: TextStyle(
-                                  fontWeight: widget.productsByCategoryBloc
+                                  fontWeight: widget.productsListBloc
                                               .sortBy.value ==
                                           "price_desc"
                                       ? FontWeight.bold
@@ -235,7 +236,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                       ListTile(
                           title: Text("Average Rating",
                               style: TextStyle(
-                                  fontWeight: widget.productsByCategoryBloc
+                                  fontWeight: widget.productsListBloc
                                               .sortBy.value ==
                                           "average_rating"
                                       ? FontWeight.bold
@@ -253,13 +254,13 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   }
 
   sortProducts(context, String sortBy) {
-    widget.productsByCategoryBloc.sortBy.value = sortBy;
+    widget.productsListBloc.sortBy.value = sortBy;
 
     // setState(() {
     //   sort_type = sortBy;
     // });
 
-    widget.productsByCategoryBloc.getCategoryProducts();
+    widget.productsListBloc.getProducts();
     Navigator.of(context).pop();
   }
 
@@ -269,7 +270,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
         context: context,
         builder: (BuildContext context) {
           return FilterWidget(
-              productsByCategoryBloc: widget.productsByCategoryBloc);
+              productsListBloc: widget.productsListBloc);
         });
   }
 }

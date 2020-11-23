@@ -131,17 +131,17 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getProducts(int page) async {
-    var params = {"per_page": 10, "page": page};
-
-    try {
-      Response response = await _dio.get(productsUrl, queryParameters: params);
-      return ProductResponse.fromJson(response.data);
-    } catch (error, stacktrace) {
-      print("Exception occurred: $error stackTrace: $stacktrace");
-      return ProductResponse.withError(_handleError(error));
-    }
-  }
+//  Future<ProductResponse> getProducts(int page) async {
+//    var params = {"per_page": 10, "page": page};
+//
+//    try {
+//      Response response = await _dio.get(productsUrl, queryParameters: params);
+//      return ProductResponse.fromJson(response.data);
+//    } catch (error, stacktrace) {
+//      print("Exception occurred: $error stackTrace: $stacktrace");
+//      return ProductResponse.withError(_handleError(error));
+//    }
+//  }
 
   Future<ProductResponse> getProductsFromSameSeller(
       int page, String slug) async {
@@ -506,13 +506,14 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getCategoryProducts(
+  Future<ProductResponse> getProducts(
       {String category,
       String categoryFilters,
       String sortBy,
       String minPrice,
       String maxPrice,
       String types,
+      int page,
       String brands}) async {
     var params = {
       "category": categoryFilters == null ? category : null,

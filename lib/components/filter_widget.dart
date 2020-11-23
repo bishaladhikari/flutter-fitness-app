@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
-import 'package:ecapp/bloc/products_by_category_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/brand.dart';
 import 'package:ecapp/models/category.dart';
@@ -12,9 +12,9 @@ import 'package:flutter/services.dart';
 
 class FilterWidget extends StatefulWidget {
   Function applyFilters;
-  ProductsListByCategoryBloc productsByCategoryBloc;
+  ProductsListBloc productsListBloc;
 
-  FilterWidget({this.productsByCategoryBloc});
+  FilterWidget({this.productsListBloc});
 
   @override
   _FilterWidgetState createState() => _FilterWidgetState();
@@ -36,22 +36,22 @@ class _FilterWidgetState extends State<FilterWidget> {
   void initState() {
     super.initState();
     minController = TextEditingController(
-        text: widget.productsByCategoryBloc.minRange.value == null
+        text: widget.productsListBloc.minRange.value == null
             ? ""
-            : widget.productsByCategoryBloc.minRange.value);
+            : widget.productsListBloc.minRange.value);
     maxController = TextEditingController(
-        text: widget.productsByCategoryBloc.maxRange.value == null
+        text: widget.productsListBloc.maxRange.value == null
             ? ""
-            : widget.productsByCategoryBloc.maxRange.value);
+            : widget.productsListBloc.maxRange.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    currentCategory = widget.productsByCategoryBloc.currentCategory.value;
-    brandFilters = widget.productsByCategoryBloc.brandFilters.value;
-    categoryFilters = widget.productsByCategoryBloc.categoryFilters.value;
-    widget.productsByCategoryBloc.minRange.value = minController.text;
-    widget.productsByCategoryBloc.maxRange.value = maxController.text;
+    currentCategory = widget.productsListBloc.currentCategory.value;
+    brandFilters = widget.productsListBloc.brandFilters.value;
+    categoryFilters = widget.productsListBloc.categoryFilters.value;
+    widget.productsListBloc.minRange.value = minController.text;
+    widget.productsListBloc.maxRange.value = maxController.text;
 
     //category
     return Scaffold(
@@ -93,7 +93,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
-                  widget.productsByCategoryBloc.getCategoryProducts();
+                  widget.productsListBloc.getProducts();
                   Navigator.pop(context);
                 },
                 color: NPrimaryColor,
@@ -133,11 +133,11 @@ class _FilterWidgetState extends State<FilterWidget> {
               ),
               trailing: GestureDetector(
                   onTap: () {
-                    widget.productsByCategoryBloc.brandFilters.value = [];
-                    widget.productsByCategoryBloc.categoryFilters.value = [];
-                    widget.productsByCategoryBloc.minRange.value = null;
-                    widget.productsByCategoryBloc.maxRange.value = null;
-                    widget.productsByCategoryBloc.sortBy.value = 'default';
+                    widget.productsListBloc.brandFilters.value = [];
+                    widget.productsListBloc.categoryFilters.value = [];
+                    widget.productsListBloc.minRange.value = null;
+                    widget.productsListBloc.maxRange.value = null;
+                    widget.productsListBloc.sortBy.value = 'default';
                   },
                   child: Text(tr("Clear All"),
                       style: TextStyle(color: Colors.black, fontSize: 16)))),
@@ -357,15 +357,15 @@ class _FilterWidgetState extends State<FilterWidget> {
                   setState(() {
                     if (brandFilters.indexWhere((x) => x.slug == brand.slug) ==
                         -1)
-                      widget.productsByCategoryBloc.brandFilters.value
+                      widget.productsListBloc.brandFilters.value
                           .add(brand);
                     else {
                       int index = brandFilters
                           .indexWhere((element) => element.slug == brand.slug);
-                      widget.productsByCategoryBloc.brandFilters.value
+                      widget.productsListBloc.brandFilters.value
                           .removeAt(index);
                     }
-                    widget.productsByCategoryBloc.getCategoryProducts();
+                    widget.productsListBloc.getProducts();
                   });
                 },
                 title: Text(brands[index].name),
@@ -425,15 +425,15 @@ class _FilterWidgetState extends State<FilterWidget> {
                       if (categoryFilters
                               .indexWhere((c) => c.slug == category.slug) ==
                           -1)
-                        widget.productsByCategoryBloc.categoryFilters.value
+                        widget.productsListBloc.categoryFilters.value
                             .add(category);
                       else {
                         int index = categoryFilters.indexWhere(
                             (element) => element.slug == category.slug);
-                        widget.productsByCategoryBloc.categoryFilters.value
+                        widget.productsListBloc.categoryFilters.value
                             .removeAt(index);
                       }
-                      widget.productsByCategoryBloc.getCategoryProducts();
+                      widget.productsListBloc.getProducts();
                     }
                   });
                 },
@@ -498,15 +498,15 @@ class _FilterWidgetState extends State<FilterWidget> {
               if (categoryFilters
                       .indexWhere((c) => c.slug == subCategory.slug) ==
                   -1)
-                widget.productsByCategoryBloc.categoryFilters.value
+                widget.productsListBloc.categoryFilters.value
                     .add(subCategory);
               else {
                 int index = categoryFilters
                     .indexWhere((element) => element.slug == subCategory.slug);
-                widget.productsByCategoryBloc.categoryFilters.value
+                widget.productsListBloc.categoryFilters.value
                     .removeAt(index);
               }
-              widget.productsByCategoryBloc.getCategoryProducts();
+              widget.productsListBloc.getProducts();
             });
           },
           title: Text(subCategory.name),
@@ -531,15 +531,15 @@ class _FilterWidgetState extends State<FilterWidget> {
                     if (categoryFilters
                             .indexWhere((c) => c.slug == category.slug) ==
                         -1)
-                      widget.productsByCategoryBloc.categoryFilters.value
+                      widget.productsListBloc.categoryFilters.value
                           .add(category);
                     else {
                       int index = categoryFilters.indexWhere(
                           (element) => element.slug == category.slug);
-                      widget.productsByCategoryBloc.categoryFilters.value
+                      widget.productsListBloc.categoryFilters.value
                           .removeAt(index);
                     }
-                    widget.productsByCategoryBloc.getCategoryProducts();
+                    widget.productsListBloc.getProducts();
                   });
                 },
                 title: Text(categories[index].name),

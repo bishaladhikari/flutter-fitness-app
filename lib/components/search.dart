@@ -42,7 +42,8 @@ class Search extends SearchDelegate {
   }
 
   @override
-  Widget buildResults(BuildContext context) {}
+  Widget buildResults(BuildContext context) {
+  }
 
   @override
   Widget buildSuggestions(BuildContext context) {
