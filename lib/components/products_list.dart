@@ -15,6 +15,7 @@ class ProductsList extends StatefulWidget {
   ProductsListBloc productsListBloc;
 
   ProductsList({Key key, this.category}) {
+
     productsListBloc = ProductsListBloc();
 //    categoryBloc.productsListBloc = _productsListBloc;
 //    super(key: key);

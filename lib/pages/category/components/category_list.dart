@@ -1,7 +1,7 @@
 import 'package:ecapp/bloc/products_list_bloc.dart';
+import 'package:ecapp/components/products_list.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/category.dart';
-import 'package:ecapp/pages/category/components/products_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
