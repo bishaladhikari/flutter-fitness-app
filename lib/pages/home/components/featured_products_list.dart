@@ -1,4 +1,4 @@
-import 'package:ecapp/bloc/products_list_bloc.dart';
+import 'package:ecapp/bloc/products_types_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';

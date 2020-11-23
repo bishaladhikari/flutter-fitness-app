@@ -2,7 +2,7 @@ import 'package:ecapp/models/response/product_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ProductsListBloc {
+class ProductsBloc {
   final Repository _repository = Repository();
 
   final BehaviorSubject<ProductResponse> _forYou =
@@ -98,4 +98,4 @@ class ProductsListBloc {
   Stream<bool> get loading => _loading.stream;
 }
 
-final productsBloc = ProductsListBloc();
+final productsBloc = ProductsBloc();
