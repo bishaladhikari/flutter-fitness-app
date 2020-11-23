@@ -18,15 +18,22 @@ class RatingsReviewsPage extends StatefulWidget {
 }
 
 class _RatingsReviewsPageState extends State<RatingsReviewsPage> {
+  ReviewBloc reviewBloc;
   String slug;
   int page = 1;
 
   ScrollController _scrollController;
 
   @override
+  void initState() {
+    reviewBloc = ReviewBloc();
+    getReviewsOfProduct();
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     _scrollController = ScrollController();
-    getReviewsOfProduct();
 
     _scrollController.addListener(() {
       double currentPosition = _scrollController.position.pixels;
