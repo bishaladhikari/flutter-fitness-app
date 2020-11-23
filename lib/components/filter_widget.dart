@@ -484,7 +484,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               },
             ),
             Text(
-              tr("categories"),
+              tr("Categories"),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
