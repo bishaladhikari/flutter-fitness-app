@@ -133,6 +133,7 @@ class _AddToCartState extends State<AddToCart> {
                           "quantity": quantity
                         };
                         widget.addToCart(context, params);
+                        Navigator.pop(context);
                       },
                       child: Text(
                         "Add to cart".tr(),
