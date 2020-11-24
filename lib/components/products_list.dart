@@ -18,6 +18,8 @@ class ProductsList extends StatefulWidget {
   ProductsList({Key key, this.category, this.searchTerm}) {
     productsListBloc = ProductsListBloc();
     productsListBloc.searchTerm.value = searchTerm;
+    productsListBloc.currentCategory.value = category;
+    productsListBloc..getProducts();
 //    categoryBloc.productsListBloc = _productsListBloc;
 //    super(key: key);
   }
@@ -48,8 +50,8 @@ class _ProductsListState extends State<ProductsList> {
   @override
   void initState() {
     super.initState();
-    widget.productsListBloc.currentCategory.value = widget.category;
-    widget.productsListBloc..getProducts();
+//    widget.productsListBloc.currentCategory.value = widget.category;
+//    widget.productsListBloc..getProducts();
 //    brandsBloc.getBrands(category: category);
   }
 
