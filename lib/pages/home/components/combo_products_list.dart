@@ -92,8 +92,8 @@ class _ComboProductsListState extends State<ComboProductsList> {
                 if (index == combos.length - 1) {
                   return GestureDetector(
                     onTap: () => {
-                      // Navigator.pushNamed(context, "productViewMore",
-                      //     arguments: 'featured')
+                      Navigator.pushNamed(context, "productViewMore",
+                          arguments: 'combo')
                     },
                     child: Container(
                         width: 160.0,

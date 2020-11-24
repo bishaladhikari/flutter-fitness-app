@@ -41,20 +41,6 @@ class ProductsListBloc {
   }
 
   getProducts({String searchTerm}) async {
-    // ProductResponse response = await _repository.getProducts(
-    //     category: _currentCategory.value,
-    //     categoryFilters: _categoryFilters.value.length > 0
-    //         ? _categoryFilters.value.map((e) => e.slug).join(",")
-    //         : null,
-    //     sortBy: _sortBy.value,
-    //     minPrice: _minRange.value,
-    //     maxPrice: _maxRange.value,
-    //     searchTerm: _searchTerm.value,
-    //     types: _types.value,
-    //     page: _page.value,
-    //     brands: _brandFilters.value.map((e) => e.slug).join(","));
-    // _subject.sink.add(response);
-
     _loading.sink.add(true);
     ProductResponse response = await _repository.getProducts(
         category: _currentCategory.value,

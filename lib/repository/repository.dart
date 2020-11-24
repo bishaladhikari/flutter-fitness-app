@@ -468,9 +468,11 @@ class Repository {
     }
   }
 
-  Future<ComboResponse> getComboProducts() async {
+  Future<ComboResponse> getComboProducts({int page}) async {
+    var params = {"page": page};
     try {
-      Response response = await _dio.get(comboProductUrl);
+      Response response =
+          await _dio.get(comboProductUrl, queryParameters: params);
       return ComboResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");

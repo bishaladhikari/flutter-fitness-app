@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/components/combo_list.dart';
 import 'package:ecapp/components/products_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class _ProductViewMorePageState extends State<ProductViewMorePage> {
       title = 'Best Sellers';
     } else if (widget.types == 'featured') {
       title = 'Featured Products';
+    } else if (widget.types == 'combo') {
+      title = 'Combo Products';
     } else {
       title = "Products";
     }
@@ -34,6 +37,8 @@ class _ProductViewMorePageState extends State<ProductViewMorePage> {
           title: Text(tr(title)),
           backgroundColor: Colors.white,
         ),
-        body: ProductsList(types: widget.types));
+        body: widget.types != 'combo'
+            ? ProductsList(types: widget.types)
+            : ComboList());
   }
 }

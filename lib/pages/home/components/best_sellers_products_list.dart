@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
+import 'package:ecapp/components/product_skeleton.dart';
 import 'package:ecapp/components/search.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
@@ -78,11 +79,11 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
   Widget _buildErrorWidget(String error) {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
@@ -102,7 +103,7 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
                     onTap: () => {
                       Navigator.pushNamed(context, "productViewMore",
                           arguments: 'best_sellers')
-                  },
+                    },
                     child: Container(
                         width: 160.0,
                         height: 270,
@@ -120,12 +121,12 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
                         ),
                         child: Center(
                             child: Text(
-                              tr("More"),
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: NPrimaryColor),
-                            ))),
+                          tr("More"),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: NPrimaryColor),
+                        ))),
                   );
                 }
                 return ProductItem(product: products[index]);
