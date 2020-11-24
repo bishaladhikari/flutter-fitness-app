@@ -52,9 +52,9 @@ class _CategoryListState extends State<CategoryList>
     _tabController = TabController(vsync: this, length: categories.length);
     categoryBloc.selectedCategoryIndex.listen((index) {
       print("current category is changed"+index.toString());
-      setState(() {
+//      setState(() {
         _tabController.animateTo(index);
-      });
+//      });
     });
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
