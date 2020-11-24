@@ -16,7 +16,7 @@ class CategoryList extends StatefulWidget {
 
   static _CategoryListState of(BuildContext context) {
     final _CategoryListState navigator =
-    context.ancestorStateOfType(const TypeMatcher<_CategoryListState>());
+        context.ancestorStateOfType(const TypeMatcher<_CategoryListState>());
 
     assert(() {
       if (navigator == null) {
@@ -41,19 +41,18 @@ class _CategoryListState extends State<CategoryList>
   TabController _tabController;
   ProductsListBloc productsListBloc;
 
-  changeTabIndex(index){
+  changeTabIndex(index) {
     setState(() {
       _tabController.animateTo(index);
     });
   }
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: categories.length);
     categoryBloc.selectedCategoryIndex.listen((index) {
-//      setState(() {
-        _tabController.animateTo(index);
-//      });
+      _tabController.animateTo(index);
     });
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
