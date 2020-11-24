@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/products_list.dart';
 import 'package:ecapp/constants.dart';
@@ -12,6 +13,21 @@ class CategoryList extends StatefulWidget {
 
   @override
   _CategoryListState createState() => _CategoryListState(categories);
+
+  static _CategoryListState of(BuildContext context) {
+    final _CategoryListState navigator =
+    context.ancestorStateOfType(const TypeMatcher<_CategoryListState>());
+
+    assert(() {
+      if (navigator == null) {
+        throw new FlutterError('Operation requested with a context that does '
+            'not include a CategoryList.');
+      }
+      return true;
+    }());
+
+    return navigator;
+  }
 }
 
 class _CategoryListState extends State<CategoryList>
@@ -25,10 +41,21 @@ class _CategoryListState extends State<CategoryList>
   TabController _tabController;
   ProductsListBloc productsListBloc;
 
+  changeTabIndex(index){
+    setState(() {
+      _tabController.animateTo(index);
+    });
+  }
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: categories.length);
+    categoryBloc.selectedCategoryIndex.listen((index) {
+      print("current category is changed"+index.toString());
+      setState(() {
+        _tabController.animateTo(index);
+      });
+    });
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
 //        if (_tabController.index != _tabController.previousIndex)
