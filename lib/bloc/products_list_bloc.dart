@@ -16,8 +16,7 @@ class ProductsListBloc {
       BehaviorSubject<List<Brand>>();
   final BehaviorSubject<List<Category>> _categoryFilters =
       BehaviorSubject<List<Category>>();
-  final BehaviorSubject<String> _searchTerm =
-  BehaviorSubject<String>();
+  final BehaviorSubject<String> _searchTerm = BehaviorSubject<String>();
 
   final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
   final BehaviorSubject<String> _minRange = BehaviorSubject<String>();
@@ -30,6 +29,7 @@ class ProductsListBloc {
     _searchTerm.value = "";
     _minRange.value = null;
     _maxRange.value = null;
+    _currentCategory.value = null;
     _sortBy.value = 'default';
   }
 

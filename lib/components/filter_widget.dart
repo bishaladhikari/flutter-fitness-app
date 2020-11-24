@@ -55,18 +55,17 @@ class _FilterWidgetState extends State<FilterWidget> {
 
     //category
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              _buildBody()
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            _buildBody()
+          ],
         ),
       ),
       bottomNavigationBar: Row(
@@ -107,13 +106,12 @@ class _FilterWidgetState extends State<FilterWidget> {
     );
   }
 
-  _buildBody() {
+  Widget _buildBody() {
     List<Category> categories = currentCategory != null
         ? categoryBloc.subject.value.categories
             .firstWhere((c) => c.slug == currentCategory)
             .subCategories
         : categoryBloc.subject.value.categories;
-    print(['hell', categories]);
     if (showBrands)
       return _buildBrands();
     else if (showCategories)
@@ -274,7 +272,8 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBrands() {
-    brandsBloc.getBrands(category: currentCategory);
+    print("building brands");
+    brandsBloc.getBrands(category: currentCategory.toString());
     return StreamBuilder<BrandResponse>(
         stream: brandsBloc.subject.stream,
         builder: (context, snapshot) {
@@ -326,61 +325,68 @@ class _FilterWidgetState extends State<FilterWidget> {
 //    print("building brand widget");
     List<Brand> brands = data.brands;
 //    print("brands listing"+brands[0].name.toString());
-    return Column(
-      children: [
-        Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                setState(() {
-                  showBrands = false;
-                });
-              },
-            ),
-            Text(
-              "Brands",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.black),
-            ),
-          ],
-        ),
-        ListView.builder(
-//            controller: ScrollController(keepScrollOffset: false),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: brands.length,
-            itemBuilder: (context, index) {
-              var brand = brands[index];
-              return ListTile(
-                onTap: () {
+    return Expanded(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
                   setState(() {
-                    if (brandFilters.indexWhere((x) => x.slug == brand.slug) ==
-                        -1)
-                      widget.productsListBloc.brandFilters.value.add(brand);
-                    else {
-                      int index = brandFilters
-                          .indexWhere((element) => element.slug == brand.slug);
-                      widget.productsListBloc.brandFilters.value
-                          .removeAt(index);
-                    }
-                    widget.productsListBloc.getProducts();
+                    showBrands = false;
                   });
                 },
-                title: Text(brands[index].name),
-                trailing:
-                    brandFilters.indexWhere((x) => x.slug == brand.slug) > -1
-                        ? Icon(
-                            Icons.check,
-                            color: Colors.blueAccent,
-                            size: 16,
-                          )
-                        : Text(""),
-              );
-            }),
-      ],
+              ),
+              Text(
+                "Brands",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+//            controller: ScrollController(keepScrollOffset: false),
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemCount: brands.length,
+                itemBuilder: (context, index) {
+                  var brand = brands[index];
+                  return ListTile(
+                    onTap: () {
+                      setState(() {
+                        if (brandFilters
+                                .indexWhere((x) => x.slug == brand.slug) ==
+                            -1)
+                          widget.productsListBloc.brandFilters.value.add(brand);
+                        else {
+                          int index = brandFilters.indexWhere(
+                              (element) => element.slug == brand.slug);
+                          widget.productsListBloc.brandFilters.value
+                              .removeAt(index);
+                        }
+                        widget.productsListBloc.getProducts();
+                      });
+                    },
+                    title: Text(brands[index].name),
+                    trailing:
+                        brandFilters.indexWhere((x) => x.slug == brand.slug) >
+                                -1
+                            ? Icon(
+                                Icons.check,
+                                color: Colors.blueAccent,
+                                size: 16,
+                              )
+                            : Text(""),
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
 
@@ -390,61 +396,67 @@ class _FilterWidgetState extends State<FilterWidget> {
             .firstWhere((c) => c.slug == currentCategory)
             .subCategories
         : categoryBloc.subject.value.categories;
-    return Column(
-      children: [
-        Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                setState(() {
-                  showCategories = false;
-                });
-              },
-            ),
-            Text(
-              "Categories",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.black),
-            ),
-          ],
-        ),
-        ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              var category = categories[index];
-              return ListTile(
-                onTap: () {
+    return Expanded(
+      child: Column(
+//        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
                   setState(() {
-                    if (category.subCategories.length >= 1) {
-                      showCategories = false;
-                      showSubCategories = true;
-                      subCategory = category;
-                    } else {
-                      if (categoryFilters
-                              .indexWhere((c) => c.slug == category.slug) ==
-                          -1)
-                        widget.productsListBloc.categoryFilters.value
-                            .add(category);
-                      else {
-                        int index = categoryFilters.indexWhere(
-                            (element) => element.slug == category.slug);
-                        widget.productsListBloc.categoryFilters.value
-                            .removeAt(index);
-                      }
-                      widget.productsListBloc.getProducts();
-                    }
+                    showCategories = false;
                   });
                 },
-                title: Text(categories[index].name),
-                trailing: _buildCategoryHasSubcategoryIcon(categories[index]),
-              );
-            }),
-      ],
+              ),
+              Text(
+                "Categories",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  var category = categories[index];
+                  return ListTile(
+                    onTap: () {
+                      setState(() {
+                        if (category.subCategories.length >= 1) {
+                          showCategories = false;
+                          showSubCategories = true;
+                          subCategory = category;
+                        } else {
+                          if (categoryFilters
+                                  .indexWhere((c) => c.slug == category.slug) ==
+                              -1)
+                            widget.productsListBloc.categoryFilters.value
+                                .add(category);
+                          else {
+                            int index = categoryFilters.indexWhere(
+                                (element) => element.slug == category.slug);
+                            widget.productsListBloc.categoryFilters.value
+                                .removeAt(index);
+                          }
+                          widget.productsListBloc.getProducts();
+                        }
+                      });
+                    },
+                    title: Text(categories[index].name),
+                    trailing:
+                        _buildCategoryHasSubcategoryIcon(categories[index]),
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
 
@@ -473,7 +485,8 @@ class _FilterWidgetState extends State<FilterWidget> {
   Widget _buildSubCategoryListWidget() {
     List<Category> categories = subCategory.subCategories;
     // categories.add(subCategory);
-    return Column(
+    return Expanded(
+        child: Column(
       children: [
         Row(
           children: [
@@ -520,42 +533,44 @@ class _FilterWidgetState extends State<FilterWidget> {
                     )
                   : Text(""),
         ),
-        ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              var category = categories[index];
-              return ListTile(
-                onTap: () {
-                  setState(() {
-                    if (categoryFilters
-                            .indexWhere((c) => c.slug == category.slug) ==
-                        -1)
-                      widget.productsListBloc.categoryFilters.value
-                          .add(category);
-                    else {
-                      int index = categoryFilters.indexWhere(
-                          (element) => element.slug == category.slug);
-                      widget.productsListBloc.categoryFilters.value
-                          .removeAt(index);
-                    }
-                    widget.productsListBloc.getProducts();
-                  });
-                },
-                title: Text(categories[index].name),
-                trailing:
-                    categoryFilters.indexWhere((c) => c.slug == category.slug) >
-                            -1
-                        ? Icon(
-                            Icons.check,
-                            color: Colors.blueAccent,
-                            size: 16,
-                          )
-                        : Text(""),
-              );
-            }),
+        Expanded(
+          child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                var category = categories[index];
+                return ListTile(
+                  onTap: () {
+                    setState(() {
+                      if (categoryFilters
+                              .indexWhere((c) => c.slug == category.slug) ==
+                          -1)
+                        widget.productsListBloc.categoryFilters.value
+                            .add(category);
+                      else {
+                        int index = categoryFilters.indexWhere(
+                            (element) => element.slug == category.slug);
+                        widget.productsListBloc.categoryFilters.value
+                            .removeAt(index);
+                      }
+                      widget.productsListBloc.getProducts();
+                    });
+                  },
+                  title: Text(categories[index].name),
+                  trailing: categoryFilters
+                              .indexWhere((c) => c.slug == category.slug) >
+                          -1
+                      ? Icon(
+                          Icons.check,
+                          color: Colors.blueAccent,
+                          size: 16,
+                        )
+                      : Text(""),
+                );
+              }),
+        ),
       ],
-    );
+    ));
   }
 }
