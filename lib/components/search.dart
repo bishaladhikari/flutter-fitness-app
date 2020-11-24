@@ -13,10 +13,16 @@ import 'package:uuid/uuid.dart';
 class Search extends SearchDelegate {
   final recentSearch = ['jam', 'mango'];
 
+  String term;
+
   Search()
       : super(
           searchFieldLabel: tr("Search here"),
         );
+
+//      : super(
+//          searchFieldLabel: tr("Search here"),
+//        );
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -47,17 +53,26 @@ class Search extends SearchDelegate {
   Widget buildResults(BuildContext context) {
 //    if(query.isEmpty) return  ;
 //    ProductsListBloc productsListBloc = ProductsListBloc();
-    print("here is search term:"+query);
+    print("here is search term:" + query);
 //    productsListBloc.getProducts(searchTerm: query);
 
-    return ProductsList(searchTerm: query,);
+    return ProductsList(
+      searchTerm: query,
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     print("query" + query);
     if (!query.isEmpty) searchBloc.getSearchSuggestions(query);
+//    if (!query.isEmpty){
+//      print("populating");
+//      return ProductsList(
+//        searchTerm: query,
+//      );
+//    }
 
+//    return Container();
     return StreamBuilder<SearchSuggestionResponse>(
         stream: searchBloc.subject.stream,
         builder: (context, snapshot) {

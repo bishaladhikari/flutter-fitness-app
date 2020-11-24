@@ -6,6 +6,8 @@ class CategoriesListBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<CategoryResponse> _subject =
       BehaviorSubject<CategoryResponse>();
+  final BehaviorSubject<int> _selectedCategoryIndex =
+  BehaviorSubject<int>();
 
   getCategories() async {
     CategoryResponse response = await _repository.getCategories();
@@ -21,6 +23,7 @@ class CategoriesListBloc {
   }
 
   BehaviorSubject<CategoryResponse> get subject => _subject;
+  BehaviorSubject<int> get selectedCategoryIndex => _selectedCategoryIndex;
 }
 
 final categoryBloc = CategoriesListBloc();

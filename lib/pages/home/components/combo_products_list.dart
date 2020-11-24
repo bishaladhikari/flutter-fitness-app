@@ -97,7 +97,6 @@ class _ComboProductsListState extends State<ComboProductsList> {
                     },
                     child: Container(
                         width: 160.0,
-                        height: 270,
                         margin: EdgeInsets.all(3),
                         decoration: BoxDecoration(
                           color: Colors.white,

@@ -1,12 +1,14 @@
 import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/models/category.dart';
 import 'package:ecapp/models/response/category_response.dart';
+import 'package:ecapp/pages/category/components/category_list.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'category_item.dart';
 
-class CategoryList extends StatelessWidget {
-  const CategoryList({
+class CategoryChipsList extends StatelessWidget {
+  const CategoryChipsList({
     Key key,
   }) : super(key: key);
 
@@ -19,7 +21,7 @@ class CategoryList extends StatelessWidget {
             if (snapshot.data.error != null && snapshot.data.error.length > 0) {
               return _buildErrorWidget(snapshot.data.error);
             }
-            return _buildCategoryListWidget(snapshot.data);
+            return _buildCategoryListWidget(context, snapshot.data);
           } else if (snapshot.hasError) {
             return _buildErrorWidget(snapshot.error);
           } else {
@@ -29,8 +31,7 @@ class CategoryList extends StatelessWidget {
   }
 
   Widget _buildLoadingWidget(context) {
-    
-      return Padding(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Shimmer.fromColors(
         baseColor: Colors.black26,
@@ -42,15 +43,16 @@ class CategoryList extends StatelessWidget {
           children: [
             Column(
               children: [
-            Container(height: 40,width: MediaQuery.of(context).size.width-20, color: Colors.black26),
+                Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width - 20,
+                    color: Colors.black26),
               ],
             ),
-           
           ],
         ),
       ),
     );
- 
   }
 
   Widget _buildErrorWidget(String error) {
@@ -63,7 +65,7 @@ class CategoryList extends StatelessWidget {
     ));
   }
 
-  Widget _buildCategoryListWidget(CategoryResponse data) {
+  Widget _buildCategoryListWidget(context, CategoryResponse data) {
     List<Category> categories = data.categories;
     final children = <Widget>[];
     for (int i = 0; i < categories?.length ?? 0; i++) {
@@ -72,7 +74,12 @@ class CategoryList extends StatelessWidget {
       } else {
         children.add(CategoryItem(
           title: categories[i].name,
-          press: () {},
+          press: () {
+//            print("this is pressed");
+            MainPage.of(context).changePage(1);
+//            CategoryList.of(context).changeTabIndex(i);
+            categoryBloc.selectedCategoryIndex.value = i;
+          },
         ));
       }
     }
@@ -80,8 +87,7 @@ class CategoryList extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start ,
-            children: children),
+            crossAxisAlignment: CrossAxisAlignment.start, children: children),
       ),
     );
   }

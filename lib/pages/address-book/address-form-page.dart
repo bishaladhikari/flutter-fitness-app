@@ -51,7 +51,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                 city: cityController.text,
                 address: addressController.text,
                 zipCode: zipController.text,
-                prefecture: prefectureController.text,
+//                prefecture: prefectureController.text,
+                prefecture: "青森県",
                 phone: phoneController.text)
             .then((value) {
           _loadingController.sink.add(false);
@@ -77,7 +78,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
               city: cityController.text,
               address: addressController.text,
               zipCode: zipController.text,
-              prefecture: prefectureController.text,
+//              prefecture: prefectureController.text,
+              prefecture: "青森県",
               phone: phoneController.text)
           .then((value) {
         _loadingController.sink.add(false);

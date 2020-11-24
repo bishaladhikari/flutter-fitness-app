@@ -25,17 +25,22 @@ class CartItemView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Flexible(
-                child: Hero(
-                  tag: cartItem.heroTag,
-                  child: Container(
-                    height: 60,
-                    width: width / 4,
-                    margin: const EdgeInsets.only(right: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      image: DecorationImage(
-                        image: NetworkImage(cartItem.imageThumbnail),
-                        fit: BoxFit.fitHeight,
+                child: GestureDetector(
+                  onTap: (){
+                    _navigateToProductDetail(context);
+                  },
+                  child: Hero(
+                    tag: cartItem.heroTag,
+                    child: Container(
+                      height: 60,
+                      width: width / 4,
+                      margin: const EdgeInsets.only(right: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        image: DecorationImage(
+                          image: NetworkImage(cartItem.imageThumbnail),
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
                     ),
                   ),

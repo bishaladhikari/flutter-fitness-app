@@ -15,7 +15,16 @@ class ProductsList extends StatefulWidget {
   final String searchTerm;
   final String types;
 
-  ProductsList({Key key, this.category, this.searchTerm, this.types}) {}
+  ProductsListBloc productsListBloc;
+
+  ProductsList({Key key, this.category, this.searchTerm, this.types}) {
+    productsListBloc = ProductsListBloc();
+    productsListBloc.searchTerm.value = searchTerm;
+//    productsListBloc.currentCategory.value = category;
+//    productsListBloc..getProducts();
+//    categoryBloc.productsListBloc = _productsListBloc;
+//    super(key: key);
+  }
 
   @override
   _ProductsListState createState() => _ProductsListState();
@@ -40,23 +49,24 @@ class ProductsList extends StatefulWidget {
 class _ProductsListState extends State<ProductsList> {
   int page = 1;
   ScrollController _scrollController;
-  ProductsListBloc productsListBloc;
+
+  // ProductsListBloc productsListBloc;
 
   @override
   void initState() {
     super.initState();
-    productsListBloc = ProductsListBloc();
-    productsListBloc.searchTerm.value = widget.searchTerm;
-    productsListBloc.types.value = widget.types;
-    productsListBloc.currentCategory.value = widget.category;
-    productsListBloc..getProducts();
+    // productsListBloc = ProductsListBloc();
+    widget.productsListBloc.searchTerm.value = widget.searchTerm;
+    widget.productsListBloc.types.value = widget.types;
+    widget.productsListBloc.currentCategory.value = widget.category;
+    widget.productsListBloc..getProducts();
   }
 
   @override
   void dispose() {
     super.dispose();
-    productsListBloc.drainStream();
-    productsListBloc.drainCategoryStream();
+    widget.productsListBloc.drainStream();
+    widget.productsListBloc.drainCategoryStream();
     brandsBloc.drainStream();
   }
 
@@ -69,11 +79,11 @@ class _ProductsListState extends State<ProductsList> {
 
       var triggerFetchMoreSize = 0.8 * maxScrollExtent;
       if (currentPosition > triggerFetchMoreSize) {
-        Meta meta = productsListBloc.subject.value.meta;
+        Meta meta = widget.productsListBloc.subject.value.meta;
         if (page < meta.lastPage) {
           page++;
-          productsListBloc.page.value = page;
-          productsListBloc..getProducts();
+          widget.productsListBloc.page.value = page;
+          widget.productsListBloc..getProducts();
         }
       }
     });
@@ -84,7 +94,7 @@ class _ProductsListState extends State<ProductsList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsListBloc.subject.stream,
+      stream: widget.productsListBloc.subject.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -214,7 +224,8 @@ class _ProductsListState extends State<ProductsList> {
                           title: Text("Default",
                               style: TextStyle(
                                   fontWeight:
-                                      productsListBloc.sortBy.value == "default"
+                                      widget.productsListBloc.sortBy.value ==
+                                              "default"
                                           ? FontWeight.bold
                                           : FontWeight.normal)),
                           onTap: () {
@@ -223,40 +234,44 @@ class _ProductsListState extends State<ProductsList> {
                       ListTile(
                           title: Text("Popularity",
                               style: TextStyle(
-                                  fontWeight: productsListBloc.sortBy.value ==
-                                          "popularity"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "popularity"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'popularity');
                           }),
                       ListTile(
                           title: Text("Low - High Price",
                               style: TextStyle(
-                                  fontWeight: productsListBloc.sortBy.value ==
-                                          "price_asc"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "price_asc"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_asc');
                           }),
                       ListTile(
                           title: Text("High - Low Price",
                               style: TextStyle(
-                                  fontWeight: productsListBloc.sortBy.value ==
-                                          "price_desc"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "price_desc"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_desc');
                           }),
                       ListTile(
                           title: Text("Average Rating",
                               style: TextStyle(
-                                  fontWeight: productsListBloc.sortBy.value ==
-                                          "average_rating"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "average_rating"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'average_rating');
                           }),
@@ -270,8 +285,8 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   sortProducts(context, String sortBy) {
-    productsListBloc.sortBy.value = sortBy;
-    productsListBloc.getProducts();
+    widget.productsListBloc.sortBy.value = sortBy;
+    widget.productsListBloc.getProducts();
     Navigator.of(context).pop();
   }
 
@@ -280,7 +295,7 @@ class _ProductsListState extends State<ProductsList> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return FilterWidget(productsListBloc: productsListBloc);
+          return FilterWidget(productsListBloc: widget.productsListBloc);
         });
   }
 }

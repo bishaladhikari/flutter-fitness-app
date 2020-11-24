@@ -6,7 +6,7 @@ import 'package:ecapp/pages/home/components/combo_products_list.dart';
 import 'package:ecapp/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'category_list.dart';
+import 'category_chips_list.dart';
 import 'discount_card.dart';
 import 'featured_products_list.dart';
 
@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CategoryList(),
+          CategoryChipsList(),
           DiscountCard(),
           CategoryTab(),
           SizedBox(height: 10),
