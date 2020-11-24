@@ -15,8 +15,7 @@ class ProductsList extends StatefulWidget {
 
   ProductsListBloc productsListBloc;
 
-  ProductsList({Key key, this.category,this.searchTerm}) {
-
+  ProductsList({Key key, this.category, this.searchTerm}) {
     productsListBloc = ProductsListBloc();
     productsListBloc.searchTerm.value = searchTerm;
 //    categoryBloc.productsListBloc = _productsListBloc;
@@ -194,55 +193,55 @@ class _ProductsListState extends State<ProductsList> {
                       ListTile(
                           title: Text("Default",
                               style: TextStyle(
-                                  fontWeight: widget.productsListBloc
-                                              .sortBy.value ==
-                                          "default"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "default"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, "default");
                           }),
                       ListTile(
                           title: Text("Popularity",
                               style: TextStyle(
-                                  fontWeight: widget.productsListBloc
-                                              .sortBy.value ==
-                                          "popularity"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "popularity"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'popularity');
                           }),
                       ListTile(
                           title: Text("Low - High Price",
                               style: TextStyle(
-                                  fontWeight: widget.productsListBloc
-                                              .sortBy.value ==
-                                          "price_asc"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "price_asc"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_asc');
                           }),
                       ListTile(
                           title: Text("High - Low Price",
                               style: TextStyle(
-                                  fontWeight: widget.productsListBloc
-                                              .sortBy.value ==
-                                          "price_desc"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "price_desc"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_desc');
                           }),
                       ListTile(
                           title: Text("Average Rating",
                               style: TextStyle(
-                                  fontWeight: widget.productsListBloc
-                                              .sortBy.value ==
-                                          "average_rating"
-                                      ? FontWeight.bold
-                                      : FontWeight.normal)),
+                                  fontWeight:
+                                      widget.productsListBloc.sortBy.value ==
+                                              "average_rating"
+                                          ? FontWeight.bold
+                                          : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'average_rating');
                           }),
@@ -271,8 +270,7 @@ class _ProductsListState extends State<ProductsList> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return FilterWidget(
-              productsListBloc: widget.productsListBloc);
+          return FilterWidget(productsListBloc: widget.productsListBloc);
         });
   }
 }

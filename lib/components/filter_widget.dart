@@ -108,9 +108,11 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBody() {
-    List<Category> categories = categoryBloc.subject.value.categories
-        .firstWhere((c) => c.slug == currentCategory)
-        .subCategories;
+    List<Category> categories = currentCategory != null
+        ? categoryBloc.subject.value.categories
+            .firstWhere((c) => c.slug == currentCategory)
+            .subCategories
+        : categoryBloc.subject.value.categories;
     print(['hell', categories]);
     if (showBrands)
       return _buildBrands();
@@ -357,8 +359,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                   setState(() {
                     if (brandFilters.indexWhere((x) => x.slug == brand.slug) ==
                         -1)
-                      widget.productsListBloc.brandFilters.value
-                          .add(brand);
+                      widget.productsListBloc.brandFilters.value.add(brand);
                     else {
                       int index = brandFilters
                           .indexWhere((element) => element.slug == brand.slug);
@@ -384,9 +385,11 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   Widget _buildCategoryListWidget() {
-    List<Category> categories = categoryBloc.subject.value.categories
-        .firstWhere((c) => c.slug == currentCategory)
-        .subCategories;
+    List<Category> categories = currentCategory != null
+        ? categoryBloc.subject.value.categories
+            .firstWhere((c) => c.slug == currentCategory)
+            .subCategories
+        : categoryBloc.subject.value.categories;
     return Column(
       children: [
         Row(
@@ -498,13 +501,11 @@ class _FilterWidgetState extends State<FilterWidget> {
               if (categoryFilters
                       .indexWhere((c) => c.slug == subCategory.slug) ==
                   -1)
-                widget.productsListBloc.categoryFilters.value
-                    .add(subCategory);
+                widget.productsListBloc.categoryFilters.value.add(subCategory);
               else {
                 int index = categoryFilters
                     .indexWhere((element) => element.slug == subCategory.slug);
-                widget.productsListBloc.categoryFilters.value
-                    .removeAt(index);
+                widget.productsListBloc.categoryFilters.value.removeAt(index);
               }
               widget.productsListBloc.getProducts();
             });
