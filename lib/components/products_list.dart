@@ -3,6 +3,7 @@ import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/filter_widget.dart';
 import 'package:ecapp/components/product_item.dart';
+import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,15 +13,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class ProductsList extends StatefulWidget {
   final String category;
   final String searchTerm;
+  final String types;
 
-  ProductsListBloc productsListBloc;
-
-  ProductsList({Key key, this.category, this.searchTerm}) {
-    productsListBloc = ProductsListBloc();
-    productsListBloc.searchTerm.value = searchTerm;
-//    categoryBloc.productsListBloc = _productsListBloc;
-//    super(key: key);
-  }
+  ProductsList({Key key, this.category, this.searchTerm, this.types}) {}
 
   @override
   _ProductsListState createState() => _ProductsListState();
@@ -43,28 +38,53 @@ class ProductsList extends StatefulWidget {
 }
 
 class _ProductsListState extends State<ProductsList> {
-  // var sortType = widget.productsListBloc.sortBy.value;
+  int page = 1;
+  ScrollController _scrollController;
+  ProductsListBloc productsListBloc;
 
   @override
   void initState() {
     super.initState();
-    widget.productsListBloc.currentCategory.value = widget.category;
-    widget.productsListBloc..getProducts();
-//    brandsBloc.getBrands(category: category);
+    productsListBloc = ProductsListBloc();
+    productsListBloc.searchTerm.value = widget.searchTerm;
+    productsListBloc.types.value = widget.types;
+    productsListBloc.currentCategory.value = widget.category;
+    productsListBloc..getProducts();
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.productsListBloc.drainStream();
-    widget.productsListBloc.drainCategoryStream();
+    productsListBloc.drainStream();
+    productsListBloc.drainCategoryStream();
     brandsBloc.drainStream();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      double currentPosition = _scrollController.position.pixels;
+      double maxScrollExtent = _scrollController.position.maxScrollExtent;
+
+      var triggerFetchMoreSize = 0.8 * maxScrollExtent;
+      if (currentPosition > triggerFetchMoreSize) {
+        Meta meta = productsListBloc.subject.value.meta;
+        if (page < meta.lastPage) {
+          page++;
+          productsListBloc.page.value = page;
+          productsListBloc..getProducts();
+        }
+      }
+    });
+
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: widget.productsListBloc.subject.stream,
+      stream: productsListBloc.subject.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -116,7 +136,7 @@ class _ProductsListState extends State<ProductsList> {
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
                   staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-                  controller: ScrollController(keepScrollOffset: false),
+                  controller: _scrollController,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: products.length,
@@ -194,8 +214,7 @@ class _ProductsListState extends State<ProductsList> {
                           title: Text("Default",
                               style: TextStyle(
                                   fontWeight:
-                                      widget.productsListBloc.sortBy.value ==
-                                              "default"
+                                      productsListBloc.sortBy.value == "default"
                                           ? FontWeight.bold
                                           : FontWeight.normal)),
                           onTap: () {
@@ -204,44 +223,40 @@ class _ProductsListState extends State<ProductsList> {
                       ListTile(
                           title: Text("Popularity",
                               style: TextStyle(
-                                  fontWeight:
-                                      widget.productsListBloc.sortBy.value ==
-                                              "popularity"
-                                          ? FontWeight.bold
-                                          : FontWeight.normal)),
+                                  fontWeight: productsListBloc.sortBy.value ==
+                                          "popularity"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'popularity');
                           }),
                       ListTile(
                           title: Text("Low - High Price",
                               style: TextStyle(
-                                  fontWeight:
-                                      widget.productsListBloc.sortBy.value ==
-                                              "price_asc"
-                                          ? FontWeight.bold
-                                          : FontWeight.normal)),
+                                  fontWeight: productsListBloc.sortBy.value ==
+                                          "price_asc"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_asc');
                           }),
                       ListTile(
                           title: Text("High - Low Price",
                               style: TextStyle(
-                                  fontWeight:
-                                      widget.productsListBloc.sortBy.value ==
-                                              "price_desc"
-                                          ? FontWeight.bold
-                                          : FontWeight.normal)),
+                                  fontWeight: productsListBloc.sortBy.value ==
+                                          "price_desc"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'price_desc');
                           }),
                       ListTile(
                           title: Text("Average Rating",
                               style: TextStyle(
-                                  fontWeight:
-                                      widget.productsListBloc.sortBy.value ==
-                                              "average_rating"
-                                          ? FontWeight.bold
-                                          : FontWeight.normal)),
+                                  fontWeight: productsListBloc.sortBy.value ==
+                                          "average_rating"
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
                           onTap: () {
                             sortProducts(context, 'average_rating');
                           }),
@@ -255,13 +270,8 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   sortProducts(context, String sortBy) {
-    widget.productsListBloc.sortBy.value = sortBy;
-
-    // setState(() {
-    //   sort_type = sortBy;
-    // });
-
-    widget.productsListBloc.getProducts();
+    productsListBloc.sortBy.value = sortBy;
+    productsListBloc.getProducts();
     Navigator.of(context).pop();
   }
 
@@ -270,7 +280,7 @@ class _ProductsListState extends State<ProductsList> {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return FilterWidget(productsListBloc: widget.productsListBloc);
+          return FilterWidget(productsListBloc: productsListBloc);
         });
   }
 }

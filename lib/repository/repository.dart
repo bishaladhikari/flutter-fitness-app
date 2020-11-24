@@ -269,7 +269,7 @@ class Repository {
 
   Future<BrandResponse> getBrands(String category) async {
     try {
-      print("fetching brands0"+category);
+      print("fetching brands0" + category);
 
       Response response = await _dio.get(brandsUrl + "?category=" + category);
       print("fetching brands");
@@ -529,7 +529,7 @@ class Repository {
       "types": types,
       "search_term": searchTerm,
       "per_page": 10,
-      "page": 1,
+      "page": page,
     };
 
     try {
