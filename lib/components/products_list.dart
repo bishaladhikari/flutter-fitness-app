@@ -18,8 +18,8 @@ class ProductsList extends StatefulWidget {
   ProductsList({Key key, this.category, this.searchTerm}) {
     productsListBloc = ProductsListBloc();
     productsListBloc.searchTerm.value = searchTerm;
-    productsListBloc.currentCategory.value = category;
-    productsListBloc..getProducts();
+//    productsListBloc.currentCategory.value = category;
+//    productsListBloc..getProducts();
 //    categoryBloc.productsListBloc = _productsListBloc;
 //    super(key: key);
   }

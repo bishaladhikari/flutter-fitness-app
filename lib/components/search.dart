@@ -64,29 +64,29 @@ class Search extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     print("query" + query);
-//    if (!query.isEmpty) searchBloc.getSearchSuggestions(query);
-    if (!query.isEmpty){
-      print("populating");
-      return ProductsList(
-        searchTerm: query,
-      );
-    }
+    if (!query.isEmpty) searchBloc.getSearchSuggestions(query);
+//    if (!query.isEmpty){
+//      print("populating");
+//      return ProductsList(
+//        searchTerm: query,
+//      );
+//    }
 
-    return Container();
-//    return StreamBuilder<SearchSuggestionResponse>(
-//        stream: searchBloc.subject.stream,
-//        builder: (context, snapshot) {
-//          if (snapshot.hasData) {
-//            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-//              return _buildErrorWidget(snapshot.data.error);
-//            }
-//            return _buildSuggestionsWidget(context, snapshot.data);
-//          } else if (snapshot.hasError) {
-//            return _buildErrorWidget(snapshot.error);
-//          } else {
-//            return _buildLoadingWidget();
-//          }
-//        });
+//    return Container();
+    return StreamBuilder<SearchSuggestionResponse>(
+        stream: searchBloc.subject.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+              return _buildErrorWidget(snapshot.data.error);
+            }
+            return _buildSuggestionsWidget(context, snapshot.data);
+          } else if (snapshot.hasError) {
+            return _buildErrorWidget(snapshot.error);
+          } else {
+            return _buildLoadingWidget();
+          }
+        });
   }
 
   Widget _buildSuggestionsWidget(context, SearchSuggestionResponse data) {
