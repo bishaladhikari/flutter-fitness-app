@@ -22,6 +22,7 @@ import 'package:ecapp/pages/product-view-more/product-view-more-page.dart';
 import 'package:ecapp/pages/rating-reviews/ratings-reviews-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
+import 'package:ecapp/pages/settings/components/user_profile_form_page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/store/store-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
@@ -134,9 +135,9 @@ abstract class Routes {
         return MaterialPageRoute(
             builder: (context) => ProductViewMorePage(types: arguments));
         break;
-      case 'accountInformation':
+      case 'userProfileForm':
         return MaterialPageRoute(
-            builder: (context) => AccountInformationPage());
+            builder: (context) => UserProfileFormPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
