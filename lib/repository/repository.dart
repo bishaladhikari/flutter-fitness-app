@@ -60,7 +60,7 @@ class Repository {
 
   Repository() {
     BaseOptions options =
-        BaseOptions(receiveTimeout: 5000, connectTimeout: 15000);
+        BaseOptions(receiveTimeout: 5000, connectTimeout: 30000);
     _dio = Dio(options);
     _dio.interceptors.addAll([
       InterceptorsWrapper(onRequest: (Options options) async {
