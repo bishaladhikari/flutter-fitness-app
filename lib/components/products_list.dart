@@ -100,6 +100,7 @@ class _ProductsListState extends State<ProductsList> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
+          print("rebuilding this widget");
           return _buildHomeWidget(snapshot.data);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
@@ -285,6 +286,8 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   sortProducts(context, String sortBy) {
+    widget.productsListBloc.subject.value = null;
+    widget.productsListBloc.productResponse = null;
     widget.productsListBloc.sortBy.value = sortBy;
     widget.productsListBloc.getProducts();
     Navigator.of(context).pop();
