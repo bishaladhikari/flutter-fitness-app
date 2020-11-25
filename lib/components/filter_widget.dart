@@ -276,7 +276,6 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBrands() {
-    print("building brands");
     brandsBloc.getBrands(category: currentCategory.toString());
     return StreamBuilder<BrandResponse>(
         stream: brandsBloc.subject.stream,

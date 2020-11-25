@@ -100,7 +100,6 @@ class _ProductsListState extends State<ProductsList> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          print("rebuilding this widget");
           return _buildHomeWidget(snapshot.data);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
