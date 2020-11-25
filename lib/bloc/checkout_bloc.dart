@@ -16,6 +16,7 @@ class CheckoutBloc {
   final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
   AddOrderResponse response;
 
+//  loyalty point amount = total_amount-bulk_discount_amount
   void drainStream() {
     _subject.value = null;
     _defaultAddress.value = null;
@@ -71,6 +72,8 @@ class CheckoutBloc {
     };
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
+    if(response.error == null)
+      cartBloc.response=null;
     return response;
   }
 
