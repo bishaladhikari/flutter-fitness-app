@@ -26,17 +26,24 @@ class WishItemView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Flexible(
-                child: Hero(
-                  tag: cartItem.heroTag,
-                  child: Container(
-                    height: 60,
-                    width: width / 4,
-                    margin: const EdgeInsets.only(right: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      image: DecorationImage(
-                        image: NetworkImage(cartItem.imageThumbnail),
-                        fit: BoxFit.fitHeight,
+                child: GestureDetector(
+                  onTap: (){
+                    cartItem.attribute != null
+                        ? _navigateToProductDetail(context)
+                        : _navigateToComboDetail(context);
+                  },
+                  child: Hero(
+                    tag: cartItem.heroTag,
+                    child: Container(
+                      height: 60,
+                      width: width / 4,
+                      margin: const EdgeInsets.only(right: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        image: DecorationImage(
+                          image: NetworkImage(cartItem.imageThumbnail),
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
                     ),
                   ),
