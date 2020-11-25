@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../../constants.dart';
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: InformationPage(),
-    ));
+// void main() => runApp(MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: InformationPage(),
+//     ));
 
 class InformationPage extends StatefulWidget {
   @override

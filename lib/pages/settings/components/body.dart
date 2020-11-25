@@ -15,20 +15,22 @@ class _BodyState extends State<Body> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ListTile(title: Text('Account Information')),
+          ListTile(
+              title: Text('Account Information'),
+              onTap: () {
+                Navigator.pushNamed(context, 'accountInformation', arguments: false);
+              }),
           ListTile(
               title: Text('Address Book'),
               onTap: () {
                 Navigator.pushNamed(context, 'addressPage', arguments: false);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AddressPage()),
-                // );
               }),
           ListTile(
               title: Text('Language'),
-              subtitle: Text(
-                  EasyLocalization.of(context).locale.toLanguageTag().toString()),
+              subtitle: Text(EasyLocalization.of(context)
+                  .locale
+                  .toLanguageTag()
+                  .toString()),
               onTap: () {
                 _languageChange(context);
               }),

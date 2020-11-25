@@ -1,3 +1,4 @@
+import 'package:ecapp/pages/account-information/account-information-page.dart';
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
 import 'package:ecapp/pages/auth/email-confirm.dart';
@@ -132,6 +133,10 @@ abstract class Routes {
       case 'productViewMore':
         return MaterialPageRoute(
             builder: (context) => ProductViewMorePage(types: arguments));
+        break;
+      case 'accountInformation':
+        return MaterialPageRoute(
+            builder: (context) => AccountInformationPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
