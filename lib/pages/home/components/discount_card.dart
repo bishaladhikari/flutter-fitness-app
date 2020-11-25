@@ -3,11 +3,23 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class DiscountCard extends StatelessWidget {
-  const DiscountCard({
-    Key key,
-  }) : super(key: key);
+import 'discount-view.dart';
+
+class DiscountCard extends StatefulWidget {
+  
+ 
+  @override
+  _DiscountCardState createState() => _DiscountCardState();
+}
+
+class _DiscountCardState extends State<DiscountCard> {
+  bool isLoading = true;
+  final _key = UniqueKey();
+  // const DiscountCard({
+  //   Key key,
+  // }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,61 +40,55 @@ class DiscountCard extends StatelessWidget {
                       autoPlayCurve: Curves.fastOutSlowIn),
                   itemBuilder: (BuildContext context, int itemIndex) {
                     final item = snapShot.data.data[itemIndex];
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      padding: const EdgeInsets.all(5.0),
-                      width: double.infinity,
-                      child: CachedNetworkImage(
-                        placeholder: (context, url) => Center(
-                          child: Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/placeholder.png"),
-                                  fit: BoxFit.cover),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "discountView",
+                            arguments:DiscountInfo(image:item.imageThumbnail,
+                             imageUrl:item.imageLink,
+                             caption: item.caption) 
+                              
+                            );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.all(5.0),
+                        width: double.infinity,
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) => Center(
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/placeholder.png"),
+                                    fit: BoxFit.cover),
+                              ),
                             ),
                           ),
-                        ),
-                        imageUrl: item.imageThumbnail,
+                          imageUrl: item.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
-                        imageBuilder: (context, imageProvider) => Container(
+                          imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-                          height: 200,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          )),
-                        ),
-                        errorWidget: (context, url, error) => Center(
-                          child: Container(
                             height: 200,
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/placeholder.png"),
-                                  fit: BoxFit.cover),
+                                image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            )),
+                          ),
+                          errorWidget: (context, url, error) => Center(
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/placeholder.png"),
+                                    fit: BoxFit.cover),
+                              ),
                             ),
                           ),
                         ),
                       ),
-
-                      // child: Image.network(
-                      //   'https://i.ibb.co/mbWtWMs/beyond-meat-mcdonalds.png',
-                      //   loadingBuilder: (BuildContext context, Widget child,
-                      //       ImageChunkEvent loadingProgress) {
-                      //     if (loadingProgress == null) return child;
-                      //     return Center(
-                      //       child: CircularProgressIndicator(
-                      //         value: loadingProgress.expectedTotalBytes != null
-                      //             ? loadingProgress.cumulativeBytesLoaded /
-                      //                 loadingProgress.expectedTotalBytes
-                      //             : null,
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
                     );
                   });
 
@@ -123,3 +129,10 @@ Widget _buildShimmerWidget() {
     ),
   );
 }
+//  _navigateToDiscountView(BuildContext context) {
+//     Banner banner = Banner();
+//     imageUrl: banner.imageThumbnail,
+//     imageUrl: product.imageThumbnail;
+
+//     Navigator.pushNamed(context, "discountView", arguments: banner);
+//   }
