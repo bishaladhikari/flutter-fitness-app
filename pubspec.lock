@@ -628,13 +628,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  undraw:
-    dependency: "direct main"
-    description:
-      name: undraw
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   uni_links:
     dependency: transitive
     description:

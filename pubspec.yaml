@@ -41,7 +41,6 @@ dependencies:
   easy_localization: ^2.3.0
   material_design_icons_flutter: 4.0.5555
   async_loader: ^0.1.2
-  undraw:
   shared_preferences: ^0.5.10
   dio: ^3.0.9
   rxdart: ^0.23.1
