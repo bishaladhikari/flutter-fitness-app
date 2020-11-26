@@ -4,8 +4,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 class DiscountInfo {
   final image;
   final imageUrl;
+  final url;
   final String caption;
-  DiscountInfo({Key key, this.image, this.imageUrl, this.caption});
+  DiscountInfo({Key key, this.image, this.imageUrl, this.url, this.caption});
 }
 
 class DiscountView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _DiscountViewState extends State<DiscountView> {
           children: <Widget>[
             WebView(
               key: _key,
-              initialUrl:  widget.discountInfo.imageUrl,
+              initialUrl:  widget.discountInfo.url,
               javascriptMode: JavascriptMode.unrestricted,
               onPageFinished: (finish) {
                 setState(() {

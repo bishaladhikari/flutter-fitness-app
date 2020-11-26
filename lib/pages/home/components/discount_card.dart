@@ -45,7 +45,8 @@ class _DiscountCardState extends State<DiscountCard> {
                         Navigator.pushNamed(context, "discountView",
                             arguments:DiscountInfo(image:item.imageThumbnail,
                              imageUrl:item.imageLink,
-                             caption: item.caption) 
+                             caption: item.caption,
+                             url:item.url) 
                               
                             );
                       },

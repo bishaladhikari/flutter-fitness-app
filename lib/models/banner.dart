@@ -4,13 +4,16 @@ class Banner {
   String imageThumbnail;
   String caption;
   String imageLink;
+  String url;
 
   Banner(
       {this.id,
         this.bannerPositionId,
         this.imageThumbnail,
         this.caption,
-        this.imageLink});
+        this.imageLink,
+        this.url,
+        });
 
   Banner.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -18,6 +21,7 @@ class Banner {
     imageThumbnail = json['image_thumbnail'];
     caption = json['caption'];
     imageLink = json['image_link'];
+    url = json['url'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +31,7 @@ class Banner {
     data['image_thumbnail'] = this.imageThumbnail;
     data['caption'] = this.caption;
     data['image_link'] = this.imageLink;
+    data['url'] = this.url;
     return data;
   }
 }
