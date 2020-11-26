@@ -36,22 +36,12 @@ class ProductItem extends StatelessWidget {
               ],
             ),
             width: width,
-//            height: 205,
             child: Card(
               elevation: 0,
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-//                    Row(
-//                      children: <Widget>[
-//                        Spacer(),
-//                        Icon(
-//                          Ionicons.getIconData("ios-heart-empty"),
-//                          color: Colors.black54,
-//                        )
-//                      ],
-//                    ),
                   _productImage(),
                   SizedBox(height: 8),
                   _productDetails()
@@ -62,7 +52,6 @@ class ProductItem extends StatelessWidget {
         ],
       ),
       onTap: () {
-//        productDetailBloc..drainStream();
         Navigator.pushNamed(context, "productDetailPage", arguments: product);
       },
     );

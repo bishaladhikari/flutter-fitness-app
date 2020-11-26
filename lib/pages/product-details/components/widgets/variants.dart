@@ -33,7 +33,6 @@ class _VariantsState extends State<Variants> {
       } else {
         bool isVariantSelected = widget.selectedVariant.id == variants[i].id;
 
-        print('selecting' + widget.selectedVariant.id.toString());
         children.add(Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: OutlineButton(

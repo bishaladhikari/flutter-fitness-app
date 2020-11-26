@@ -22,6 +22,11 @@ class ProductsListBloc {
   final BehaviorSubject<String> _minRange = BehaviorSubject<String>();
   final BehaviorSubject<String> _maxRange = BehaviorSubject<String>();
   final BehaviorSubject<String> _sortBy = BehaviorSubject<String>();
+  final BehaviorSubject<String> _types = BehaviorSubject<String>();
+  final BehaviorSubject<int> _page = BehaviorSubject<int>();
+  final BehaviorSubject<bool> _loading = BehaviorSubject<bool>();
+
+  ProductResponse productResponse;
 
   ProductsListBloc() {
     _brandFilters.value = [];
@@ -31,9 +36,12 @@ class ProductsListBloc {
     _maxRange.value = null;
     _currentCategory.value = null;
     _sortBy.value = 'default';
+    _types.value = null;
+    _page.value = 1;
   }
 
   getProducts({String searchTerm}) async {
+    _loading.sink.add(true);
     ProductResponse response = await _repository.getProducts(
         category: _currentCategory.value,
         categoryFilters: _categoryFilters.value.length > 0
@@ -43,16 +51,24 @@ class ProductsListBloc {
         minPrice: _minRange.value,
         maxPrice: _maxRange.value,
         searchTerm: _searchTerm.value,
-        // types: types,
-        brands: _brandFilters.value.map((e) => e.slug).join(","));
-    _subject.sink.add(response);
-//    categoryBloc.selectedCategory = category;
-//    _currentCategory.sink.add(category);
-  }
+        types: _types.value,
+        page: _page.value,
+        brands: _brandFilters.value.map((e) => e.slug).join(",")
+    );
 
-//  getBrands(){
-//    brandsBloc.getBrands(category: _category.value);
-//  }
+    if (response.error == null) {
+      if (productResponse != null && productResponse.products.length > 0) {
+        productResponse.products.addAll(response.products);
+      } else {
+        productResponse = response;
+      }
+    } else {
+      productResponse = response;
+    }
+
+    _loading.sink.add(false);
+    _subject.sink.add(productResponse);
+  }
 
   void drainStream() {
     _subject.value = null;
@@ -61,6 +77,8 @@ class ProductsListBloc {
     _minRange.value = null;
     _maxRange.value = null;
     _sortBy.value = 'default';
+    _types.value = null;
+    _page.value = null;
   }
 
   void drainCategoryStream() {
@@ -103,7 +121,11 @@ class ProductsListBloc {
 
   BehaviorSubject<String> get sortBy => _sortBy;
 
-//  set addBrands(brand) => _brands.add(brand);
+  BehaviorSubject<String> get types => _types;
+
+  BehaviorSubject<int> get page => _page;
+
+  Stream<bool> get loading => _loading.stream;
 }
 
 //final productsListBloc = ProductsListBloc();

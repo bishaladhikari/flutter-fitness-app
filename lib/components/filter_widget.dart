@@ -81,7 +81,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 },
                 color: ksecondaryColor,
                 textColor: Colors.white,
-                child: Text("CANCEL"),
+                child: Text("CLOSE"),
               ),
             ),
           ),
@@ -92,6 +92,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton(
                 onPressed: () {
+                  widget.productsListBloc.productResponse = null;
                   widget.productsListBloc.getProducts();
                   Navigator.pop(context);
                 },
@@ -119,152 +120,155 @@ class _FilterWidgetState extends State<FilterWidget> {
     else if (showSubCategories)
       return _buildSubCategories();
     else
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ListTile(
-              contentPadding: EdgeInsets.all(0),
-              title: Text(
-                "Filters",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 16),
-              ),
-              trailing: GestureDetector(
-                  onTap: () {
-                    widget.productsListBloc.brandFilters.value = [];
-                    widget.productsListBloc.categoryFilters.value = [];
-                    widget.productsListBloc.minRange.value = null;
-                    widget.productsListBloc.maxRange.value = null;
-                    widget.productsListBloc.sortBy.value = 'default';
-                  },
-                  child: Text(tr("Clear All"),
-                      style: TextStyle(color: Colors.black, fontSize: 16)))),
-          Divider(
-            thickness: 1,
+      return Expanded(child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+                contentPadding: EdgeInsets.all(0),
+                title: Text(
+                  "Filters",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 16),
+                ),
+                trailing: GestureDetector(
+                    onTap: () {
+                      widget.productsListBloc.brandFilters.value = [];
+                      widget.productsListBloc.categoryFilters.value = [];
+                      widget.productsListBloc.minRange.value = null;
+                      widget.productsListBloc.maxRange.value = null;
+                      widget.productsListBloc.sortBy.value = 'default';
+                    },
+                    child: Text(tr("Clear All"),
+                        style: TextStyle(color: Colors.black, fontSize: 16)))),
+            Divider(
+              thickness: 1,
 //                height: MediaQuery.of(context).size.width,
-          ),
+            ),
 //          SizedBox(
 //            height: 10,
 //          ),
-          categories.length > 1
-              ? ListTile(
-                  onTap: () {
-                    setState(() {
-                      showCategories = true;
-                    });
-                  },
-                  title: Row(
-                    children: [
-                      Text("Category"),
-                      SizedBox(
-                        width: 2.0,
-                      ),
-                      Expanded(
-                        child: Text(
-                          categoryFilters.map((e) => e.name).join(", "),
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
+            categories.length > 1
+                ? ListTile(
+              onTap: () {
+                setState(() {
+                  showCategories = true;
+                });
+              },
+              title: Row(
+                children: [
+                  Text("Category"),
+                  SizedBox(
+                    width: 2.0,
                   ),
-                  contentPadding: const EdgeInsets.all(1.0),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 14,
+                  Expanded(
+                    child: Text(
+                      categoryFilters.map((e) => e.name).join(", "),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
+              contentPadding: const EdgeInsets.all(1.0),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+              ),
+            )
+                : Container(),
+            ListTile(
+              onTap: () {
+                setState(() {
+                  showBrands = true;
+                });
+              },
+              title: Row(
+                children: [
+                  Text("Brands"),
+                  SizedBox(
+                    width: 2.0,
                   ),
-                )
-              : Container(),
-          ListTile(
-            onTap: () {
-              setState(() {
-                showBrands = true;
-              });
-            },
-            title: Row(
-              children: [
-                Text("Brands"),
-                SizedBox(
-                  width: 2.0,
-                ),
-                Expanded(
-                  child: Text(
-                    brandFilters.map((e) => e.name).join(", "),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
+                  Expanded(
+                    child: Text(
+                      brandFilters.map((e) => e.name).join(", "),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
+              contentPadding: const EdgeInsets.all(1.0),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+              ),
             ),
-            contentPadding: const EdgeInsets.all(1.0),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              size: 14,
-            ),
-          ),
-          ListTile(
-            title: Text("Price Range"),
-            contentPadding: const EdgeInsets.all(1.0),
+            ListTile(
+              title: Text("Price Range"),
+              contentPadding: const EdgeInsets.all(1.0),
 //                trailing: Icon(
 //                  Icons.arrow_forward_ios,
 //                  size: 14,
 //                ),
-          ),
-          Row(
-            children: [
-              Flexible(
-                child: TextFormField(
-                  controller: minController,
-                  style: TextStyle(color: Color(0xFF000000)),
-                  cursorColor: Color(0xFF9b9b9b),
-                  inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
-                  ],
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      contentPadding: new EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      hintStyle: TextStyle(color: Colors.grey),
-                      hintText: "Min"),
+            ),
+            Row(
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    controller: minController,
+                    style: TextStyle(color: Color(0xFF000000)),
+                    cursorColor: Color(0xFF9b9b9b),
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: "Min"),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "-",
-                style: TextStyle(fontSize: 40),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: TextFormField(
-                  controller: maxController,
-                  style: TextStyle(color: Color(0xFF000000)),
-                  cursorColor: Color(0xFF9b9b9b),
-                  inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
-                  ],
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      contentPadding: new EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      hintStyle: TextStyle(color: Colors.grey),
-                      hintText: "Max"),
+                SizedBox(
+                  width: 10,
                 ),
-              ),
-            ],
-          ),
-        ],
-      );
+                Text(
+                  "-",
+                  style: TextStyle(fontSize: 40),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Flexible(
+                  child: TextFormField(
+                    controller: maxController,
+                    style: TextStyle(color: Color(0xFF000000)),
+                    cursorColor: Color(0xFF9b9b9b),
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: new EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        hintText: "Max"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),);
   }
 
   _buildCategory() {
@@ -272,7 +276,6 @@ class _FilterWidgetState extends State<FilterWidget> {
   }
 
   _buildBrands() {
-    print("building brands");
     brandsBloc.getBrands(category: currentCategory.toString());
     return StreamBuilder<BrandResponse>(
         stream: brandsBloc.subject.stream,
@@ -325,9 +328,9 @@ class _FilterWidgetState extends State<FilterWidget> {
 //    print("building brand widget");
     List<Brand> brands = data.brands;
 //    print("brands listing"+brands[0].name.toString());
-    return Expanded(
+    return Flexible(
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
@@ -348,7 +351,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               ),
             ],
           ),
-          Expanded(
+          Flexible(
             child: ListView.builder(
 //            controller: ScrollController(keepScrollOffset: false),
                 shrinkWrap: true,
@@ -369,6 +372,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                           widget.productsListBloc.brandFilters.value
                               .removeAt(index);
                         }
+                        widget.productsListBloc.productResponse = null;
                         widget.productsListBloc.getProducts();
                       });
                     },
@@ -398,7 +402,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         : categoryBloc.subject.value.categories;
     return Expanded(
       child: Column(
-//        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
@@ -445,6 +449,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                             widget.productsListBloc.categoryFilters.value
                                 .removeAt(index);
                           }
+                          widget.productsListBloc.productResponse = null;
                           widget.productsListBloc.getProducts();
                         }
                       });
@@ -520,6 +525,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     .indexWhere((element) => element.slug == subCategory.slug);
                 widget.productsListBloc.categoryFilters.value.removeAt(index);
               }
+              widget.productsListBloc.productResponse = null;
               widget.productsListBloc.getProducts();
             });
           },
@@ -535,7 +541,7 @@ class _FilterWidgetState extends State<FilterWidget> {
         ),
         Expanded(
           child: ListView.builder(
-              shrinkWrap: true,
+//              shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemCount: categories.length,
               itemBuilder: (context, index) {
@@ -554,6 +560,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                         widget.productsListBloc.categoryFilters.value
                             .removeAt(index);
                       }
+                      widget.productsListBloc.productResponse = null;
                       widget.productsListBloc.getProducts();
                     });
                   },

@@ -129,7 +129,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           ),
           backgroundColor: NPrimaryColor,
         );
-        Navigator.pop(context);
         _scaffoldKey.currentState.showSnackBar(snackbar);
       }
     }

@@ -1,20 +1,24 @@
 class LoyaltyPointResponse {
   final String error;
   final String bonusPoint;
-  final int points;
-  final setting;
+  final String points;
+  final double rate;
 
-  LoyaltyPointResponse(this.setting, this.points, this.bonusPoint, this.error);
+//  final setting;
+
+  LoyaltyPointResponse(this.points, this.bonusPoint, this.error, this.rate);
 
   LoyaltyPointResponse.fromJson(Map<String, dynamic> json)
-      : bonusPoint = json["bonus_point"]!= null ? json['bonus_point'] : 0,
-        points = json["points"] != null ? json['points'] : 0,
-        setting = json["setting"],
+      : bonusPoint = json["bonus_point"] != null ? json["bonus_point"] : "0",
+        points = json["points"] != null ? json["points"] : "0",
+        rate = json["setting"]["amount_value"] / json["setting"]["points"],
+//        setting = json["setting"],
         error = null;
 
   LoyaltyPointResponse.withError(String errorValue)
       : error = errorValue,
         bonusPoint = null,
         points = null,
-        setting = null;
+        rate = null;
+//        setting = null;
 }

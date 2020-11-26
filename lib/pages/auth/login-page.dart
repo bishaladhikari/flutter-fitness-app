@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage>
                   fontSize: 20.0)),
           backgroundColor: Colors.white,
         ),
-        body: _buildLoginFormWidget());
+        body: SingleChildScrollView(child: _buildLoginFormWidget()));
   }
 
   void _showErrorMessage(context, String message) {

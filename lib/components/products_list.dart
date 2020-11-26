@@ -3,6 +3,7 @@ import 'package:ecapp/bloc/brands_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/filter_widget.dart';
 import 'package:ecapp/components/product_item.dart';
+import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,12 +13,15 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class ProductsList extends StatefulWidget {
   final String category;
   final String searchTerm;
+  final String types;
 
   ProductsListBloc productsListBloc;
 
-  ProductsList({Key key, this.category, this.searchTerm}) {
+  ProductsList({Key key, this.category, this.searchTerm, this.types}) {
     productsListBloc = ProductsListBloc();
     productsListBloc.searchTerm.value = searchTerm;
+//    productsListBloc.currentCategory.value = category;
+//    productsListBloc..getProducts();
 //    categoryBloc.productsListBloc = _productsListBloc;
 //    super(key: key);
   }
@@ -43,14 +47,19 @@ class ProductsList extends StatefulWidget {
 }
 
 class _ProductsListState extends State<ProductsList> {
-  // var sortType = widget.productsListBloc.sortBy.value;
+  int page = 1;
+  ScrollController _scrollController;
+
+  // ProductsListBloc productsListBloc;
 
   @override
   void initState() {
     super.initState();
+    // productsListBloc = ProductsListBloc();
+    widget.productsListBloc.searchTerm.value = widget.searchTerm;
+    widget.productsListBloc.types.value = widget.types;
     widget.productsListBloc.currentCategory.value = widget.category;
     widget.productsListBloc..getProducts();
-//    brandsBloc.getBrands(category: category);
   }
 
   @override
@@ -59,6 +68,27 @@ class _ProductsListState extends State<ProductsList> {
     widget.productsListBloc.drainStream();
     widget.productsListBloc.drainCategoryStream();
     brandsBloc.drainStream();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      double currentPosition = _scrollController.position.pixels;
+      double maxScrollExtent = _scrollController.position.maxScrollExtent;
+
+      var triggerFetchMoreSize = 0.8 * maxScrollExtent;
+      if (currentPosition > triggerFetchMoreSize) {
+        Meta meta = widget.productsListBloc.subject.value.meta;
+        if (page < meta.lastPage) {
+          page++;
+          widget.productsListBloc.page.value = page;
+          widget.productsListBloc..getProducts();
+        }
+      }
+    });
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -116,7 +146,7 @@ class _ProductsListState extends State<ProductsList> {
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
                   staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-                  controller: ScrollController(keepScrollOffset: false),
+                  controller: _scrollController,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: products.length,
@@ -255,12 +285,9 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   sortProducts(context, String sortBy) {
+    widget.productsListBloc.subject.value = null;
+    widget.productsListBloc.productResponse = null;
     widget.productsListBloc.sortBy.value = sortBy;
-
-    // setState(() {
-    //   sort_type = sortBy;
-    // });
-
     widget.productsListBloc.getProducts();
     Navigator.of(context).pop();
   }

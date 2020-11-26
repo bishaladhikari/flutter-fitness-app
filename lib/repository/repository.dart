@@ -60,7 +60,7 @@ class Repository {
 
   Repository() {
     BaseOptions options =
-        BaseOptions(receiveTimeout: 5000, connectTimeout: 5000);
+        BaseOptions(receiveTimeout: 5000, connectTimeout: 30000);
     _dio = Dio(options);
     _dio.interceptors.addAll([
       InterceptorsWrapper(onRequest: (Options options) async {
@@ -269,7 +269,7 @@ class Repository {
 
   Future<BrandResponse> getBrands(String category) async {
     try {
-      print("fetching brands0"+category);
+      print("fetching brands0" + category);
 
       Response response = await _dio.get(brandsUrl + "?category=" + category);
       print("fetching brands");
@@ -468,9 +468,11 @@ class Repository {
     }
   }
 
-  Future<ComboResponse> getComboProducts() async {
+  Future<ComboResponse> getComboProducts({int page}) async {
+    var params = {"page": page};
     try {
-      Response response = await _dio.get(comboProductUrl);
+      Response response =
+          await _dio.get(comboProductUrl, queryParameters: params);
       return ComboResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -529,7 +531,7 @@ class Repository {
       "types": types,
       "search_term": searchTerm,
       "per_page": 10,
-      "page": 1,
+      "page": page,
     };
 
     try {

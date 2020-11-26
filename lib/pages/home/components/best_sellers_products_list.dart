@@ -1,5 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
+import 'package:ecapp/components/product_skeleton.dart';
+import 'package:ecapp/components/search.dart';
+import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +98,37 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
+                if (index == products.length - 1) {
+                  return GestureDetector(
+                    onTap: () => {
+                      Navigator.pushNamed(context, "productViewMore",
+                          arguments: 'best_sellers')
+                    },
+                    child: Container(
+                        width: 160.0,
+                        height: 270,
+                        margin: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 20,
+                              color: Color(0xFFB0CCE1).withOpacity(0.32),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                            child: Text(
+                          tr("More"),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: NPrimaryColor),
+                        ))),
+                  );
+                }
                 return ProductItem(product: products[index]);
               }),
         ));

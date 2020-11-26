@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/product_detail_bloc.dart';
+import 'package:ecapp/components/search.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/attribute.dart';
 import 'package:ecapp/models/product_detail.dart';
@@ -71,7 +72,10 @@ class _DetailWidgetState extends State<DetailWidget> {
                         child: Text(title,
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.6))),
-                        onPressed: () {}, //callback when button is clicked
+                        onPressed: () {
+                          showSearch(context: context, delegate: Search(),query: title);
+//                          Search().showResults(context);
+                        }, //callback when button is clicked
                         borderSide: BorderSide(
                           color: Colors.black.withOpacity(0.4),
                           //Color of the border
