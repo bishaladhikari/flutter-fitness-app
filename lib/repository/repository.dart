@@ -20,6 +20,7 @@ import 'package:ecapp/models/response/order_product_item_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/models/response/product_detail_response.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/models/response/profile_response.dart';
 import 'package:ecapp/models/response/redeem_point_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
@@ -57,6 +58,8 @@ class Repository {
   var loyaltyPointsUrl = '$appUrl/loyalty-points';
   var redeemLoyaltyPointsUrl = '$appUrl/redeem-points';
   var searchSuggestionUrl = '$appUrl/search';
+  var userProfileUrl = '$appUrl/customer/profile';
+  var userProfileUpdateUrl = '$appUrl/customer/profile/update';
 
   Repository() {
     BaseOptions options =
@@ -669,6 +672,25 @@ class Repository {
       return RedeemPointResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return RedeemPointResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<ProfileResponse> userProfile() async {
+    try {
+      Response response = await _dio.post(userProfileUrl);
+      return ProfileResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return ProfileResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<ProfileResponse> userProfileUpdate(params) async {
+    try {
+      Response response =
+          await _dio.post(userProfileUpdateUrl, queryParameters: params);
+      return ProfileResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return ProfileResponse.withError(_handleError(error));
     }
   }
 

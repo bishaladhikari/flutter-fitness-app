@@ -1,4 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/bloc/profile_bloc.dart';
+import 'package:ecapp/models/response/profile_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -19,9 +22,12 @@ class _AccountInformationPageState extends State<AccountInformationPage>
   TextEditingController lastNameController = TextEditingController();
   bool _validate = false;
 
+  AuthBloc authBloc;
+
   @override
   void dispose() {
     super.dispose();
+    authBloc = AuthBloc();
     firstNameController.dispose();
     lastNameController.dispose();
   }
@@ -87,7 +93,23 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Container(child: Text(tr("Bishal Adhakari"))),
+                              StreamBuilder<PrefsData>(
+                                  stream: authBloc.preference,
+                                  builder: (context, snapshot) {
+                                    return snapshot.data?.isAuthenticated ==
+                                            true
+                                        ? Positioned(
+                                            left: 160,
+                                            bottom: 60,
+                                            child: Text(
+                                              snapshot.data.user.fullName,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                  fontSize: 18),
+                                            ))
+                                        : Container();
+                                  }),
                               Container(
                                 alignment: Alignment.bottomCenter,
                                 child: IconButton(
@@ -260,7 +282,8 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                     hintStyle: TextStyle(color: Colors.grey),
                     hintText: "First Name"),
                 validator: MultiValidator([
-                  RequiredValidator(errorText: "First Name is required"),
+                  RequiredValidator(
+                      errorText: "You cannot leave this field empty"),
                 ]),
               ),
               SizedBox(
@@ -285,7 +308,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                 height: 20,
               ),
               GestureDetector(
-                onTap: () => {},
+                onTap: () => validateNameUpdate(context),
                 child: Container(
                   height: 50.0,
                   width: MediaQuery.of(context).size.width,
@@ -311,6 +334,12 @@ class _AccountInformationPageState extends State<AccountInformationPage>
 
   validateNameUpdate(context) async {
     if (_formKey.currentState.validate()) {
+      ProfileResponse response = await profileBloc.userProfileUpdate({
+        "email": "",
+        "first_name": "${firstNameController.text.trim()}",
+        "last_name": "${lastNameController.text.trim()}",
+      });
+      print([response, 'success']);
     } else {
       setState(() => _validate = true);
     }

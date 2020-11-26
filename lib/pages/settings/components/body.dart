@@ -1,6 +1,8 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/profile_bloc.dart';
 import 'package:ecapp/pages/review/review-page.dart';
+import 'package:ecapp/pages/settings/components/user_profile_form_page.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -9,6 +11,12 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  _navigateToUserProfileForm() async {
+    await authBloc.isAuthenticated() == true
+        ? Navigator.of(context).pushNamed('userProfileForm')
+        : Navigator.of(context).pushNamed('loginPage');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -17,8 +25,8 @@ class _BodyState extends State<Body> {
         children: <Widget>[
           ListTile(
               title: Text('Account Information'),
-              onTap: () {
-                Navigator.pushNamed(context, 'accountInformation', arguments: false);
+              onTap: () async {
+                _navigateToUserProfileForm();
               }),
           ListTile(
               title: Text('Address Book'),
@@ -42,6 +50,10 @@ class _BodyState extends State<Body> {
                   MaterialPageRoute(builder: (context) => ReviewPage()),
                 );
               }),
+          ListTile(
+            title: Text('Change Password'),
+            onTap: () {},
+          ),
           ListTile(
             title: Text('Logout'),
             onTap: () {
@@ -115,6 +127,4 @@ class _BodyState extends State<Body> {
           );
         });
   }
-
-  initMain() {}
 }
