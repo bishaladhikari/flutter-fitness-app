@@ -12,6 +12,7 @@ import 'package:ecapp/pages/cash-on-delivery/cash-on-delivery-page.dart';
 import 'package:ecapp/pages/checkout/checkout-page.dart';
 import 'package:ecapp/pages/combo/combo-detail-page.dart';
 import 'package:ecapp/pages/from-same-seller/from-same-seller-page.dart';
+import 'package:ecapp/pages/home/components/discount-view.dart';
 import 'package:ecapp/pages/main_page.dart';
 import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
@@ -38,6 +39,10 @@ abstract class Routes {
         break;
       case 'privacyPage':
         return MaterialPageRoute(builder: (context) => PrivacyPage());
+        break;
+      case 'discountView':
+        return MaterialPageRoute(
+            builder: (context) => DiscountView(discountInfo: arguments));
         break;
       case 'storePage':
         return MaterialPageRoute(builder: (context) => StorePage());

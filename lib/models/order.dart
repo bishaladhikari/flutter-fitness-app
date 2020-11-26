@@ -1,7 +1,7 @@
 class Order {
   int id;
   String address;
-  int bulkDiscountCost;
+  String bulkDiscountCost;
   String city;
   String email;
   String house;
@@ -12,10 +12,10 @@ class Order {
   String prefecture;
   String redeemedAmount;
   String shippingCost;
-  int shippingDiscountCost;
+  String shippingDiscountCost;
   String status;
-  int subTotal;
-  int totalQuantity;
+  String subTotal;
+  String totalQuantity;
   String weight;
   String zipCode;
   String createdAt;
@@ -51,7 +51,7 @@ class Order {
     id = json['id'];
     name = json['name'];
     address = json['address'];
-    bulkDiscountCost = json['bulk_discount_cost'];
+    bulkDiscountCost = json['bulk_discount_cost'].toString();
     city = json['city'];
     email = json['email'];
     house = json['house'];
@@ -61,10 +61,10 @@ class Order {
     prefecture = json['prefecture'];
     redeemedAmount = json['redeemed_amount'];
     shippingCost = json['shipping_cost'];
-    shippingDiscountCost = json['shipping_discount_cost'];
+    shippingDiscountCost = json['shipping_discount_cost'].toString();
     status = json['status'];
     subTotal = json['sub_total'];
-    totalQuantity = json['total_quantity'];
+    totalQuantity = json['total_quantity'].toString();
     weight = json['weight'];
     zipCode = json['zip_code'];
     createdAt = json['created_at'];
