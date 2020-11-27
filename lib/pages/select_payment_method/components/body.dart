@@ -5,6 +5,7 @@ import 'package:ecapp/models/response/loyalty_point_response.dart';
 import 'package:ecapp/models/response/message_response.dart';
 import 'package:ecapp/models/response/redeem_point_response.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../../../constants.dart';
@@ -230,6 +231,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                 key: formKey,
                                                 autovalidate: _validate,
                                                 child: TextFormField(
+                                                  autofocus:false,
                                                   onChanged: (text) {
                                                     setState(() {
                                                       showRedeemAmount =
@@ -255,7 +257,10 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                   cursorColor:
                                                       Color(0xFF9b9b9b),
                                                   keyboardType:
-                                                      TextInputType.number,
+                                                      TextInputType.numberWithOptions(signed: false,decimal: false),
+                                                  inputFormatters: <TextInputFormatter>[
+                                                    FilteringTextInputFormatter.digitsOnly
+                                                  ],
                                                   decoration: InputDecoration(
                                                       isDense: true,
                                                       border:
