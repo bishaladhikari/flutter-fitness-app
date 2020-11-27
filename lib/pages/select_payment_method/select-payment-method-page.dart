@@ -33,7 +33,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     StreamBuilder<RedeemPointResponse>(
-                        stream: loyaltyPointBloc.redeemAmount.stream,
+                        stream: loyaltyPointBloc.redeemResponse.stream,
                         builder: (context, snapshot) {
                           if (snapshot.hasData &&
                               snapshot.data.amountValue != null) {
@@ -48,7 +48,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                                 Text(
                                   '¥ ' +
                                       loyaltyPointBloc
-                                          .redeemAmount.value.amountValue
+                                          .redeemResponse.value.amountValue
                                           .toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -99,7 +99,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                     ),
                     SizedBox(height: 5),
                     StreamBuilder<RedeemPointResponse>(
-                        stream: loyaltyPointBloc.redeemAmount.stream,
+                        stream: loyaltyPointBloc.redeemResponse.stream,
                         builder: (context, snapshot) {
                           if (snapshot.hasData &&
                               snapshot.data.amountValue!=null && snapshot.data.amountValue> totalAmount)
@@ -109,69 +109,8 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                               child: FlatButton(
                                 color: NPrimaryColor,
                                 onPressed: () async {
-//                          if (_formKey.currentState.validate()) {
-//                            _formKey.currentState.save();
-//                            final CreditCard testCard = CreditCard(
-//                                number: _card.number,
-//                                expMonth: _card.expMonth,
-//                                expYear: _card.expYear);
-//                            StripePayment.createTokenWithCard(testCard)
-//                                .then((token) async {
-//                              AddOrderResponse response =
-//                              await checkoutBloc.createOrder(token: token);
-//                              if (response.error == null) {
-//                                Navigator.of(context).pushNamed("orderConfirmationPage",
-//                                    arguments: response.order);
-//                              } else
-//                                _scaffoldKey.currentState.showSnackBar(SnackBar(
-//                                  content: Text(
-//                                    tr(response.error),
-//                                  ),
-//                                  backgroundColor: Colors.redAccent,
-//                                ));
-////                      createCharge(token.tokenId);
-//                            });
-////                    showDialog(
-////                        context: context,
-////                        barrierDismissible: false,
-////                        builder: (context) =>
-////                            Center(child: CircularProgressIndicator()));
+                                  checkoutBloc.createOrder();
 //
-////                    Map<String, dynamic> map = {};
-////                    map['number'] = _card.number;
-////                    map['cvc'] = _card.cvc;
-////                    map['expMonth'] = _card.expMonth;
-////                    map['expYear'] = _card.expYear;
-////                    map['last4'] = _card.last4;
-//                            print(_card.number.toString());
-////                    var token = await stripeApi.createToken({
-////                      "number": _card.number,
-////                      "cvc": _card.cvc,
-////                      "expMonth": _card.expMonth,
-////                      "expYear": _card.expYear,
-////                      "last4": _card.last4,
-////                      "brand": _card.brand
-////                    });
-//
-////                    print(token.toString());
-//
-////                    var paymentMethod = await stripeApi.createPaymentMethodFromCard(_cardData);
-////                    paymentMethod = await stripeSession.attachPaymentMethod(paymentMethod['id']);
-////                    final createSetupIntentResponse = await glappenService.createSetupIntent(paymentMethod['id']);
-////                    Navigator.pop(context);
-////
-////                    if (createSetupIntentResponse['status'] == 'succeeded') {
-////                      Navigator.pop(context, true);
-////                      return;
-////                    }
-////                    var setupIntent = await stripe.confirmSetupIntent(createSetupIntentResponse['client_secret']);
-////
-////                    if (setupIntent['status'] == 'succeeded') {
-////                      Navigator.pop(context, true);
-////                      return;
-////                    }'
-//
-//                          }
                                 },
                                 child: Text(
                                   "Place order",

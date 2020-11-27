@@ -10,8 +10,9 @@ class LoyaltyPointBloc {
   final BehaviorSubject<LoyaltyPointResponse> _subject =
       BehaviorSubject<LoyaltyPointResponse>();
 
-  final BehaviorSubject<RedeemPointResponse> _redeemAmount =
+  final BehaviorSubject<RedeemPointResponse> _redeemResponse =
       BehaviorSubject<RedeemPointResponse>();
+  int _cashOnDeliveryCharge = 0;
 
   LoyaltyPointResponse response;
 
@@ -24,26 +25,31 @@ class LoyaltyPointBloc {
   redeemPoints(params) async {
     RedeemPointResponse response =
         await _repository.redeemLoyaltyPoints(params);
-    _redeemAmount.sink.add(response);
+    _redeemResponse.sink.add(response);
+    if (response.error == null)
+      _cashOnDeliveryCharge = response.cashOnDeliveryCharge;
     return response;
   }
 
   void drainStream() {
     _subject.value = null;
-    _redeemAmount.value = null;
+    _redeemResponse.value = null;
+    _cashOnDeliveryCharge = 0;
   }
 
   @mustCallSuper
   void dispose() async {
     await _subject.drain();
     _subject.close();
-    await _redeemAmount.drain();
-    _redeemAmount.close();
+    await _redeemResponse.drain();
+    _redeemResponse.close();
   }
 
   BehaviorSubject<LoyaltyPointResponse> get subject => _subject;
 
-  BehaviorSubject<RedeemPointResponse> get redeemAmount => _redeemAmount;
+  BehaviorSubject<RedeemPointResponse> get redeemResponse => _redeemResponse;
+
+ get cashOnDeliveryCharge => _cashOnDeliveryCharge;
 }
 
 final LoyaltyPointBloc loyaltyPointBloc = LoyaltyPointBloc();

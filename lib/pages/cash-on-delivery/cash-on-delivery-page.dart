@@ -89,7 +89,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               builder: (context) =>
                                   Center(child: CircularProgressIndicator()));
                           AddOrderResponse response =
-                              await checkoutBloc.createOrder();
+                              await checkoutBloc.createOrder(paymentMethod: "Cash Payment");
                           if (response.error == null) {
                             Navigator.pop(context);
                             Navigator.of(context).pushNamed(

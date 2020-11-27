@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/loyalty_point_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
@@ -30,7 +31,7 @@ class CheckoutBloc {
     _defaultAddress.close();
   }
 
-  createOrder({paymentMethod = "Cash Payment", token}) async {
+  createOrder({paymentMethod, token}) async {
 //                  achieved_promotions: []
 //                  address_id: 1
 //                  billable_amount: "4444.00"
@@ -48,17 +49,32 @@ class CheckoutBloc {
 //                  shipping_cost: 0
 //                  weight: 4444
     var addressId = _defaultAddress.value.id;
+    var shippingCost = cartBloc.subject.value.shippingCost;
+    var totalWeight = cartBloc.subject.value.totalWeight;
+
+    var subTotal = cartBloc.subject.value.totalAmount;
+    var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
+    var redeemedAmount = loyaltyPointBloc.redeemResponse.value.amountValue;
+    var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
+    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
+    var billableAmount = subTotal +
+        shippingCost -
+        bulkDiscountCost -
+        shippingDiscountCost -
+        redeemedAmount;
 
     var params = {
-      "shipping_cost": cartBloc.subject.value.shippingCost,
-      "weight": cartBloc.subject.value.totalWeight,
+      "shipping_cost": shippingCost,
+      "weight": totalWeight,
       "address_id": addressId,
-      "store_id": 2,
+//      "store_id": 2,
       "token": token,
       "redeemed_amount": "",
       "redeemed_points": "",
       "payment_method": paymentMethod,
-      "billable_amount": "4444",
+      "billable_amount": paymentMethod == "Cash Payment"
+          ? billableAmount + cashOnDeliveryCharge
+          : billableAmount,
       "products": cartBloc.products,
       "note": "",
 //      "achieved_promotions": [
@@ -66,14 +82,14 @@ class CheckoutBloc {
 //      ],
 //    if user gets two cash discounts of 500 and 300, then bulk_cash_discount will be 800
 
-//      billable amount :item total+shipping cost-discount-redeemed amnt
+//      billable amount :cart item total+shipping cost-discount-redeemed amnt
+//      billable amount :cart item total+shipping cost-bulkDiscountCost-redeemed amnt+cashOnDeliveryCharge
 
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
-    if(response.error == null)
-      cartBloc.response=null;
+    if (response.error == null) cartBloc.response = null;
     return response;
   }
 
