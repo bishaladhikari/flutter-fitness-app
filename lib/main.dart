@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/pages/splash_screen.dart';
 import 'package:ecapp/routes.dart';
@@ -7,22 +8,25 @@ import 'package:flutter/material.dart';
 void main() {
 //  WidgetsFlutterBinding.ensureInitialized();
 //  final authBloc = AuthBloc();
-  runApp(EasyLocalization(
+  runApp(DevicePreview(
+    enabled: true,
+    builder: (context) => EasyLocalization(
 //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
 //<key>CFBundleLocalizations</key>
 //<array>
 //<string>en</string>
 //<string>nb</string>
 //</array>
-    child: myApp,
-    path: "assets/translations",
-    saveLocale: true,
-    supportedLocales: [
-      Locale('en', "US"),
-      Locale('ja', "JP"),
-      Locale('vi', "VN"),
-    ],
-    fallbackLocale: Locale('en', 'US'),
+      child: myApp,
+      path: "assets/translations",
+      saveLocale: true,
+      supportedLocales: [
+        Locale('en', "US"),
+        Locale('ja', "JP"),
+        Locale('vi', "VN"),
+      ],
+      fallbackLocale: Locale('en', 'US'),
+    ),
   ));
 }
 

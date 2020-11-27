@@ -18,6 +18,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
   int rewardPoints = 10;
   bool triggerCheckbox = false;
   bool _validate = false;
+  bool showPaymentMethods = true;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController redeemPointController = TextEditingController();
@@ -190,7 +191,6 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                       stream: loyaltyPointBloc.subject.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          print("point" + snapshot.data.points.toString());
                           return snapshot.data.points != null
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,13 +199,14 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            tr('Reward Points: '),
+                                            tr('Reward Points:'),
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 16),
                                           ),
                                           Text(
-                                            snapshot.data.points.toString(),
+                                            " " +
+                                                snapshot.data.points.toString(),
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
@@ -216,7 +217,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                     ),
                                     SizedBox(height: 10),
                                     Align(
-                                      alignment:Alignment.center,
+                                      alignment: Alignment.center,
                                       child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -231,7 +232,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                       redeemPointController,
                                                   style: TextStyle(
                                                       color: Color(0xFF000000)),
-                                                  cursorColor: Color(0xFF9b9b9b),
+                                                  cursorColor:
+                                                      Color(0xFF9b9b9b),
                                                   keyboardType:
                                                       TextInputType.number,
                                                   decoration: InputDecoration(
@@ -273,7 +275,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                   textColor: Colors.white,
                                                   elevation: .2,
                                                   onPressed: () {
-                                                    validateRedeemPoint(context);
+                                                    validateRedeemPoint(
+                                                        context);
                                                   },
                                                   child: Text('Redeem'),
                                                 ),
@@ -316,137 +319,145 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              color: Colors.black.withOpacity(.01),
-              child: Text(
-                'Recommended method(s)',
-                style: TextStyle(
-                    color: Colors.black45, fontWeight: FontWeight.bold),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, "cardPaymentPage");
-              },
-              child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 8),
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Image.asset(
-                        "assets/icons/creditdebit.png",
-                        scale: 2,
-                      ),
-                    ),
-                    Wrap(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Credit/Debit Card",
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Image.asset(
-                                  "assets/icons/card_type_logo.png",
-                                  scale: 6,
-                                ),
-//                            Icon(Icons.home),
-                              ],
-                            ),
-                            Text('Credit/Debit Card'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                        child: Container(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        iconSize: 18,
-                        icon: Icon(Icons.arrow_forward_ios),
-                        onPressed: () {},
-                      ),
-                    ))
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              color: Colors.black.withOpacity(.01),
-              child: Text(
-                'Payment methods',
-                style: TextStyle(
-                    color: Colors.black45, fontWeight: FontWeight.bold),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, "cashOnDeliveryPage");
-              },
-              child: Container(
-                color: Colors.white,
-                height: 50,
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Image.asset("assets/icons/cash_on_delivery.png",
-                            scale: 2),
-                      ),
-                      Wrap(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Cash On Delivery",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                          child: Container(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_forward_ios),
-                          iconSize: 18,
-                          onPressed: () {},
-                        ),
-                      ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            showPaymentMethods ? _buildPaymentMethodsWidget() : Container()
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPaymentMethodsWidget() {
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          color: Colors.black.withOpacity(.01),
+          child: Text(
+            'Recommended method(s)',
+            style:
+                TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, "cardPaymentPage");
+          },
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(vertical: 8),
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Image.asset(
+                    "assets/icons/creditdebit.png",
+                    scale: 2,
+                  ),
+                ),
+                Wrap(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Credit/Debit Card",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Image.asset(
+                              "assets/icons/card_type_logo.png",
+                              scale: 6,
+                            ),
+//                            Icon(Icons.home),
+                          ],
+                        ),
+                        Text('Credit/Debit Card'),
+                      ],
+                    ),
+                  ],
+                ),
+                Expanded(
+                    child: Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    iconSize: 18,
+                    icon: Icon(Icons.arrow_forward_ios),
+                    onPressed: () {},
+                  ),
+                ))
+              ],
+            ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          color: Colors.black.withOpacity(.01),
+          child: Text(
+            'Payment methods',
+            style:
+                TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, "cashOnDeliveryPage");
+          },
+          child: Container(
+            color: Colors.white,
+            height: 50,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Image.asset("assets/icons/cash_on_delivery.png",
+                        scale: 2),
+                  ),
+                  Wrap(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Cash On Delivery",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: Container(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_forward_ios),
+                      iconSize: 18,
+                      onPressed: () {},
+                    ),
+                  ))
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -566,9 +577,15 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
       RedeemPointResponse response = await loyaltyPointBloc.redeemPoints({
         "redeem_value": "${redeemPointController.text}",
       });
+      var total_amount =
+          double.parse(cartBloc.subject.value.totalAmount.toString());
+      if (response.error ==
+          null)
+        showPaymentMethods = false;
 
       Fluttertoast.showToast(
-          msg: response.error == null ? response.message : response.error,
+          msg:
+              response.error == null ? tr("Redeem Successful") : response.error,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
