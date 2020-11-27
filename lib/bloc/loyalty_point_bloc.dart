@@ -12,7 +12,7 @@ class LoyaltyPointBloc {
 
   final BehaviorSubject<RedeemPointResponse> _redeemResponse =
       BehaviorSubject<RedeemPointResponse>();
-  int _cashOnDeliveryCharge = 0;
+  double _cashOnDeliveryCharge = 0.0;
 
   LoyaltyPointResponse response;
 
@@ -49,7 +49,7 @@ class LoyaltyPointBloc {
 
   BehaviorSubject<RedeemPointResponse> get redeemResponse => _redeemResponse;
 
- get cashOnDeliveryCharge => _cashOnDeliveryCharge;
+  get cashOnDeliveryCharge => _cashOnDeliveryCharge;
 }
 
 final LoyaltyPointBloc loyaltyPointBloc = LoyaltyPointBloc();

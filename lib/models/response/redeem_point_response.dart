@@ -1,7 +1,7 @@
 class RedeemPointResponse {
   final String error;
   final int amountValue;
-  final int cashOnDeliveryCharge;
+  final double cashOnDeliveryCharge;
   final String message;
 
   RedeemPointResponse(this.amountValue,this.cashOnDeliveryCharge, this.message, this.error);

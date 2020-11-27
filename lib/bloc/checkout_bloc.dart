@@ -77,14 +77,6 @@ class CheckoutBloc {
           : billableAmount,
       "products": cartBloc.products,
       "note": "",
-//      "achieved_promotions": [
-//        {"id": 1, "discount": 1000}
-//      ],
-//    if user gets two cash discounts of 500 and 300, then bulk_cash_discount will be 800
-
-//      billable amount :cart item total+shipping cost-discount-redeemed amnt
-//      billable amount :cart item total+shipping cost-bulkDiscountCost-redeemed amnt+cashOnDeliveryCharge
-
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
     response = await _repository.createOrder(params);
