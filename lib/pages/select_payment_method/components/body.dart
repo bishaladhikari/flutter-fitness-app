@@ -603,6 +603,13 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
 
   validateRedeemPoint(BuildContext context) async {
     if (formKey.currentState.validate()) {
+      FocusScope.of(context).unfocus();
+//      redeemPointController.
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          barrierColor: Colors.white70,
+          builder: (context) => Center(child: CircularProgressIndicator()));
       RedeemPointResponse response = await loyaltyPointBloc.redeemPoints({
         "redeem_value": "${redeemPointController.text}",
       });
@@ -611,6 +618,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
           showPaymentMethods = double.parse(redeemPointController.text) <
               cartBloc.subject.value.totalAmount;
         });
+      Navigator.pop(context);
       Fluttertoast.showToast(
           msg:
               response.error == null ? tr("Redeem Successful") : response.error,
