@@ -231,7 +231,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                 key: formKey,
                                                 autovalidate: _validate,
                                                 child: TextFormField(
-                                                  autofocus:false,
+                                                  autofocus: false,
                                                   onChanged: (text) {
                                                     setState(() {
                                                       showRedeemAmount =
@@ -256,10 +256,16 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                       color: Color(0xFF000000)),
                                                   cursorColor:
                                                       Color(0xFF9b9b9b),
-                                                  keyboardType:
-                                                      TextInputType.numberWithOptions(signed: false,decimal: false),
-                                                  inputFormatters: <TextInputFormatter>[
-                                                    FilteringTextInputFormatter.digitsOnly
+                                                  keyboardType: TextInputType
+                                                      .numberWithOptions(
+                                                          signed: false,
+                                                          decimal: false),
+                                                  inputFormatters: <
+                                                      TextInputFormatter>[
+                                                    FilteringTextInputFormatter
+                                                        .digitsOnly,
+                                                    LengthLimitingTextInputFormatter(
+                                                        6),
                                                   ],
                                                   decoration: InputDecoration(
                                                       isDense: true,
@@ -625,8 +631,9 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
         });
       Navigator.pop(context);
       Fluttertoast.showToast(
-          msg:
-              response.error == null ? tr("Redeem Successful") : response.error,
+          msg: response.error == null
+              ? tr("Redeem Successful")
+              : tr(response.error),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

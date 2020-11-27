@@ -34,7 +34,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                     StreamBuilder<RedeemPointResponse>(
                         stream: loyaltyPointBloc.redeemAmount.stream,
                         builder: (context, snapshot) {
-                          if (snapshot.hasData) {
+                          if (snapshot.hasData && snapshot.data.amountValue!=null) {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
