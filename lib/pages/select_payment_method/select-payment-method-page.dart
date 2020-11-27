@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/bloc/loyalty_point_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -34,7 +35,8 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                     StreamBuilder<RedeemPointResponse>(
                         stream: loyaltyPointBloc.redeemAmount.stream,
                         builder: (context, snapshot) {
-                          if (snapshot.hasData && snapshot.data.amountValue!=null) {
+                          if (snapshot.hasData &&
+                              snapshot.data.amountValue != null) {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -96,12 +98,17 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                       ],
                     ),
                     SizedBox(height: 5),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: FlatButton(
-                        color: NPrimaryColor,
-                        onPressed: () async {
+                    StreamBuilder<RedeemPointResponse>(
+                        stream: loyaltyPointBloc.redeemAmount.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData &&
+                              snapshot.data.amountValue!=null && snapshot.data.amountValue> totalAmount)
+                            return SizedBox(
+                              width: double.infinity,
+                              height: 50,
+                              child: FlatButton(
+                                color: NPrimaryColor,
+                                onPressed: () async {
 //                          if (_formKey.currentState.validate()) {
 //                            _formKey.currentState.save();
 //                            final CreditCard testCard = CreditCard(
@@ -165,13 +172,15 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
 ////                    }'
 //
 //                          }
-                        },
-                        child: Text(
-                          "Place order",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )
+                                },
+                                child: Text(
+                                  "Place order",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            );
+                          return Container();
+                        })
                   ],
                 ),
               );

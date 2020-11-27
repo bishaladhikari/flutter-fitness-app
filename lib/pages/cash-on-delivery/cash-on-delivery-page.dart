@@ -84,6 +84,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                         onPressed: () async {
                           showDialog(
                               context: context,
+                              barrierColor: Colors.white70,
                               barrierDismissible: false,
                               builder: (context) =>
                                   Center(child: CircularProgressIndicator()));
