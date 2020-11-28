@@ -34,7 +34,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-            width: MediaQuery.of(context).size.width / 2,
+            width: width,
             child: Card(
               elevation: 0,
               color: Colors.white,
