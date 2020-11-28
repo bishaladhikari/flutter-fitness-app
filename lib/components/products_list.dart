@@ -142,7 +142,6 @@ class _ProductsListState extends State<ProductsList> {
     return Scaffold(
       body: products.length > 0
           ? Container(
-              padding: EdgeInsets.only(top: 18),
               child: StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
                   staggeredTileBuilder: (int index) => StaggeredTile.fit(2),

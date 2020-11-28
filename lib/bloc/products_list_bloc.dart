@@ -11,11 +11,11 @@ class ProductsListBloc {
   final Repository _repository = Repository();
 
   final BehaviorSubject<ProductResponse> _subject =
-      BehaviorSubject<ProductResponse>();
+  BehaviorSubject<ProductResponse>();
   final BehaviorSubject<List<Brand>> _brandFilters =
-      BehaviorSubject<List<Brand>>();
+  BehaviorSubject<List<Brand>>();
   final BehaviorSubject<List<Category>> _categoryFilters =
-      BehaviorSubject<List<Category>>();
+  BehaviorSubject<List<Category>>();
   final BehaviorSubject<String> _searchTerm = BehaviorSubject<String>();
 
   final BehaviorSubject<String> _currentCategory = BehaviorSubject<String>();
@@ -87,6 +87,7 @@ class ProductsListBloc {
     _types.value = null;
     _page.value = null;
     _storeSlug.value = null;
+    productResponse = null;
   }
 
   void drainCategoryStream() {
