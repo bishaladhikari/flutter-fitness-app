@@ -9,7 +9,7 @@ void main() {
 //  WidgetsFlutterBinding.ensureInitialized();
 //  final authBloc = AuthBloc();
   runApp(DevicePreview(
-    enabled: true,
+    enabled: false,
     // builder: (context) => MyApp(),
     builder: (context) => EasyLocalization(
       key: Key(tr.hashCode.toString()),

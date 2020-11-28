@@ -78,7 +78,8 @@ class ProductItem extends StatelessWidget {
 //            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
               height: 130,
-              width: 140,
+//              width: 140,
+              width: 130,
               decoration: BoxDecoration(
                   image: DecorationImage(
                 image: imageProvider,
