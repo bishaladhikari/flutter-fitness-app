@@ -85,10 +85,14 @@ class _LoginPageState extends State<LoginPage>
 
   Widget _buildLoginFormWidget() {
     return Container(
+      // height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(color: Colors.white),
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          SizedBox(height: 50,),
+          SizedBox(
+            height: 50,
+          ),
           Form(
             key: _formKey,
             autovalidate: _validate,
@@ -164,18 +168,15 @@ class _LoginPageState extends State<LoginPage>
             onTap: () => validateLogin(context),
             child: Container(
               height: 50.0,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: NPrimaryColor,
                   borderRadius: BorderRadius.circular(5.0)),
               child: Center(
                   child: Text(
-                    "SIGN IN",
-                    style: TextStyle(fontSize: 14, color: Colors.white),
-                  )),
+                "SIGN IN",
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              )),
             ),
           ),
           Align(
@@ -285,10 +286,11 @@ class _LoginPageState extends State<LoginPage>
                   Navigator.of(context, rootNavigator: true)
                       .pushReplacementNamed('registerPage');
                 },
-                child: Text(tr('Register'), style: TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline)),
+                child: Text(('Register'),
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline)),
               ),
             ],
           )

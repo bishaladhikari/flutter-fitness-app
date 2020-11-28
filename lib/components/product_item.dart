@@ -16,7 +16,6 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double trendCardWidth = width;
-
     return GestureDetector(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -35,7 +34,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-            width: width,
+            width: MediaQuery.of(context).size.width / 2,
             child: Card(
               elevation: 0,
               color: Colors.white,
@@ -78,10 +77,8 @@ class ProductItem extends StatelessWidget {
             imageUrl: product.imageThumbnail,
 //            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
-//              width: MediaQuery.of(context).size.width,
-//              width: 300,
               height: 130,
-              width: 150,
+              width: 140,
               decoration: BoxDecoration(
                   image: DecorationImage(
                 image: imageProvider,

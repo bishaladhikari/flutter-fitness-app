@@ -152,11 +152,10 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
           overscroll.disallowGlow();
         },
         child: Container(
-            padding: EdgeInsets.only(top: 18),
             child: ListView.builder(
                 controller: _scrollController,
                 itemCount: orders.length + 1,
-                itemExtent: 80,
+                itemExtent: 100,
                 itemBuilder: (context, index) {
                   if (index == orders.length) {
                     return StreamBuilder(
@@ -164,7 +163,11 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             if (snapshot.data)
-                              return Center(child: SizedBox(height:20,width: 20,child: CircularProgressIndicator()));
+                              return Center(
+                                  child: SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator()));
                             return Container();
                           }
                           return Container();
@@ -182,41 +185,47 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
   }
 
   Widget _buildOrderList(Order order) {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(8.0),
-      title: Row(
-        children: [
-          Text(
-            tr("Order ") + order.orderId,
-            style:
-                TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: 5.0,
-          ),
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: Colors.black26,
-          ),
-        ],
-      ),
-      subtitle: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 2),
+      decoration: BoxDecoration(color: Colors.white),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(8.0),
+        title: Row(
           children: [
-            Text(tr("Placed on ") + order.createdDate),
-            SizedBox(height: 5.0),
-            Text(tr("Total Items: ") + order.totalQuantity.toString())
+            Text(
+              ("Order ") + order.orderId,
+              style:
+                  TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: 5.0,
+            ),
+            Icon(
+              Icons.keyboard_arrow_right,
+              color: Colors.black26,
+            ),
           ],
         ),
-      ),
-      trailing: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          order.paymentStatus.toString(),
-          style: TextStyle(
-              fontSize: 14, color: Colors.black38, fontStyle: FontStyle.italic),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(("Placed on ") + order.createdDate),
+              SizedBox(height: 5.0),
+              Text(("Total Items: ") + order.totalQuantity.toString())
+            ],
+          ),
+        ),
+        trailing: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            order.paymentStatus.toString(),
+            style: TextStyle(
+                fontSize: 14,
+                color: Colors.black38,
+                fontStyle: FontStyle.italic),
+          ),
         ),
       ),
     );

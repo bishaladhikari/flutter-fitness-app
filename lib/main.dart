@@ -10,13 +10,9 @@ void main() {
 //  final authBloc = AuthBloc();
   runApp(DevicePreview(
     enabled: true,
+    // builder: (context) => MyApp(),
     builder: (context) => EasyLocalization(
-//    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
-//<key>CFBundleLocalizations</key>
-//<array>
-//<string>en</string>
-//<string>nb</string>
-//</array>
+      key: Key(tr.hashCode.toString()),
       child: myApp,
       path: "assets/translations",
       saveLocale: true,
@@ -30,8 +26,26 @@ void main() {
   ));
 }
 
+//     builder: (context) => EasyLocalization(
+// //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
+// //<key>CFBundleLocalizations</key>
+// //<array>
+// //<string>en</string>
+// //<string>nb</string>
+// //</array>
+//       child: myApp,
+//       path: "assets/translations",
+//       saveLocale: true,
+//       supportedLocales: [
+//         Locale('en', "US"),
+//         Locale('ja', "JP"),
+//         Locale('vi', "VN"),
+//       ],
+//       fallbackLocale: Locale('en', 'US'),
+//     ),
+
 class MyApp extends StatelessWidget {
-  Locale _locale;
+  // Locale _locale;
 
 //  final AuthBloc authBloc;
 //  MyApp({Key key,this.authBloc}):super(key:key);
@@ -45,7 +59,7 @@ class MyApp extends StatelessWidget {
 //        systemNavigationBarIconBrightness: Brightness.light,
 ////        systemNavigationBarColor: Colors.white.withOpacity(0.1)
 //    ));
-    _locale = context.locale;
+//     _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecapp',
@@ -58,15 +72,15 @@ class MyApp extends StatelessWidget {
 //        ),
 //      ),
       theme: theme(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+      // localizationsDelegates: context.localizationDelegates,
+      // supportedLocales: context.supportedLocales,
+      // locale: context.locale,
       onGenerateRoute: Routes.materialPageRoute,
       home: SplashScreen(),
     );
   }
 
-  get locale => _locale;
+// get locale => _locale;
 //  BuildContext get context => _context;
 
 }
