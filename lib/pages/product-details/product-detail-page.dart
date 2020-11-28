@@ -545,6 +545,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //    controller.forward();
     return Column(
       children: [
+        GestureDetector(
+          onTap: () => {
+            Navigator.pushNamed(context, "storePage",
+                arguments: productDetail.storeSlug)
+          },
+          child: Text(
+            productDetail.storeSlug,
+            style: TextStyle(fontSize: 23),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

@@ -46,7 +46,8 @@ abstract class Routes {
             builder: (context) => DiscountView(discountInfo: arguments));
         break;
       case 'storePage':
-        return MaterialPageRoute(builder: (context) => StorePage());
+        return MaterialPageRoute(
+            builder: (context) => StorePage(storeSlug: arguments));
         break;
       case 'wishListPage':
         return MaterialPageRoute(builder: (context) => WishListPage());
@@ -141,8 +142,7 @@ abstract class Routes {
             builder: (context) => ProductViewMorePage(types: arguments));
         break;
       case 'userProfileForm':
-        return MaterialPageRoute(
-            builder: (context) => UserProfileFormPage());
+        return MaterialPageRoute(builder: (context) => UserProfileFormPage());
         break;
       default:
         return MaterialPageRoute(builder: (context) => WishListPage());
