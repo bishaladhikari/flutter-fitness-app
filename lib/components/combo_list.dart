@@ -9,6 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ComboList extends StatefulWidget {
+  String storeSlug;
+
+  ComboBloc comboBloc;
+
+  ComboList({Key key, this.storeSlug}) {
+    comboBloc = ComboBloc();
+  }
+
   @override
   _ComboListState createState() => _ComboListState();
 }
@@ -16,19 +24,18 @@ class ComboList extends StatefulWidget {
 class _ComboListState extends State<ComboList> {
   int page = 1;
   ScrollController _scrollController;
-  ComboBloc comboBloc;
 
   @override
   void initState() {
     super.initState();
-    comboBloc = ComboBloc();
-    comboBloc..getComboProducts();
+    widget.comboBloc.storeSlug.value = widget.storeSlug;
+    widget.comboBloc..getComboProducts();
   }
 
   @override
   void dispose() {
     super.dispose();
-    comboBloc.drainComboStream();
+    widget.comboBloc.drainComboStream();
   }
 
   @override
@@ -40,11 +47,11 @@ class _ComboListState extends State<ComboList> {
 
       var triggerFetchMoreSize = 0.8 * maxScrollExtent;
       if (currentPosition > triggerFetchMoreSize) {
-        Meta meta = comboBloc.combos.value.meta;
+        Meta meta = widget.comboBloc.subject.value.meta;
         if (page < meta.lastPage) {
           page++;
-          comboBloc.page.value = page;
-          comboBloc..getComboProducts();
+          widget.comboBloc.page.value = page;
+          widget.comboBloc..getComboProducts();
         }
       }
     });
@@ -55,7 +62,7 @@ class _ComboListState extends State<ComboList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ComboResponse>(
-      stream: comboBloc.combos.stream,
+      stream: widget.comboBloc.subject.stream,
       builder: (context, AsyncSnapshot<ComboResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {

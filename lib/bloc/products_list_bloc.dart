@@ -26,6 +26,8 @@ class ProductsListBloc {
   final BehaviorSubject<int> _page = BehaviorSubject<int>();
   final BehaviorSubject<bool> _loading = BehaviorSubject<bool>();
 
+  final BehaviorSubject<String> _storeSlug = BehaviorSubject<String>();
+
   ProductResponse productResponse;
 
   ProductsListBloc() {
@@ -38,23 +40,28 @@ class ProductsListBloc {
     _sortBy.value = 'default';
     _types.value = null;
     _page.value = 1;
+    _storeSlug.value = null;
   }
 
   getProducts({String searchTerm}) async {
     _loading.sink.add(true);
-    ProductResponse response = await _repository.getProducts(
-        category: _currentCategory.value,
-        categoryFilters: _categoryFilters.value.length > 0
-            ? _categoryFilters.value.map((e) => e.slug).join(",")
-            : null,
-        sortBy: _sortBy.value,
-        minPrice: _minRange.value,
-        maxPrice: _maxRange.value,
-        searchTerm: _searchTerm.value,
-        types: _types.value,
-        page: _page.value,
-        brands: _brandFilters.value.map((e) => e.slug).join(",")
-    );
+    print(['ho ra again product', _storeSlug.value]);
+    var params = {
+      "category": _currentCategory.value,
+      "categoryFilters": _categoryFilters.value.length > 0
+          ? _categoryFilters.value.map((e) => e.slug).join(",")
+          : null,
+      "sortBy": _sortBy.value,
+      "minPrice": _minRange.value,
+      "maxPrice": _maxRange.value,
+      "searchTerm": _searchTerm.value,
+      "types": _types.value,
+      "page": _page.value,
+      "brands": _brandFilters.value.map((e) => e.slug).join(","),
+      "store": _storeSlug.value,
+    };
+
+    ProductResponse response = await _repository.getProducts(params);
 
     if (response.error == null) {
       if (productResponse != null && productResponse.products.length > 0) {
@@ -79,6 +86,7 @@ class ProductsListBloc {
     _sortBy.value = 'default';
     _types.value = null;
     _page.value = null;
+    _storeSlug.value = null;
   }
 
   void drainCategoryStream() {
@@ -126,6 +134,8 @@ class ProductsListBloc {
   BehaviorSubject<int> get page => _page;
 
   Stream<bool> get loading => _loading.stream;
+
+  BehaviorSubject<String> get storeSlug => _storeSlug;
 }
 
 //final productsListBloc = ProductsListBloc();

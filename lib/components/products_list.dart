@@ -14,10 +14,12 @@ class ProductsList extends StatefulWidget {
   final String category;
   final String searchTerm;
   final String types;
+  final String storeSlug;
 
   ProductsListBloc productsListBloc;
 
-  ProductsList({Key key, this.category, this.searchTerm, this.types}) {
+  ProductsList(
+      {Key key, this.category, this.searchTerm, this.types, this.storeSlug}) {
     productsListBloc = ProductsListBloc();
     productsListBloc.searchTerm.value = searchTerm;
 //    productsListBloc.currentCategory.value = category;
@@ -50,14 +52,12 @@ class _ProductsListState extends State<ProductsList> {
   int page = 1;
   ScrollController _scrollController;
 
-  // ProductsListBloc productsListBloc;
-
   @override
   void initState() {
     super.initState();
-    // productsListBloc = ProductsListBloc();
     widget.productsListBloc.searchTerm.value = widget.searchTerm;
     widget.productsListBloc.types.value = widget.types;
+    widget.productsListBloc.storeSlug.value = widget.storeSlug;
     widget.productsListBloc.currentCategory.value = widget.category;
     widget.productsListBloc..getProducts();
   }

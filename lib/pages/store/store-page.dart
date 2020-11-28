@@ -1,11 +1,11 @@
+import 'package:ecapp/components/combo_list.dart';
+import 'package:ecapp/components/products_list.dart';
 import 'package:flutter/material.dart';
-import 'components/app_bar.dart';
-import 'components/body.dart';
 
 class StorePage extends StatefulWidget {
   String storeSlug;
 
-  StorePage({Key key, this.storeSlug}) : super(key: key);
+  StorePage({Key key, this.storeSlug});
 
   @override
   _StorePageState createState() => _StorePageState();
@@ -13,22 +13,6 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage>
     with AutomaticKeepAliveClientMixin {
-  String storeSlug;
-
-  final List<String> orderTitleList = [
-    'All',
-    'Pending',
-    'In Progress',
-  ];
-
-  TabController _tabController;
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   super.build(context);
-  //   return Scaffold(appBar: StoreAppBar(context), body: Body());
-  // }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,6 +20,7 @@ class _StorePageState extends State<StorePage>
       child: Scaffold(
           appBar: AppBar(
             bottom: TabBar(
+              isScrollable: true,
               tabs: <Widget>[
                 Tab(
                   text: 'Home',
@@ -52,8 +37,8 @@ class _StorePageState extends State<StorePage>
           body: TabBarView(
             children: <Widget>[
               _buildListViewWithName('Incoming Call'),
-              _buildListViewWithName('Outgoing Call'),
-              _buildListViewWithName('Missed Call'),
+              ProductsList(storeSlug: widget.storeSlug),
+              ComboList(storeSlug: widget.storeSlug),
             ],
           )),
     );

@@ -471,8 +471,7 @@ class Repository {
     }
   }
 
-  Future<ComboResponse> getComboProducts({int page}) async {
-    var params = {"page": page};
+  Future<ComboResponse> getComboProducts(params) async {
     try {
       Response response =
           await _dio.get(comboProductUrl, queryParameters: params);
@@ -514,29 +513,19 @@ class Repository {
     }
   }
 
-  Future<ProductResponse> getProducts(
-      {String category,
-      String categoryFilters,
-      String sortBy,
-      String minPrice,
-      String maxPrice,
-      String types,
-      String searchTerm,
-      int page,
-      String brands}) async {
-    var params = {
-      "category": categoryFilters == null ? category : null,
-      "sub_categories": categoryFilters,
-      "brands": brands,
-      "sort_by": sortBy,
-      "starting_price": minPrice,
-      "ending_price": maxPrice,
-      "types": types,
-      "search_term": searchTerm,
-      "per_page": 10,
-      "page": page,
-    };
-
+  Future<ProductResponse> getProducts(params) async {
+    // var params = {
+    //   "category": categoryFilters == null ? category : null,
+    //   "sub_categories": categoryFilters,
+    //   "brands": brands,
+    //   "sort_by": sortBy,
+    //   "starting_price": minPrice,
+    //   "ending_price": maxPrice,
+    //   "types": types,
+    //   "search_term": searchTerm,
+    //   "per_page": 10,
+    //   "page": page,
+    // };
     try {
       Response response = await _dio.get(productsUrl, queryParameters: params);
       return ProductResponse.fromJson(response.data);
