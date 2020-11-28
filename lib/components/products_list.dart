@@ -139,7 +139,6 @@ class _ProductsListState extends State<ProductsList> {
 
   Widget _buildHomeWidget(ProductResponse data) {
     final double shortestSide = MediaQuery.of(context).size.shortestSide;
-    print(shortestSide);
     final bool isMobile = shortestSide < 600;
 
     List<Product> products = data.products;
