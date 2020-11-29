@@ -1,5 +1,4 @@
 import 'package:ecapp/bloc/products_bloc.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -7,23 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProductsList extends StatefulWidget {
+  const ProductsList({Key key}) : super(key: key);
+
   @override
   _ProductsListState createState() => _ProductsListState();
 }
 
 class _ProductsListState extends State<ProductsList> {
-  ProductsListBloc productsListBloc;
-
   @override
   void initState() {
-    productsListBloc = ProductsListBloc();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsListBloc.subject.stream,
+      stream: productsBloc.forYou.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
