@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     super.initState();
     detail = widget.order;
     id = widget.order.id;
+//    orderProductDetailBloc.getOrderProductDetail(id);
   }
 
   @override

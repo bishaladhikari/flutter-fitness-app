@@ -26,7 +26,7 @@ class _OrderCompletePageState extends State<OrderCompletePage> {
           },
         ),
         backgroundColor: Colors.white,
-        title: Text("Order Received".tr()),
+        title: Text(tr("Order Received")),
       ),
       body: Body(order: widget.order),
     );

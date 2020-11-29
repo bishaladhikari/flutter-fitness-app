@@ -89,7 +89,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + totalAmount.toString(),
+                          '¥ ' + checkoutBloc.billableAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: NPrimaryColor,

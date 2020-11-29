@@ -62,7 +62,9 @@ class _BodyState extends State<Body> {
                   OutlineButton(
                     child: Text("View Order"),
                     color: NPrimaryColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "ordersPage");
+                    },
                   )
                 ],
               )),

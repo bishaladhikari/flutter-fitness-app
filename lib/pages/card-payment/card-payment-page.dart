@@ -63,7 +63,7 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + totalAmount.toString(),
+                          '¥ ' + checkoutBloc.billableAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black,

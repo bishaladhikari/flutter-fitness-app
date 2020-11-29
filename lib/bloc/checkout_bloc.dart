@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/loyalty_point_bloc.dart';
+import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
+import 'package:ecapp/models/response/order_product_detail_response.dart';
+import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -42,38 +45,23 @@ class CheckoutBloc {
         barrierColor: Colors.white70,
         barrierDismissible: false,
         builder: (context) => Center(child: CircularProgressIndicator()));
-//                  achieved_promotions: []
-//                  address_id: 1
-//                  billable_amount: "4444.00"
-//                  note: ""
-//                  payment_method: "Cash Payment"
-//                  products: [{attribute_id: 2, combo_id: "", price: "1111.00", quantity: 4, store_id: 2}]
-//                  0: {attribute_id: 2, combo_id: "", price: "1111.00", quantity: 4, store_id: 2}
-//                  attribute_id: 2
-//                  combo_id: ""
-//                  price: "1111.00"
-//                  quantity: 4
-//                  store_id: 2
-//                  redeemed_amount: ""
-//                  redeemed_points: ""
-//                  shipping_cost: 0
-//                  weight: 4444
     var addressId = _defaultAddress.value.id;
     var shippingCost = cartBloc.subject.value.shippingCost;
     var totalWeight = cartBloc.subject.value.totalWeight;
-
-    var subTotal = cartBloc.subject.value.totalAmount;
-    var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
-    var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
-        ? loyaltyPointBloc.redeemResponse.value.amountValue
-        : 0;
     var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
-    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
-    var billableAmount = subTotal +
-        shippingCost -
-        bulkDiscountCost -
-        shippingDiscountCost -
-        redeemedAmount;
+
+//    var subTotal = cartBloc.subject.value.totalAmount;
+//    var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
+//    var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
+//        ? loyaltyPointBloc.redeemResponse.value.amountValue
+//        : 0;
+//    var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
+//    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
+//    var billableAmount = subTotal +
+//        shippingCost -
+//        bulkDiscountCost -
+//        shippingDiscountCost -
+//        redeemedAmount;
 
     var params = {
       "shipping_cost": shippingCost,
@@ -84,9 +72,8 @@ class CheckoutBloc {
       "redeemed_amount": "",
       "redeemed_points": "",
       "payment_method": paymentMethod.value,
-      "billable_amount": paymentMethod.value == "Cash Payment"
-          ? billableAmount + cashOnDeliveryCharge
-          : billableAmount,
+      "billable_amount": billableAmount,
+      "cash_on_delivery_charge": cashOnDeliveryCharge,
       "products": cartBloc.products,
       "note": "",
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
@@ -95,7 +82,9 @@ class CheckoutBloc {
     _subject.sink.add(response);
     if (response.error == null) cartBloc.response = null;
     Fluttertoast.showToast(
-        msg: response.error == null ? tr("Order Placed Successfully") : response.error,
+        msg: response.error == null
+            ? tr("Order Placed Successfully")
+            : response.error,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -105,7 +94,7 @@ class CheckoutBloc {
 
     if (response.error == null) {
       Navigator.of(context, rootNavigator: true)
-          .pushReplacementNamed('orderConfirmationPage');
+          .pushReplacementNamed('orderConfirmationPage',arguments:response.order);
     }
 //    if (response.error == null) {
 //      Navigator.pop(context);
@@ -138,7 +127,28 @@ class CheckoutBloc {
   BehaviorSubject<Address> get defaultAddress => _defaultAddress.stream;
 
   get paymentMethod => _paymentMethod.stream;
-//  get billableAmount => billableAmount;
+
+  get billableAmount {
+    var shippingCost = cartBloc.subject.value.shippingCost;
+    var subTotal = cartBloc.subject.value.totalAmount;
+    var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
+    var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
+        ? loyaltyPointBloc.redeemResponse.value.amountValue
+        : 0;
+    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
+    var billableAmount = subTotal +
+        shippingCost -
+        bulkDiscountCost -
+        shippingDiscountCost -
+        redeemedAmount;
+//    if (paymentMethod.value == "Cash Payment")
+//      return billableAmount + cashOnDeliveryCharge;
+    return billableAmount;
+  }
+  get payableTotal{
+    //    if (paymentMethod.value == "Cash Payment")
+      return billableAmount + loyaltyPointBloc.cashOnDeliveryCharge;
+  }
 }
 
 final CheckoutBloc checkoutBloc = CheckoutBloc();
