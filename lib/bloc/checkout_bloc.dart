@@ -15,6 +15,8 @@ class CheckoutBloc {
   final BehaviorSubject<AddOrderResponse> _subject =
       BehaviorSubject<AddOrderResponse>();
   final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
+  final BehaviorSubject<String> _paymentMethod = BehaviorSubject<String>();
+
   AddOrderResponse response;
 
 //  loyalty point amount = total_amount-bulk_discount_amount
@@ -31,7 +33,7 @@ class CheckoutBloc {
     _defaultAddress.close();
   }
 
-  createOrder({paymentMethod, token}) async {
+  createOrder({token}) async {
 //                  achieved_promotions: []
 //                  address_id: 1
 //                  billable_amount: "4444.00"
@@ -54,7 +56,9 @@ class CheckoutBloc {
 
     var subTotal = cartBloc.subject.value.totalAmount;
     var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
-    var redeemedAmount = loyaltyPointBloc.redeemResponse.value.amountValue;
+    var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
+        ? loyaltyPointBloc.redeemResponse.value.amountValue
+        : 0;
     var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
     var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
     var billableAmount = subTotal +
@@ -71,8 +75,8 @@ class CheckoutBloc {
       "token": token,
       "redeemed_amount": "",
       "redeemed_points": "",
-      "payment_method": paymentMethod,
-      "billable_amount": paymentMethod == "Cash Payment"
+      "payment_method": paymentMethod.value,
+      "billable_amount": paymentMethod.value == "Cash Payment"
           ? billableAmount + cashOnDeliveryCharge
           : billableAmount,
       "products": cartBloc.products,
@@ -97,6 +101,9 @@ class CheckoutBloc {
   BehaviorSubject<AddOrderResponse> get addresses => _subject.stream;
 
   BehaviorSubject<Address> get defaultAddress => _defaultAddress.stream;
+
+  get paymentMethod => _paymentMethod.stream;
+//  get billableAmount => billableAmount;
 }
 
 final CheckoutBloc checkoutBloc = CheckoutBloc();

@@ -19,6 +19,9 @@ class LoyaltyPointBloc {
   getLoyaltyPoint(int amount) async {
     LoyaltyPointResponse response = await _repository.loyaltyPoints(amount);
     _subject.sink.add(response);
+    if (response.error == null)
+      _cashOnDeliveryCharge = response.cashOnDeliveryCharge;
+    print("myresponse"+response.cashOnDeliveryCharge.toString());
     return response;
   }
 
@@ -34,7 +37,7 @@ class LoyaltyPointBloc {
   void drainStream() {
     _subject.value = null;
     _redeemResponse.value = null;
-    _cashOnDeliveryCharge = 0;
+    _cashOnDeliveryCharge = null;
   }
 
   @mustCallSuper

@@ -29,15 +29,13 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
   void initState() {
     loyaltyPointBloc
       ..getLoyaltyPoint(cartBloc.subject.value.totalAmount.toInt());
-
-//    StripePayment.setOptions(
-//        StripeOptions(publishableKey: "pk_test_aSaULNS8cJU6Tvo20VAXy6rp", merchantId: "Test", androidPayMode: 'test'));
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+    loyaltyPointBloc.drainStream();
     redeemPointController.dispose();
   }
 
@@ -197,6 +195,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                           return snapshot.data.points != null
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Container(
                                       child: Row(
@@ -237,9 +236,6 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                       showRedeemAmount =
                                                           redeemPointController
                                                               .text.isNotEmpty;
-                                                      print(
-                                                          redeemPointController
-                                                              .text.isNotEmpty);
                                                       redeem_amount = text
                                                               .isNotEmpty
                                                           ? (double.parse(
