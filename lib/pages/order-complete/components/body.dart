@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:flutter/material.dart';
@@ -54,9 +55,11 @@ class _BodyState extends State<Body> {
               elevation: 0,
               child: Row(
                 children: [
-                  Text(
-                    "Track your delivery status",
-                    style: TextStyle(color: Colors.black),
+                  Expanded(
+                    child: Text(
+                      tr("Track your delivery status"),
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                   Spacer(),
                   OutlineButton(
