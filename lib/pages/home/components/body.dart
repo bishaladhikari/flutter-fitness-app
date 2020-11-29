@@ -55,7 +55,7 @@ class _BodyState extends State<Body> {
             child: Row(
               children: [
                 Text(
-                  "Featured Products".tr().toString(),
+                  "Featured Products",
                   style:
                       TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                 ),
@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
             child: Row(
               children: [
                 Text(
-                  "Combo Products".tr(),
+                  "Combo Products",
                   style:
                       TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                 ),
@@ -80,7 +80,7 @@ class _BodyState extends State<Body> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              "Products for you".tr().toString(),
+              "Products for you",
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
             ),

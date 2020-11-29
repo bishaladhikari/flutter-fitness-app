@@ -183,7 +183,7 @@ class _MainPageState extends State<MainPage> {
                               minHeight: 14,
                             ),
                             child: Text(
-                              snapshot.data.totalItems.toString() == null
+                              snapshot.data.totalItems == null
                                   ? '0'
                                   : snapshot.data.totalItems.toString(),
                               style: TextStyle(

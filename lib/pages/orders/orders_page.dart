@@ -41,7 +41,7 @@ class _OrdersListPageState extends State<OrdersListPage>
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
-            title: Text(tr("Orders")),
+            title: Text(("Orders")),
             backgroundColor: Colors.white,
             bottom: TabBar(
               controller: _tabController,

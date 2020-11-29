@@ -67,12 +67,16 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
+    final double shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool isMobile = shortestSide < 600;
     List<Product> products = data.products;
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: StaggeredGridView.countBuilder(
             crossAxisCount: 4,
-            staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+            staggeredTileBuilder: isMobile
+                ? (int index) => StaggeredTile.fit(2)
+                : (int index) => StaggeredTile.fit(1),
             controller: ScrollController(keepScrollOffset: false),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,

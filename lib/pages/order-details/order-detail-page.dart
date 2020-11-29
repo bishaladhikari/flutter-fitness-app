@@ -31,109 +31,115 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text("Order Details"),
           backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Ship & bill to",
-                  style: TextStyle(fontSize: 16, color: Colors.black38),
-                ),
-                Text(
-                  detail.name,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                Text(
-                  detail.phone,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                Text(
-                  detail.email,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                Text(
-                  detail.address,
-                  style: TextStyle(fontSize: 16, color: Colors.black38),
-                ),
-                OrderItemDetails(id: this.id, orderDetail: this.detail),
-                ListTile(
-                  contentPadding: const EdgeInsets.all(8.0),
-                  title: Row(
-                    children: [
-                      Text(
-                        "Order " + detail.orderId,
-                        style: TextStyle(
-                            color: Colors.black87, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Ship & bill to",
+                    style: TextStyle(fontSize: 16, color: Colors.black38),
                   ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Text(
+                    detail.name,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                  Text(
+                    detail.phone,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                  Text(
+                    detail.email,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                  Text(
+                    detail.address,
+                    style: TextStyle(fontSize: 16, color: Colors.black38),
+                  ),
+                  OrderItemDetails(id: this.id, orderDetail: this.detail),
+                  ListTile(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    title: Row(
                       children: [
-                        Text("Placed on " + detail.createdDate),
+                        Text(
+                          "Order " + detail.orderId,
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Placed on " + detail.createdDate),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    title: Row(
+                      children: [
+                        Text("Subtotal", style: TextStyle(fontSize: 16)),
+                      ],
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Shipping Fee "),
+                        ],
+                      ),
+                    ),
+                    trailing: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            detail.subTotal.toString(),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.black38),
+                          ),
+                        ),
+                        Text(
+                          detail.shippingCost.toString(),
+                          style: TextStyle(fontSize: 14, color: Colors.black38),
+                        ),
                       ],
                     ),
                   ),
-                ),
-                ListTile(
-                  contentPadding: const EdgeInsets.all(8.0),
-                  title: Row(
-                    children: [
-                      Text("Subtotal", style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Divider(color: Colors.black12),
+                  ListTile(
+                    trailing: Column(
                       children: [
-                        Text("Shipping Fee "),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            detail.totalQuantity.toString() + " Item",
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.black38),
+                          ),
+                        ),
+                        Text(
+                          "Total: " + detail.subTotal.toString(),
+                          style: TextStyle(fontSize: 14, color: Colors.black38),
+                        ),
                       ],
                     ),
                   ),
-                  trailing: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          detail.subTotal.toString(),
-                          style: TextStyle(fontSize: 14, color: Colors.black38),
-                        ),
-                      ),
-                      Text(
-                        detail.shippingCost.toString(),
-                        style: TextStyle(fontSize: 14, color: Colors.black38),
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(color: Colors.black12),
-                ListTile(
-                  trailing: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          detail.totalQuantity.toString() + " Item",
-                          style: TextStyle(fontSize: 14, color: Colors.black38),
-                        ),
-                      ),
-                      Text(
-                        "Total: " + detail.subTotal.toString(),
-                        style: TextStyle(fontSize: 14, color: Colors.black38),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));
