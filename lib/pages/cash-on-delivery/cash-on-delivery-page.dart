@@ -116,21 +116,21 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                                   Center(child: CircularProgressIndicator()));
                           checkoutBloc.paymentMethod.value= "Cash Payment";
                           AddOrderResponse response = await checkoutBloc
-                              .createOrder();
-                          if (response.error == null) {
-                            Navigator.pop(context);
-                            Navigator.of(context).pushNamed(
-                                "orderConfirmationPage",
-                                arguments: response.order);
-                          } else {
-                            Navigator.pop(context);
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text(
-                                tr(response.error),
-                              ),
-                              backgroundColor: Colors.redAccent,
-                            ));
-                          }
+                              .createOrder(context:context);
+//                          if (response.error == null) {
+//                            Navigator.pop(context);
+//                            Navigator.of(context).pushNamed(
+//                                "orderConfirmationPage",
+//                                arguments: response.order);
+//                          } else {
+//                            Navigator.pop(context);
+//                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+//                              content: Text(
+//                                tr(response.error),
+//                              ),
+//                              backgroundColor: Colors.redAccent,
+//                            ));
+//                          }
                         },
                         child: Text(
                           "Confirm Order".tr(),

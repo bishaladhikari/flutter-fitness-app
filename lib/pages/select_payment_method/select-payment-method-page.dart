@@ -102,15 +102,15 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                         stream: loyaltyPointBloc.redeemResponse.stream,
                         builder: (context, snapshot) {
                           if (snapshot.hasData &&
-                              snapshot.data.amountValue!=null && snapshot.data.amountValue> totalAmount)
+                              snapshot.data.amountValue != null &&
+                              snapshot.data.amountValue > totalAmount)
                             return SizedBox(
                               width: double.infinity,
                               height: 50,
                               child: FlatButton(
                                 color: NPrimaryColor,
                                 onPressed: () async {
-                                  checkoutBloc.createOrder();
-//
+                                  checkoutBloc.createOrder(context: context);
                                 },
                                 child: Text(
                                   "Place order",

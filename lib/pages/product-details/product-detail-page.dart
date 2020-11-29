@@ -106,13 +106,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     reviewBloc..drainStream();
   }
 
-  addToCart(context, params) async {
+  addToCart(context, params, checkout) async {
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
       if (response.error != null) {
-        Navigator.pop(context);
+        if (!checkout) Navigator.pop(context);
         var snackbar = SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
@@ -130,6 +130,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           backgroundColor: NPrimaryColor,
         );
         _scaffoldKey.currentState.showSnackBar(snackbar);
+        if (checkout) Navigator.pushNamed(context, "checkoutPage");
       }
     }
   }
@@ -449,7 +450,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                     MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   new Text(
-                                    "Add to cart",
+                                    tr("Add to cart"),
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ],
@@ -478,14 +479,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                         width: 6,
                       ),
                       FlatButton(
-                        onPressed: () {
+                        onPressed: () async {
                           var params = {
                             "attribute_id": attributeId,
                             "combo_id": null,
                             "quantity": 1
                           };
-                          addToCart(context, params);
-                          Navigator.pushNamed(context, "checkoutPage");
+                          addToCart(context, params, true);
                         },
                         textColor: Colors.white,
                         padding: const EdgeInsets.all(0.0),
@@ -636,10 +636,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                           "combo_id": null,
                           "quantity": quantity
                         };
-                        addToCart(context, params);
+                        addToCart(context, params, false);
                       },
                       child: Text(
-                        "Add to cart".tr(),
+                        tr("Add to cart"),
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

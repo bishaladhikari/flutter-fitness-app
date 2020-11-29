@@ -109,17 +109,17 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                             StripePayment.createTokenWithCard(testCard)
                                 .then((token) async {
                               AddOrderResponse response =
-                              await checkoutBloc.createOrder(token: token);
-                              if (response.error == null) {
-                                Navigator.of(context).pushNamed("orderConfirmationPage",
-                                    arguments: response.order);
-                              } else
-                                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                  content: Text(
-                                    tr(response.error),
-                                  ),
-                                  backgroundColor: Colors.redAccent,
-                                ));
+                              await checkoutBloc.createOrder(context:context,token: token);
+//                              if (response.error == null) {
+//                                Navigator.of(context).pushNamed("orderConfirmationPage",
+//                                    arguments: response.order);
+//                              } else
+//                                _scaffoldKey.currentState.showSnackBar(SnackBar(
+//                                  content: Text(
+//                                    tr(response.error),
+//                                  ),
+//                                  backgroundColor: Colors.redAccent,
+//                                ));
 //                      createCharge(token.tokenId);
                             });
 //                    showDialog(

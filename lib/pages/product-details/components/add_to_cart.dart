@@ -132,7 +132,7 @@ class _AddToCartState extends State<AddToCart> {
                           "combo_id": null,
                           "quantity": quantity
                         };
-                        widget.addToCart(context, params);
+                        widget.addToCart(context, params,false);
                         Navigator.pop(context);
                       },
                       child: Text(
