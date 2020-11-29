@@ -130,8 +130,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           backgroundColor: NPrimaryColor,
         );
         _scaffoldKey.currentState.showSnackBar(snackbar);
-        if (checkout)
-          Navigator.pushNamed(context, "checkoutPage");
+        if (checkout) Navigator.pushNamed(context, "checkoutPage");
       }
     }
   }
@@ -709,32 +708,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     ));
   }
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Shopping Cart"),
-      content: Text("Your product has been added to cart."),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
   Widget _productSlideImage(String imageUrl) {
 //    imageUrl = imageUrl != null ? imageUrl : "assets/images/placeholder.png";
     return Center(
