@@ -130,7 +130,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           backgroundColor: NPrimaryColor,
         );
         _scaffoldKey.currentState.showSnackBar(snackbar);
-        if (checkout) Navigator.pushNamed(context, "checkoutPage");
+        if (checkout)
+          Navigator.pushNamed(context, "checkoutPage");
       }
     }
   }
@@ -734,54 +735,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
       },
     );
   }
-
-  _alert(BuildContext context) {
-    var alertStyle = AlertStyle(
-      animationType: AnimationType.shrink,
-      isCloseButton: false,
-      isOverlayTapDismiss: false,
-      descStyle: TextStyle(fontWeight: FontWeight.bold),
-      animationDuration: Duration(milliseconds: 400),
-      alertBorder: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(
-          color: Colors.grey,
-        ),
-      ),
-      titleStyle: TextStyle(
-        color: Color.fromRGBO(0, 179, 134, 1.0),
-      ),
-    );
-    Alert(
-      context: context,
-      style: alertStyle,
-      type: AlertType.success,
-      title: "Shopping Cart",
-      desc: "Your product has been added to cart.",
-      buttons: [
-        DialogButton(
-          child: Text(
-            "BACK",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Navigator.pop(context),
-          color: Color.fromRGBO(0, 179, 134, 1.0),
-        ),
-        DialogButton(
-          child: Text(
-            "GO CART",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => null,
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(116, 116, 191, 1.0),
-            Color.fromRGBO(52, 138, 199, 1.0)
-          ]),
-        )
-      ],
-    ).show();
-  }
-
   Widget _productSlideImage(String imageUrl) {
 //    imageUrl = imageUrl != null ? imageUrl : "assets/images/placeholder.png";
     return Center(

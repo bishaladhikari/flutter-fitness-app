@@ -696,8 +696,7 @@ class Repository {
           errorDescription = "Connection timeout with API server";
           break;
         case DioErrorType.DEFAULT:
-          errorDescription =
-              "Connection to API server failed due to internet connection";
+          errorDescription = "No internet connection";
           break;
         case DioErrorType.RECEIVE_TIMEOUT:
           errorDescription = "Receive timeout in connection with API server";
