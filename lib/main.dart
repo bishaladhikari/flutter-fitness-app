@@ -8,21 +8,17 @@ import 'package:flutter/material.dart';
 void main() {
 //  WidgetsFlutterBinding.ensureInitialized();
 //  final authBloc = AuthBloc();
-  runApp(DevicePreview(
-    enabled: false,
-    // builder: (context) => MyApp(),
-    builder: (context) => EasyLocalization(
-      key: Key(tr.hashCode.toString()),
-      child: myApp,
-      path: "assets/translations",
-      saveLocale: true,
-      supportedLocales: [
-        Locale('en', "US"),
-        Locale('ja', "JP"),
-        Locale('vi', "VN"),
-      ],
-      fallbackLocale: Locale('en', 'US'),
-    ),
+  runApp(EasyLocalization(
+//      key: Key(tr.hashCode.toString()),
+    child: myApp,
+    path: "assets/translations",
+    saveLocale: true,
+    supportedLocales: [
+      Locale('en', "US"),
+      Locale('ja', "JP"),
+      Locale('vi', "VN"),
+    ],
+    fallbackLocale: Locale('en', 'US'),
   ));
 }
 
