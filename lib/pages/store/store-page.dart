@@ -18,75 +18,77 @@ class _StorePageState extends State<StorePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Store"),
-        backgroundColor: Colors.white,
-      ),
-      body: Column(
-        children: [_storeProfileBuild(), _tabbarBuild()],
-      ),
-    );
+        appBar: AppBar(
+          title: Text("Store"),
+          backgroundColor: Colors.white,
+        ),
+        body: _buildBodyWidget());
   }
 
-  Widget _storeProfileBuild() {
+  Widget _buildBodyWidget() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          color: Colors.blueAccent,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 28.0, top: 10.0),
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/images/tomato.png'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 38.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Test Store',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            size: 17,
-                            color: Colors.white,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              'Kathmandyu',
-                              style:
-                                  TextStyle(wordSpacing: 2, letterSpacing: 4),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+      children: [
+        _buildStoreProfileWidget(),
+        Expanded(child: _buildTabBarWidget()),
       ],
     );
   }
 
-  Widget _tabbarBuild() {
+  Widget _buildStoreProfileWidget() {
+    return Container(
+      color: Colors.blueAccent,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 28.0, top: 10.0, bottom: 20.0),
+              child: CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage('assets/images/tomato.png'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 38.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Test Store',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.location_on,
+                          size: 17,
+                          color: Colors.white,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'Kathmandyu',
+                            style: TextStyle(wordSpacing: 2, letterSpacing: 4),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabBarWidget() {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: DefaultTabController(
