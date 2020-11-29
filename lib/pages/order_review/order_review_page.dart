@@ -112,110 +112,113 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
           ],
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  child: Text("Overall Rating: " + rating.toString(),
-                      style: TextStyle(fontSize: 14, color: Colors.black)),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: SmoothStarRating(
-                      allowHalfRating: false,
-                      onRated: (v) {
-                        setState(() {
-                          rating = v;
-                        });
-                      },
-                      starCount: 5,
-                      rating: rating.toDouble(),
-                      size: 40.0,
-                      isReadOnly: false,
-                      color: Colors.orange,
-                      borderColor: Colors.orange,
-                      spacing: 0.0),
-                ),
-                SizedBox(height: 10),
-                Form(
-                    key: _formKey,
-                    autovalidate: _validate,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Add a headline ",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black)),
-                          SizedBox(height: 5),
-                          TextFormField(
-                            controller: headingController,
-                            style: TextStyle(color: Color(0xFF000000)),
-                            cursorColor: Color(0xFF9b9b9b),
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: new EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 10.0),
-                                hintStyle: TextStyle(color: Colors.grey),
-                                hintText: "Headline"),
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText: "Heading is required"),
-                            ]),
-                          ),
-                          SizedBox(height: 10),
-                          Text("Write your review ",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black)),
-                          SizedBox(height: 5),
-                          TextFormField(
-                            controller: messageController,
-                            style: TextStyle(color: Color(0xFF000000)),
-                            cursorColor: Color(0xFF9b9b9b),
-                            minLines: 5,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: new EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 10.0),
-                                hintStyle: TextStyle(color: Colors.grey),
-                                hintText: "Message"),
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText: "Message is required"),
-                            ]),
-                          ),
-                          SizedBox(height: 20),
-                        ])),
-                GestureDetector(
-                  onTap: () {
-                    var params = {
-                      "rating": rating,
-                      "headline": "${headingController.text}",
-                      "message": "${messageController.text}",
-                      "order_attribute_id": orderProductItem.orderAttributeId,
-                      "image": null
-                    };
-                    _validateReviewForm(context, params);
-                  },
-                  child: Container(
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: NPrimaryColor,
-                        borderRadius: BorderRadius.circular(40.0)),
-                    child: Center(
-                        child: Text(
-                      "Submit Review",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
+          child: Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text("Overall Rating: " + rating.toString(),
+                        style: TextStyle(fontSize: 14, color: Colors.black)),
                   ),
-                ),
-              ],
+                  Container(
+                    alignment: Alignment.center,
+                    child: SmoothStarRating(
+                        allowHalfRating: false,
+                        onRated: (v) {
+                          setState(() {
+                            rating = v;
+                          });
+                        },
+                        starCount: 5,
+                        rating: rating.toDouble(),
+                        size: 40.0,
+                        isReadOnly: false,
+                        color: Colors.orange,
+                        borderColor: Colors.orange,
+                        spacing: 0.0),
+                  ),
+                  SizedBox(height: 10),
+                  Form(
+                      key: _formKey,
+                      autovalidate: _validate,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Add a headline ",
+                                style:
+                                    TextStyle(fontSize: 14, color: Colors.black)),
+                            SizedBox(height: 5),
+                            TextFormField(
+                              controller: headingController,
+                              style: TextStyle(color: Color(0xFF000000)),
+                              cursorColor: Color(0xFF9b9b9b),
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: new EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  hintText: "Headline"),
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: "Heading is required"),
+                              ]),
+                            ),
+                            SizedBox(height: 10),
+                            Text("Write your review ",
+                                style:
+                                    TextStyle(fontSize: 14, color: Colors.black)),
+                            SizedBox(height: 5),
+                            TextFormField(
+                              controller: messageController,
+                              style: TextStyle(color: Color(0xFF000000)),
+                              cursorColor: Color(0xFF9b9b9b),
+                              minLines: 5,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: new EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  hintText: "Message"),
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: "Message is required"),
+                              ]),
+                            ),
+                            SizedBox(height: 20),
+                          ])),
+                  GestureDetector(
+                    onTap: () {
+                      var params = {
+                        "rating": rating,
+                        "headline": "${headingController.text}",
+                        "message": "${messageController.text}",
+                        "order_attribute_id": orderProductItem.orderAttributeId,
+                        "image": null
+                      };
+                      _validateReviewForm(context, params);
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: NPrimaryColor,
+                          borderRadius: BorderRadius.circular(40.0)),
+                      child: Center(
+                          child: Text(
+                        "Submit Review",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      )),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ));

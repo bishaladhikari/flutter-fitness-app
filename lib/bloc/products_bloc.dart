@@ -22,14 +22,17 @@ class ProductsBloc {
 
   final BehaviorSubject<bool> _loading = BehaviorSubject<bool>();
 
+  final BehaviorSubject<String> _storeSlug = BehaviorSubject<String>();
+  final BehaviorSubject<int> _page = BehaviorSubject<int>();
+
   ProductResponse productResponse;
 
-  getProducts(int page) async {
+  getProducts() async {
     // ProductResponse response = await _repository.getProducts(page);
     // _forYou.sink.add(response);
 
     _loading.sink.add(true);
-    var params = {"page": page};
+    var params = {"page": _page.value, "store": _storeSlug.value};
     ProductResponse response = await _repository.getProducts(params);
 
     if (response.error == null) {
@@ -95,6 +98,10 @@ class ProductsBloc {
   BehaviorSubject<ProductResponse> get newArrivals => _newArrivals;
 
   BehaviorSubject<ProductResponse> get topRated => _topRated;
+
+  BehaviorSubject<int> get page => _page;
+
+  BehaviorSubject<String> get storeSlug => _storeSlug;
 
   Stream<bool> get loading => _loading.stream;
 }

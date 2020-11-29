@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
+import 'package:ecapp/bloc/loyalty_point_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
+import 'package:ecapp/models/response/loyalty_point_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
@@ -27,12 +29,10 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               double totalAmount = snapshot.data.totalAmount;
-              return Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                height: 130,
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,6 +53,32 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                         )
                       ],
                     ),
+                    SizedBox(height: 5),
+                    StreamBuilder<LoyaltyPointResponse>(
+                        stream: loyaltyPointBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData)
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("Cash on delivery charge"),
+                                  style: TextStyle(
+//                              fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 16),
+                                ),
+                                Text(
+                                  '¥ ' +
+                                      loyaltyPointBloc.cashOnDeliveryCharge
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 16),
+                                )
+                              ],
+                            );
+                          return Container();
+                        }),
                     SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,17 +110,19 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                         onPressed: () async {
                           showDialog(
                               context: context,
+                              barrierColor: Colors.white70,
                               barrierDismissible: false,
                               builder: (context) =>
                                   Center(child: CircularProgressIndicator()));
-                          AddOrderResponse response =
-                              await checkoutBloc.createOrder();
+                          checkoutBloc.paymentMethod.value= "Cash Payment";
+                          AddOrderResponse response = await checkoutBloc
+                              .createOrder();
                           if (response.error == null) {
                             Navigator.pop(context);
                             Navigator.of(context).pushNamed(
                                 "orderConfirmationPage",
                                 arguments: response.order);
-                          } else{
+                          } else {
                             Navigator.pop(context);
                             _scaffoldKey.currentState.showSnackBar(SnackBar(
                               content: Text(
@@ -103,7 +131,6 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               backgroundColor: Colors.redAccent,
                             ));
                           }
-
                         },
                         child: Text(
                           "Confirm Order".tr(),

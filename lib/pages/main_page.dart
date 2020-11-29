@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
     bannerBloc..getBanners();
     categoryBloc..getCategories();
     productsBloc..getFeaturedProducts();
-    productsBloc..getProducts(1);
+    productsBloc..getProducts();
     productsBloc..getNewArrivals();
     cartBloc..getCart();
 //    comboBloc.getComboProducts();
@@ -183,7 +183,7 @@ class _MainPageState extends State<MainPage> {
                               minHeight: 14,
                             ),
                             child: Text(
-                              snapshot.data.totalItems.toString() == null
+                              snapshot.data.totalItems == null
                                   ? '0'
                                   : snapshot.data.totalItems.toString(),
                               style: TextStyle(

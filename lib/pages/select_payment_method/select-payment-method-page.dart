@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/bloc/loyalty_point_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -26,16 +27,16 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               double totalAmount = snapshot.data.totalAmount;
-              return Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                height: 90,
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     StreamBuilder<RedeemPointResponse>(
-                        stream: loyaltyPointBloc.redeemAmount.stream,
+                        stream: loyaltyPointBloc.redeemResponse.stream,
                         builder: (context, snapshot) {
-                          if (snapshot.hasData) {
+                          if (snapshot.hasData &&
+                              snapshot.data.amountValue != null) {
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -47,7 +48,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                                 Text(
                                   '¥ ' +
                                       loyaltyPointBloc
-                                          .redeemAmount.value.amountValue
+                                          .redeemResponse.value.amountValue
                                           .toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -95,7 +96,30 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                               fontSize: 16),
                         )
                       ],
-                    )
+                    ),
+                    SizedBox(height: 5),
+                    StreamBuilder<RedeemPointResponse>(
+                        stream: loyaltyPointBloc.redeemResponse.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData &&
+                              snapshot.data.amountValue!=null && snapshot.data.amountValue> totalAmount)
+                            return SizedBox(
+                              width: double.infinity,
+                              height: 50,
+                              child: FlatButton(
+                                color: NPrimaryColor,
+                                onPressed: () async {
+                                  checkoutBloc.createOrder();
+//
+                                },
+                                child: Text(
+                                  "Place order",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            );
+                          return Container();
+                        })
                   ],
                 ),
               );

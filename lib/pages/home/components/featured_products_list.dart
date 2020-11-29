@@ -109,7 +109,7 @@ class _ProductsListState extends State<FeaturedProductsList> {
                         ),
                         child: Center(
                             child: Text(
-                          tr("More"),
+                          ("More"),
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

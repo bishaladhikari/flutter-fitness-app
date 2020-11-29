@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/products_bloc.dart';
+import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -6,24 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ProductsList extends StatefulWidget {
-  const ProductsList({
-    Key key,
-  }) : super(key: key);
-
   @override
   _ProductsListState createState() => _ProductsListState();
 }
 
 class _ProductsListState extends State<ProductsList> {
+  ProductsListBloc productsListBloc;
+
   @override
   void initState() {
+    productsListBloc = ProductsListBloc();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ProductResponse>(
-      stream: productsBloc.forYou.stream,
+      stream: productsListBloc.subject.stream,
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
@@ -67,12 +67,16 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   Widget _buildProductsListWidget(ProductResponse data) {
+    final double shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool isMobile = shortestSide < 600;
     List<Product> products = data.products;
     return Container(
         padding: EdgeInsets.only(top: 18),
         child: StaggeredGridView.countBuilder(
             crossAxisCount: 4,
-            staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+            staggeredTileBuilder: isMobile
+                ? (int index) => StaggeredTile.fit(2)
+                : (int index) => StaggeredTile.fit(1),
             controller: ScrollController(keepScrollOffset: false),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,

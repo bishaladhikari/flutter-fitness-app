@@ -10,5 +10,6 @@
   "Tags": "Tags",
   "Track your delivery status": "Track your delivery status",
   "View Order": "View Order",
-  "Continue Shopping": "Continue Shopping"
+  "Continue Shopping": "Continue Shopping",
+  "You have redeemed reward points with amount value equal to ¥{rewardPoints}. Now you can place order.": "You have redeemed reward points with amount value equal to ¥{rewardPoints}. Now you can place order."
 }

@@ -86,8 +86,8 @@ class ProductsListBloc {
     _sortBy.value = 'default';
     _types.value = null;
     _page.value = null;
-    _storeSlug.value = null;
     productResponse = null;
+    _storeSlug.value = null;
   }
 
   void drainCategoryStream() {
