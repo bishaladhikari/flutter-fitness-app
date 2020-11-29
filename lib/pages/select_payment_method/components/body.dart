@@ -191,7 +191,6 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                       stream: loyaltyPointBloc.subject.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          print("point" + snapshot.data.points.toString());
                           return snapshot.data.points != null
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

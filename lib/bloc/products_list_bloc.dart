@@ -79,6 +79,7 @@ class ProductsListBloc {
     _sortBy.value = 'default';
     _types.value = null;
     _page.value = null;
+    productResponse = null;
   }
 
   void drainCategoryStream() {
