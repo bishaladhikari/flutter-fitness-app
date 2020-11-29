@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/loyalty_point_bloc.dart';
 import 'package:ecapp/models/address.dart';
@@ -7,6 +8,8 @@ import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'address_bloc.dart';
 
@@ -33,7 +36,12 @@ class CheckoutBloc {
     _defaultAddress.close();
   }
 
-  createOrder({token}) async {
+  createOrder({context, token}) async {
+    showDialog(
+        context: context,
+        barrierColor: Colors.white70,
+        barrierDismissible: false,
+        builder: (context) => Center(child: CircularProgressIndicator()));
 //                  achieved_promotions: []
 //                  address_id: 1
 //                  billable_amount: "4444.00"
@@ -86,6 +94,33 @@ class CheckoutBloc {
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
     if (response.error == null) cartBloc.response = null;
+    Fluttertoast.showToast(
+        msg: response.error == null ? tr("Order Placed Successfully") : response.error,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: response.error == null ? Colors.green : Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+
+    if (response.error == null) {
+      Navigator.of(context, rootNavigator: true)
+          .pushReplacementNamed('orderConfirmationPage');
+    }
+//    if (response.error == null) {
+//      Navigator.pop(context);
+//      Navigator.of(context).pushNamed(
+//          "orderConfirmationPage",
+//          arguments: response.order);
+//    } else {
+//      Navigator.pop(context);
+//      _scaffoldKey.currentState.showSnackBar(SnackBar(
+//        content: Text(
+//          tr(response.error),
+//        ),
+//        backgroundColor: Colors.redAccent,
+//      ));
+//    }
     return response;
   }
 

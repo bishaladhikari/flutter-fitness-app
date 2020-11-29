@@ -88,12 +88,13 @@ class _ComboDetailPageState extends State<ComboDetailPage>
     reviewBloc..drainStream();
   }
 
-  addToCart(context, params) async {
+  addToCart(context, params, checkout) async {
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
       if (response.error != null) {
+        if (!checkout) Navigator.pop(context);
         var snackbar = SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
@@ -103,7 +104,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
         var snackbar = SnackBar(
           content: Row(
             children: [
-              Text("Item added to cart"),
+              Text(tr("Item added to cart")),
               Spacer(),
 //            GestureDetector(onTap: () {}, child: Text("Go to cart",style: TextStyle(color: Colors.red),))
             ],
@@ -111,6 +112,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
           backgroundColor: NPrimaryColor,
         );
         _scaffoldKey.currentState.showSnackBar(snackbar);
+        if (checkout) Navigator.pushNamed(context, "checkoutPage");
       }
     }
   }
@@ -451,11 +453,16 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                         width: 6,
                       ),
                       FlatButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, "checkoutPage");
-                          setState(() {
-                            isClicked = !isClicked;
-                          });
+                        onPressed: () async {
+                          var params = {
+                            "attribute_id": null,
+                            "combo_id": comboDetail.id,
+                            "quantity": 1
+                          };
+                          addToCart(context, params, true);
+//                          setState(() {
+//                            isClicked = !isClicked;
+//                          });
                         },
                         textColor: Colors.white,
                         padding: const EdgeInsets.all(0.0),
