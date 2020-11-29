@@ -220,78 +220,76 @@ class _ProductsListState extends State<ProductsList> {
   }
 
   _showSortProduct(context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * .50,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: <Widget>[
-                  Text("SORT BY",
-                      style: TextStyle(fontSize: 18, color: Colors.black)),
-                ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
               children: <Widget>[
-                ListTile(
-                    title: Text("Default",
-                        style: TextStyle(
-                            fontWeight: widget.productsListBloc.sortBy.value ==
-                                    "default"
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
-                    onTap: () {
-                      sortProducts(context, "default");
-                    }),
-                ListTile(
-                    title: Text("Popularity",
-                        style: TextStyle(
-                            fontWeight: widget.productsListBloc.sortBy.value ==
-                                    "popularity"
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
-                    onTap: () {
-                      sortProducts(context, 'popularity');
-                    }),
-                ListTile(
-                    title: Text("Low - High Price",
-                        style: TextStyle(
-                            fontWeight: widget.productsListBloc.sortBy.value ==
-                                    "price_asc"
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
-                    onTap: () {
-                      sortProducts(context, 'price_asc');
-                    }),
-                ListTile(
-                    title: Text("High - Low Price",
-                        style: TextStyle(
-                            fontWeight: widget.productsListBloc.sortBy.value ==
-                                    "price_desc"
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
-                    onTap: () {
-                      sortProducts(context, 'price_desc');
-                    }),
-                ListTile(
-                    title: Text("Average Rating",
-                        style: TextStyle(
-                            fontWeight: widget.productsListBloc.sortBy.value ==
-                                    "average_rating"
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
-                    onTap: () {
-                      sortProducts(context, 'average_rating');
-                    }),
+                Text("SORT BY",
+                    style: TextStyle(fontSize: 18, color: Colors.black)),
               ],
             ),
-          ],
-        ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ListTile(
+                  title: Text("Default",
+                      style: TextStyle(
+                          fontWeight: widget.productsListBloc.sortBy.value ==
+                                  "default"
+                              ? FontWeight.bold
+                              : FontWeight.normal)),
+                  onTap: () {
+                    sortProducts(context, "default");
+                  }),
+              ListTile(
+                  title: Text("Popularity",
+                      style: TextStyle(
+                          fontWeight: widget.productsListBloc.sortBy.value ==
+                                  "popularity"
+                              ? FontWeight.bold
+                              : FontWeight.normal)),
+                  onTap: () {
+                    sortProducts(context, 'popularity');
+                  }),
+              ListTile(
+                  title: Text("Low - High Price",
+                      style: TextStyle(
+                          fontWeight: widget.productsListBloc.sortBy.value ==
+                                  "price_asc"
+                              ? FontWeight.bold
+                              : FontWeight.normal)),
+                  onTap: () {
+                    sortProducts(context, 'price_asc');
+                  }),
+              ListTile(
+                  title: Text("High - Low Price",
+                      style: TextStyle(
+                          fontWeight: widget.productsListBloc.sortBy.value ==
+                                  "price_desc"
+                              ? FontWeight.bold
+                              : FontWeight.normal)),
+                  onTap: () {
+                    sortProducts(context, 'price_desc');
+                  }),
+              ListTile(
+                  title: Text("Average Rating",
+                      style: TextStyle(
+                          fontWeight: widget.productsListBloc.sortBy.value ==
+                                  "average_rating"
+                              ? FontWeight.bold
+                              : FontWeight.normal)),
+                  onTap: () {
+                    sortProducts(context, 'average_rating');
+                  }),
+            ],
+          ),
+        ],
       ),
     );
   }
