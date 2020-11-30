@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/components/combo_list.dart';
 import 'package:ecapp/components/products_list.dart';
 import 'package:ecapp/constants.dart';
@@ -37,7 +38,7 @@ class _StorePageState extends State<StorePage>
 
   Widget _buildStoreProfileWidget() {
     return Container(
-      color: Colors.blueAccent,
+      color: NPrimaryColor,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Row(
@@ -45,20 +46,20 @@ class _StorePageState extends State<StorePage>
           children: <Widget>[
             Padding(
               padding:
-                  const EdgeInsets.only(left: 28.0, top: 10.0, bottom: 20.0),
+                  const EdgeInsets.only(left: 28.0, top: 10.0, bottom: 10.0),
               child: CircleAvatar(
-                radius: 40,
+                radius: 25,
                 backgroundImage: AssetImage('assets/images/tomato.png'),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 38.0),
+              padding: const EdgeInsets.only(left: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'Test Store',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white, fontSize: 16),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -73,8 +74,8 @@ class _StorePageState extends State<StorePage>
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
-                            'Kathmandyu',
-                            style: TextStyle(wordSpacing: 2, letterSpacing: 4),
+                            'Kathmandu',
+                            style: TextStyle(fontSize: 12,color: Colors.white),
                           ),
                         )
                       ],
@@ -102,15 +103,15 @@ class _StorePageState extends State<StorePage>
               backgroundColor: Colors.white,
               elevation: 0,
               bottom: TabBar(
-                isScrollable: false,
+                isScrollable: true,
                 labelColor: NPrimaryColor,
                 indicatorWeight: 3.0,
                 indicatorSize: TabBarIndicatorSize.tab,
                 unselectedLabelColor: Colors.black,
                 tabs: [
-                  Tab(text: "Home"),
-                  Tab(text: "All Products"),
-                  Tab(text: "Combo Products"),
+                  Tab(text: tr("Home")),
+                  Tab(text: tr("All Products")),
+                  Tab(text: tr("Combo Products")),
                 ],
               ),
             ),
