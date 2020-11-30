@@ -19,6 +19,7 @@ class _StorePageState extends State<StorePage>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text("Store"),
           backgroundColor: Colors.white,
         ),
@@ -101,7 +102,7 @@ class _StorePageState extends State<StorePage>
               backgroundColor: Colors.white,
               elevation: 0,
               bottom: TabBar(
-                isScrollable: true,
+                isScrollable: false,
                 labelColor: NPrimaryColor,
                 indicatorWeight: 3.0,
                 indicatorSize: TabBarIndicatorSize.tab,
