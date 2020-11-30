@@ -85,7 +85,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                         final action = await Dialogs.yesAbortDialog(
                             context,
                             tr('Are you sure want to delete?'),
-                            tr('You won\'t be able to revert this!');
+                            tr('You won\'t be able to revert this!'));
                         if (action == DialogAction.yes) {
                           var params = {
                             "order_attribute_id":
