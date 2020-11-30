@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
@@ -85,8 +86,8 @@ class _MainPageState extends State<MainPage> {
       return showDialog(
         context: context,
         builder: (context) => new AlertDialog(
-          title: new Text('Are you sure?'),
-          content: new Text('Do you want to exit this application'),
+          title: Text(tr('Are you sure?')),
+          content: new Text(tr('Do you want to exit this application')),
           actionsPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
 //          actionsOverflowButtonSpacing: double.infinity,
           buttonPadding: EdgeInsets.only(right: 20),
