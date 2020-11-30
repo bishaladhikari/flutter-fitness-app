@@ -801,7 +801,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Ratings",
+                          tr("Ratings"),
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -839,9 +839,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                               ),
                               Row(
                                 children: [
+                                  Text(productDetail.reviewCount.toString(),
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black54)),
+                                  SizedBox(
+                                    width: 2.0,
+                                  ),
                                   Text(
-                                    productDetail.reviewCount.toString() +
-                                        " Customer Ratings",
+                                    tr("Customer Ratings"),
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600,
@@ -1005,7 +1012,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Reviews",
+                          tr("Reviews"),
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -1017,7 +1024,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 arguments: productDetail)
                           },
                           child: Text(
-                            "View All",
+                            tr("View All"),
                             style:
                                 TextStyle(fontSize: 16.0, color: Colors.blue),
                             textAlign: TextAlign.end,
@@ -1026,48 +1033,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       ],
                     ),
                     SizedBox(height: 12),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: <Widget>[
-                    //     StarRating(rating: productDetail.avgRating, size: 20),
-                    //     SizedBox(
-                    //       width: 8,
-                    //     ),
-                    //     Text(
-                    //       productDetail.reviewCount.toString() + " Reviews",
-                    //       style: TextStyle(color: Colors.black54),
-                    //     )
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   child: Divider(
-                    //     color: Colors.black26,
-                    //     height: 4,
-                    //   ),
-                    //   height: 24,
-                    // ),
-                    _buildReviewsView(context),
-                    // ListTile(
-                    //   leading: CircleAvatar(
-                    //     backgroundImage: NetworkImage(
-                    //         "https://miro.medium.com/fit/c/256/256/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-                    //   ),
-                    //   subtitle: Text(
-                    //       "Cats are good pets, for they are clean and are not noisy."),
-                    //   title: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     children: <Widget>[
-                    //       StarRating(rating: 4, size: 15),
-                    //       SizedBox(
-                    //         width: 8,
-                    //       ),
-                    //       Text(
-                    //         "12 Sep 2019",
-                    //         style: TextStyle(fontSize: 12, color: Colors.black54),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    _buildReviewsView(context, productDetail),
                   ],
                 ),
               ),
@@ -1087,7 +1053,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             children: <Widget>[
               Expanded(
                 child: Text(
-                  "You may also like",
+                  tr("You may also like"),
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
@@ -1098,10 +1064,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    print("Clicked");
+//                    print("Clicked");
                   },
                   child: Text(
-                    "View All",
+                    tr("View All"),
                     style: TextStyle(fontSize: 16.0, color: Colors.blue),
                     textAlign: TextAlign.end,
                   ),
@@ -1142,116 +1108,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     );
   }
 
-  Column buildTrending() {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 180,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 7 plus (128GB)',
-//                    icon: 'assets/iphone_7.png',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$2,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 11 (128GB)',
-//                    icon: 'assets/phone1.jpeg',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$4,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'iPhone',
-//                    name: 'iPhone 11 (64GB)',
-//                    icon: 'assets/phone2.jpeg',
-//                    rating: 4.5,
-//                    price: '\$3,890'),
-//                gradientColors: [Color(0XFF6eed8c), Colors.green[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Xiaomi',
-//                    name: 'Xiaomi Redmi Note8',
-//                    icon: 'assets/mi1.png',
-//                    rating: 3.5,
-//                    price: '\$2,890'),
-//                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 11 (128GB)',
-//                    icon: 'assets/phone1.jpeg',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$4,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'iPhone',
-//                    name: 'iPhone 11 (64GB)',
-//                    icon: 'assets/phone2.jpeg',
-//                    rating: 4.5,
-//                    price: '\$3,890'),
-//                gradientColors: [Color(0XFF6eed8c), Colors.green[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Xiaomi',
-//                    name: 'Xiaomi Redmi Note8',
-//                    icon: 'assets/mi1.png',
-//                    rating: 3.5,
-//                    price: '\$2,890'),
-//                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Apple',
-//                    name: 'iPhone 11 (128GB)',
-//                    icon: 'assets/phone1.jpeg',
-//                    rating: 4.5,
-//                    remainingQuantity: 5,
-//                    price: '\$4,000'),
-//                gradientColors: [Color(0XFFa466ec), Colors.purple[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'iPhone',
-//                    name: 'iPhone 11 (64GB)',
-//                    icon: 'assets/phone2.jpeg',
-//                    rating: 4.5,
-//                    price: '\$3,890'),
-//                gradientColors: [Color(0XFF6eed8c), Colors.green[400]],
-//              ),
-//              TrendingItem(
-//                product: Product(
-//                    company: 'Xiaomi',
-//                    name: 'Xiaomi Redmi Note8',
-//                    icon: 'assets/mi1.png',
-//                    rating: 3.5,
-//                    price: '\$2,890'),
-//                gradientColors: [Color(0XFFf28767), Colors.orange[400]],
-//              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  _buildReviewsView(BuildContext context) {
+  _buildReviewsView(BuildContext context, productDetail) {
     return StreamBuilder<ReviewResponse>(
       stream: reviewBloc.subject.stream,
       builder: (context, AsyncSnapshot<ReviewResponse> snapshot) {
@@ -1259,7 +1116,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildReviewListWidget(snapshot.data);
+          return _buildReviewListWidget(snapshot.data, productDetail);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -1269,7 +1126,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     );
   }
 
-  _buildReviewListWidget(ReviewResponse data) {
+  _buildReviewListWidget(ReviewResponse data, productDetail) {
     List<Review> reviews = data.reviews;
     if (reviews.length == 0) {
       return Container(
@@ -1282,7 +1139,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "This product has no reviews.",
+                  tr("This product has no reviews."),
                   style: TextStyle(color: Colors.black45),
                 ),
               ],
@@ -1340,6 +1197,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       child: Container(child: Row(children: children))),
                 ],
               ),
+              onTap: () {
+                Navigator.pushNamed(context, "ratingsReviewsPage",
+                    arguments: productDetail);
+              },
             );
           }).toList());
   }
