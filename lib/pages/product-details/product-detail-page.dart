@@ -555,8 +555,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             },
             child: Row(
               children: [
-                Text(tr("Sold By:"),style: TextStyle(fontWeight: FontWeight.bold),),
-                SizedBox(width: 5.0,),
+                Text(
+                  tr("Sold By:"),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 5.0,
+                ),
                 Text(
                   productDetail.soldBy,
                   style: TextStyle(fontSize: 16),
@@ -571,10 +576,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 width: 8,
               ),
               // Text("(3) reviews"),
-              Text("(" +
-                  productDetail.reviewCount.toString() +
-                  ")" +
-                  " reviews"),
+              Text("(" + productDetail.reviewCount.toString() + ")"),
+              SizedBox(width: 2.0),
+              Text(tr("reviews")),
 //              Spacer(),
 //              IconButton(
 //                icon: Icon(Icons.favorite_border,color: Colors.black26,), onPressed: () {  },
