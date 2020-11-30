@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/message_response.dart';
 import 'package:ecapp/models/user.dart';
@@ -116,6 +117,7 @@ class AuthBloc {
     pref.setString("user", null);
     User user;
     _currentPreference.sink.add(PrefsData(user, "", false));
+    cartBloc.drainStream();
   }
 }
 
