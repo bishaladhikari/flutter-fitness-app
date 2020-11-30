@@ -1,5 +1,4 @@
 import 'package:ecapp/models/response/search_suggestion_response.dart';
-import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';

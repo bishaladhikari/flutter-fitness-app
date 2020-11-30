@@ -25,6 +25,7 @@ import 'package:ecapp/models/response/redeem_point_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:ecapp/models/response/review_response.dart';
 import 'package:ecapp/models/response/search_suggestion_response.dart';
+import 'package:ecapp/models/response/store_response.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -60,6 +61,7 @@ class Repository {
   var searchSuggestionUrl = '$appUrl/search';
   var userProfileUrl = '$appUrl/customer/profile';
   var userProfileUpdateUrl = '$appUrl/customer/profile/update';
+  var getStoreDetailUrl = '$appUrl/stores';
 
   Repository() {
     BaseOptions options =
@@ -681,6 +683,15 @@ class Repository {
       return ProfileResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return ProfileResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<StoreResponse> getStoreDetail(String storeSlug) async {
+    try {
+      Response response = await _dio.get(getStoreDetailUrl + "/" + storeSlug);
+      return StoreResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return StoreResponse.withError(_handleError(error));
     }
   }
 

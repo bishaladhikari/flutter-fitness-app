@@ -63,7 +63,7 @@ class CartBloc {
   }
 
   void drainStream() {
-     _subject.value = null;
+    // _subject.value = null;
   }
 
   @mustCallSuper

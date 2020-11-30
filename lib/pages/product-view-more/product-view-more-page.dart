@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class ProductViewMorePage extends StatefulWidget {
   String types;
+  String storeSlug;
 
-  ProductViewMorePage({Key key, this.types}) : super(key: key);
+  ProductViewMorePage({Key key, this.types, this.storeSlug}) : super(key: key);
 
   @override
   _ProductViewMorePageState createState() => _ProductViewMorePageState();
@@ -28,6 +29,8 @@ class _ProductViewMorePageState extends State<ProductViewMorePage> {
       title = 'Featured Products';
     } else if (widget.types == 'combo') {
       title = 'Combo Products';
+    } else if (widget.types == 'popularity') {
+      title = 'Popular Products';
     } else {
       title = "Products";
     }
@@ -38,7 +41,7 @@ class _ProductViewMorePageState extends State<ProductViewMorePage> {
           backgroundColor: Colors.white,
         ),
         body: widget.types != 'combo'
-            ? ProductsList(types: widget.types)
+            ? ProductsList(types: widget.types, storeSlug: widget.storeSlug)
             : ComboList());
   }
 }

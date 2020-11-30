@@ -24,12 +24,12 @@ class _BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ListTile(
-              title: Text(tr('Account Information')),
+              title: Text('Account Information'),
               onTap: () async {
                 _navigateToUserProfileForm();
               }),
           ListTile(
-              title: Text(tr('Address Book')),
+              title: Text('Address Book'),
               onTap: () {
                 Navigator.pushNamed(context, 'addressPage', arguments: false);
               }),
@@ -51,11 +51,11 @@ class _BodyState extends State<Body> {
                 );
               }),
           ListTile(
-            title: Text(tr('Change Password')),
+            title: Text('Change Password'),
             onTap: () {},
           ),
           ListTile(
-            title: Text(tr('Logout')),
+            title: Text('Logout'),
             onTap: () {
               authBloc.logout();
               Navigator.of(context).pop();

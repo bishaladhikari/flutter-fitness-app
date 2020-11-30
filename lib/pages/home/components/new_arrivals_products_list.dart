@@ -5,6 +5,7 @@ import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'package:ecapp/pages/product-view-more/product-view-more-page.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -25,15 +26,14 @@ class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
   void initState() {
     productsListBloc = ProductsListBloc();
     productsListBloc.storeSlug.value = widget.storeSlug;
-    productsListBloc.types.value = 'new_arrivals';
+    productsListBloc.types.value = 'popularity';
     productsListBloc.getProducts();
-    // productsBloc.getNewArrivals();
     super.initState();
   }
 
   @override
   void dispose() {
-    // productsBloc.drainNewArrivalsStream();
+    productsListBloc.drainStream();
     super.dispose();
   }
 
@@ -104,8 +104,13 @@ class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
               if (index == products.length - 1) {
                 return GestureDetector(
                   onTap: () => {
-                    Navigator.pushNamed(context, "productViewMore",
-                        arguments: 'new_arrivals')
+                    Navigator.pushNamed(
+                      context,
+                      "productViewMore",
+                      arguments: widget.storeSlug == null
+                          ? 'new_arrivals'
+                          : 'popularity',
+                    )
                   },
                   child: Container(
                       width: 160.0,

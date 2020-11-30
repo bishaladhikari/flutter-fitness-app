@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/customer_review_bloc.dart';
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/components/dialogs.dart';
@@ -84,8 +83,8 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                         OrderProductItemResponse response;
                         final action = await Dialogs.yesAbortDialog(
                             context,
-                            tr('Are you sure want to delete?'),
-                            tr('You won\'t be able to revert this!'));
+                            'Are you sure want to delete?',
+                            'You won\'t be able to revert this!');
                         if (action == DialogAction.yes) {
                           var params = {
                             "order_attribute_id":
