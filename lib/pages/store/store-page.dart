@@ -21,8 +21,14 @@ class _StorePageState extends State<StorePage>
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text("Store"),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.white, //change your color here
+          ),
+          title: Text(
+            "Store",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: NPrimaryColor,
         ),
         body: _buildBodyWidget());
   }
@@ -59,7 +65,10 @@ class _StorePageState extends State<StorePage>
                 children: <Widget>[
                   Text(
                     'Test Store',
-                    style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white, fontSize: 16),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -75,7 +84,7 @@ class _StorePageState extends State<StorePage>
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
                             'Kathmandu',
-                            style: TextStyle(fontSize: 12,color: Colors.white),
+                            style: TextStyle(fontSize: 12, color: Colors.white),
                           ),
                         )
                       ],

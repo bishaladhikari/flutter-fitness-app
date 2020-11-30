@@ -543,21 +543,28 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //        duration: Duration(milliseconds: 500));
 //    final animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 //    controller.forward();
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () => {
-            Navigator.pushNamed(context, "storePage",
-                arguments: productDetail.storeSlug)
-          },
-          child: Text(
-            productDetail.storeSlug,
-            style: TextStyle(fontSize: 23),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () => {
+              Navigator.pushNamed(context, "storePage",
+                  arguments: productDetail.storeSlug)
+            },
+            child: Row(
+              children: [
+                Text(tr("Sold By:"),style: TextStyle(fontWeight: FontWeight.bold),),
+                SizedBox(width: 5.0,),
+                Text(
+                  productDetail.soldBy,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+          Row(
             children: [
               StarRating(rating: productDetail.avgRating, size: 10),
               SizedBox(
@@ -574,10 +581,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //              )
             ],
           ),
-        ),
-        DetailWidget(
-            productDetail: productDetail, productDetailBloc: productDetailBloc),
-      ],
+          SizedBox(
+            height: 5,
+          ),
+          DetailWidget(
+              productDetail: productDetail,
+              productDetailBloc: productDetailBloc),
+        ],
+      ),
     );
   }
 

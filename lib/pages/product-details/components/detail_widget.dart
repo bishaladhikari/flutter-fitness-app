@@ -36,8 +36,9 @@ class _DetailWidgetState extends State<DetailWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ProductPrice(productDetail: widget.productDetail), //Product Info
+        ProductPrice(productDetail: widget.productDetail), //P
         Variants(
             productDetail: widget.productDetail,
             productDetailBloc: widget.productDetailBloc),

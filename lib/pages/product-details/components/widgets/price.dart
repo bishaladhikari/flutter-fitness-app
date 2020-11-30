@@ -36,33 +36,30 @@ class _ProductPriceState extends State<ProductPrice> {
   Widget _buildProductPrice(Attribute attribute) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
+      child: Row(
+        children: [
+          attribute.discountPrice != null
+              ? Text(
+                  "\¥" + attribute.sellingPrice,
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 18,
+                      decoration: TextDecoration.lineThrough),
+                )
+              : Container(),
+          SizedBox(
+            width: 6,
+          ),
+          Text(
             attribute.discountPrice != null
-                ? Text(
-                    "\¥" + attribute.sellingPrice,
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 18,
-                        decoration: TextDecoration.lineThrough),
-                  )
-                : Container(),
-            SizedBox(
-              width: 6,
-            ),
-            Text(
-              attribute.discountPrice != null
-                  ? "\¥" + attribute.discountPrice
-                  : "\¥" + attribute.sellingPrice,
-              style: TextStyle(
-                  color: NPrimaryColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700),
-            )
-          ],
-        ),
+                ? "\¥" + attribute.discountPrice
+                : "\¥" + attribute.sellingPrice,
+            style: TextStyle(
+                color: NPrimaryColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w700),
+          )
+        ],
       ),
     );
   }
