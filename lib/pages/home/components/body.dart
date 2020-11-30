@@ -1,3 +1,6 @@
+import 'package:ecapp/bloc/banner_bloc.dart';
+import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/meta.dart';
@@ -42,52 +45,71 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CategoryChipsList(),
-          DiscountCard(),
-          CategoryTab(),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Text(
-                  "Featured Products",
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-                ),
-              ],
+    return RefreshIndicator(
+      onRefresh: () async{
+        productsBloc.page.value = 1;
+        bannerBloc.drainStream();
+        categoryBloc.drainStream();
+        productsBloc.drainNewArrivalsStream();
+        productsBloc.drainBestSellersStream();
+        productsBloc.drainTopRatedStream();
+        bannerBloc.getBanners();
+        categoryBloc.getCategories();
+        productsBloc.getFeaturedProducts();
+        productsBloc.getBestSellers();
+        productsBloc.getProducts();
+        productsBloc.getNewArrivals();
+        cartBloc..getCart();
+        return true;
+      },
+
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            CategoryChipsList(),
+            DiscountCard(),
+            CategoryTab(),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Text(
+                    "Featured Products",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          FeaturedProductsList(),
-          SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Text(
-                  "Combo Products",
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
-                ),
-              ],
+            FeaturedProductsList(),
+            SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Text(
+                    "Combo Products",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          ComboProductsList(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Products for you",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
+            ComboProductsList(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Products for you",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
+              ),
             ),
-          ),
-          ProductsList(),
-        ],
+            ProductsList(),
+          ],
+        ),
       ),
     );
   }
