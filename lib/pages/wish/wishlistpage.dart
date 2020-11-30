@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
+import 'package:ecapp/components/no_internet_widget.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/wishlist_response.dart';
@@ -153,6 +154,8 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   Widget _buildErrorWidget(String error) {
+    if (error == "No internet connection")
+      return NoInternetWidget();
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,

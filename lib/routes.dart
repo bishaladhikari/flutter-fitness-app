@@ -29,123 +29,109 @@ import 'package:ecapp/pages/store/store-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
 import 'package:ecapp/pages/orders/orders_page.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 abstract class Routes {
-  static MaterialPageRoute materialPageRoute(RouteSettings routeSettings) {
+  static PageTransition materialPageRoute(RouteSettings routeSettings) {
     final arguments = routeSettings.arguments;
 //    final arguments = routeSettings.arguments as Map<String, dynamic> ?? {};
     switch (routeSettings.name) {
       case 'mainPage':
-        return MaterialPageRoute(builder: (context) => MainPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  MainPage());
         break;
       case 'privacyPage':
-        return MaterialPageRoute(builder: (context) => PrivacyPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  PrivacyPage());
         break;
       case 'discountView':
-        return MaterialPageRoute(
-            builder: (context) => DiscountView(discountInfo: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  DiscountView(discountInfo: arguments));
         break;
       case 'storePage':
-        return MaterialPageRoute(
-            builder: (context) => StorePage(storeSlug: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  StorePage(storeSlug: arguments));
         break;
       case 'wishListPage':
-        return MaterialPageRoute(builder: (context) => WishListPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  WishListPage());
         break;
       case '/settings-page':
-        return MaterialPageRoute(builder: (context) => SettingsPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  SettingsPage());
         break;
       case 'loginPage':
-        return MaterialPageRoute(builder: (context) => LoginPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  LoginPage());
         break;
       case 'cartPage':
-        return MaterialPageRoute(builder: (context) => CartPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  CartPage());
         break;
       case 'productDetailPage':
-        return MaterialPageRoute(
-            builder: (context) => ProductDetailPage(
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  ProductDetailPage(
                   product: arguments,
                 ));
         break;
       case 'comboDetailPage':
-        return MaterialPageRoute(
-            builder: (context) => ComboDetailPage(
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  ComboDetailPage(
                   combo: arguments,
                 ));
         break;
       case 'registerPage':
-        return MaterialPageRoute(builder: (context) => RegisterPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  RegisterPage());
         break;
       case 'searchPage':
-        return MaterialPageRoute(builder: (context) => SearchPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  SearchPage());
         break;
       case 'addressPage':
-        return MaterialPageRoute(
-            builder: (context) => AddressPage(selectMode: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  AddressPage(selectMode: arguments));
         break;
       case 'emailConfirmPage':
-        return MaterialPageRoute(
-            builder: (context) => EmailConfirmPage(email: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  EmailConfirmPage(email: arguments));
         break;
       case 'forgetPasswordPage':
-        return MaterialPageRoute(
-            builder: (context) => ForgetPasswordPage(email: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  ForgetPasswordPage(email: arguments));
         break;
       case 'emailForgotPasswordPage':
-        return MaterialPageRoute(
-            builder: (context) => EmailForgotPasswordPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child: EmailForgotPasswordPage());
         break;
       case 'addressFormPage':
-        return MaterialPageRoute(
-            builder: (context) => AddressFormPage(address: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  AddressFormPage(address: arguments));
         break;
       case 'ordersPage':
-        return MaterialPageRoute(builder: (context) => OrdersListPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrdersListPage());
         break;
       case 'selectPaymentMethodPage':
-        return MaterialPageRoute(
-            builder: (context) => SelectPaymentMethodPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  SelectPaymentMethodPage());
         break;
       case 'checkoutPage':
-        return MaterialPageRoute(builder: (context) => CheckoutPage());
+//        return PageTransition(type:PageTransitionType.rightToLeft,child:  CheckoutPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  CheckoutPage());
         break;
       case 'cashOnDeliveryPage':
-        return MaterialPageRoute(builder: (context) => CashOnDeliveryPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  CashOnDeliveryPage());
         break;
       case 'cardPaymentPage':
-        return MaterialPageRoute(builder: (context) => CardPaymentPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  CardPaymentPage());
       case 'ordersPages':
-        return MaterialPageRoute(builder: (context) => OrdersListPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrdersListPage());
         break;
       case 'orderDetailPage':
-        return MaterialPageRoute(
-            builder: (context) => OrderDetailPage(order: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrderDetailPage(order: arguments));
         break;
       case 'orderConfirmationPage':
-        return MaterialPageRoute(
-            builder: (context) => OrderCompletePage(order: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrderCompletePage(order: arguments));
         break;
       case 'orderReviewPage':
-        return MaterialPageRoute(
-            builder: (context) => OrderReviewPage(orderProductItem: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrderReviewPage(orderProductItem: arguments));
         break;
       case 'ratingsReviewsPage':
-        return MaterialPageRoute(
-            builder: (context) => RatingsReviewsPage(productDetail: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  RatingsReviewsPage(productDetail: arguments));
         break;
       case 'fromSameSellerPage':
-        return MaterialPageRoute(
-            builder: (context) => FromSameSellerPage(slug: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  FromSameSellerPage(slug: arguments));
         break;
       case 'productViewMore':
-        return MaterialPageRoute(
-            builder: (context) => ProductViewMorePage(types: arguments));
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  ProductViewMorePage(types: arguments));
         break;
       case 'userProfileForm':
-        return MaterialPageRoute(builder: (context) => UserProfileFormPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  UserProfileFormPage());
         break;
       default:
-        return MaterialPageRoute(builder: (context) => WishListPage());
+        return PageTransition(type:PageTransitionType.rightToLeft,child:  WishListPage());
     }
   }
 }

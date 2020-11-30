@@ -40,7 +40,7 @@ void main() {
 //     ),
 
 class MyApp extends StatelessWidget {
-  // Locale _locale;
+  Locale _locale;
 
 //  final AuthBloc authBloc;
 //  MyApp({Key key,this.authBloc}):super(key:key);
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
 //        systemNavigationBarIconBrightness: Brightness.light,
 ////        systemNavigationBarColor: Colors.white.withOpacity(0.1)
 //    ));
-//     _locale = context.locale;
+    _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecapp',
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-// get locale => _locale;
+  get locale => _locale;
 //  BuildContext get context => _context;
 
 }
