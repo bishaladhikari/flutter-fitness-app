@@ -182,7 +182,7 @@ class _AddToCartState extends State<AddToCart> {
                   "combo_id": widget.comboDetail.id,
                   "quantity": quantity
                 };
-                widget.addToCart(context, params);
+                widget.addToCart(context, params,false);
               },
               child: Text(
                 "Add to cart".tr(),

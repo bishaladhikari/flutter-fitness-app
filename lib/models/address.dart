@@ -18,21 +18,21 @@ class Address {
 
   Address(
       {this.id,
-        this.customerId,
-        this.name,
-        this.phone,
-        this.email,
-        this.zipCode,
-        this.house,
-        this.address,
-        this.city,
-        this.prefecture,
-        this.addressType,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.isDefault,
-        this.customer});
+      this.customerId,
+      this.name,
+      this.phone,
+      this.email,
+      this.zipCode,
+      this.house,
+      this.address,
+      this.city,
+      this.prefecture,
+      this.addressType,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.isDefault,
+      this.customer});
 
   Address.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,26 +104,26 @@ class Customer {
 
   Customer(
       {this.id,
-        this.userId,
-        this.addressId,
-        this.referredBy,
-        this.referToken,
-        this.image,
-        this.description,
-        this.status,
-        this.loginStatus,
-        this.verified,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.ip,
-        this.actor,
-        this.subject,
-        this.imageLink,
-        this.totalPoints,
-        this.totalReferrals,
-        this.totalReferralPoints,
-        this.totalOrderPoints});
+      this.userId,
+      this.addressId,
+      this.referredBy,
+      this.referToken,
+      this.image,
+      this.description,
+      this.status,
+      this.loginStatus,
+      this.verified,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.ip,
+      this.actor,
+      this.subject,
+      this.imageLink,
+      this.totalPoints,
+      this.totalReferrals,
+      this.totalReferralPoints,
+      this.totalOrderPoints});
 
   Customer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -175,3 +175,4 @@ class Customer {
     return data;
   }
 }
+

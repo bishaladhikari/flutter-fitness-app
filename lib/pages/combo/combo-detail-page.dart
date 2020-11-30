@@ -112,7 +112,10 @@ class _ComboDetailPageState extends State<ComboDetailPage>
           backgroundColor: NPrimaryColor,
         );
         _scaffoldKey.currentState.showSnackBar(snackbar);
-        if (checkout) Navigator.pushNamed(context, "checkoutPage");
+        if (checkout)
+          Navigator.pushNamed(context, "checkoutPage");
+        else
+          Navigator.pop(context);
       }
     }
   }

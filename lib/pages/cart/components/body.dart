@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
@@ -50,8 +52,8 @@ class CartBody extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context,"storePage");
+                onTap: () {
+                  Navigator.pushNamed(context, "storePage");
                 },
                 child: Row(children: [
                   Text(
@@ -131,8 +133,18 @@ class CartBody extends StatelessWidget {
   }
 
   Widget _buildErrorWidget(context, String error) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-      content: Text("$error"),
+    if (error == "No internet connection")
+      return Center(child: Text(tr("No internet connection.")));
+    return Center(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
     ));
+//    Scaffold.of(context).showSnackBar(SnackBar(
+//      content: Text("$error"),
+//    ));
   }
 }

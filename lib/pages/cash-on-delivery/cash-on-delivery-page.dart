@@ -54,6 +54,25 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                       ],
                     ),
                     SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total Amount",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 16),
+                        ),
+                        Text(
+                          '¥ ' + checkoutBloc.billableAmount.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: NPrimaryColor,
+                              fontSize: 16),
+                        ),
+                      ],
+                    ),
                     StreamBuilder<LoyaltyPointResponse>(
                         stream: loyaltyPointBloc.subject.stream,
                         builder: (context, snapshot) {
@@ -84,19 +103,19 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Total Amount",
+                          tr("Payable Total Amount"),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + totalAmount.toString(),
+                          '¥ ' + checkoutBloc.payableTotal.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: NPrimaryColor,
                               fontSize: 16),
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(
