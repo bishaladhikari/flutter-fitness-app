@@ -43,6 +43,7 @@ class AuthBloc {
     _subject.sink.add(response);
     if (response.token != null) {
       _setPref(response);
+      cartBloc.getCart();
     }
     return response;
   }
