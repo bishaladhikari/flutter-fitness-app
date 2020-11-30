@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
 //        systemNavigationBarIconBrightness: Brightness.light,
 ////        systemNavigationBarColor: Colors.white.withOpacity(0.1)
 //    ));
-//     _locale = context.locale;
+     _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecapp',
