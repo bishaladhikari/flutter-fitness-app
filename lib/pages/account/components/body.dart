@@ -85,16 +85,16 @@ class _BodyState extends State<Body> {
           SizedBox(
             height: 15.0,
           ),
-          AppBarIconText(
-            iconData: Icons.save,
-            title: "Scan for Coupon ",
-            tralingIcon: Icons.keyboard_arrow_right,
-            onPressed: () {},
-          ),
-          Divider(
-            height: 1.0,
-            color: Colors.grey,
-          ),
+//          AppBarIconText(
+//            iconData: Icons.save,
+//            title: "Scan for Coupon ",
+//            tralingIcon: Icons.keyboard_arrow_right,
+//            onPressed: () {},
+//          ),
+//          Divider(
+//            height: 1.0,
+//            color: Colors.grey,
+//          ),
           AppBarIconText(
             iconData: Icons.attach_money,
             title: "Refer & Earn ",
