@@ -101,25 +101,28 @@ class _BodyState extends State<Body> {
           StreamBuilder<PrefsData>(
               stream: authBloc.preference,
               builder: (context, snapshot) {
-                var referCode = snapshot.data.user?.customer?.referCode;
-                return AppBarIconText(
-                  iconData: Icons.attach_money,
-                  title: tr("Refer & Earn"),
-                  subtitle: referCode,
+                if(snapshot.hasData){
+                  var referCode = snapshot.data.user?.customer?.referCode;
+                  return AppBarIconText(
+                    iconData: Icons.attach_money,
+                    title: tr("Refer & Earn"),
+                    subtitle: referCode,
 //                tralingIcon: Icons.keyboard_arrow_right,
-                  onPressed: () {
-                    var referCode = snapshot.data.user.customer.referCode;
-                    FlutterClipboard.copy(referCode).then((value) =>
-                        Fluttertoast.showToast(
-                            msg: tr("Copied"),
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.SNACKBAR,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.black,
-                            textColor: Colors.white,
-                            fontSize: 16.0));
-                  },
-                );
+                    onPressed: () {
+                      var referCode = snapshot.data.user.customer.referCode;
+                      FlutterClipboard.copy(referCode).then((value) =>
+                          Fluttertoast.showToast(
+                              msg: tr("Copied"),
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.SNACKBAR,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.black,
+                              textColor: Colors.white,
+                              fontSize: 16.0));
+                    },
+                  );
+                }
+                return Container();
               }
           ),
           SizedBox(
