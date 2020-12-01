@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:connectivity/connectivity.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/message_response.dart';
 import 'package:ecapp/models/user.dart';
@@ -99,18 +96,6 @@ class AuthBloc {
     // check if already in stream
     SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString("token") != null ? true : false;
-  }
-
-  Future<bool> isInternet() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      // I am connected to a mobile network, make sure there is actually a net connection.
-      return await DataConnectionChecker().hasConnection;
-    } else {
-      // Neither mobile data or WIFI detected, not internet connection found.
-      return false;
-    }
   }
 
   get user async {

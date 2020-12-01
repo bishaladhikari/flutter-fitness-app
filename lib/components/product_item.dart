@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
@@ -52,7 +53,7 @@ class ProductItem extends StatelessWidget {
         ],
       ),
       onTap: () async{
-        if(await authBloc.isInternet())
+        if(await mainBloc.isInternetAvailable())
         Navigator.pushNamed(context, "productDetailPage", arguments: product);
         else
           Navigator.pushNamed(context, "noInternetPage");

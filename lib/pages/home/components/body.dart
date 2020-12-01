@@ -1,6 +1,7 @@
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
+import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/meta.dart';
@@ -47,20 +48,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async{
-        productsBloc.page.value = 1;
-        productsBloc.productResponse = null;
-        bannerBloc.drainStream();
-        categoryBloc.drainStream();
-        productsBloc.drainNewArrivalsStream();
-        productsBloc.drainBestSellersStream();
-        productsBloc.drainTopRatedStream();
-        bannerBloc.getBanners();
-        categoryBloc.getCategories();
-        productsBloc.getFeaturedProducts();
-        productsBloc.getBestSellers();
-        productsBloc.getProducts();
-        productsBloc.getNewArrivals();
-        cartBloc.getCart();
+        mainBloc.refresh();
         return true;
       },
 

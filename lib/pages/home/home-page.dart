@@ -3,6 +3,7 @@ import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
+import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/components/no_internet_widget.dart';
 import 'package:ecapp/components/search_box.dart';
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage>
 //      appBar: homeAppBar(context),
 //      bottomNavigationBar: BottomNavBar(),
         body: FutureBuilder(
-          future: authBloc.isInternet(),
+          future: mainBloc.isInternetAvailable(),
           builder: (context, snapshot) {
             if (snapshot.hasData)
               return snapshot.data
@@ -74,6 +75,6 @@ class _HomePageState extends State<HomePage>
   bool get wantKeepAlive => true;
 
   Future<Widget> _buildBody() async {
-    return await authBloc.isInternet() ? Body() : NoInternetWidget();
+    return await mainBloc.isInternetAvailable() ? Body() : NoInternetWidget();
   }
 }
