@@ -77,7 +77,7 @@ class _BodyState extends State<Body> {
               child: Row(
                 children: [
                   Text(
-                    "Featured Products",
+                    tr("Featured Products"),
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                   ),

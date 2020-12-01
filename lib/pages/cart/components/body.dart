@@ -54,7 +54,7 @@ class CartBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "storePage");
+                  Navigator.pushNamed(context, "storePage",arguments: carts[i].storeSlug);
                 },
                 child: Row(children: [
                   Text(
