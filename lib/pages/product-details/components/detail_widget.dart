@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/search.dart';
 import 'package:ecapp/constants.dart';
@@ -42,7 +43,9 @@ class _DetailWidgetState extends State<DetailWidget> {
         Variants(
             productDetail: widget.productDetail,
             productDetailBloc: widget.productDetailBloc),
+        SizedBox(height: 10.0,),
         _buildTags(context),
+        SizedBox(height: 10.0,),
         _buildDescription(context),
       ],
     );
@@ -56,11 +59,8 @@ class _DetailWidgetState extends State<DetailWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      alignment: Alignment.topLeft, child: Text("Tags")),
-                ),
+                Container(
+                    alignment: Alignment.topLeft, child: Text(tr("Tags"))),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -98,13 +98,13 @@ class _DetailWidgetState extends State<DetailWidget> {
   _buildDescription(BuildContext context) {
     String descText = widget.productDetail.description;
     return Container(
-      padding: EdgeInsets.all(16.0),
+//      padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text("Description",
+          Text(tr("Description"),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
