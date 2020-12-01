@@ -16,7 +16,8 @@ class CartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         StreamBuilder<CartResponse>(
             stream: cartBloc.subject.stream,
