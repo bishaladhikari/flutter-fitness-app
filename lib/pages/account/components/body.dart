@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +75,8 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             iconData: Icons.loyalty,
-            title: "Wishlist",
-            subtitle: "Your Most Loved Styles.",
+            title: tr("Wishlist"),
+            subtitle: "Your Most Loved Products.",
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
               _navigateToWishlist();
@@ -95,11 +96,20 @@ class _BodyState extends State<Body> {
 //            height: 1.0,
 //            color: Colors.grey,
 //          ),
-          AppBarIconText(
-            iconData: Icons.attach_money,
-            title: "Refer & Earn ",
-            tralingIcon: Icons.keyboard_arrow_right,
-            onPressed: () {},
+          StreamBuilder<PrefsData>(
+            stream: authBloc.preference,
+            builder: (context, snapshot) {
+              var referCode = snapshot.data.user?.customer?.referCode;
+              return AppBarIconText(
+                iconData: Icons.attach_money,
+                title: "Refer & Earn",
+                subtitle: referCode,
+                tralingIcon: Icons.keyboard_arrow_right,
+                onPressed: () {
+                  var referCode = snapshot.data.user.customer.referCode;
+                },
+              );
+            }
           ),
           SizedBox(
             height: 15.0,
