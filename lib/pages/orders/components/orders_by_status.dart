@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/orders_by_status_bloc.dart';
 import 'package:ecapp/components/custom_error_widget.dart';
 import 'package:ecapp/models/meta.dart';
@@ -176,9 +177,12 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                   }
                   return GestureDetector(
                     child: _buildOrderList(orders[index]),
-                    onTap: () {
-                      Navigator.of(context).pushNamed('orderDetailPage',
-                          arguments: orders[index]);
+                    onTap: () async {
+                      if(await authBloc.isInternet())
+                        Navigator.of(context).pushNamed('orderDetailPage',
+                            arguments: orders[index]);
+                      else
+                      Navigator.pushNamed(context, "noInternetPage");
                     },
                   );
                 })),
