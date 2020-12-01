@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _CartPageState extends State<CartPage>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My Cart',
+          tr('My Cart'),
           style: TextStyle(
             fontFamily: 'Quicksand',
           ),

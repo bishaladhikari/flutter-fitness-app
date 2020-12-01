@@ -77,7 +77,7 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Featured Products",
+                    tr("Featured Products"),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: kTextColor),
                   ),
@@ -87,7 +87,7 @@ class _BodyState extends State<Body> {
                           arguments: 'featured')
                     },
                     child: Text(
-                      ("View All"),
+                      tr("View All"),
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Combo Products",
+                    tr("Combo Products"),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: kTextColor),
                   ),
@@ -115,7 +115,7 @@ class _BodyState extends State<Body> {
                           arguments: 'combo')
                     },
                     child: Text(
-                      ("View All"),
+                      tr("View All"),
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -129,7 +129,7 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                "Products for you",
+                tr("Products for you"),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
