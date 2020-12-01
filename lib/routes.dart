@@ -14,6 +14,7 @@ import 'package:ecapp/pages/combo/combo-detail-page.dart';
 import 'package:ecapp/pages/from-same-seller/from-same-seller-page.dart';
 import 'package:ecapp/pages/home/components/discount-view.dart';
 import 'package:ecapp/pages/main_page.dart';
+import 'package:ecapp/pages/no-internet/no-internet-page.dart';
 import 'package:ecapp/pages/order-complete/order-complete-page.dart';
 import 'package:ecapp/pages/order-details/order-detail-page.dart';
 import 'package:ecapp/pages/order_review/order_review_page.dart';
@@ -39,6 +40,9 @@ abstract class Routes {
       case 'mainPage':
         return PageTransition(type:PageTransitionType.rightToLeft,child:  MainPage());
         break;
+      case 'noInternetPage':
+        return PageTransition(type:PageTransitionType.rightToLeft,child: NoInternetPage());
+        break;
       case 'privacyPage':
         return PageTransition(type:PageTransitionType.rightToLeft,child:  PrivacyPage());
         break;
@@ -61,7 +65,7 @@ abstract class Routes {
         return PageTransition(type:PageTransitionType.rightToLeft,child:  CartPage());
         break;
       case 'productDetailPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  ProductDetailPage(
+        return PageTransition(type:PageTransitionType.fade,child:  ProductDetailPage(
                   product: arguments,
                 ));
         break;

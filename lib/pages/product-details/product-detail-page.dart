@@ -546,7 +546,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 //    final animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 //    controller.forward();
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -570,6 +570,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 ),
               ],
             ),
+          ),
+          SizedBox(
+            height: 8.0,
           ),
           Row(
             children: [

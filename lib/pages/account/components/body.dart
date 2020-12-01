@@ -1,6 +1,9 @@
+import 'package:clipboard/clipboard.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -74,8 +77,8 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             iconData: Icons.loyalty,
-            title: "Wishlist",
-            subtitle: "Your Most Loved Styles.",
+            title: tr("Wishlist"),
+            subtitle: "Your Most Loved Products.",
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
               _navigateToWishlist();
@@ -95,11 +98,32 @@ class _BodyState extends State<Body> {
 //            height: 1.0,
 //            color: Colors.grey,
 //          ),
-          AppBarIconText(
-            iconData: Icons.attach_money,
-            title: "Refer & Earn ",
-            tralingIcon: Icons.keyboard_arrow_right,
-            onPressed: () {},
+          StreamBuilder<PrefsData>(
+              stream: authBloc.preference,
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  var referCode = snapshot.data.user?.customer?.referCode;
+                  return AppBarIconText(
+                    iconData: Icons.attach_money,
+                    title: tr("Refer & Earn"),
+                    subtitle: referCode,
+//                tralingIcon: Icons.keyboard_arrow_right,
+                    onPressed: () {
+                      var referCode = snapshot.data.user.customer.referCode;
+                      FlutterClipboard.copy(referCode).then((value) =>
+                          Fluttertoast.showToast(
+                              msg: tr("Copied"),
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.SNACKBAR,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.black,
+                              textColor: Colors.white,
+                              fontSize: 16.0));
+                    },
+                  );
+                }
+                return Container();
+              }
           ),
           SizedBox(
             height: 15.0,
@@ -145,16 +169,16 @@ class _BodyState extends State<Body> {
               builder: (context, AsyncSnapshot snapshot) {
                 return snapshot.data?.isAuthenticated == false
                     ? Positioned(
-                        right: 25,
-                        bottom: 25,
-                        child: GestureDetector(
-                          child: _LoginSignup(),
-                          onTap: () {
+                    right: 25,
+                    bottom: 25,
+                    child: GestureDetector(
+                      child: _LoginSignup(),
+                      onTap: () {
 //                      _bottomLoginDialog(context);
-                            Navigator.of(context, rootNavigator: false)
-                                .pushNamed("loginPage");
-                          },
-                        ))
+                        Navigator.of(context, rootNavigator: false)
+                            .pushNamed("loginPage");
+                      },
+                    ))
                     : Container();
               }),
           StreamBuilder<PrefsData>(
@@ -163,15 +187,15 @@ class _BodyState extends State<Body> {
 //              if(!snapshot.hasData) return Container();
                 return snapshot.data?.isAuthenticated == true
                     ? Positioned(
-                        left: 160,
-                        bottom: 60,
-                        child: Text(
-                          snapshot.data.user.fullName,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18),
-                        ))
+                    left: 160,
+                    bottom: 60,
+                    child: Text(
+                      snapshot.data.user.fullName,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 18),
+                    ))
                     : Container();
               }),
         ],
@@ -204,12 +228,11 @@ class AppBarIconText extends StatelessWidget {
   final onPressed;
   final tralingIcon;
 
-  AppBarIconText(
-      {this.iconData,
-      this.title,
-      this.subtitle,
-      this.onPressed,
-      this.tralingIcon});
+  AppBarIconText({this.iconData,
+    this.title,
+    this.subtitle,
+    this.onPressed,
+    this.tralingIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +255,10 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 150,
-      width: MediaQuery.of(context).size.width / 3,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 3,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5.0),
@@ -252,16 +278,19 @@ class _LoginSignup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
-      width: MediaQuery.of(context).size.width / 2,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 2,
       decoration: BoxDecoration(
           color: NPrimaryColor, borderRadius: BorderRadius.circular(5.0)),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Center(
             child: Text(
-          "LOG IN/ SIGN UP",
-          style: TextStyle(fontSize: 11, color: Colors.white),
-        )),
+              "LOG IN/ SIGN UP",
+              style: TextStyle(fontSize: 11, color: Colors.white),
+            )),
       ),
     );
   }
