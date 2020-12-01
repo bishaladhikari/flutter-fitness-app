@@ -5,29 +5,29 @@ class User {
   String fullName;
   Customer customer;
 
-  User({this.id,
-    this.firstName,
-    this.lastName,
-    this.fullName,
-    this.customer
-    });
+  User({this.id, this.firstName, this.lastName, this.fullName, this.customer});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
     fullName = json['full_name'];
-    customer = Customer.fromJson(json['customer']);
+    customer = json['customer'] != null
+        ? Customer.fromJson(json['customer'])
+        : Customer();
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
     data['full_name'] = this.fullName;
+    data['customer'] = this.customer;
     return data;
   }
 }
+
 class Customer {
   bool status;
   bool verified;
@@ -42,19 +42,19 @@ class Customer {
   int totalReferralPoints;
   int totalOrderPoints;
 
-Customer(
+  Customer(
       {this.status,
-        this.verified,
-        this.referCode,
-        this.userId,
-        this.ip,
-        this.actor,
-        this.subject,
-        this.imageLink,
-        this.totalPoints,
-        this.totalReferrals,
-        this.totalReferralPoints,
-        this.totalOrderPoints});
+      this.verified,
+      this.referCode,
+      this.userId,
+      this.ip,
+      this.actor,
+      this.subject,
+      this.imageLink,
+      this.totalPoints,
+      this.totalReferrals,
+      this.totalReferralPoints,
+      this.totalOrderPoints});
 
   Customer.fromJson(Map<String, dynamic> json) {
     status = json['status'];

@@ -56,6 +56,7 @@ class ProductsListBloc {
       "searchTerm": _searchTerm.value,
       "types": _types.value,
       "page": _page.value,
+//      "per_page":4,
       "brands": _brandFilters.value.map((e) => e.slug).join(","),
       "store": _storeSlug.value,
     };
