@@ -41,7 +41,7 @@ class _ProductViewMorePageState extends State<ProductViewMorePage> {
           backgroundColor: Colors.white,
         ),
         body: widget.types != 'combo'
-            ? ProductsList(types: widget.types, storeSlug: widget.storeSlug)
+            ? ProductsList(types: widget.types)
             : ComboList());
   }
 }

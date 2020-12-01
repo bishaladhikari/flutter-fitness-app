@@ -1,4 +1,4 @@
-import 'package:ecapp/models/response/store.dart';
+import 'file:///F:/Freelance%20Project/ecapp/lib/models/store.dart';
 
 class StoreResponse {
   Store store;

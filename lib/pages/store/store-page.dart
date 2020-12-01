@@ -41,7 +41,7 @@ class _StorePageState extends State<StorePage>
                 if (snapshot.hasData) {
                   var store = snapshot.data.store;
                   return Text(
-                    store.storeName,
+                    store.storeAddress,
                     style: TextStyle(color: Colors.white),
                   );
                 } else {
@@ -78,13 +78,6 @@ class _StorePageState extends State<StorePage>
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var store = snapshot.data.store;
-            var address = store.zipCode == null
-                ? ""
-                : store.zipCode + store.address == null
-                    ? ""
-                    : ', ' + store.address + store.city == null
-                        ? ""
-                        : ', ' + store.city;
             return Container(
               color: NPrimaryColor,
               child: Padding(
@@ -123,14 +116,54 @@ class _StorePageState extends State<StorePage>
                                   size: 17,
                                   color: Colors.white,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    address,
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.white),
-                                  ),
-                                )
+                                store.zipCode != null
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          store.zipCode,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    : Container(),
+                                store.address != null
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          store.address,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    : Container(),
+                                store.city != null
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          store.city,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    : Container(),
+                                store.prefecture != null
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          store.prefecture,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    : Container(),
                               ],
                             ),
                           )

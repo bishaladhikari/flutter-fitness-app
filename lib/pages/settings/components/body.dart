@@ -1,8 +1,6 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/profile_bloc.dart';
 import 'package:ecapp/pages/review/review-page.dart';
-import 'package:ecapp/pages/settings/components/user_profile_form_page.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {

@@ -45,7 +45,6 @@ class ProductsListBloc {
 
   getProducts({String searchTerm}) async {
     _loading.sink.add(true);
-    print(['ho ra again product', _storeSlug.value]);
     var params = {
       "category": _currentCategory.value,
       "categoryFilters": _categoryFilters.value.length > 0

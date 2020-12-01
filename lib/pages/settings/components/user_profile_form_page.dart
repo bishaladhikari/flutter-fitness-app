@@ -15,7 +15,7 @@ class UserProfileFormPage extends StatefulWidget {
 
 class _UserProfileFormPageState extends State<UserProfileFormPage>
     with SingleTickerProviderStateMixin {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController firstNameController = TextEditingController();
@@ -41,7 +41,7 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
+        // key: _scaffoldKey,
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => {Navigator.pop(context)},
@@ -123,7 +123,7 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
                 controller: firstNameController,
                 style: TextStyle(color: Color(0xFF000000)),
                 cursorColor: Color(0xFF9b9b9b),
-                textInputAction: TextInputAction.next,
+                // textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -144,7 +144,7 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
                 style: TextStyle(color: Color(0xFF000000)),
                 cursorColor: Color(0xFF9b9b9b),
                 keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
+                // textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: new EdgeInsets.symmetric(
@@ -176,7 +176,7 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
                 inputFormatters: <TextInputFormatter>[
                   WhitelistingTextInputFormatter.digitsOnly,
                 ],
-                textInputAction: TextInputAction.done,
+                // textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -221,9 +221,9 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
     if (_formKey.currentState.validate()) {
       var params = {
         "email": "",
-        "first_name": "${firstNameController.text.trim()}",
-        "last_name": "${lastNameController.text.trim()}",
-        "mobile": "${mobileController.text.trim()}",
+        "first_name": "${firstNameController.text}",
+        "last_name": "${lastNameController.text}",
+        "mobile": "${mobileController.text}",
       };
 
       ProfileResponse response = await profileBloc.userProfileUpdate(params);

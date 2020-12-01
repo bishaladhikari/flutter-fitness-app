@@ -10,17 +10,16 @@ class Store {
   int productsCount;
   int comboProductsCount;
 
-  Store(
-      {this.storeName,
-      this.mobile,
-      this.email,
-      this.zipCode,
-      this.city,
-      this.address,
-      this.prefecture,
-      this.image,
-      this.productsCount,
-      this.comboProductsCount});
+  Store({this.storeName,
+    this.mobile,
+    this.email,
+    this.zipCode,
+    this.city,
+    this.address,
+    this.prefecture,
+    this.image,
+    this.productsCount,
+    this.comboProductsCount});
 
   Store.fromJson(Map<String, dynamic> json) {
     storeName = json['store_name'];
@@ -48,5 +47,19 @@ class Store {
     data['products_count'] = this.productsCount;
     data['combo_products_count'] = this.comboProductsCount;
     return data;
+  }
+
+  get storeAddress {
+    return 'hello';
+    var add = '';
+    if(zipCode != null)
+      add = zipCode;
+    if(city != null)
+      add += city;
+    if(prefecture != null)
+      add += prefecture;
+    if(address != null)
+      add += address;
+    return add;
   }
 }
