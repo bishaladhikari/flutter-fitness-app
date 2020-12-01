@@ -81,20 +81,52 @@ class _ProductsListState extends State<RelatedProductsList> {
 
   Widget _buildProductsListWidget(ProductResponse data) {
     List<Product> products = data.products;
-
-    return Container(
-        padding: EdgeInsets.all(10),
-//        width: double.infinity,
-        child: SizedBox(
-          height: 280,
-          child: ListView.builder(
-//            controller: ScrollController(keepScrollOffset: false),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return ProductItem(product: products[index]);
-              }),
-        ));
+    return products.length > 0
+        ? Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        "You may also like",
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black54),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          print("Clicked");
+                        },
+                        child: Text(
+                          "View All",
+                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    height: 280,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          return ProductItem(product: products[index]);
+                        }),
+                  )),
+            ],
+          )
+        : Container();
   }
 }

@@ -51,7 +51,6 @@ class _BodyState extends State<Body> {
         mainBloc.refresh();
         return true;
       },
-
       child: SingleChildScrollView(
         controller: _scrollController,
         child: Column(
@@ -64,11 +63,25 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     tr("Featured Products"),
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: kTextColor),
+                  ),
+                  GestureDetector(
+                    onTap: () => {
+                      Navigator.pushNamed(context, "productViewMore",
+                          arguments: 'featured')
+                    },
+                    child: Text(
+                      tr("View All"),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: NPrimaryColor),
+                    ),
                   ),
                 ],
               ),
@@ -78,11 +91,25 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     tr("Combo Products"),
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: kTextColor),
+                  ),
+                  GestureDetector(
+                    onTap: () => {
+                      Navigator.pushNamed(context, "productViewMore",
+                          arguments: 'combo')
+                    },
+                    child: Text(
+                      tr("View All"),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: NPrimaryColor),
+                    ),
                   ),
                 ],
               ),
@@ -91,9 +118,11 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                "Products for you",
+                tr("Products for you"),
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: kTextColor),
               ),
             ),
             ProductsList(),
