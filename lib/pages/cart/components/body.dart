@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/components/custom_error_widget.dart';
 import 'package:ecapp/components/no_internet_widget.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
@@ -23,11 +24,11 @@ class CartBody extends StatelessWidget {
               if (snapshot.hasData) {
                 if (snapshot.data.error != null &&
                     snapshot.data.error.length > 0) {
-                  return _buildErrorWidget(context, snapshot.data.error);
+                  return CustomErrorWidget(snapshot.data.error);
                 }
                 return _buildCartWidget(context, snapshot.data);
               } else if (snapshot.hasError) {
-                return _buildErrorWidget(context, snapshot.error);
+                return CustomErrorWidget(snapshot.error);
               } else {
                 return _buildLoadingWidget();
               }
@@ -144,8 +145,5 @@ class CartBody extends StatelessWidget {
         Text("Error occurred: $error"),
       ],
     ));
-//    Scaffold.of(context).showSnackBar(SnackBar(
-//      content: Text("$error"),
-//    ));
   }
 }

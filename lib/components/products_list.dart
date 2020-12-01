@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import 'custom_error_widget.dart';
+
 class ProductsList extends StatefulWidget {
   final String category;
   final String searchTerm;
@@ -98,11 +100,11 @@ class _ProductsListState extends State<ProductsList> {
       builder: (context, AsyncSnapshot<ProductResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return _buildErrorWidget(snapshot.data.error);
+            return CustomErrorWidget(snapshot.data.error);
           }
           return _buildHomeWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return _buildErrorWidget(snapshot.error);
+          return CustomErrorWidget(snapshot.error);
         } else {
           return _buildLoadingWidget();
         }
@@ -123,16 +125,6 @@ class _ProductsListState extends State<ProductsList> {
             strokeWidth: 4.0,
           ),
         )
-      ],
-    ));
-  }
-
-  Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occurred: $error"),
       ],
     ));
   }
@@ -239,10 +231,10 @@ class _ProductsListState extends State<ProductsList> {
               ListTile(
                   title: Text("Default",
                       style: TextStyle(
-                          fontWeight: widget.productsListBloc.sortBy.value ==
-                                  "default"
-                              ? FontWeight.bold
-                              : FontWeight.normal)),
+                          fontWeight:
+                              widget.productsListBloc.sortBy.value == "default"
+                                  ? FontWeight.bold
+                                  : FontWeight.normal)),
                   onTap: () {
                     sortProducts(context, "default");
                   }),

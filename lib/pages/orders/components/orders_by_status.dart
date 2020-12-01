@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/orders_by_status_bloc.dart';
+import 'package:ecapp/components/custom_error_widget.dart';
 import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/response/order_response.dart';
@@ -86,11 +87,11 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
       builder: (context, AsyncSnapshot<OrderResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return _buildErrorWidget(snapshot.data.error);
+            return CustomErrorWidget(snapshot.data.error);
           }
           return _buildHomeWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return _buildErrorWidget(snapshot.error);
+          return CustomErrorWidget(snapshot.error);
         } else {
           return _buildLoadingWidget();
         }

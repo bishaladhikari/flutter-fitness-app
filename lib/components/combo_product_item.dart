@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/combo.dart';
 import 'package:flutter/material.dart';
@@ -57,9 +58,12 @@ class ComboProductItem extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
+      onTap: () async {
 //        productDetailBloc..drainStream();
+        if(await authBloc.isInternet())
         Navigator.pushNamed(context, "comboDetailPage", arguments: combo);
+        else
+        Navigator.pushNamed(context, "noInternetPage");
       },
     );
   }
