@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/store_bloc.dart';
 import 'package:ecapp/components/combo_list.dart';
 import 'package:ecapp/components/products_list.dart';
+import 'package:ecapp/components/store_search_box.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/store_response.dart';
 import 'package:ecapp/pages/store/components/store_home_tab.dart';
@@ -29,38 +30,28 @@ class _StorePageState extends State<StorePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          title: StreamBuilder<StoreResponse>(
-              stream: widget.storeBloc.subject.stream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var store = snapshot.data.store;
-                  return Text(
-                    store.storeAddress,
-                    style: TextStyle(color: Colors.white),
-                  );
-                } else {
-                  return Text("");
-                }
-              }),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Icons.search,
-                size: 25,
-                color: Colors.white,
-              ),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: Colors.white, //change your color here
             ),
-          ],
-          backgroundColor: NPrimaryColor,
-        ),
-        body: _buildBodyWidget());
+            title: StoreSearchBox(),
+            actions: [
+//            Padding(
+//              padding: const EdgeInsets.only(right: 8.0),
+//              child: Icon(
+//                Icons.search,
+//                size: 25,
+//                color: Colors.white,
+//              ),
+//            ),
+            ],
+            backgroundColor: NPrimaryColor,
+          ),
+          body: _buildBodyWidget()),
+    );
   }
 
   Widget _buildBodyWidget() {
