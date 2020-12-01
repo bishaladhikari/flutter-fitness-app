@@ -82,51 +82,55 @@ class _ProductsListState extends State<SameSellerList> {
 
   Widget _buildProductsListWidget(ProductResponse data) {
     List<Product> products = data.products;
-    return Container(
-        padding: EdgeInsets.all(10),
-        child: SizedBox(
-          height: 280,
-          child: ListView.builder(
-//            controller: ScrollController(keepScrollOffset: false),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                if (index == products.length - 1) {
-                  return GestureDetector(
-                    onTap: () => {
-                      Navigator.pushNamed(context, "fromSameSellerPage",
-                          arguments: widget.slug)
-                    },
-                    child: Container(
-                        width: 160.0,
-                        height: 270,
-                        margin: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 4),
-                              blurRadius: 20,
-                              color: Color(0xFFB0CCE1).withOpacity(0.32),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                            child: Text(
-                          tr("More"),
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: NPrimaryColor),
-                        ))),
-                  );
-                }
-                return ProductItem(
-                  product: products[index],
-                );
-              }),
-        ));
+    return products.length > 0
+        ? Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        tr("From same seller"),
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black54),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => {
+                        Navigator.pushNamed(context, "fromSameSellerPage",
+                            arguments: widget.slug)
+                      },
+                      child: Text(
+                        tr("View All"),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: NPrimaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    height: 280,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          return ProductItem(
+                            product: products[index],
+                          );
+                        }),
+                  )),
+            ],
+          )
+        : Container();
   }
 }

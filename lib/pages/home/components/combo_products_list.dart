@@ -89,36 +89,6 @@ class _ComboProductsListState extends State<ComboProductsList> {
               scrollDirection: Axis.horizontal,
               itemCount: combos.length,
               itemBuilder: (context, index) {
-                if (index == combos.length - 1) {
-                  return GestureDetector(
-                    onTap: () => {
-                      Navigator.pushNamed(context, "productViewMore",
-                          arguments: 'combo')
-                    },
-                    child: Container(
-                        width: 160.0,
-                        margin: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 4),
-                              blurRadius: 20,
-                              color: Color(0xFFB0CCE1).withOpacity(0.32),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                            child: Text(
-                          tr("More"),
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: NPrimaryColor),
-                        ))),
-                  );
-                }
                 return ComboProductItem(combo: combos[index]);
               }),
         ));
