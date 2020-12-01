@@ -39,12 +39,12 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    bannerBloc..getBanners();
-    categoryBloc..getCategories();
-    productsBloc..getFeaturedProducts();
-    productsBloc..getProducts();
-    productsBloc..getNewArrivals();
-    cartBloc..getCart();
+    bannerBloc.getBanners();
+    categoryBloc.getCategories();
+    productsBloc.getFeaturedProducts();
+    productsBloc.getProducts();
+    productsBloc.getNewArrivals();
+    cartBloc.getCart();
 //    comboBloc.getComboProducts();
   }
 

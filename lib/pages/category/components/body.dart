@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/categories_bloc.dart';
+import 'package:ecapp/components/custom_error_widget.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/pages/category/components/category_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,11 +25,11 @@ class _CategoryBodyState extends State<CategoryBody> {
       builder: (context, AsyncSnapshot<CategoryResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-            return _buildErrorWidget(snapshot.data.error);
+            return CustomErrorWidget(snapshot.data.error);
           }
           return _buildCategoryListWidget(snapshot.data);
         } else if (snapshot.hasError) {
-          return _buildErrorWidget(snapshot.error);
+          return CustomErrorWidget(snapshot.error);
         } else {
           return _buildLoadingWidget();
         }

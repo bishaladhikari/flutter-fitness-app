@@ -35,7 +35,7 @@ class _BodyState extends State<Body> {
         if (page < meta.lastPage) {
           page++;
           productsBloc.page.value = page;
-          productsBloc..getProducts();
+          productsBloc.getProducts();
         }
       }
     });
@@ -48,6 +48,7 @@ class _BodyState extends State<Body> {
     return RefreshIndicator(
       onRefresh: () async{
         productsBloc.page.value = 1;
+        productsBloc.productResponse = null;
         bannerBloc.drainStream();
         categoryBloc.drainStream();
         productsBloc.drainNewArrivalsStream();
@@ -59,7 +60,7 @@ class _BodyState extends State<Body> {
         productsBloc.getBestSellers();
         productsBloc.getProducts();
         productsBloc.getNewArrivals();
-        cartBloc..getCart();
+        cartBloc.getCart();
         return true;
       },
 
@@ -91,7 +92,7 @@ class _BodyState extends State<Body> {
               child: Row(
                 children: [
                   Text(
-                    "Combo Products",
+                    tr("Combo Products"),
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: kTextColor),
                   ),

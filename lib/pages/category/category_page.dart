@@ -11,14 +11,6 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
-//  ProductsListByCategoryBloc productsByCategoryBloc;
-  Map<String, bool> values = {
-    'featured': false,
-    'best_sellers': false,
-    'new_arrivals': false,
-    'top_rated': false,
-  };
-
   TextEditingController minController = TextEditingController();
   TextEditingController maxController = TextEditingController();
 

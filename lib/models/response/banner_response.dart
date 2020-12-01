@@ -1,22 +1,21 @@
 class BannerResponse {
-  List<Banner> data;
+  List<Banner> banners;
   String error;
 
-  BannerResponse(this.data, this.error);
+  BannerResponse(this.banners, this.error);
 
   BannerResponse.withError(String errorValue)
-      : data = List(),
+      : banners = List(),
         error = errorValue;
 
   BannerResponse.fromJson(Map<String, dynamic> json)
-      : data =
-            (json["data"] as List).map((i) => new Banner.fromJson(i)).toList(),
+      : banners = (json["data"] as List).map((i) => new Banner.fromJson(i)).toList(),
         error = null;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+    if (this.banners != null) {
+      data['data'] = this.banners.map((v) => v.toJson()).toList();
     }
     return data;
   }

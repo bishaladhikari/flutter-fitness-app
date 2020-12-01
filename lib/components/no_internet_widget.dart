@@ -9,26 +9,24 @@ class NoInternetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height - 200,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 100,
-              child: Image.asset(
-                "assets/icons/no-connection.png",
-              ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 100,
+            child: Image.asset(
+              "assets/icons/no-connection.png",
             ),
-            Text(
-              tr("Oops"),
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-            ),
-            Text(tr("Something went wrong.")),
-            Text(tr("Checkout your connection and try again.")),
+          ),
+          Text(
+            tr("Oops"),
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          Text(tr("Something went wrong.")),
+          Text(tr("Checkout your connection and try again.")),
 //        GestureDetector(
 //            onTap: () {
 //              cartBloc.getCart();
@@ -40,8 +38,7 @@ class NoInternetWidget extends StatelessWidget {
 //                  color: Colors.blueAccent,
 //                  fontSize: 16),
 //            ))
-          ],
-        ),
+        ],
       ),
     );
   }

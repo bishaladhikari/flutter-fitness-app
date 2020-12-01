@@ -7,13 +7,14 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (error == "No internet connection") return NoInternetWidget();
     return Center(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Error occurred: $error"),
+        (error == "No internet connection")
+            ? NoInternetWidget()
+            : Text("Error occurred: $error"),
       ],
     ));
   }

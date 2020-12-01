@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
+import 'package:ecapp/models/response/banner_response.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -8,8 +9,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'discount-view.dart';
 
 class DiscountCard extends StatefulWidget {
-  
- 
   @override
   _DiscountCardState createState() => _DiscountCardState();
 }
@@ -17,6 +16,7 @@ class DiscountCard extends StatefulWidget {
 class _DiscountCardState extends State<DiscountCard> {
   bool isLoading = true;
   final _key = UniqueKey();
+
   // const DiscountCard({
   //   Key key,
   // }) : super(key: key);
@@ -25,13 +25,14 @@ class _DiscountCardState extends State<DiscountCard> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        StreamBuilder(
+        StreamBuilder<BannerResponse>(
           stream: bannerBloc.banners,
           builder: (context, snapShot) {
             if (snapShot.hasData) {
               return CarouselSlider.builder(
-                  itemCount: snapShot.data.data.length,
+                  itemCount: snapShot.data.banners.length,
                   options: CarouselOptions(
                       height: 200.0,
                       autoPlay: true,
@@ -39,16 +40,15 @@ class _DiscountCardState extends State<DiscountCard> {
                       autoPlayAnimationDuration: Duration(milliseconds: 800),
                       autoPlayCurve: Curves.fastOutSlowIn),
                   itemBuilder: (BuildContext context, int itemIndex) {
-                    final item = snapShot.data.data[itemIndex];
+                    final item = snapShot.data.banners[itemIndex];
                     return GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, "discountView",
-                            arguments:DiscountInfo(image:item.imageThumbnail,
-                             imageUrl:item.imageLink,
-                             caption: item.caption,
-                             url:item.url) 
-                              
-                            );
+                            arguments: DiscountInfo(
+                                image: item.imageThumbnail,
+                                imageUrl: item.imageLink,
+                                caption: item.caption,
+                                url: item.url));
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(vertical: 20),
@@ -92,11 +92,6 @@ class _DiscountCardState extends State<DiscountCard> {
                       ),
                     );
                   });
-
-              //       },
-              //     );
-              //   }).toList(),
-              // );
             }
             return _buildShimmerWidget();
           },

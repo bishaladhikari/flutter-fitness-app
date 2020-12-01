@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
+import 'package:ecapp/components/custom_error_widget.dart';
 import 'package:ecapp/components/no_internet_widget.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
@@ -46,11 +47,11 @@ class _WishListPageState extends State<WishListPage> {
               if (snapshot.hasData) {
                 if (snapshot.data.error != null &&
                     snapshot.data.error.length > 0) {
-                  return _buildErrorWidget(snapshot.data.error);
+                  return CustomErrorWidget(snapshot.data.error);
                 }
                 return _buildWishlistWidget(snapshot.data);
               } else if (snapshot.hasError) {
-                return _buildErrorWidget(snapshot.error);
+                return CustomErrorWidget(snapshot.error);
               }
             return _buildLoadingWidget();
           }),

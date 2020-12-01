@@ -136,7 +136,14 @@ class CartBody extends StatelessWidget {
 
   Widget _buildErrorWidget(context, String error) {
     if (error == "No internet connection")
-      return NoInternetWidget();
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            NoInternetWidget(),
+          ],
+        ),
+      );
     return Center(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
