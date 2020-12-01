@@ -59,7 +59,7 @@ class _ProductsListState extends State<ProductsList> {
     super.initState();
     widget.productsListBloc.searchTerm.value = widget.searchTerm;
     widget.productsListBloc.types.value = widget.types;
-    // widget.productsListBloc.storeSlug.value = widget.storeSlug;
+    widget.productsListBloc.storeSlug.value = widget.storeSlug;
     widget.productsListBloc.currentCategory.value = widget.category;
     widget.productsListBloc..getProducts();
   }
