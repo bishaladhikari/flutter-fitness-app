@@ -56,7 +56,8 @@ class CartBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "storePage",arguments: carts[i].storeSlug);
+                  Navigator.pushNamed(
+                      context, "storePage", arguments: carts[i].storeSlug);
                 },
                 child: Row(children: [
                   Text(
@@ -121,18 +122,19 @@ class CartBody extends StatelessWidget {
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 25.0,
-          width: 25.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 25.0,
+              width: 25.0,
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(
+                    Colors.blueAccent),
+                strokeWidth: 4.0,
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _buildErrorWidget(context, String error) {
@@ -147,11 +149,11 @@ class CartBody extends StatelessWidget {
       );
     return Center(
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occurred: $error"),
-      ],
-    ));
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Error occurred: $error"),
+          ],
+        ));
   }
 }

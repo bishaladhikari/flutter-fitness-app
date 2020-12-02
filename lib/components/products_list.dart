@@ -102,7 +102,7 @@ class _ProductsListState extends State<ProductsList> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return CustomErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(snapshot.data);
+          return _buildProductListWidget(snapshot.data);
         } else if (snapshot.hasError) {
           return CustomErrorWidget(snapshot.error);
         } else {
@@ -129,7 +129,7 @@ class _ProductsListState extends State<ProductsList> {
     ));
   }
 
-  Widget _buildHomeWidget(ProductResponse data) {
+  Widget _buildProductListWidget(ProductResponse data) {
     final double shortestSide = MediaQuery.of(context).size.shortestSide;
     final bool isMobile = shortestSide < 600;
 
@@ -138,6 +138,7 @@ class _ProductsListState extends State<ProductsList> {
       body: products.length > 0
           ? Container(
               child: StaggeredGridView.countBuilder(
+                padding: const EdgeInsets.all(8.0),
                   crossAxisCount: 4,
                   staggeredTileBuilder: isMobile
                       ? (int index) => StaggeredTile.fit(2)

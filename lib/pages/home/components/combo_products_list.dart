@@ -80,10 +80,11 @@ class _ComboProductsListState extends State<ComboProductsList> {
   Widget _buildComboProductsListWidget(ComboResponse data) {
     List<Combo> combos = data.combos;
     return Container(
-        padding: EdgeInsets.only(top: 18),
+        padding: EdgeInsets.only(top: 8),
         child: SizedBox(
           height: 280,
           child: ListView.builder(
+            padding: EdgeInsets.all(8.0),
 //            controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,

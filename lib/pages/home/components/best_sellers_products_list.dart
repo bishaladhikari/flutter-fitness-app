@@ -89,10 +89,11 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
   Widget _buildProductsListWidget(ProductResponse data) {
     List<Product> products = data.products;
     return Container(
-        padding: EdgeInsets.only(top: 18),
+        padding: EdgeInsets.only(top: 8),
         child: SizedBox(
           height: 240,
           child: ListView.builder(
+              padding: const EdgeInsets.all(8.0),
 //            controller: ScrollController(keepScrollOffset: false),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,

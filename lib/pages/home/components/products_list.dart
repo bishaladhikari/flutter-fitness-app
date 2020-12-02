@@ -69,7 +69,7 @@ class _ProductsListState extends State<ProductsList> {
     final bool isMobile = shortestSide < 600;
     List<Product> products = data.products;
     return Container(
-        padding: EdgeInsets.only(top: 18),
+        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
         child: StaggeredGridView.countBuilder(
             crossAxisCount: 4,
             staggeredTileBuilder: isMobile

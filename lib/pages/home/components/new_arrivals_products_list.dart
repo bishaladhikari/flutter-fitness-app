@@ -5,6 +5,7 @@ import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
+import 'file:///D:/projects/flutter%20projects/ecapp/lib/components/sidescroll_card_loading_widget.dart';
 import 'package:ecapp/pages/product-view-more/product-view-more-page.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -50,34 +51,9 @@ class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget();
+          return SideScrollCardLoadingWidget();
         }
       },
-    );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.black26,
-        period: Duration(milliseconds: 1000),
-        highlightColor: Colors.white70,
-        child: Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(height: 260, width: 160, color: Colors.black26),
-              SizedBox(width: 5),
-              Container(height: 260, width: 160, color: Colors.black26),
-              SizedBox(width: 5),
-              Container(height: 260, width: 10, color: Colors.black26),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -95,8 +71,9 @@ class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
     List<Product> products = data.products;
     return Container(
         height: 300,
-        padding: EdgeInsets.only(top: 18),
+        padding: EdgeInsets.only(top: 8),
         child: ListView.builder(
+          padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: products.length,

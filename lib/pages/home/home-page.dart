@@ -56,7 +56,9 @@ class _HomePageState extends State<HomePage>
                         children: [
                           NoInternetWidget(),
                           GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+
+                              },
                               child: Text(
                                 tr("Retry"),
                                 style: TextStyle(color: Colors.blueAccent,fontSize: 16),

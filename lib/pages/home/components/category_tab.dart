@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/pages/home/components/best_sellers_products_list.dart';
 import 'package:ecapp/pages/home/components/new_arrivals_products_list.dart';
 import 'package:ecapp/pages/home/components/top_rated_products_list.dart';
@@ -25,9 +26,9 @@ class CategoryTab extends StatelessWidget {
                 indicatorSize: TabBarIndicatorSize.tab,
                 unselectedLabelColor: Colors.black,
                 tabs: [
-                  Tab(text: "Best Sellers"),
-                  Tab(text: "New Arrivals"),
-                  Tab(text: "Top Rated"),
+                  Tab(text: tr("Best Sellers")),
+                  Tab(text: tr("New Arrivals")),
+                  Tab(text: tr("Top Rated")),
                 ],
               ),
             ),
