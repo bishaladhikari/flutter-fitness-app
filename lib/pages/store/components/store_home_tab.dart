@@ -5,7 +5,7 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/meta.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
-import 'package:ecapp/pages/home/components/new_arrivals_products_list.dart';
+import 'package:ecapp/pages/store/components/popular_products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -56,6 +56,13 @@ class _StoreHomeTabState extends State<StoreHomeTab> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    widget.productsListBloc.drainStream();
+    widget.productsListBloc.drainCategoryStream();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: _scrollController,
@@ -70,7 +77,7 @@ class _StoreHomeTabState extends State<StoreHomeTab> {
                   fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
             ),
           ),
-          NewArrivalsProductsList(storeSlug: widget.storeSlug),
+          PopularProductsList(storeSlug: widget.storeSlug),
           Padding(
             padding: const EdgeInsets.only(top: 20, left: 10.0),
             child: Text(
@@ -134,7 +141,7 @@ class _StoreHomeTabState extends State<StoreHomeTab> {
     return Container(
         padding: EdgeInsets.only(top: 8),
         child: StaggeredGridView.countBuilder(
-          padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             crossAxisCount: 4,
             staggeredTileBuilder: isMobile
                 ? (int index) => StaggeredTile.fit(2)
