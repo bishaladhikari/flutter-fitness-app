@@ -12,8 +12,8 @@ class StoreBloc {
 
   getStoreDetail(String storeSlug) async {
     response = await _repository.getStoreDetail(storeSlug);
-      _subject.sink.add(response);
-      return response;
+    _subject.sink.add(response);
+    return response;
   }
 
   void drainStream() {

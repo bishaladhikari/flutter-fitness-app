@@ -38,11 +38,4 @@ class _StoreTabsState extends State<StoreTabs> {
       ),
     );
   }
-
-  ListView _buildListViewWithName(String s) {
-    return ListView.builder(
-        itemBuilder: (context, index) => ListTile(
-              title: Text(s + ' $index'),
-            ));
-  }
 }

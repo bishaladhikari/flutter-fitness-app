@@ -20,11 +20,12 @@ class StorePage extends StatefulWidget {
   _StorePageState createState() => _StorePageState();
 }
 
-class _StorePageState extends State<StorePage> {
+class _StorePageState extends State<StorePage>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    widget.storeBloc.getStoreDetail(widget.storeSlug);
+    widget.storeBloc..getStoreDetail(widget.storeSlug);
   }
 
   @override
@@ -37,16 +38,6 @@ class _StorePageState extends State<StorePage> {
               color: Colors.white, //change your color here
             ),
             title: StoreSearchBox(),
-            actions: [
-//            Padding(
-//              padding: const EdgeInsets.only(right: 8.0),
-//              child: Icon(
-//                Icons.search,
-//                size: 25,
-//                color: Colors.white,
-//              ),
-//            ),
-            ],
             backgroundColor: NPrimaryColor,
           ),
           body: _buildBodyWidget()),
@@ -264,6 +255,6 @@ class _StorePageState extends State<StorePage> {
     );
   }
 
-  // @override
-  // bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
 }
