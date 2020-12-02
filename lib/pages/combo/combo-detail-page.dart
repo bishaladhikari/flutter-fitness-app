@@ -659,35 +659,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  "You may also like",
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    print("Clicked");
-                  },
-                  child: Text(
-                    "View All",
-                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
         RelatedProductsList(
           slug: slug,
           isCombo: true,
@@ -701,35 +672,6 @@ class _ComboDetailPageState extends State<ComboDetailPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  tr("From same seller"),
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black54),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    print("Clicked");
-                  },
-                  child: Text(
-                    "View All",
-                    style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
         SameSellerList(
           slug: slug,
           isCombo: true,
