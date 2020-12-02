@@ -43,7 +43,7 @@ class _ProductsListState extends State<SameSellerList> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildProductsListWidget(snapshot.data);
+          return _buildProductsListWidget(context, snapshot.data);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -80,7 +80,7 @@ class _ProductsListState extends State<SameSellerList> {
     ));
   }
 
-  Widget _buildProductsListWidget(ProductResponse data) {
+  Widget _buildProductsListWidget(context, ProductResponse data) {
     List<Product> products = data.products;
     return products.length > 0
         ? Column(
@@ -97,19 +97,6 @@ class _ProductsListState extends State<SameSellerList> {
                             fontWeight: FontWeight.w600,
                             color: Colors.black54),
                         textAlign: TextAlign.start,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => {
-                        Navigator.pushNamed(context, "fromSameSellerPage",
-                            arguments: widget.slug)
-                      },
-                      child: Text(
-                        tr("View All"),
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: NPrimaryColor),
                       ),
                     ),
                   ],
@@ -129,6 +116,24 @@ class _ProductsListState extends State<SameSellerList> {
                           );
                         }),
                   )),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "storePage",
+                        arguments: "red-lentil");
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      tr("Visit store"),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: NPrimaryColor),
+                    ),
+                  ),
+                ),
+              ),
             ],
           )
         : Container();

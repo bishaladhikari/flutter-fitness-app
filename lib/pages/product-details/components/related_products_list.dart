@@ -98,18 +98,18 @@ class _ProductsListState extends State<RelatedProductsList> {
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          print("Clicked");
-                        },
-                        child: Text(
-                          "View All",
-                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ),
+//                    Expanded(
+//                      child: GestureDetector(
+//                        onTap: () {
+//                          print("Clicked");
+//                        },
+//                        child: Text(
+//                          "View All",
+//                          style: TextStyle(fontSize: 16.0, color: Colors.blue),
+//                          textAlign: TextAlign.end,
+//                        ),
+//                      ),
+//                    ),
                   ],
                 ),
               ),
