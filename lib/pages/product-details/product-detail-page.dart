@@ -281,8 +281,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             opacity: _opacityTween.value,
                             child: Text(widget.product.name));
                       }),
-//                  leading: Container(),
-//                  floating: true,
                   flexibleSpace: FlexibleSpaceBar(
                     background: StreamBuilder<ProductDetailResponse>(
                         stream: productDetailBloc.subject.stream,
@@ -344,8 +342,24 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                             height: 10,
                           ),
                           // _buildProducts(context),
-                          RelatedProductsList(slug: slug),
-                          SameSellerList(slug: slug),
+                          StreamBuilder<ProductDetailResponse>(
+                              stream: productDetailBloc.subject.stream,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var productDetail =
+                                      snapshot.data.productDetail;
+                                  return Column(
+                                    children: [
+                                      RelatedProductsList(slug: slug),
+                                      SameSellerList(
+                                          slug: slug,
+                                          productDetail: productDetail),
+                                    ],
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              }),
                           _buildReviews(context),
                         ],
                       )

@@ -3,14 +3,17 @@ import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
+import 'package:ecapp/models/product_detail.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/material.dart';
 
 class SameSellerList extends StatefulWidget {
   final String slug;
+  final ProductDetail productDetail;
   final bool isCombo;
 
-  const SameSellerList({Key key, this.slug, this.isCombo = false})
+  const SameSellerList(
+      {Key key, this.slug, this.isCombo = false, this.productDetail})
       : super(key: key);
 
   @override
@@ -120,7 +123,7 @@ class _ProductsListState extends State<SameSellerList> {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, "storePage",
-                        arguments: "red-lentil");
+                        arguments: widget.productDetail.storeSlug);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

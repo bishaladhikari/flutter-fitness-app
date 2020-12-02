@@ -20,8 +20,7 @@ class StorePage extends StatefulWidget {
   _StorePageState createState() => _StorePageState();
 }
 
-class _StorePageState extends State<StorePage>
-    with AutomaticKeepAliveClientMixin {
+class _StorePageState extends State<StorePage> {
   @override
   void initState() {
     super.initState();
@@ -265,6 +264,6 @@ class _StorePageState extends State<StorePage>
     );
   }
 
-  @override
-  bool get wantKeepAlive => true;
+  // @override
+  // bool get wantKeepAlive => true;
 }
