@@ -148,3 +148,6 @@ class _StoreHomeTabState extends State<StoreHomeTab> {
             }));
   }
 }
+//http://ecsite.eeeinnovation.com/api/products?category=juice&categoryFilters&sortBy=price_desc&minPrice&maxPrice&searchTerm&types&page&brands=&store
+
+//http://ecsite.eeeinnovation.com/api/products?page=1&per_page=20&sort_by=price_desc&category=juice&starting_price=&ending_price=

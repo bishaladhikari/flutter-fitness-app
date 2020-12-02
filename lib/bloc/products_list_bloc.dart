@@ -47,13 +47,13 @@ class ProductsListBloc {
     _loading.sink.add(true);
     var params = {
       "category": _currentCategory.value,
-      "categoryFilters": _categoryFilters.value.length > 0
+      "sub_categories": _categoryFilters.value.length > 0
           ? _categoryFilters.value.map((e) => e.slug).join(",")
           : null,
-      "sortBy": _sortBy.value,
-      "minPrice": _minRange.value,
-      "maxPrice": _maxRange.value,
-      "searchTerm": _searchTerm.value,
+      "sort_by": _sortBy.value,
+      "starting_price": _minRange.value,
+      "ending_price": _maxRange.value,
+      "search_term": _searchTerm.value,
       "types": _types.value,
       "page": _page.value,
 //      "per_page":4,
