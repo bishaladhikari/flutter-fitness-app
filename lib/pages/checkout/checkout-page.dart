@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -43,7 +44,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Total Amount',
+                    Text(tr('Total Amount'),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black)),
                     Text('¥ ' + totalAmount.toString(),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/constants.dart';
@@ -73,7 +74,7 @@ class _StoreHomeTabState extends State<StoreHomeTab> {
           Padding(
             padding: const EdgeInsets.only(top: 20, left: 10.0),
             child: Text(
-              "Products for you",
+              tr("Products for you"),
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 15, color: kTextColor),
             ),
@@ -131,8 +132,9 @@ class _StoreHomeTabState extends State<StoreHomeTab> {
     final bool isMobile = shortestSide < 600;
     List<Product> products = data.products;
     return Container(
-        padding: EdgeInsets.only(top: 18),
+        padding: EdgeInsets.only(top: 8),
         child: StaggeredGridView.countBuilder(
+          padding: const EdgeInsets.all(8),
             crossAxisCount: 4,
             staggeredTileBuilder: isMobile
                 ? (int index) => StaggeredTile.fit(2)

@@ -119,7 +119,7 @@ class _BodyState extends State<Body> {
             child: Row(
               children: [
                 Text(
-                  "Shipping Address",
+                  tr("Shipping Address"),
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
@@ -152,23 +152,26 @@ class _BodyState extends State<Body> {
         children: [
           SizedBox(
             width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(children: [
-                Text(
-                  carts[i].soldBy + " ($itemCount items)",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-                IconButton(
-                  icon: Icon(
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(
+                    context, "storePage", arguments: carts[i].storeSlug);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
+                child: Row(children: [
+                  Text(
+                    carts[i].soldBy + " ($itemCount items)",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
-                  ),
-                  onPressed: () {},
-                )
-              ]),
+                  )
+                ]),
+              ),
             ),
           ),
           Container(
