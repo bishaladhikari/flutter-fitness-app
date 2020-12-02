@@ -3,6 +3,7 @@ import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
 import 'package:ecapp/components/product_skeleton.dart';
 import 'package:ecapp/components/search.dart';
+import 'package:ecapp/components/sidescroll_card_loading_widget.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
@@ -45,34 +46,9 @@ class _BestSellersProductsListState extends State<BestSellersProductsList> {
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
-          return _buildLoadingWidget();
+          return SideScrollCardLoadingWidget();
         }
       },
-    );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.black26,
-        period: Duration(milliseconds: 1000),
-        highlightColor: Colors.white70,
-        child: Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(height: 260, width: 160, color: Colors.black26),
-              SizedBox(width: 5),
-              Container(height: 260, width: 160, color: Colors.black26),
-              SizedBox(width: 5),
-              Container(height: 260, width: 10, color: Colors.black26),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
