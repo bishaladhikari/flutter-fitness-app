@@ -3,6 +3,7 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -27,33 +28,64 @@ class _RegisterPageState extends State<RegisterPage>
 
   AnimationController _controller;
 
-  validate() async {
-    {
-      print("email" + emailController.text.toString());
-      if (_formKey.currentState.validate()) {
-        try {
-          final response = await Repository().registerCustomer(
-              fname: fnameController.text,
-              lname: lnameController.text,
-              email: emailController.text,
-              mobile: mobileController.text,
-              password: passwordController.text,
-              cpassword: cpasswordController.text,
-              referCode: referCodeController.text
-          );
-          print("RegisterRes:" + response.toString());
-          _registerSuccess();
-        } catch (error) {
-          print("ErrorResponse:" + error.errorValue.toString());
-          _showErrorMessage(context, error.errorValue);
-        }
-      } else {
-        print("Not Validated");
-        setState(() {
-          _validate = true;
-        });
+  validate(context) async {
+    showDialog(
+        context: context,
+//          barrierColor: Colors.white70,
+        barrierDismissible: false,
+        builder: (context) => Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                  color: Colors.white,
+                  width: 200,
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator()),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Material(
+                        child: Text(
+                          tr("Signing up"),
+                          style: TextStyle(color: Colors.black87, fontSize: 18,),
+                        ),
+                      )
+                    ],
+                  )),
+            )));
+    _scaffoldKey.currentState.removeCurrentSnackBar();
+
+    FocusScope.of(context).requestFocus(new FocusNode());
+    print("email" + emailController.text.toString());
+    if (_formKey.currentState.validate()) {
+      try {
+        final response = await Repository().registerCustomer(
+            fname: fnameController.text,
+            lname: lnameController.text,
+            email: emailController.text,
+            mobile: mobileController.text,
+            password: passwordController.text,
+            cpassword: cpasswordController.text,
+            referCode: referCodeController.text);
+        print("RegisterRes:" + response.toString());
+        _registerSuccess();
+      } catch (error) {
+        print("ErrorResponse:" + error.errorValue.toString());
+        _showErrorMessage(context, error.errorValue);
       }
+    } else {
+      print("Not Validated");
+      setState(() {
+        _validate = true;
+      });
     }
+    Navigator.pop(context);
   }
 
   void _registerSuccess() {
@@ -112,17 +144,17 @@ class _RegisterPageState extends State<RegisterPage>
             onPressed: () => {},
             icon: Icon(Icons.close),
           ),
-          title: Text('Create new Account',
+          title: Text(tr('Create new Account'),
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0)),
           backgroundColor: Colors.white,
         ),
-        body: _buildLoginFormWidget());
+        body: _buildSignFormWidget(context));
   }
 
-  Widget _buildLoginFormWidget() {
+  Widget _buildSignFormWidget(context) {
     return ListView(children: [
       Container(
         padding: const EdgeInsets.all(20.0),
@@ -159,7 +191,7 @@ class _RegisterPageState extends State<RegisterPage>
                         contentPadding: new EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
                         hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "Last Name"),
+                        hintText: tr("Last Name")),
                     validator: validatepass,
                   ),
                   SizedBox(height: 10),
@@ -174,7 +206,7 @@ class _RegisterPageState extends State<RegisterPage>
                         contentPadding: new EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
                         hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "Mobile Number"),
+                        hintText: tr("Mobile Number")),
                     validator: MultiValidator([
                       PatternValidator(
                           r'(^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$)',
@@ -223,7 +255,7 @@ class _RegisterPageState extends State<RegisterPage>
                       PatternValidator(
                           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
                           errorText:
-                          'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
+                              'The Password must include a Lower case, a Upper Case, a digit, a symbol and more than 8 character')
                     ]),
                   ),
                   SizedBox(height: 10),
@@ -270,21 +302,18 @@ class _RegisterPageState extends State<RegisterPage>
             ),
             SizedBox(height: 20),
             GestureDetector(
-              onTap: () => validate(),
+              onTap: () => validate(context),
               child: Container(
                 height: 50.0,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: NPrimaryColor,
                     borderRadius: BorderRadius.circular(5.0)),
                 child: Center(
                     child: Text(
-                      "SIGN UP",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
+                  "SIGN UP",
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                )),
               ),
             ),
             Align(
@@ -317,10 +346,7 @@ class _RegisterPageState extends State<RegisterPage>
                   padding: const EdgeInsets.all(4.0),
                   margin: const EdgeInsets.all(4.0),
                   height: 50.0,
-                  width: (MediaQuery
-                      .of(context)
-                      .size
-                      .width) / 2.4,
+                  width: (MediaQuery.of(context).size.width) / 2.4,
                   decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: NPrimaryColor, width: 1.0),
@@ -353,10 +379,7 @@ class _RegisterPageState extends State<RegisterPage>
                   padding: const EdgeInsets.all(4.0),
                   margin: const EdgeInsets.all(4.0),
                   height: 50.0,
-                  width: (MediaQuery
-                      .of(context)
-                      .size
-                      .width) / 2.4,
+                  width: (MediaQuery.of(context).size.width) / 2.4,
                   decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: NPrimaryColor, width: 1.0),
@@ -396,10 +419,7 @@ class _RegisterPageState extends State<RegisterPage>
                 padding: const EdgeInsets.all(5.0),
                 margin: const EdgeInsets.all(10.0),
                 height: 50.0,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(color: Colors.grey, width: 1.0),

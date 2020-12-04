@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/components/loading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +68,8 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void _showErrorMessage(context, String message) {
-    var msg = message=='unauthenticated'?'Invalid Credentials':tr(message);
+    var msg =
+        message == 'unauthenticated' ? 'Invalid Credentials' : tr(message);
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(msg),
       backgroundColor: Colors.redAccent,
@@ -302,11 +303,44 @@ class _LoginPageState extends State<LoginPage>
 
   validateLogin(context) async {
     if (_formKey.currentState.validate()) {
-      Navigator.of(context).push(
-        PageRouteBuilder(
-            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
-      );
+//      Navigator.of(context).push(
+//        PageRouteBuilder(
+//            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
+//      );
 
+      showDialog(
+          context: context,
+//          barrierColor: Colors.white70,
+          barrierDismissible: false,
+          builder: (context) => Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                    color: Colors.white,
+                    width: 200,
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator()),
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        Material(
+                          child: Text(
+                            tr("Logging in"),
+                            style: TextStyle(color: Colors.black87, fontSize: 18,),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+
+      FocusScope.of(context).requestFocus(new FocusNode());
       LoginResponse response = await authBloc.login({
         "email": "${emailController.text.trim()}",
         "password": "${passwordController.text.trim()}"
@@ -320,8 +354,17 @@ class _LoginPageState extends State<LoginPage>
 //        subscription.cancel();
 //      });
       Navigator.pop(context);
-      if (response.token != null)
+      if (response.token != null){
         _loginSuccess(context);
+        Fluttertoast.showToast(
+            msg: tr("Login Success"),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: response.error == null ? Colors.green : Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
       else
         _showErrorMessage(context, response.error);
     } else {
