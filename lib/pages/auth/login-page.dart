@@ -300,31 +300,31 @@ class _LoginPageState extends State<LoginPage>
   }
 
   validateLogin(context) async {
-    Navigator.of(context).push(PageRouteBuilder(
-      pageBuilder: (BuildContext context, _, __) => LoadingScreen(),
-      opaque: false,
-    ));
-//     if (_formKey.currentState.validate()) {
-//       // print("email:" + emailController.text.toString());
-//       // print("password:" + passwordController.text.toString());
-//       LoginResponse response = await authBloc.login({
-//         "email": "${emailController.text.trim()}",
-//         "password": "${passwordController.text.trim()}"
-//       });
-// //      var stream = authBloc.subject.stream;
-// ////        StreamSubscription<LoginResponse> subscription;
-// //      final subscription = stream.listen(null);
-// //      subscription.onData((response) {
-// //        if (response.error != null) _showErrorMessage(context, response.error);
-// //        if (response.token != null) _loginSuccess(context);
-// //        subscription.cancel();
-// //      });
-//       if (response.token != null)
-//         _loginSuccess(context);
-//       else
-//         _showErrorMessage(context, response.error);
-//     } else {
-//       setState(() => _validate = true);
-//     }
+    if (_formKey.currentState.validate()) {
+      Navigator.of(context).push(
+        PageRouteBuilder(
+            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
+      );
+
+      LoginResponse response = await authBloc.login({
+        "email": "${emailController.text.trim()}",
+        "password": "${passwordController.text.trim()}"
+      });
+//      var stream = authBloc.subject.stream;
+////        StreamSubscription<LoginResponse> subscription;
+//      final subscription = stream.listen(null);
+//      subscription.onData((response) {
+//        if (response.error != null) _showErrorMessage(context, response.error);
+//        if (response.token != null) _loginSuccess(context);
+//        subscription.cancel();
+//      });
+      Navigator.pop(context);
+      if (response.token != null)
+        _loginSuccess(context);
+      else
+        _showErrorMessage(context, response.error);
+    } else {
+      setState(() => _validate = true);
+    }
   }
 }
