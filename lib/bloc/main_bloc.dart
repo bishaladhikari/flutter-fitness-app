@@ -1,12 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
-import 'package:ecapp/models/response/address_response.dart';
-import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rxdart/rxdart.dart';
-
 import 'banner_bloc.dart';
 import 'cart_bloc.dart';
 import 'categories_bloc.dart';

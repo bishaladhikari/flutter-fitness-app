@@ -67,8 +67,9 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void _showErrorMessage(context, String message) {
+    var msg = message=='unauthenticated'?'Invalid Credentials':tr(message);
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
+      content: Text(msg),
       backgroundColor: Colors.redAccent,
     ));
     authBloc..drainStream();

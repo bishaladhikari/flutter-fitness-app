@@ -26,7 +26,7 @@ class NoInternetWidget extends StatelessWidget {
                 TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
           Text(tr("Something went wrong.")),
-          Text(tr("Checkout your connection and try again.")),
+          Text(tr("Please check your connection and try again.")),
 //        GestureDetector(
 //            onTap: () {
 //              cartBloc.getCart();

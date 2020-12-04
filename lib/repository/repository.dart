@@ -717,7 +717,7 @@ class Repository {
               "Received invalid status code: ${dioError.response.statusCode}";
           switch (dioError.response.statusCode) {
             case 401:
-              errorDescription = "Invalid Credentials";
+              errorDescription = "unauthenticated";
               break;
             case 422:
               if (dioError.response.data["errors"] != null) {

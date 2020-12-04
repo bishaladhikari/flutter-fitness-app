@@ -23,7 +23,6 @@ import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import '../../constants.dart';
@@ -103,8 +102,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   @override
   void dispose() {
     super.dispose();
-    productDetailBloc..drainStream();
-    reviewBloc..drainStream();
+    productDetailBloc.drainStream();
+    reviewBloc.drainStream();
   }
 
   addToCart(context, params, checkout) async {
