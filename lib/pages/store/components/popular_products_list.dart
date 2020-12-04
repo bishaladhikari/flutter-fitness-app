@@ -7,17 +7,16 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/material.dart';
 
-class NewArrivalsProductsList extends StatefulWidget {
+class PopularProductsList extends StatefulWidget {
   String storeSlug;
 
-  NewArrivalsProductsList({Key key, this.storeSlug}) : super(key: key);
+  PopularProductsList({Key key, this.storeSlug}) : super(key: key);
 
   @override
-  _NewArrivalsProductsListState createState() =>
-      _NewArrivalsProductsListState();
+  _PopularProductsListState createState() => _PopularProductsListState();
 }
 
-class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
+class _PopularProductsListState extends State<PopularProductsList> {
   ProductsListBloc productsListBloc;
 
   @override
@@ -70,20 +69,18 @@ class _NewArrivalsProductsListState extends State<NewArrivalsProductsList> {
         height: 300,
         padding: EdgeInsets.only(top: 8),
         child: ListView.builder(
-          padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: products.length,
             itemBuilder: (context, index) {
-              if (index == products.length - 1) {
+              if (products.length > 5 && index == products.length - 1) {
                 return GestureDetector(
                   onTap: () => {
                     Navigator.pushNamed(
                       context,
                       "productViewMore",
-                      arguments: widget.storeSlug == null
-                          ? 'new_arrivals'
-                          : 'popularity',
+                      arguments: 'popularity',
                     )
                   },
                   child: Container(

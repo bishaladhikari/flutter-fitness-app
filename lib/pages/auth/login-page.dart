@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/components/loading.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage>
                   fontSize: 20.0)),
           backgroundColor: Colors.white,
         ),
-        body: SingleChildScrollView(child: _buildLoginFormWidget()));
+        body: SingleChildScrollView(child: _buildLoginFormWidget(context)));
   }
 
   void _showErrorMessage(context, String message) {
@@ -84,10 +85,9 @@ class _LoginPageState extends State<LoginPage>
     });
   }
 
-  Widget _buildLoginFormWidget() {
+  Widget _buildLoginFormWidget(context) {
     return Container(
       // height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(color: Colors.white),
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
@@ -302,8 +302,11 @@ class _LoginPageState extends State<LoginPage>
 
   validateLogin(context) async {
     if (_formKey.currentState.validate()) {
-      // print("email:" + emailController.text.toString());
-      // print("password:" + passwordController.text.toString());
+      Navigator.of(context).push(
+        PageRouteBuilder(
+            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
+      );
+
       LoginResponse response = await authBloc.login({
         "email": "${emailController.text.trim()}",
         "password": "${passwordController.text.trim()}"
@@ -316,6 +319,7 @@ class _LoginPageState extends State<LoginPage>
 //        if (response.token != null) _loginSuccess(context);
 //        subscription.cancel();
 //      });
+      Navigator.pop(context);
       if (response.token != null)
         _loginSuccess(context);
       else

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/store_bloc.dart';
 import 'package:ecapp/components/combo_list.dart';
 import 'package:ecapp/components/products_list.dart';
+import 'package:ecapp/models/response/store_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +43,17 @@ class _ProductViewMorePageState extends State<ProductViewMorePage> {
           backgroundColor: Colors.white,
         ),
         body: widget.types != 'combo'
-            ? ProductsList(types: widget.types)
+            ? StreamBuilder<StoreResponse>(
+                stream: storeBloc.subject.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    print('has data');
+                  } else {
+                    print("no data");
+                  }
+                  // print(snapshot.data.store.storeName);
+                  return ProductsList(types: widget.types);
+                })
             : ComboList());
   }
 }
