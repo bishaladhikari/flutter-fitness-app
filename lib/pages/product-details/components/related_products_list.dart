@@ -4,6 +4,7 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RelatedProductsList extends StatefulWidget {
   final String slug;
@@ -90,7 +91,7 @@ class _ProductsListState extends State<RelatedProductsList> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        "You may also like",
+                        tr("You may also like"),
                         style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
@@ -116,7 +117,7 @@ class _ProductsListState extends State<RelatedProductsList> {
               Container(
                   padding: EdgeInsets.all(10),
                   child: SizedBox(
-                    height: 280,
+                    height: 306,
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,

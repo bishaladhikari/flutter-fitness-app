@@ -108,7 +108,7 @@ class _ProductsListState extends State<SameSellerList> {
               Container(
                   padding: EdgeInsets.all(10),
                   child: SizedBox(
-                    height: 280,
+                    height: 306,
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
