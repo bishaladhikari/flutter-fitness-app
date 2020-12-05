@@ -13,7 +13,7 @@ class ProductItem extends StatelessWidget {
 //  final List<Color> gradientColors;
   final width;
 
-  ProductItem({this.product, this.width = 160.0});
+  ProductItem({this.product, this.width = 162.0});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ProductItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            height: 270,
+            height: 295,
             margin: EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -40,21 +40,38 @@ class ProductItem extends StatelessWidget {
             child: Card(
               elevation: 0,
               color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _productImage(),
-                  SizedBox(height: 8),
-                  _productDetails()
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _productImage(),
+                      SizedBox(height: 8),
+                      _productDetails()
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+//            margin: EdgeInsets.only(horizontal: 1, ve: 0),
+                      width: double.infinity,
+                      child: FlatButton(
+                        child: Text('Add To Cart', style: TextStyle(fontSize: 14)),
+                        onPressed: () => {},
+                        color: Colors.green,
+                        textColor: Colors.white,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
-      onTap: () async{
-        if(await mainBloc.isInternetAvailable())
-        Navigator.pushNamed(context, "productDetailPage", arguments: product);
+      onTap: () async {
+        if (await mainBloc.isInternetAvailable())
+          Navigator.pushNamed(context, "productDetailPage", arguments: product);
         else
           Navigator.pushNamed(context, "noInternetPage");
       },
@@ -153,7 +170,7 @@ class ProductItem extends StatelessWidget {
                   : Container()
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 8),
           StarRating(rating: product.avgRating, size: 10),
         ],
       ),

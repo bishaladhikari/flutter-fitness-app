@@ -9,7 +9,7 @@ class CategoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.0,
+      height: 375.0,
       child: DefaultTabController(
         length: 3,
         child: Scaffold(

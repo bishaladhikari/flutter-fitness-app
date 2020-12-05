@@ -79,7 +79,7 @@ class _ProductsListState extends State<FeaturedProductsList> {
     return Container(
         padding: EdgeInsets.only(top: 8),
         child: SizedBox(
-          height: 295,
+          height: 330,
           child: ListView.builder(
               padding: EdgeInsets.all(8.0),
 //            controller: ScrollController(keepScrollOffset: false),
