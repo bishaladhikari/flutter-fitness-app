@@ -36,16 +36,18 @@ class _AccountInformationPageState extends State<AccountInformationPage>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
+          elevation: 0,
           backgroundColor: Colors.white,
           centerTitle: true,
           title: new Text(
-            'Account Information',
+            tr('Account Information'),
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
         ),
         body: SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(5, 15, 0, 15),
-            child: Column(
+            child:
+            Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 GestureDetector(
@@ -57,7 +59,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                         child: Container(
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom),
-                          child: nameUpdateFormWidget(),
+                          child: updateFormWidget(),
                         ),
                       ),
                     );
@@ -78,7 +80,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Name",
+                                    tr("Name"),
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
@@ -155,7 +157,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Mobile Number",
+                                    tr("Mobile Number"),
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
@@ -239,7 +241,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
             )));
   }
 
-  Widget nameUpdateFormWidget() {
+  Widget updateFormWidget() {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -252,7 +254,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Name",
+                  Text(tr("Name"),
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -280,10 +282,10 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 10.0, horizontal: 10.0),
                     hintStyle: TextStyle(color: Colors.grey),
-                    hintText: "First Name"),
+                    hintText: tr("First Name")),
                 validator: MultiValidator([
                   RequiredValidator(
-                      errorText: "You cannot leave this field empty"),
+                      errorText: tr("You cannot leave this field empty")),
                 ]),
               ),
               SizedBox(
@@ -299,16 +301,16 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 10.0, horizontal: 10.0),
                     hintStyle: TextStyle(color: Colors.grey),
-                    hintText: "Last Name"),
+                    hintText: tr("Last Name")),
                 validator: MultiValidator([
-                  RequiredValidator(errorText: "Last Name is required"),
+                  RequiredValidator(errorText: tr("Last Name is required")),
                 ]),
               ),
               SizedBox(
                 height: 20,
               ),
               GestureDetector(
-                onTap: () => validateNameUpdate(context),
+                onTap: () => validate(context),
                 child: Container(
                   height: 50.0,
                   width: MediaQuery.of(context).size.width,
@@ -332,7 +334,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
     );
   }
 
-  validateNameUpdate(context) async {
+  validate(context) async {
     if (_formKey.currentState.validate()) {
       ProfileResponse response = await profileBloc.userProfileUpdate({
         "email": "",
@@ -358,7 +360,7 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Mobile Number",
+                  Text(tr("Mobile Number"),
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -386,9 +388,9 @@ class _AccountInformationPageState extends State<AccountInformationPage>
                     contentPadding: new EdgeInsets.symmetric(
                         vertical: 10.0, horizontal: 10.0),
                     hintStyle: TextStyle(color: Colors.grey),
-                    hintText: "Mobile Number"),
+                    hintText: tr("Mobile Number")),
                 validator: MultiValidator([
-                  RequiredValidator(errorText: "First Name is required"),
+                  RequiredValidator(errorText: tr("First Name is required")),
                 ]),
               ),
               SizedBox(
