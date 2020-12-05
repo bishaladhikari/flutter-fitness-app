@@ -59,7 +59,7 @@ abstract class Routes {
         return PageTransition(type:PageTransitionType.rightToLeft,child:  SettingsPage());
         break;
       case 'loginPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  LoginPage());
+        return PageTransition(type:PageTransitionType.bottomToTop,child:  LoginPage());
         break;
       case 'cartPage':
         return PageTransition(type:PageTransitionType.rightToLeft,child:  CartPage());
