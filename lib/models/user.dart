@@ -65,7 +65,7 @@ class Customer {
     actor = json['actor'];
     subject = json['subject'];
     imageLink = json['image_link'];
-    totalPoints = json['total_points'];
+    totalPoints = json['total_points'].toString();
     totalReferrals = json['total_referrals'];
     totalReferralPoints = json['total_referral_points'];
     totalOrderPoints = json['total_order_points'];
