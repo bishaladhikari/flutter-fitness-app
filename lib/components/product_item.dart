@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -53,11 +57,18 @@ class ProductItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-//            margin: EdgeInsets.only(horizontal: 1, ve: 0),
                       width: double.infinity,
                       child: FlatButton(
-                        child: Text(tr('Add To Cart'), style: TextStyle(fontSize: 14)),
-                        onPressed: () => {},
+                        child: Text(tr('Add To Cart'),
+                            style: TextStyle(fontSize: 14)),
+                        onPressed: () {
+                          var params = {
+                            "attribute_id": product.attributeId,
+                            "combo_id": null,
+                            "quantity": 1
+                          };
+                          addToCart(context, params);
+                        },
                         color: Colors.green,
                         textColor: Colors.white,
                       ),
@@ -81,9 +92,7 @@ class ProductItem extends StatelessWidget {
   _productImage() {
     return Hero(
       tag: product.heroTag,
-//            tag:product.imageThumbnail,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
           CachedNetworkImage(
             placeholder: (context, url) => Center(
@@ -97,11 +106,9 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             imageUrl: product.imageThumbnail,
-//            imageUrl: product.imageThumbnail,
             imageBuilder: (context, imageProvider) => Container(
               height: 130,
-//              width: 140,
-              width: 130,
+              // width: 130,
               decoration: BoxDecoration(
                   image: DecorationImage(
                 image: imageProvider,
@@ -119,6 +126,14 @@ class ProductItem extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+              top: 2.0,
+              right: 2.0,
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  child: Icon(Icons.favorite_border, color: Colors.black38))),
         ],
       ),
     );
@@ -175,5 +190,24 @@ class ProductItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  addToCart(context, params) async {
+    if (!await authBloc.isAuthenticated())
+      Navigator.pushNamed(context, "loginPage");
+    else {
+      AddToCartResponse response = await cartBloc.addToCart(params);
+      if (response.error != null) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(response.error),
+          backgroundColor: Colors.redAccent,
+        ));
+      } else {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(tr("Item added to cart")),
+          backgroundColor: NPrimaryColor,
+        ));
+      }
+    }
   }
 }

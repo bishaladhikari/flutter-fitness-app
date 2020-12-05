@@ -1,14 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/components/product_item.dart';
-import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/product_response.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FeaturedProductsList extends StatefulWidget {
+  Function Context;
   ProductsListBloc productsListBloc;
 
   FeaturedProductsList({Key key}) {

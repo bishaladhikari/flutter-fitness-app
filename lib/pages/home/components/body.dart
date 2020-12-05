@@ -1,3 +1,4 @@
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/categories_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/meta.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/pages/home/components/category_tab.dart';
 import 'package:ecapp/pages/home/components/combo_products_list.dart';
 import 'package:ecapp/pages/home/components/products_list.dart';
@@ -88,32 +90,6 @@ class _BodyState extends State<Body> {
             ),
             FeaturedProductsList(),
             SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr("Combo Products"),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kTextColor),
-                  ),
-                  GestureDetector(
-                    onTap: () => {
-                      Navigator.pushNamed(context, "productViewMore",
-                          arguments: 'combo')
-                    },
-                    child: Text(
-                      tr("View All"),
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: NPrimaryColor),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             ComboProductsList(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -131,4 +107,35 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+
+  // addToCart(context,params) async {
+  //   if (!await authBloc.isAuthenticated())
+  //     Navigator.pushNamed(context, "loginPage");
+  //   else {
+  //     var params = {
+  //       "attribute_id": product.attributeId,
+  //       "combo_id": null,
+  //       "quantity": 1
+  //     };
+  //     AddToCartResponse response = await cartBloc.addToCart(params);
+  //     if (response.error != null) {
+  //       var snackbar = SnackBar(
+  //         content: Text(response.error),
+  //         backgroundColor: Colors.redAccent,
+  //       );
+  //       // _scaffoldKey.currentState.showSnackBar(snackbar);
+  //     } else {
+  //       var snackbar = SnackBar(
+  //         content: Row(
+  //           children: [
+  //             Text(tr("Item added to cart")),
+  //             Spacer(),
+  //           ],
+  //         ),
+  //         backgroundColor: NPrimaryColor,
+  //       );
+  //       // _scaffoldKey.currentState.showSnackBar(snackbar);
+  //     }
+  //   }
+  // }
 }

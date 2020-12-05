@@ -79,19 +79,50 @@ class _ComboProductsListState extends State<ComboProductsList> {
 
   Widget _buildComboProductsListWidget(ComboResponse data) {
     List<Combo> combos = data.combos;
-    return Container(
-        padding: EdgeInsets.only(top: 8),
-        child: SizedBox(
-          height: 280,
-          child: ListView.builder(
-            padding: EdgeInsets.all(8.0),
-//            controller: ScrollController(keepScrollOffset: false),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: combos.length,
-              itemBuilder: (context, index) {
-                return ComboProductItem(combo: combos[index]);
-              }),
-        ));
+    return combos.length > 0
+        ? Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      tr("Combo Products"),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: kTextColor),
+                    ),
+                    GestureDetector(
+                      onTap: () => {
+                        Navigator.pushNamed(context, "productViewMore",
+                            arguments: 'combo')
+                      },
+                      child: Text(
+                        tr("View All"),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: NPrimaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  padding: EdgeInsets.only(top: 8),
+                  child: SizedBox(
+                    height: 280,
+                    child: ListView.builder(
+                        padding: EdgeInsets.all(8.0),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: combos.length,
+                        itemBuilder: (context, index) {
+                          return ComboProductItem(combo: combos[index]);
+                        }),
+                  )),
+            ],
+          )
+        : Container();
   }
 }
