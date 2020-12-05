@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/components/star_rating.dart';
 import 'package:ecapp/constants.dart';
@@ -56,9 +56,9 @@ class ProductItem extends StatelessWidget {
 //            margin: EdgeInsets.only(horizontal: 1, ve: 0),
                       width: double.infinity,
                       child: FlatButton(
-                        child: Text('Add To Cart', style: TextStyle(fontSize: 14)),
+                        child: Text(tr('Add To Cart'), style: TextStyle(fontSize: 14)),
                         onPressed: () => {},
-                        color: Colors.green,
+                        color: NPrimaryColor,
                         textColor: Colors.white,
                       ),
                     ),
