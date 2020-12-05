@@ -43,9 +43,9 @@ class Attribute {
     id = json['id'];
     availability = json['availability'];
     productName = json['product_name'];
-    sellingPrice = json['selling_price'];
+    sellingPrice = json['selling_price'].toString();
     discountPrice =
-        json['discount_price'] != null ? json['discount_price'] : null;
+        json['discount_price'] != null ? json['discount_price'].toString() : null;
     discountPercentage = json['discount_percentage'];
     if (json['images'] != null) {
       images = new List<AttributeImage>();
@@ -55,7 +55,7 @@ class Attribute {
     }
     imageThumbnail = json['image_thumbnail'] ?? null;
     soldBy = json['sold_by'];
-    weight = json['weight'];
+    weight = json['weight'].toString();
     unit = json['unit'];
     actualQuantity = json['actual_quantity'];
     variant =
