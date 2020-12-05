@@ -57,13 +57,13 @@ class Product {
         : null;
     discountPercentage = json['discount_percentage'];
     availability = json['availability'];
-    sellingPrice = json['selling_price'];
+    sellingPrice = json['selling_price'].toString();
     discountPrice =
-        json['discount_price'] != null ? json['discount_price'] : null;
+        json['discount_price'] != null ? json['discount_price'].toString() : null;
     image = json['image'];
     imageThumbnail = json['image_thumbnail'];
     soldBy = json['sold_by'];
-    weight = json['weight'];
+    weight = json['weight'].toString();
     unit = json['unit'];
     variant = json['variant'];
     variantTitle = json['variant_title'];
