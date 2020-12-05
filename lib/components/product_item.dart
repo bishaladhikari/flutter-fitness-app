@@ -58,7 +58,7 @@ class ProductItem extends StatelessWidget {
                       child: FlatButton(
                         child: Text(tr('Add To Cart'), style: TextStyle(fontSize: 14)),
                         onPressed: () => {},
-                        color: NPrimaryColor,
+                        color: Colors.green,
                         textColor: Colors.white,
                       ),
                     ),
