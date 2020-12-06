@@ -20,7 +20,6 @@ class ComboBloc {
 
   getComboProducts() async {
     _loading.sink.add(true);
-    print(['ho ra again', _storeSlug.value]);
     var params = {"page": _page.value, "store": _storeSlug.value};
     ComboResponse response = await _repository.getComboProducts(params);
 

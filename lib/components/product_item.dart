@@ -68,6 +68,37 @@ class _ProductItemState extends State<ProductItem> {
                       _productDetails()
                     ],
                   ),
+                  Positioned(
+                    top: 2.0,
+                    right: 2.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: Icon(Icons.favorite_border),
+                        color: !widget.product.saved ? Colors.black38 : Colors.green,
+                        onPressed: () {
+                          var params = {
+                            "attribute_id": widget.product.attributeId,
+                            "combo_id": null,
+                          };
+                          !widget.product.saved
+                              ? addToWishList(context, params)
+                              : removeFromWishList(context, params);
+                        },
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
@@ -107,72 +138,37 @@ class _ProductItemState extends State<ProductItem> {
   _productImage() {
     return Hero(
       tag: widget.product.heroTag,
-      child: Stack(
-        children: [
-          CachedNetworkImage(
-            placeholder: (context, url) => Center(
-              child: Container(
-                height: 130,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
-                ),
-              ),
-            ),
-            imageUrl: widget.product.imageThumbnail,
-            imageBuilder: (context, imageProvider) => Container(
-              height: 130,
-              // width: 130,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.contain,
-              )),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Container(
-                height: 130,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
-                ),
-              ),
+      child: CachedNetworkImage(
+        placeholder: (context, url) => Center(
+          child: Container(
+            height: 130,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/placeholder.png"),
+                  fit: BoxFit.cover),
             ),
           ),
-          Positioned(
-            top: 2.0,
-            right: 2.0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: IconButton(
-                icon: Icon(Icons.favorite_border),
-                color: !widget.product.saved ? Colors.black38 : Colors.green,
-                onPressed: () {
-                  var params = {
-                    "attribute_id": widget.product.attributeId,
-                    "combo_id": null,
-                  };
-                  !widget.product.saved
-                      ? addToWishList(context, params)
-                      : removeFromWishList(context, params);
-                },
-              ),
+        ),
+        imageUrl: widget.product.imageThumbnail,
+        imageBuilder: (context, imageProvider) => Container(
+          height: 130,
+          // width: 130,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.contain,
+          )),
+        ),
+        errorWidget: (context, url, error) => Center(
+          child: Container(
+            height: 130,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/placeholder.png"),
+                  fit: BoxFit.cover),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
