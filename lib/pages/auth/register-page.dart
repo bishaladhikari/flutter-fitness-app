@@ -227,8 +227,8 @@ class _RegisterPageState extends State<RegisterPage>
                         hintStyle: TextStyle(color: Colors.grey),
                         hintText: "Email"),
                     validator: MultiValidator([
-                      RequiredValidator(errorText: "Required*"),
-                      EmailValidator(errorText: "Not A Valid Email"),
+                      RequiredValidator(errorText: tr("Required*")),
+                      EmailValidator(errorText: tr("Not A Valid Email")),
                     ]),
                   ),
                   SizedBox(height: 10),
