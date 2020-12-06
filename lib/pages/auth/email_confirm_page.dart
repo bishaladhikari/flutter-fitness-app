@@ -260,7 +260,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
                         ),
                         Material(
                           child: Text(
-                            tr("Requesting..."),
+                            tr("Verifying..."),
                             style: TextStyle(
                               color: Colors.black87,
                               fontSize: 18,
