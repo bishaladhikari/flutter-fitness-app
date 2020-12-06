@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/response/message_response.dart';
+import 'package:ecapp/models/response/email_confirm_response.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,7 +37,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
   void initState() {
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () async {
-        MessageResponse response = await authBloc.resendOTPCode({
+        EmailConfirmResponse response = await authBloc.resendOTPCode({
           "email": "${widget.email}",
         });
 
@@ -147,11 +147,11 @@ class _EmailConfirmState extends State<EmailConfirmPage>
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                    text: "Didn't receive the code? ",
+                    text: tr("Didn't receive the code?"),
                     style: TextStyle(color: Colors.black54, fontSize: 15),
                     children: [
                       TextSpan(
-                          text: " RESEND",
+                          text: tr(" RESEND"),
                           recognizer: onTapRecognizer,
                           style: TextStyle(
                               color: Color(0xFF91D3B3),
@@ -202,7 +202,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
         hasError = false;
       });
 
-      MessageResponse response = await authBloc.confirmEmailOTP({
+      EmailConfirmResponse response = await authBloc.confirmEmailOTP({
         "email": "${widget.email}",
         "otp": otpCode,
       });
