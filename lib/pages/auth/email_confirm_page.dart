@@ -84,7 +84,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                    "Please, enter verification Code that we have sent you in your mail",
+                    tr("Please, enter verification Code that we have sent you in your mail"),
                     style: TextStyle(color: Colors.black87, fontSize: 16),
                     textAlign: TextAlign.center),
               ),
@@ -134,7 +134,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  hasError ? "*Please fill up all the cells properly" : "",
+                  hasError ? tr("Please fill up all the cells properly") : "",
                   style: TextStyle(
                       color: Colors.red,
                       fontSize: 12,
@@ -208,7 +208,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
       });
 
       Fluttertoast.showToast(
-          msg: response.error == null ? tr(response.message) : tr(response.error),
+          msg: response.error == null ? tr("Successfully Verified") : tr(response.error),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
