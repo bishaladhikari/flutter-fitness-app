@@ -1,9 +1,14 @@
 class RemoveFromWishlistResponse {
   final String error;
+  final String message;
 
-  RemoveFromWishlistResponse(this.error);
+  RemoveFromWishlistResponse(this.error, this.message);
 
-  RemoveFromWishlistResponse.fromJson(Map<String, dynamic> json) : error = null;
+  RemoveFromWishlistResponse.fromJson(Map<String, dynamic> json)
+      : error = null,
+        message = json["message"];
 
-  RemoveFromWishlistResponse.withError(String errorValue) : error = errorValue;
+  RemoveFromWishlistResponse.withError(String errorValue)
+      : error = errorValue,
+        message = null;
 }

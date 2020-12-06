@@ -5,7 +5,6 @@ import 'package:ecapp/models/combo.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constants.dart';
 
 class CartItemView extends StatelessWidget {

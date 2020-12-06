@@ -1,6 +1,3 @@
-import 'package:ecapp/bloc/banner_bloc.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/categories_bloc.dart';
 import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/bloc/products_bloc.dart';
 import 'package:ecapp/constants.dart';
@@ -47,7 +44,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async{
+      onRefresh: () async {
         mainBloc.refresh();
         return true;
       },
@@ -88,32 +85,6 @@ class _BodyState extends State<Body> {
             ),
             FeaturedProductsList(),
             SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr("Combo Products"),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: kTextColor),
-                  ),
-                  GestureDetector(
-                    onTap: () => {
-                      Navigator.pushNamed(context, "productViewMore",
-                          arguments: 'combo')
-                    },
-                    child: Text(
-                      tr("View All"),
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: NPrimaryColor),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             ComboProductsList(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

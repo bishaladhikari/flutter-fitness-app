@@ -210,7 +210,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           },
         ),
         Container(
-//                                height: 50,
           width: 50,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
