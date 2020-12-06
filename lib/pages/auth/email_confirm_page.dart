@@ -84,7 +84,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                    "Please, enter Verification Code that we have sent you in your mail",
+                    "Please, enter verification Code that we have sent you in your mail",
                     style: TextStyle(color: Colors.black87, fontSize: 16),
                     textAlign: TextAlign.center),
               ),
