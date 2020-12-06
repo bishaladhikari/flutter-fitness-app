@@ -42,7 +42,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
         });
 
         Fluttertoast.showToast(
-            msg: response.error == null ? response.message : response.error,
+            msg: response.error == null ? tr(response.message) : tr(response.error),
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -208,7 +208,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
       });
 
       Fluttertoast.showToast(
-          msg: response.error == null ? response.message : response.error,
+          msg: response.error == null ? tr(response.message) : tr(response.error),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
