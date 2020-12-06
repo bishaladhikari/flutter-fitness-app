@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
@@ -79,9 +80,10 @@ class Repository {
         _dio.lock();
         await getToken().then((token) => {
               if (token != null)
-                options.headers["Authorization"] = "Bearer " + token
-//            options.headers["Authorization"] ="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODZmODgyZjc0YzU2NmZjMzE2NGM5NmE3Nzk3ZDkxYmJiZmI5MzFlOGMwMmNiMzQwM2M1OTNlYjM4ODQxY2M5NGQzYjMwYWMzODMxMmE5NGYiLCJpYXQiOjE2MDE0NTg2MjIsIm5iZiI6MTYwMTQ1ODYyMiwiZXhwIjoxNjMyOTk0NjIyLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.JAKMMl2GdTRLL7SO_PzfSLTcw2FDzYfypePiMNX88ysInlI4A6cqJnP_0b4Frme6UafLLuS9adRkCKhfb0D9meK31yRt55Y6w-NiXA5S92wREgMLBObnKuHoq1h7T-mzKmkFEl71vZIv8YliJkDCV48DGmb97BtF0Hy6W9yIXsXTp74cFY3y-3HuSqyw2N4PCRIvQmpK_PNab0GMUjZqYAsEs-7XJL11beQsHzMu7AG9N9pJjvmJnM4mqxdJbgO10ahhBbnaEE6AZ-EJxOvNYMG_A8udi9-4fevjBNhbEdBp9iAygdC3fn84Y1D92B_7DWVPkY0Cgy2dNJ6pzbcWn-UPKqAcR06w4RFjkyy58RYNie10bpMpPXxmiLxxGhvpRrr7JEeoBQUwQAlnutgvXjKfzz7mZx2W86-JrsduA99x5-KDOYr3bt0oeD82NfGaz7arHghnjblaJSo5SXjQan80-_u3cSbJJi65oSQ_xCkb7306KFlFH5SM7CS4Z_DU7ViDt5NSBcg9hXfhAzfAxz10lhyp__kIobknEXw1mUZvkbSQ__K_fUFeGhMUhpyAvRf5RB6AXkjXZvKdRozOsNFRovnAIqrfkZLDUAcfCaAkYDNjX1yCxNxjVnaCPaBhg6riEchoUm15sQnHC36SrTV_AsbZBG08ICd6qjmnu0c"
+                options.headers["Authorization"] = "Bearer " + token,
             });
+        await authBloc.user.then(
+            (user) => {if (user != null) options.headers["user"] = user.id});
 
         _dio.unlock();
       }),
@@ -89,9 +91,9 @@ class Repository {
       InterceptorsWrapper(onRequest: (RequestOptions options) {
         if (!options.headers.containsKey("locale")) {
           _dio.lock();
-           var locale = myApp.locale?.languageCode.toString() == 'ja'
-               ? 'jp'
-               : myApp.locale?.languageCode.toString();
+          var locale = myApp.locale?.languageCode.toString() == 'ja'
+              ? 'jp'
+              : myApp.locale?.languageCode.toString();
 //          var locale = 'jp';
           options.headers["locale"] = locale;
           _dio.unlock();
@@ -110,7 +112,7 @@ class Repository {
 
   getUserId() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString("userId");
+    return pref.getString("user");
   }
 
   Future<LoginResponse> login(credentials) async {

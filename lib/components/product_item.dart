@@ -26,10 +26,12 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   ProductDetailBloc productDetailBloc;
+  bool saved;
 
   @override
   void initState() {
     productDetailBloc = ProductDetailBloc();
+    saved = widget.product.saved ?? false;
     super.initState();
   }
 
@@ -72,6 +74,8 @@ class _ProductItemState extends State<ProductItem> {
                     top: 2.0,
                     right: 2.0,
                     child: Container(
+                      height: 40.0,
+                      width: 40.0,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
@@ -86,13 +90,13 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                       child: IconButton(
                         icon: Icon(Icons.favorite_border),
-                        color: !widget.product.saved ? Colors.black38 : Colors.green,
+                        color: !saved ? Colors.black38 : Colors.green,
                         onPressed: () {
                           var params = {
                             "attribute_id": widget.product.attributeId,
                             "combo_id": null,
                           };
-                          !widget.product.saved
+                          !saved
                               ? addToWishList(context, params)
                               : removeFromWishList(context, params);
                         },
@@ -247,6 +251,7 @@ class _ProductItemState extends State<ProductItem> {
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
+      Scaffold.of(context).removeCurrentSnackBar();
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),
@@ -266,14 +271,16 @@ class _ProductItemState extends State<ProductItem> {
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToWishlistResponse response = await wishListBloc.addToWishList(params);
+      Scaffold.of(context).removeCurrentSnackBar();
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         ));
       } else {
-        print(['hello response', response.cartItem.attribute.saved]);
-        widget.product.saved = true;
+        setState(() {
+          saved = response.cartItem.attribute.saved;
+        });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Item added to wish list"),
           backgroundColor: NPrimaryColor,
@@ -288,13 +295,16 @@ class _ProductItemState extends State<ProductItem> {
     else {
       RemoveFromWishlistResponse response =
           await wishListBloc.removeFromWishList(params);
+      Scaffold.of(context).removeCurrentSnackBar();
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         ));
       } else {
-        widget.product.saved = false;
+        setState(() {
+          saved = false;
+        });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(tr(response.message)),
           backgroundColor: NPrimaryColor,
