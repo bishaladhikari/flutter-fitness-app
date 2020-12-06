@@ -203,12 +203,18 @@ class _ProductItemState extends State<ProductItem> {
                 style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
               ),
               Spacer(),
-              Text(widget.product.avgRating.toString()),
-              Icon(
-                Icons.star,
-                size: 10,
-                color: Colors.orange,
-              )
+              widget.product.avgRating.toString() == '0.0'
+                  ? Container()
+                  : Row(
+                      children: [
+                        Text(widget.product.avgRating.toStringAsFixed(0)),
+                        Icon(
+                          Icons.star,
+                          size: 10,
+                          color: Colors.orange,
+                        )
+                      ],
+                    ),
             ],
           ),
           SizedBox(height: 6),
@@ -270,6 +276,7 @@ class _ProductItemState extends State<ProductItem> {
           backgroundColor: Colors.redAccent,
         ));
       } else {
+        print(['hello response', response.cartItem.attribute.saved]);
         widget.product.saved = true;
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Item added to wish list"),
