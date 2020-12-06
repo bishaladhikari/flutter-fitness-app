@@ -26,10 +26,12 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   ProductDetailBloc productDetailBloc;
+  bool saved;
 
   @override
   void initState() {
     productDetailBloc = ProductDetailBloc();
+    saved = widget.product.saved ?? false;
     super.initState();
   }
 
@@ -67,6 +69,39 @@ class _ProductItemState extends State<ProductItem> {
                       SizedBox(height: 8),
                       _productDetails()
                     ],
+                  ),
+                  Positioned(
+                    top: 2.0,
+                    right: 2.0,
+                    child: Container(
+                      height: 40.0,
+                      width: 40.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: Icon(Icons.favorite_border),
+                        color: !saved ? Colors.black38 : Colors.green,
+                        onPressed: () {
+                          var params = {
+                            "attribute_id": widget.product.attributeId,
+                            "combo_id": null,
+                          };
+                          !saved
+                              ? addToWishList(context, params)
+                              : removeFromWishList(context, params);
+                        },
+                      ),
+                    ),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -107,58 +142,37 @@ class _ProductItemState extends State<ProductItem> {
   _productImage() {
     return Hero(
       tag: widget.product.heroTag,
-      child: Stack(
-        children: [
-          CachedNetworkImage(
-            placeholder: (context, url) => Center(
-              child: Container(
-                height: 130,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
-                ),
-              ),
-            ),
-            imageUrl: widget.product.imageThumbnail,
-            imageBuilder: (context, imageProvider) => Container(
-              height: 130,
-              // width: 130,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.contain,
-              )),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Container(
-                height: 130,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/placeholder.png"),
-                      fit: BoxFit.cover),
-                ),
-              ),
+      child: CachedNetworkImage(
+        placeholder: (context, url) => Center(
+          child: Container(
+            height: 130,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/placeholder.png"),
+                  fit: BoxFit.cover),
             ),
           ),
-          Positioned(
-            top: 2.0,
-            right: 2.0,
-            child: IconButton(
-              icon: Icon(Icons.favorite_border),
-              color: !widget.product.saved ? Colors.black38 : Colors.green,
-              onPressed: () {
-                var params = {
-                  "attribute_id": widget.product.attributeId,
-                  "combo_id": null,
-                };
-                !widget.product.saved
-                    ? addToWishList(context, params)
-                    : removeFromWishList(context, params);
-              },
+        ),
+        imageUrl: widget.product.imageThumbnail,
+        imageBuilder: (context, imageProvider) => Container(
+          height: 130,
+          // width: 130,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.contain,
+          )),
+        ),
+        errorWidget: (context, url, error) => Center(
+          child: Container(
+            height: 130,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/placeholder.png"),
+                  fit: BoxFit.cover),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -189,12 +203,18 @@ class _ProductItemState extends State<ProductItem> {
                 style: TextStyle(fontSize: 11, color: Color(0XFFb1bdef)),
               ),
               Spacer(),
-              Text(widget.product.avgRating.toString()),
-              Icon(
-                Icons.star,
-                size: 10,
-                color: Colors.orange,
-              )
+              widget.product.avgRating.toString() == '0.0'
+                  ? Container()
+                  : Row(
+                      children: [
+                        Text(widget.product.avgRating.toStringAsFixed(0)),
+                        Icon(
+                          Icons.star,
+                          size: 10,
+                          color: Colors.orange,
+                        )
+                      ],
+                    ),
             ],
           ),
           SizedBox(height: 6),
@@ -231,6 +251,7 @@ class _ProductItemState extends State<ProductItem> {
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToCartResponse response = await cartBloc.addToCart(params);
+      Scaffold.of(context).removeCurrentSnackBar();
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),
@@ -250,13 +271,16 @@ class _ProductItemState extends State<ProductItem> {
       Navigator.pushNamed(context, "loginPage");
     else {
       AddToWishlistResponse response = await wishListBloc.addToWishList(params);
+      Scaffold.of(context).removeCurrentSnackBar();
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         ));
       } else {
-        widget.product.saved = true;
+        setState(() {
+          saved = response.cartItem.attribute.saved;
+        });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Item added to wish list"),
           backgroundColor: NPrimaryColor,
@@ -271,13 +295,16 @@ class _ProductItemState extends State<ProductItem> {
     else {
       RemoveFromWishlistResponse response =
           await wishListBloc.removeFromWishList(params);
+      Scaffold.of(context).removeCurrentSnackBar();
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         ));
       } else {
-        widget.product.saved = false;
+        setState(() {
+          saved = false;
+        });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(tr(response.message)),
           backgroundColor: NPrimaryColor,
