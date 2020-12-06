@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:ecapp/models/response/login_response.dart';
-import 'package:ecapp/models/response/message_response.dart';
+import 'package:ecapp/models/response/email_confirm_response.dart';
 import 'package:ecapp/models/user.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -46,22 +46,22 @@ class AuthBloc {
   }
 
   emailForgotPassword(email) async {
-    MessageResponse response = await _repository.emailForgotPassword(email);
+    EmailConfirmResponse response = await _repository.emailForgotPassword(email);
     return response;
   }
 
   forgotPasswordUpdate(params) async {
-    MessageResponse response = await _repository.forgotPasswordUpdate(params);
+    EmailConfirmResponse response = await _repository.forgotPasswordUpdate(params);
     return response;
   }
 
   confirmEmailOTP(params) async {
-    MessageResponse response = await _repository.confirmEmailOTP(params);
+    EmailConfirmResponse response = await _repository.confirmEmailOTP(params);
     return response;
   }
 
   resendOTPCode(email) async {
-    MessageResponse response = await _repository.resendOTPCode(email);
+    EmailConfirmResponse response = await _repository.resendOTPCode(email);
     return response;
   }
 

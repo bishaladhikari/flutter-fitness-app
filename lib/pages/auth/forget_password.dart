@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/response/message_response.dart';
+import 'package:ecapp/models/response/email_confirm_response.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -186,7 +186,7 @@ class _ForgetPasswordState extends State<ForgetPasswordPage>
 
   validateUpdatePassword(BuildContext context) async {
     if (_formKey.currentState.validate()) {
-      MessageResponse response = await authBloc.forgotPasswordUpdate({
+      EmailConfirmResponse response = await authBloc.forgotPasswordUpdate({
         "email": "${widget.email}",
         "opt": "${codeController.text}",
         "password": "${newPasswordController.text}"

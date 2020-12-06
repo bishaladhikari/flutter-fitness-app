@@ -1,7 +1,7 @@
 import 'package:ecapp/pages/account-information/account-information-page.dart';
 import 'package:ecapp/pages/address-book/address-form-page.dart';
 import 'package:ecapp/pages/address-book/address-page.dart';
-import 'package:ecapp/pages/auth/email-confirm.dart';
+import 'package:ecapp/pages/auth/email_confirm_page.dart';
 import 'package:ecapp/pages/auth/email-forgot-password-page.dart';
 import 'package:ecapp/pages/auth/forget_password.dart';
 import 'package:ecapp/pages/auth/login-page.dart';

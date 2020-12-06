@@ -14,7 +14,7 @@ import 'package:ecapp/models/response/combo_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/loyalty_point_response.dart';
-import 'package:ecapp/models/response/message_response.dart';
+import 'package:ecapp/models/response/email_confirm_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_product_item_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
@@ -605,43 +605,43 @@ class Repository {
     }
   }
 
-  Future<MessageResponse> emailForgotPassword(params) async {
+  Future<EmailConfirmResponse> emailForgotPassword(params) async {
     try {
       Response response =
           await _dio.post(forgotPasswordUrl, queryParameters: params);
-      return MessageResponse.fromJson(response.data);
+      return EmailConfirmResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      return MessageResponse.withError(_handleError(error));
+      return EmailConfirmResponse.withError(_handleError(error));
     }
   }
 
-  Future<MessageResponse> forgotPasswordUpdate(params) async {
+  Future<EmailConfirmResponse> forgotPasswordUpdate(params) async {
     try {
       Response response =
           await _dio.post(forgotPasswordUpdateUrl, queryParameters: params);
-      return MessageResponse.fromJson(response.data);
+      return EmailConfirmResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      return MessageResponse.withError(_handleError(error));
+      return EmailConfirmResponse.withError(_handleError(error));
     }
   }
 
-  Future<MessageResponse> resendOTPCode(params) async {
+  Future<EmailConfirmResponse> resendOTPCode(params) async {
     try {
       Response response =
           await _dio.post(resendOTPUrl, queryParameters: params);
-      return MessageResponse.fromJson(response.data);
+      return EmailConfirmResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      return MessageResponse.withError(_handleError(error));
+      return EmailConfirmResponse.withError(_handleError(error));
     }
   }
 
-  Future<MessageResponse> confirmEmailOTP(params) async {
+  Future<EmailConfirmResponse> confirmEmailOTP(params) async {
     try {
       Response response =
           await _dio.post(confirmOTPUrl, queryParameters: params);
-      return MessageResponse.fromJson(response.data);
+      return EmailConfirmResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      return MessageResponse.withError(_handleError(error));
+      return EmailConfirmResponse.withError(_handleError(error));
     }
   }
 
