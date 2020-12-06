@@ -78,8 +78,8 @@ class _ProductItemState extends State<ProductItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       _productImage(),
-                      SizedBox(height: 8),
-//                      _productDetails(),
+                      SizedBox(height: 5),
+                      _productDetails(),
                       Divider(),
                       StreamBuilder<CartResponse>(
                           stream: cartBloc.subject.stream,
@@ -93,7 +93,7 @@ class _ProductItemState extends State<ProductItem> {
                             } else if (snapshot.hasError) {
                               return CustomErrorWidget(snapshot.error);
                             } else {
-                              return _buildLoadingWidget();
+                              return Container();
                             }
                           }),
                     ],
@@ -267,12 +267,12 @@ class _ProductItemState extends State<ProductItem> {
           Text(
             widget.product.name,
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: 1,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
           ),
           SizedBox(
-            height: 8,
+            height: 5,
           ),
           Row(
             children: [
