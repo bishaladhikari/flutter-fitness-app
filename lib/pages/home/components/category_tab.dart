@@ -12,36 +12,65 @@ class CategoryTab extends StatelessWidget {
       height: 375.0,
       child: DefaultTabController(
         length: 3,
-        child: Scaffold(
-          backgroundColor: Colors.white10,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
-            child: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              bottom: TabBar(
-                isScrollable: true,
-                labelColor: NPrimaryColor,
-                indicatorWeight: 3.0,
-                indicatorSize: TabBarIndicatorSize.tab,
-                unselectedLabelColor: Colors.black,
-                tabs: [
-                  Tab(text: tr("Best Sellers")),
-                  Tab(text: tr("New Arrivals")),
-                  Tab(text: tr("Top Rated")),
-                ],
-              ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              constraints: BoxConstraints.expand(height: 50),
+              child: TabBar(
+                  labelColor: NPrimaryColor,
+                  indicatorWeight: 3.0,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  unselectedLabelColor: Colors.black,
+                  tabs: [
+                    Tab(text: tr("Best Sellers")),
+                    Tab(text: tr("New Arrivals")),
+                    Tab(text: tr("Top Rated")),
+                  ]),
             ),
-          ),
-          body: TabBarView(
-            children: [
-              BestSellersProductsList(),
-              NewArrivalsProductsList(),
-              TopRatedProductsList(),
-            ],
-          ),
+            Expanded(
+              child: Container(
+                child: TabBarView(children: [
+                  BestSellersProductsList(),
+                  NewArrivalsProductsList(),
+                  TopRatedProductsList(),
+                ]),
+              ),
+            )
+          ],
         ),
       ),
+      // child: DefaultTabController(
+      //   length: 3,
+      //   child: Scaffold(
+      //     backgroundColor: Colors.white10,
+      //     appBar: PreferredSize(
+      //       preferredSize: Size.fromHeight(50.0),
+      //       child: AppBar(
+      //         backgroundColor: Colors.white,
+      //         elevation: 0,
+      //         bottom: TabBar(
+      //           isScrollable: true,
+      //           labelColor: NPrimaryColor,
+      //           indicatorWeight: 3.0,
+      //           indicatorSize: TabBarIndicatorSize.tab,
+      //           unselectedLabelColor: Colors.black,
+      //           tabs: [
+      //             Tab(text: tr("Best Sellers")),
+      //             Tab(text: tr("New Arrivals")),
+      //             Tab(text: tr("Top Rated")),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
+      //     body: TabBarView(
+      //       children: [
+      //         BestSellersProductsList(),
+      //         NewArrivalsProductsList(),
+      //         TopRatedProductsList(),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
