@@ -6,13 +6,18 @@ import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/cart.dart';
+import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'custom_error_widget.dart';
 
 class ProductItem extends StatefulWidget {
   final Product product;
@@ -39,6 +44,13 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     double trendCardWidth = widget.width;
     return GestureDetector(
+      onTap: () async {
+        if (await mainBloc.isInternetAvailable())
+          Navigator.pushNamed(context, "productDetailPage",
+              arguments: widget.product);
+        else
+          Navigator.pushNamed(context, "noInternetPage");
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -67,7 +79,23 @@ class _ProductItemState extends State<ProductItem> {
                     children: <Widget>[
                       _productImage(),
                       SizedBox(height: 8),
-                      _productDetails()
+//                      _productDetails(),
+                      Divider(),
+                      StreamBuilder<CartResponse>(
+                          stream: cartBloc.subject.stream,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data.error != null &&
+                                  snapshot.data.error.length > 0) {
+                                return CustomErrorWidget(snapshot.data.error);
+                              }
+                              return _addToCartWidget(context, snapshot.data);
+                            } else if (snapshot.hasError) {
+                              return CustomErrorWidget(snapshot.error);
+                            } else {
+                              return _buildLoadingWidget();
+                            }
+                          }),
                     ],
                   ),
                   Positioned(
@@ -103,39 +131,91 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: double.infinity,
-                      child: FlatButton(
-                        child: Text(tr('Add To Cart'),
-                            style: TextStyle(fontSize: 14)),
-                        onPressed: () {
-                          var params = {
-                            "attribute_id": widget.product.attributeId,
-                            "combo_id": null,
-                            "quantity": 1
-                          };
-                          addToCart(context, params);
-                        },
-                        color: Colors.green,
-                        textColor: Colors.white,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
-      onTap: () async {
-        if (await mainBloc.isInternetAvailable())
-          Navigator.pushNamed(context, "productDetailPage",
-              arguments: widget.product);
-        else
-          Navigator.pushNamed(context, "noInternetPage");
-      },
+    );
+  }
+
+  Widget _buildLoadingWidget() {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
+  }
+
+  Widget _addToCartWidget(context, CartResponse data) {
+    List<Cart> carts = data.carts;
+    var cartItem;
+    for (int i = 0; i < carts?.length ?? 0; i++) {
+      List<CartItem> cartItems = carts[i].items;
+      for (int i = 0; i < cartItems?.length ?? 0; i++) {
+        if (widget.product.attributeId == cartItems[i].attribute.id)
+          cartItem = cartItems[i];
+      }
+    }
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            tr("Add to cart"),
+            style: TextStyle(fontSize: 12),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.black87.withOpacity(0.5),
+                  size: 20,
+                ),
+                splashRadius: 5.0,
+                onPressed: () {
+                  if (cartItem.quantity > 1)
+                    cartBloc.updateCart(cartItem, "sub");
+                },
+              ),
+              Container(
+                width: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: kForeGroundColor)),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: Center(
+                  child: Text(
+                    cartItem?.quantity?.toString()??"0",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.black87.withOpacity(0.5),
+                  size: 20,
+                ),
+                splashRadius: 5.0,
+                onPressed: () {
+                  cartBloc.updateCart(cartItem, "add");
+                },
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -240,7 +320,7 @@ class _ProductItemState extends State<ProductItem> {
                   : Container()
             ],
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 2),
         ],
       ),
     );
