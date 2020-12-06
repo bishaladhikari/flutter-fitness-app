@@ -144,18 +144,32 @@ class _ProductItemState extends State<ProductItem> {
           Positioned(
             top: 2.0,
             right: 2.0,
-            child: IconButton(
-              icon: Icon(Icons.favorite_border),
-              color: !widget.product.saved ? Colors.black38 : Colors.green,
-              onPressed: () {
-                var params = {
-                  "attribute_id": widget.product.attributeId,
-                  "combo_id": null,
-                };
-                !widget.product.saved
-                    ? addToWishList(context, params)
-                    : removeFromWishList(context, params);
-              },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: IconButton(
+                icon: Icon(Icons.favorite_border),
+                color: !widget.product.saved ? Colors.black38 : Colors.green,
+                onPressed: () {
+                  var params = {
+                    "attribute_id": widget.product.attributeId,
+                    "combo_id": null,
+                  };
+                  !widget.product.saved
+                      ? addToWishList(context, params)
+                      : removeFromWishList(context, params);
+                },
+              ),
             ),
           ),
         ],

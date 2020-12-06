@@ -22,6 +22,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: Colors.white,
       appBar: cashOnDeliveryAppBar(),
       body: Body(),
       bottomNavigationBar: StreamBuilder<CartResponse>(
@@ -133,9 +134,9 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               barrierDismissible: false,
                               builder: (context) =>
                                   Center(child: CircularProgressIndicator()));
-                          checkoutBloc.paymentMethod.value= "Cash Payment";
-                          AddOrderResponse response = await checkoutBloc
-                              .createOrder(context:context);
+                          checkoutBloc.paymentMethod.value = "Cash Payment";
+                          AddOrderResponse response =
+                              await checkoutBloc.createOrder(context: context);
 //                          if (response.error == null) {
 //                            Navigator.pop(context);
 //                            Navigator.of(context).pushNamed(
