@@ -95,7 +95,7 @@ class _RegisterPageState extends State<RegisterPage>
 
   void _showErrorMessage(context, String message) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
+      content: Text(tr(message)),
       backgroundColor: Colors.redAccent,
     ));
     authBloc..drainStream();
@@ -276,11 +276,11 @@ class _RegisterPageState extends State<RegisterPage>
                               vertical: 10.0, horizontal: 10.0),
                           border: OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey),
-                          hintText: "Confirm Password"),
+                          hintText: tr("Confirm Password")),
                       obscureText: _obscureText,
                       validator: (val) {
-                        if (val.isEmpty) return 'Empty';
-                        if (val != passwordController.text) return 'Not Match';
+                        if (val.isEmpty) return tr('Required*');
+                        if (val != passwordController.text) return tr('Password does not Match');
                         return null;
                       }),
                 ],
