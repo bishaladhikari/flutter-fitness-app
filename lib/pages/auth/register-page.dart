@@ -176,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage>
                         contentPadding: new EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
                         hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "First Name"),
+                        hintText: tr("First Name")),
                     validator: validatepass,
                   ),
                   SizedBox(height: 10),
