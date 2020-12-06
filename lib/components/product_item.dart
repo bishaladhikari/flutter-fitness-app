@@ -77,12 +77,12 @@ class _ProductItemState extends State<ProductItem> {
                       height: 40.0,
                       width: 40.0,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: saved ? NPrimaryColor : Colors.white,
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
+                            spreadRadius: 3,
                             blurRadius: 7,
                             offset: Offset(0, 2),
                           ),
@@ -90,7 +90,7 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                       child: IconButton(
                         icon: Icon(Icons.favorite_border),
-                        color: !saved ? Colors.black38 : Colors.green,
+                        color: !saved ? Colors.black38 : Colors.white,
                         onPressed: () {
                           var params = {
                             "attribute_id": widget.product.attributeId,
