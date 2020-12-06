@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/combo.dart';
 import 'package:ecapp/models/product.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants.dart';
 
 class WishItemView extends StatelessWidget {
@@ -27,7 +28,7 @@ class WishItemView extends StatelessWidget {
             children: [
               Flexible(
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     cartItem.attribute != null
                         ? _navigateToProductDetail(context)
                         : _navigateToComboDetail(context);
@@ -75,7 +76,6 @@ class WishItemView extends StatelessWidget {
                               children: [
                                 Text(cartItem.attribute.variantTitle,
                                     style: TextStyle(
-//                            fontWeight: FontWeight.bold,
                                         color:
                                             Colors.black87.withOpacity(0.6))),
                                 SizedBox(
@@ -126,6 +126,12 @@ class WishItemView extends StatelessWidget {
                 ),
                 splashRadius: 5.0,
                 onPressed: () {
+                  var params = {
+                    "attribute_id": cartItem.attribute?.id,
+                    "combo_id": cartItem.combo?.id,
+                    "quantity": 1
+                  };
+                  addToCart(context, params);
                   // cartBloc.addToCartList(cartItem.id);
                 },
               ),
@@ -153,5 +159,24 @@ class WishItemView extends StatelessWidget {
     combo.imageThumbnail = cartItem.combo.imageThumbnail;
     combo.heroTag = cartItem.heroTag;
     Navigator.pushNamed(context, "comboDetailPage", arguments: combo);
+  }
+
+  addToCart(context, params) async {
+    if (!await authBloc.isAuthenticated())
+      Navigator.pushNamed(context, "loginPage");
+    else {
+      AddToCartResponse response = await cartBloc.addToCart(params);
+      if (response.error != null) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(response.error),
+          backgroundColor: Colors.redAccent,
+        ));
+      } else {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(tr("Item added to cart")),
+          backgroundColor: NPrimaryColor,
+        ));
+      }
+    }
   }
 }
