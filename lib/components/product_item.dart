@@ -160,15 +160,14 @@ class _ProductItemState extends State<ProductItem> {
 
   Widget _addToCartWidget(context, CartResponse data) {
     List<Cart> carts = data.carts;
-    print("here reached");
 //    if (cartItem == null)
-      for (int i = 0; i < carts?.length ?? 0; i++) {
-        List<CartItem> cartItems = carts[i].items;
-        for (int i = 0; i < cartItems?.length ?? 0; i++) {
-          if (widget.product.attributeId == cartItems[i].attribute.id)
-            cartItem = cartItems[i];
-        }
+    for (int i = 0; i < carts?.length ?? 0; i++) {
+      List<CartItem> cartItems = carts[i].items;
+      for (int i = 0; i < cartItems?.length ?? 0; i++) {
+        if (widget.product.attributeId == cartItems[i].attribute.id)
+          cartItem = cartItems[i];
       }
+    }
     return Center(
       child: Column(
         children: [
@@ -188,6 +187,8 @@ class _ProductItemState extends State<ProductItem> {
                 onPressed: () {
                   if (cartItem.quantity > 1)
                     cartBloc.updateCart(cartItem, "sub");
+                  else if (cartItem.quantity == 1)
+                    cartBloc.deleteFromCartList(cartItem.id);
                 },
               ),
               Container(
