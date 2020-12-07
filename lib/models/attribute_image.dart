@@ -5,7 +5,7 @@ class AttributeImage {
   AttributeImage({this.image, this.imageThumbnail});
 
   AttributeImage.fromJson(Map<String, dynamic> json) {
-    image = json['image'];
+    image = json['image_link'];
     imageThumbnail = json['image_thumbnail'];
   }
 
