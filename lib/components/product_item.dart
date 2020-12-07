@@ -160,6 +160,7 @@ class _ProductItemState extends State<ProductItem> {
 
   Widget _addToCartWidget(context, CartResponse data) {
     List<Cart> carts = data.carts;
+    print("here reached");
 //    if (cartItem == null)
       for (int i = 0; i < carts?.length ?? 0; i++) {
         List<CartItem> cartItems = carts[i].items;

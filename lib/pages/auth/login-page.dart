@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/login_response.dart';
@@ -356,6 +357,7 @@ class _LoginPageState extends State<LoginPage>
       Navigator.pop(context);
       if (response.token != null){
         _loginSuccess(context);
+        cartBloc.getCart();
         Fluttertoast.showToast(
             msg: tr("Login Success"),
             toastLength: Toast.LENGTH_LONG,
