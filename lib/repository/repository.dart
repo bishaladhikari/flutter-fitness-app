@@ -447,7 +447,6 @@ class Repository {
   }
 
   Future<ProductDetailResponse> getProductDetail(String slug) async {
-    _dio.options.headers['user'] = 3;
     try {
       Response response = await _dio.get(productsUrl + "/$slug");
       return ProductDetailResponse.fromJson(response.data);
@@ -488,7 +487,6 @@ class Repository {
   }
 
   Future<ComboDetailResponse> getComboDetail(String slug) async {
-    _dio.options.headers['user'] = 3;
     try {
       Response response = await _dio.get(comboProductUrl + "/$slug");
       return ComboDetailResponse.fromJson(response.data);
@@ -552,7 +550,6 @@ class Repository {
 
   Future<ReviewResponse> getProductReview(
       String combo, String slug, int page) async {
-    _dio.options.headers['user'] = 3;
     var params = {"combo": combo, "slug": slug, "per_page": 10, "page": page};
 
     try {
