@@ -43,13 +43,14 @@ class CartBloc {
   get products => _products;
 
   addToCart(params) async {
-    AddToCartResponse addToCartresponse = await _repository.addToCart(params);
-    if (addToCartresponse.error == null) {
-      response.totalItems += params['quantity'];
+    AddToCartResponse addToCartResponse = await _repository.addToCart(params);
+    if (addToCartResponse.error == null) {
+      response = await getCart();
+//      response.totalItems += params['quantity'];
       _subject.sink.add(response);
     }
 
-    return addToCartresponse;
+    return addToCartResponse;
   }
 
   updateCart(CartItem cartItem, type) async {
@@ -64,7 +65,7 @@ class CartBloc {
   }
 
   void drainStream() {
-     _subject.value = null;
+    _subject.value = null;
   }
 
   @mustCallSuper

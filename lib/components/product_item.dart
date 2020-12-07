@@ -38,7 +38,7 @@ class _ProductItemState extends State<ProductItem> {
   void initState() {
     productDetailBloc = ProductDetailBloc();
     saved = widget.product.saved ?? false;
-    cartItem = CartItem(quantity: 0);
+//    cartItem = CartItem(quantity: 0);
     super.initState();
   }
 
@@ -153,6 +153,7 @@ class _ProductItemState extends State<ProductItem> {
   }
 
   Widget _addToCartWidget(context, CartResponse data) {
+//    if (cartItem != null) cartItem = CartItem(quantity: 0);
     List<Cart> carts = data.carts;
 //    if (cartItem == null)
     for (int i = 0; i < carts?.length ?? 0; i++) {
@@ -160,6 +161,8 @@ class _ProductItemState extends State<ProductItem> {
       for (int i = 0; i < cartItems?.length ?? 0; i++) {
         if (widget.product.attributeId == cartItems[i].attribute.id)
           cartItem = cartItems[i];
+        else
+          cartItem = CartItem(quantity: 0);
       }
     }
     return Center(
@@ -178,16 +181,17 @@ class _ProductItemState extends State<ProductItem> {
                   size: 20,
                 ),
                 splashRadius: 5.0,
-                onPressed: () async{
+                onPressed: () async {
                   if (cartItem.quantity > 1)
                     cartBloc.updateCart(cartItem, "sub");
-                  else if (cartItem.quantity == 1){
-                    CartResponse response= await cartBloc.deleteFromCartList(cartItem.id);
-                    if(response.error==null)setState(() {
-                      cartItem=CartItem(quantity: 0);
-                    });
+                  else if (cartItem.quantity == 1) {
+                    CartResponse response =
+                        await cartBloc.deleteFromCartList(cartItem.id);
+                    if (response.error == null)
+                      setState(() {
+                        cartItem = CartItem(quantity: 0);
+                      });
                   }
-
                 },
               ),
               Container(
@@ -216,7 +220,7 @@ class _ProductItemState extends State<ProductItem> {
                     "quantity": 1,
                     "combo_id": null,
                   };
-                  cartItem?.id != null
+                  cartItem?.quantity > 0
                       ? cartBloc.updateCart(cartItem, "add")
                       : addToCart(context, params);
                 },
@@ -347,9 +351,9 @@ class _ProductItemState extends State<ProductItem> {
           backgroundColor: Colors.redAccent,
         ));
       } else {
-        setState(() {
-          cartItem = response.cartItem;
-        });
+//        setState(() {
+//          cartItem = response.cartItem;
+//        });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(tr("Item added to cart")),
           backgroundColor: NPrimaryColor,
