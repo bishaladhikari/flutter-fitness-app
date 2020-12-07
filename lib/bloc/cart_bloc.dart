@@ -60,6 +60,7 @@ class CartBloc {
   deleteFromCartList(id) async {
     response = await _repository.deleteFromCartList(id);
     if (response.error == null) _subject.sink.add(response);
+    return response;
   }
 
   void drainStream() {

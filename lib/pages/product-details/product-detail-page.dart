@@ -752,7 +752,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.contain),
+                    fit: BoxFit.cover),
               ),
             ),
           ),

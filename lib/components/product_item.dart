@@ -38,6 +38,7 @@ class _ProductItemState extends State<ProductItem> {
   void initState() {
     productDetailBloc = ProductDetailBloc();
     saved = widget.product.saved ?? false;
+    cartItem = CartItem(quantity: 0);
     super.initState();
   }
 
@@ -177,11 +178,16 @@ class _ProductItemState extends State<ProductItem> {
                   size: 20,
                 ),
                 splashRadius: 5.0,
-                onPressed: () {
+                onPressed: () async{
                   if (cartItem.quantity > 1)
                     cartBloc.updateCart(cartItem, "sub");
-                  else if (cartItem.quantity == 1)
-                    cartBloc.deleteFromCartList(cartItem.id);
+                  else if (cartItem.quantity == 1){
+                    CartResponse response= await cartBloc.deleteFromCartList(cartItem.id);
+                    if(response.error==null)setState(() {
+                      cartItem=CartItem(quantity: 0);
+                    });
+                  }
+
                 },
               ),
               Container(
@@ -210,7 +216,7 @@ class _ProductItemState extends State<ProductItem> {
                     "quantity": 1,
                     "combo_id": null,
                   };
-                  cartItem != null
+                  cartItem?.id != null
                       ? cartBloc.updateCart(cartItem, "add")
                       : addToCart(context, params);
                 },
