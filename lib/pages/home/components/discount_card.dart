@@ -66,7 +66,7 @@ class _DiscountCardState extends State<DiscountCard> {
                               ),
                             ),
                           ),
-                          imageUrl: item.imageThumbnail,
+                          imageUrl: item.imageLink,
 //            imageUrl: product.imageThumbnail,
                           imageBuilder: (context, imageProvider) => Container(
 //              width: 75,

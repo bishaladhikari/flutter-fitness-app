@@ -86,16 +86,9 @@ class _ProductItemState extends State<ProductItem> {
                           stream: cartBloc.subject.stream,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              if (snapshot.data.error != null &&
-                                  snapshot.data.error.length > 0) {
-                                return CustomErrorWidget(snapshot.data.error);
-                              }
                               return _addToCartWidget(context, snapshot.data);
-                            } else if (snapshot.hasError) {
-                              return CustomErrorWidget(snapshot.error);
-                            } else {
-                              return Container();
                             }
+                            return Container();
                           }),
                     ],
                   ),
