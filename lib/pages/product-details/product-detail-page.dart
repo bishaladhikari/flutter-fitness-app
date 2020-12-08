@@ -45,7 +45,7 @@ class ProductDetailPage extends StatefulWidget {
   ProductDetailPage({Key key, this.product, this.selectedVariant, this.index}) {
 //    super(key: key);
     this.images.add(AttributeImage.fromJson(
-        {"image_thumbnail": this.product.imageThumbnail}));
+        {"image_link": this.product.image}));
   }
 
   @override
@@ -752,7 +752,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.contain),
+                    fit: BoxFit.cover),
               ),
             ),
           ),
@@ -780,13 +780,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     );
   }
 
-  Widget dottedSlider(images) {
+  Widget dottedSlider(List<AttributeImage> images) {
     final children = <Widget>[];
     for (int i = 0; i < images?.length ?? 0; i++) {
       if (images[i] == null) {
         children.add(Center(child: CircularProgressIndicator()));
       } else {
-        children.add(_productSlideImage(images[i].imageThumbnail));
+        children.add(_productSlideImage(images[i].image));
       }
     }
     return DottedSlider(

@@ -6,13 +6,18 @@ import 'package:ecapp/bloc/main_bloc.dart';
 import 'package:ecapp/bloc/product_detail_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/cart.dart';
+import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/add_to_wishlist.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/remove_from_wishlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'custom_error_widget.dart';
 
 class ProductItem extends StatefulWidget {
   final Product product;
@@ -28,12 +33,14 @@ class _ProductItemState extends State<ProductItem> {
   ProductDetailBloc productDetailBloc;
   bool saved;
   bool loading;
+  CartItem cartItem;
 
   @override
   void initState() {
     productDetailBloc = ProductDetailBloc();
     saved = widget.product.saved ?? false;
     loading = false;
+//    cartItem = CartItem(quantity: 0);
     super.initState();
   }
 
@@ -41,104 +48,209 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
     double trendCardWidth = widget.width;
     return GestureDetector(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            height: 295,
-            margin: EdgeInsets.all(3),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 4),
-                  blurRadius: 20,
-                  color: Color(0xFFB0CCE1).withOpacity(0.32),
-                ),
-              ],
-            ),
-            width: widget.width,
-            child: Card(
-              elevation: 0,
-              color: Colors.white,
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _productImage(),
-                      SizedBox(height: 8),
-                      _productDetails()
-                    ],
+        onTap: () async {
+          if (await mainBloc.isInternetAvailable())
+            Navigator.pushNamed(context, "productDetailPage",
+                arguments: widget.product);
+          else
+            Navigator.pushNamed(context, "noInternetPage");
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              height: 295,
+              margin: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 4),
+                    blurRadius: 20,
+                    color: Color(0xFFB0CCE1).withOpacity(0.32),
                   ),
-                  Positioned(
-                    top: 2.0,
-                    right: 2.0,
-                    child: Container(
-                      height: 40.0,
-                      width: 40.0,
-                      decoration: BoxDecoration(
-                        color: saved ? NPrimaryColor : Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 3,
-                            blurRadius: 7,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        icon: Icon(Icons.favorite_border),
-                        color: !saved ? Colors.black38 : Colors.white,
-                        onPressed: () {
-                          var params = {
-                            "attribute_id": widget.product.attributeId,
-                            "combo_id": null,
-                          };
-                          !saved
-                              ? addToWishList(context, params)
-                              : removeFromWishList(context, params);
-                        },
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: double.infinity,
-                      child: FlatButton(
-                        child: Text(tr('Add To Cart'),
-                            style: TextStyle(fontSize: 14)),
-                        onPressed: () {
-                          var params = {
-                            "attribute_id": widget.product.attributeId,
-                            "combo_id": null,
-                            "quantity": 1
-                          };
-                          addToCart(context, params);
-                        },
-                        color: Colors.green,
-                        textColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  loading ? LinearProgressIndicator() : Container()
                 ],
               ),
-            ),
+              width: widget.width,
+              child: Card(
+                elevation: 0,
+                color: Colors.white,
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _productImage(),
+                        SizedBox(height: 5),
+                        _productDetails(),
+                        Divider(),
+                        StreamBuilder<CartResponse>(
+                            stream: cartBloc.subject.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return _addToCartWidget(context, snapshot.data);
+                              }
+                              return Container();
+                            }),
+                      ],
+                    ),
+                    Positioned(
+                      top: 2.0,
+                      right: 2.0,
+                      child: Container(
+                        height: 40.0,
+                        width: 40.0,
+                        decoration: BoxDecoration(
+                          color: saved ? NPrimaryColor : Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 7,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.favorite_border),
+                          color: !saved ? Colors.black38 : Colors.white,
+                          onPressed: () {
+                            var params = {
+                              "attribute_id": widget.product.attributeId,
+                              "combo_id": null,
+                            };
+                            !saved
+                                ? addToWishList(context, params)
+                                : removeFromWishList(context, params);
+                          },
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(tr('Add To Cart'),
+                              style: TextStyle(fontSize: 14)),
+                          onPressed: () {
+                            var params = {
+                              "attribute_id": widget.product.attributeId,
+                              "combo_id": null,
+                              "quantity": 1
+                            };
+                            addToCart(context, params);
+                          },
+                          color: Colors.green,
+                          textColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    loading ? LinearProgressIndicator() : Container()
+                  ],
+                ),
+              ),
+            )
+          ],
+        ));
+  }
+
+  Widget _buildLoadingWidget() {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+            strokeWidth: 4.0,
           ),
+        )
+      ],
+    ));
+  }
+
+  Widget _addToCartWidget(context, CartResponse data) {
+//    if (cartItem != null) cartItem = CartItem(quantity: 0);
+    List<Cart> carts = data.carts;
+//    if (cartItem == null)
+    for (int i = 0; i < carts?.length ?? 0; i++) {
+      List<CartItem> cartItems = carts[i].items;
+      for (int i = 0; i < cartItems?.length ?? 0; i++) {
+        if (widget.product.attributeId == cartItems[i].attribute.id)
+          cartItem = cartItems[i];
+        else
+          cartItem = CartItem(quantity: 0);
+      }
+    }
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            tr("Add to cart"),
+            style: TextStyle(fontSize: 12),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.black87.withOpacity(0.5),
+                  size: 20,
+                ),
+                splashRadius: 5.0,
+                onPressed: () async {
+                  if (cartItem.quantity > 1)
+                    cartBloc.updateCart(cartItem, "sub");
+                  else if (cartItem.quantity == 1) {
+                    CartResponse response =
+                        await cartBloc.deleteFromCartList(cartItem.id);
+                    if (response.error == null)
+                      setState(() {
+                        cartItem = CartItem(quantity: 0);
+                      });
+                  }
+                },
+              ),
+              Container(
+                width: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: kForeGroundColor)),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: Center(
+                  child: Text(
+                    cartItem?.quantity?.toString() ?? "0",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.black87.withOpacity(0.5),
+                  size: 20,
+                ),
+                splashRadius: 5.0,
+                onPressed: () {
+                  var params = {
+                    "attribute_id": widget.product.attributeId,
+                    "quantity": 1,
+                    "combo_id": null,
+                  };
+                  cartItem?.quantity > 0
+                      ? cartBloc.updateCart(cartItem, "add")
+                      : addToCart(context, params);
+                },
+              ),
+            ],
+          )
         ],
       ),
-      onTap: () async {
-        if (await mainBloc.isInternetAvailable())
-          Navigator.pushNamed(context, "productDetailPage",
-              arguments: widget.product);
-        else
-          Navigator.pushNamed(context, "noInternetPage");
-      },
     );
   }
 
@@ -156,7 +268,7 @@ class _ProductItemState extends State<ProductItem> {
             ),
           ),
         ),
-        imageUrl: widget.product.imageThumbnail,
+        imageUrl: widget.product.image,
         imageBuilder: (context, imageProvider) => Container(
           height: 130,
           // width: 130,
@@ -190,12 +302,12 @@ class _ProductItemState extends State<ProductItem> {
           Text(
             widget.product.name,
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: 1,
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: kTextColor),
           ),
           SizedBox(
-            height: 8,
+            height: 5,
           ),
           Row(
             children: [
@@ -243,7 +355,7 @@ class _ProductItemState extends State<ProductItem> {
                   : Container()
             ],
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 2),
         ],
       ),
     );
@@ -268,6 +380,9 @@ class _ProductItemState extends State<ProductItem> {
           backgroundColor: Colors.redAccent,
         ));
       } else {
+//        setState(() {
+//          cartItem = response.cartItem;
+//        });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(tr("Item added to cart")),
           backgroundColor: NPrimaryColor,

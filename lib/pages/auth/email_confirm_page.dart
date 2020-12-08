@@ -37,12 +37,48 @@ class _EmailConfirmState extends State<EmailConfirmPage>
   void initState() {
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () async {
+        showDialog(
+            context: context,
+//          barrierColor: Colors.white70,
+            barrierDismissible: false,
+            builder: (context) => Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      color: Colors.white,
+                      width: 200,
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: CircularProgressIndicator()),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          Material(
+                            child: Text(
+                              tr("Requesting..."),
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 18,
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                )));
         EmailConfirmResponse response = await authBloc.resendOTPCode({
           "email": "${widget.email}",
         });
+        Navigator.pop(context);
 
         Fluttertoast.showToast(
-            msg: response.error == null ? tr(response.message) : tr(response.error),
+            msg: response.error == null
+                ? tr(response.message)
+                : tr(response.error),
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -84,7 +120,7 @@ class _EmailConfirmState extends State<EmailConfirmPage>
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                    tr("Please, enter verification Code that we have sent you in your mail"),
+                    tr("Please enter verification Code that we have sent you in your mail"),
                     style: TextStyle(color: Colors.black87, fontSize: 16),
                     textAlign: TextAlign.center),
               ),
@@ -201,14 +237,48 @@ class _EmailConfirmState extends State<EmailConfirmPage>
       setState(() {
         hasError = false;
       });
-
+      showDialog(
+          context: context,
+//          barrierColor: Colors.white70,
+          barrierDismissible: false,
+          builder: (context) => Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                    color: Colors.white,
+                    width: 200,
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator()),
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        Material(
+                          child: Text(
+                            tr("Verifying..."),
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+              )));
       EmailConfirmResponse response = await authBloc.confirmEmailOTP({
         "email": "${widget.email}",
         "otp": otpCode,
       });
-
+      Navigator.pop(context);
       Fluttertoast.showToast(
-          msg: response.error == null ? tr("Successfully Verified") : tr(response.error),
+          msg: response.error == null
+              ? tr("Successfully Verified")
+              : tr(response.error),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
