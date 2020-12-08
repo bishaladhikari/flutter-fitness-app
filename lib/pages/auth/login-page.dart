@@ -310,7 +310,6 @@ class _LoginPageState extends State<LoginPage>
 
       showDialog(
           context: context,
-//          barrierColor: Colors.white70,
           barrierDismissible: false,
           builder: (context) => Center(
                   child: Padding(
@@ -353,7 +352,6 @@ class _LoginPageState extends State<LoginPage>
 //        if (response.token != null) _loginSuccess(context);
 //        subscription.cancel();
 //      });
-      Navigator.pop(context);
       if (response.token != null){
         _loginSuccess(context);
         Fluttertoast.showToast(

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
@@ -52,14 +54,30 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             color: NPrimaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 16)),
-                    RaisedButton(
-                      color: NPrimaryColor,
-                      onPressed: () {
-                        Navigator.pushNamed(context, "selectPaymentMethodPage");
-                      },
-                      child: Text('Proceed to Pay',
-                          style: TextStyle(color: Colors.white)),
-                    ),
+                    StreamBuilder<Address>(
+                        stream: addressBloc.defaultAddress,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return RaisedButton(
+                              color: NPrimaryColor,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, "selectPaymentMethodPage");
+                              },
+                              child: Text('Proceed to Pay',
+                                  style: TextStyle(color: Colors.white)),
+                            );
+                          } else {
+                            return RaisedButton(
+                              color: NPrimaryColor,
+                              onPressed: () {
+                                Navigator.pushNamed(context, 'addressFormPage');
+                              },
+                              child: Text('Add Address',
+                                  style: TextStyle(color: Colors.white)),
+                            );
+                          }
+                        }),
                   ],
                 ),
               );

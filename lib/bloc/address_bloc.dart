@@ -1,3 +1,4 @@
+import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,14 +9,16 @@ class AddressBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<AddressResponse> _subject =
       BehaviorSubject<AddressResponse>();
+  final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
   AddressResponse response;
 
   getAddresses() async {
     response = await _repository.getAddresses();
     _subject.sink.add(response);
+    if (response.error == null && response.addresses.length > 0)
+      _defaultAddress.sink.add(response.addresses[0]);
     return response;
   }
-
 
 //   addAddress(item) async{
 //     await repository.addAddress(item);
@@ -23,8 +26,6 @@ class AddressBloc {
 // _subject.sink.add(response);
 
 //   }
-
-
 
   // deleteFromCart(id) async {
   //   await _repository.deleteWishlist(id);
@@ -34,14 +35,19 @@ class AddressBloc {
   //   print("response:" + response.toString());
   // }
 
-  void drainStream(){ _subject.value = null; }
+  void drainStream() {
+    _subject.value = null;
+  }
+
   @mustCallSuper
-  void dispose() async{
+  void dispose() async {
     await _subject.drain();
     _subject.close();
   }
 
   BehaviorSubject<AddressResponse> get subject => _subject;
+
+  BehaviorSubject<Address> get defaultAddress => _defaultAddress.stream;
 }
 
 final AddressBloc addressBloc = AddressBloc();

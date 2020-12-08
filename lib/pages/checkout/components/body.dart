@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/components/add_address.dart';
@@ -9,6 +10,7 @@ import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/checkout/components/checkout_cart_item_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'checkout_address_list_item.dart';
 
@@ -20,7 +22,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   void initState() {
-    checkoutBloc.getDefaultAddress();
+    // checkoutBloc.getDefaultAddress();
     cartBloc.getCart();
     super.initState();
   }
@@ -43,17 +45,21 @@ class _BodyState extends State<Body> {
             child: Column(
               children: [
                 StreamBuilder<Address>(
-                    stream: checkoutBloc.defaultAddress,
+                    stream: addressBloc.defaultAddress,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-//                        if (snapshot.data != null)
-                          return _buildAddressWidget(snapshot.data);
-//                        else
-//                          return AddAddress();
+                        return _buildAddressWidget(snapshot.data);
                       }
+                      // WidgetsBinding.instance.addPostFrameCallback((_) {
+                      //   if (!snapshot.hasData) {
+                      //     Scaffold.of(context).showSnackBar(SnackBar(
+                      //       content:
+                      //           Text(tr("Please provide a shipping address.")),
+                      //       backgroundColor: Colors.redAccent,
+                      //     ));
+                      //   }
+                      // });
                       return AddAddress();
-
-                      return _buildLoadingWidget();
                     }),
               ],
             ),
@@ -154,11 +160,12 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(
-                    context, "storePage", arguments: carts[i].storeSlug);
+                Navigator.pushNamed(context, "storePage",
+                    arguments: carts[i].storeSlug);
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
                 child: Row(children: [
                   Text(
                     carts[i].soldBy + " ($itemCount items)",

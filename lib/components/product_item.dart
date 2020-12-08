@@ -27,11 +27,13 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   ProductDetailBloc productDetailBloc;
   bool saved;
+  bool loading;
 
   @override
   void initState() {
     productDetailBloc = ProductDetailBloc();
     saved = widget.product.saved ?? false;
+    loading = false;
     super.initState();
   }
 
@@ -123,6 +125,7 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                     ),
                   ),
+                  loading ? LinearProgressIndicator() : Container()
                 ],
               ),
             ),
@@ -250,8 +253,15 @@ class _ProductItemState extends State<ProductItem> {
     if (!await authBloc.isAuthenticated())
       Navigator.pushNamed(context, "loginPage");
     else {
+      setState(() {
+        loading = true;
+      });
       AddToCartResponse response = await cartBloc.addToCart(params);
       Scaffold.of(context).removeCurrentSnackBar();
+
+      setState(() {
+        loading = false;
+      });
       if (response.error != null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(response.error),

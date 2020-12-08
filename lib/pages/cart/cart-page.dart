@@ -1,5 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/checkout_bloc.dart';
+import 'package:ecapp/models/address.dart';
+import 'package:ecapp/models/response/add_to_cart_response.dart';
+import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
@@ -76,7 +81,7 @@ class _CartPageState extends State<CartPage>
                     RaisedButton(
                       color: NPrimaryColor,
                       onPressed: () {
-                        Navigator.pushNamed(context, "checkoutPage");
+                        getDefaultAddress(context);
                       },
                       child: Text('Checkout',
                           style: TextStyle(color: Colors.white)),
@@ -88,6 +93,51 @@ class _CartPageState extends State<CartPage>
               return Container();
           }),
     );
+  }
+
+  getDefaultAddress(context) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+                child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                  color: Colors.white,
+                  width: 200,
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator()),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Material(
+                        child: Text(
+                          tr("Checking out"),
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 18,
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+            )));
+    AddressResponse response = await addressBloc.getAddresses();
+    Navigator.pop(context);
+    if (response.error != null) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(tr("Please. Try Again.")),
+        backgroundColor: Colors.redAccent,
+      ));
+    } else {
+      Navigator.pushNamed(context, "checkoutPage");
+    }
   }
 
   @override
