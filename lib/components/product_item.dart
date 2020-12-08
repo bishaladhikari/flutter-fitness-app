@@ -59,7 +59,7 @@ class _ProductItemState extends State<ProductItem> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              height: 295,
+              height: 275,
               margin: EdgeInsets.all(3),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -85,14 +85,6 @@ class _ProductItemState extends State<ProductItem> {
                         SizedBox(height: 5),
                         _productDetails(),
                         Divider(),
-                        StreamBuilder<CartResponse>(
-                            stream: cartBloc.subject.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return _addToCartWidget(context, snapshot.data);
-                              }
-                              return Container();
-                            }),
                       ],
                     ),
                     Positioned(
@@ -133,8 +125,13 @@ class _ProductItemState extends State<ProductItem> {
                       child: Container(
                         width: double.infinity,
                         child: FlatButton(
-                          child: Text(tr('Add To Cart'),
-                              style: TextStyle(fontSize: 14)),
+                          child: Row(
+                            children: [
+                              Icon(Icons.add),
+                              Text(tr('Add To Cart'),
+                                  style: TextStyle(fontSize: 14)),
+                            ],
+                          ),
                           onPressed: () {
                             var params = {
                               "attribute_id": widget.product.attributeId,
