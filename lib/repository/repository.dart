@@ -671,6 +671,7 @@ class Repository {
       Response response = await _dio.post(userProfileUrl);
       return ProfileResponse.fromJson(response.data);
     } catch (error, stacktrace) {
+      print(['erro',error]);
       return ProfileResponse.withError(_handleError(error));
     }
   }

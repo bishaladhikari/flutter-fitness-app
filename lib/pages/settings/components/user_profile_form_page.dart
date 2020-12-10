@@ -62,7 +62,8 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
         stream: profileBloc.subject.stream,
         builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+            print(['hello', snapshot.data]);
+            if (snapshot.data.error != null) {
               return _buildErrorWidget(snapshot.data.error);
             }
             var profile = snapshot.data.profile;

@@ -1,8 +1,8 @@
 import 'package:ecapp/models/profile.dart';
 
 class ProfileResponse {
+  final Profile profile;
   final String error;
-  final profile;
 
   ProfileResponse(this.profile, this.error);
 
@@ -11,6 +11,6 @@ class ProfileResponse {
         error = null;
 
   ProfileResponse.withError(String errorValue)
-      : error = errorValue,
-        profile = Profile();
+      : profile = Profile(),
+        error = errorValue;
 }

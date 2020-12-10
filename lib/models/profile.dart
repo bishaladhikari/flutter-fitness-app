@@ -15,7 +15,7 @@ class Profile {
   String storeName;
   String ip;
   int attributeCount;
-  Customer customer;
+  // Customer customer;
 
   Profile(
       {this.id,
@@ -34,7 +34,8 @@ class Profile {
       this.storeName,
       this.ip,
       this.attributeCount,
-      this.customer});
+      // this.customer
+  });
 
   Profile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -53,9 +54,9 @@ class Profile {
     storeName = json['store_name'];
     ip = json['ip'];
     attributeCount = json['attribute_count'];
-    customer = json['customer'] != null
-        ? new Customer.fromJson(json['customer'])
-        : null;
+    // customer = json['customer'] != null
+    //     ? new Customer.fromJson(json['customer'])
+    //     : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -76,9 +77,9 @@ class Profile {
     data['store_name'] = this.storeName;
     data['ip'] = this.ip;
     data['attribute_count'] = this.attributeCount;
-    if (this.customer != null) {
-      data['customer'] = this.customer.toJson();
-    }
+    // if (this.customer != null) {
+    //   data['customer'] = this.customer.toJson();
+    // }
     return data;
   }
 }
