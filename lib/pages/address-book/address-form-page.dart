@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/repository/repository.dart';
@@ -18,7 +19,60 @@ class AddressFormPage extends StatefulWidget {
 }
 
 class _AddressFormPageState extends State<AddressFormPage> {
+  List<String> prefecture = [
+    '北海道',
+    '青森県',
+    '岩手県',
+    '宮城県',
+    '秋田県',
+    '山形県',
+    '福島県',
+    '茨城県',
+    '栃木県',
+    '群馬県',
+    '埼玉県',
+    '千葉県',
+    '東京都',
+    '神奈川県',
+    '山梨県',
+    '新潟県',
+    '長野県',
+    '岐阜県',
+    '静岡県',
+    '愛知県',
+    '三重県',
+    '富山県',
+    '石川県',
+    '福井県',
+    '滋賀県',
+    '京都府',
+    '大阪府',
+    '兵庫県',
+    '奈良県',
+    '和歌山県',
+    '鳥取県',
+    '島根県',
+    '岡山県',
+    '広島県',
+    '山口県',
+    '徳島県',
+    '香川県',
+    '愛媛県',
+    '高知県',
+    '熊本県',
+    '福岡県',
+    '佐賀県',
+    '長崎県',
+    '熊本県',
+    '大分県',
+    '宮崎県',
+    '鹿児島県',
+  ];
+
   bool state = true;
+  bool defaultAddress = false;
+  String prefectureValue = null;
+
   FocusNode _nameFocus = FocusNode();
   FocusNode _mobileFocus = FocusNode();
   FocusNode _emailFocus = FocusNode();
@@ -28,81 +82,19 @@ class _AddressFormPageState extends State<AddressFormPage> {
   FocusNode _addressFocus = FocusNode();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  TextEditingController nameController;
-  TextEditingController phoneController;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController houseController;
-  TextEditingController cityController;
+  TextEditingController houseController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
   TextEditingController zipController = TextEditingController();
-  TextEditingController prefectureController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
   BehaviorSubject _loadingController;
 
-  validate() {
-    _loadingController.sink.add(true);
-    if (widget.address == null) {
-      if (formkey.currentState.validate()) {
-        Repository()
-            .addAddress(
-                name: nameController.text,
-                email: emailController.text,
-                house: houseController.text,
-                city: cityController.text,
-                address: addressController.text,
-                zipCode: zipController.text,
-//                prefecture: prefectureController.text,
-                prefecture: "青森県",
-                phone: phoneController.text)
-            .then((value) {
-          _loadingController.sink.add(false);
-          addressBloc.getAddresses();
-          Navigator.of(context).pop();
-        }).catchError((value) {
-          _loadingController.sink.add(false);
-        });
-      } else {
-        print("Not Validated");
-        _loadingController.sink.add(false);
-        setState(() {
-          _autoValidate = true;
-        });
-      }
-    } else {
-      Repository()
-          .updateAddress(
-              id: widget.address.id,
-              name: nameController.text,
-              email: emailController.text,
-              house: houseController.text,
-              city: cityController.text,
-              address: addressController.text,
-              zipCode: zipController.text,
-//              prefecture: prefectureController.text,
-              prefecture: "青森県",
-              phone: phoneController.text)
-          .then((value) {
-        _loadingController.sink.add(false);
-        addressBloc.getAddresses();
-        Navigator.of(context).pop();
-      }).catchError((value) {
-        _loadingController.sink.add(false);
-      });
-    }
-  }
-
-  String validatepass(value) {
-    if (value.isEmpty) {
-      return "Required*";
-    } else {
-      return null;
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    print(widget.address?.name);
     _nameFocus = new FocusNode();
     _nameFocus.addListener(requestFocus);
     _mobileFocus = new FocusNode();
@@ -122,10 +114,18 @@ class _AddressFormPageState extends State<AddressFormPage> {
         text: widget.address == null ? "" : widget.address.name);
     phoneController = TextEditingController(
         text: widget.address == null ? "" : widget.address.phone);
+    emailController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.email);
+    zipController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.zipCode);
     houseController = TextEditingController(
         text: widget.address == null ? "" : widget.address.house);
     cityController = TextEditingController(
         text: widget.address == null ? "" : widget.address.city);
+    addressController = TextEditingController(
+        text: widget.address == null ? "" : widget.address.address);
+    prefectureValue = widget.address == null ? null : widget.address.prefecture;
+    defaultAddress = widget.address == null ? false : widget.address.isDefault;
     _loadingController = BehaviorSubject<bool>();
   }
 
@@ -154,8 +154,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
         appBar: new AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          title: new Text(
-            'Add New Address',
+          title: Text(
+            tr(widget.address == null ? 'Add New Address' : ' Edit Address'),
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
         ),
@@ -193,7 +193,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         hintText: "Full Name",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
-                      validator: validatepass,
+                      validator: validatePass,
                     ),
                     SizedBox(
                       height: 14.0,
@@ -202,9 +202,9 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         focusNode: _mobileFocus,
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
-                        // inputFormatters: [
-                        //   WhitelistingTextInputFormatter.digitsOnly
-                        // ],
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         decoration: InputDecoration(
                           contentPadding: new EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
@@ -215,7 +215,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                           border: new OutlineInputBorder(
                             borderSide: new BorderSide(color: Colors.grey),
                           ),
-                          labelText: "Contact",
+                          labelText: "Mobile Number",
                           labelStyle: TextStyle(
                               color: _mobileFocus.hasFocus
                                   ? NPrimaryColor
@@ -253,7 +253,8 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
                       validator: MultiValidator([
-                        RequiredValidator(errorText: "Required*"),
+                        RequiredValidator(
+                            errorText: "You cannot leave this empty *"),
                         EmailValidator(errorText: "Not A Valid Email"),
                       ]),
                     ),
@@ -310,7 +311,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         hintText: "House",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
-                      validator: validatepass,
+                      validator: validatePass,
                     ),
                     SizedBox(
                       height: 25.0,
@@ -336,7 +337,7 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         hintText: "City",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
-                      validator: validatepass,
+                      validator: validatePass,
                     ),
                     SizedBox(
                       height: 25.0,
@@ -362,12 +363,40 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         hintText: "Address",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
-                      validator: validatepass,
+                      validator: validatePass,
                     ),
                     SizedBox(
                       height: 25.0,
                     ),
-                    PrefectureDropdown(),
+                    DropdownButtonFormField(
+                      decoration: InputDecoration(
+                          contentPadding: new EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          hintText: "Prefecture",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          labelText: "Prefecture"),
+                      value: prefectureValue,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black),
+                      onChanged: (String newValue) {
+                        setState(
+                          () {
+                            prefectureValue = newValue;
+                          },
+                        );
+                      },
+                      items: prefecture
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                     Container(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: Row(
@@ -382,35 +411,13 @@ class _AddressFormPageState extends State<AddressFormPage> {
                               ),
                               Spacer(),
                               Switch(
-                                  value: true,
-                                  onChanged: (bool s) {
+                                  value: defaultAddress,
+                                  onChanged: (bool state) {
                                     setState(() {
-                                      state = s;
-                                      print(state);
+                                      defaultAddress = state;
                                     });
                                   }),
                             ])),
-                    // Container(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    //     child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.start,
-                    //         crossAxisAlignment: CrossAxisAlignment.center,
-                    //         mainAxisSize: MainAxisSize.max,
-                    //         children: <Widget>[
-                    //           Text(
-                    //             'Make a Default Billing Address',
-                    //             style: TextStyle(
-                    //                 color: Colors.black, fontSize: 17),
-                    //           ),
-                    //           Switch(
-                    //               value: true,
-                    //               onChanged: (bool s) {
-                    //                 setState(() {
-                    //                   state = s;
-                    //                   print(state);
-                    //                 });
-                    //               }),
-                    //         ])),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                     ),
@@ -429,94 +436,61 @@ class _AddressFormPageState extends State<AddressFormPage> {
           ),
         ));
   }
-}
 
-class PrefectureDropdown extends StatefulWidget {
-  PrefectureDropdown({Key key}) : super(key: key);
+  validate() {
+    _loadingController.sink.add(true);
+    if (widget.address == null) {
+      if (formkey.currentState.validate()) {
+        Repository()
+            .addAddress(
+                name: nameController.text,
+                email: emailController.text,
+                house: houseController.text,
+                city: cityController.text,
+                address: addressController.text,
+                zipCode: zipController.text,
+                prefecture: prefectureValue,
+                phone: phoneController.text)
+            .then((value) {
+          _loadingController.sink.add(false);
+          addressBloc.getAddresses();
+          Navigator.of(context).pop();
+        }).catchError((value) {
+          _loadingController.sink.add(false);
+        });
+      } else {
+        _loadingController.sink.add(false);
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    } else {
+      Repository()
+          .updateAddress(
+              id: widget.address.id,
+              name: nameController.text,
+              email: emailController.text,
+              house: houseController.text,
+              city: cityController.text,
+              address: addressController.text,
+              zipCode: zipController.text,
+              prefecture: prefectureValue,
+              phone: phoneController.text)
+          .then((value) {
+        _loadingController.sink.add(false);
+        addressBloc.getAddresses();
+        Navigator.of(context).pop();
+      }).catchError((value) {
+        _loadingController.sink.add(false);
+      });
+    }
+  }
 
-  @override
-  _PrefectureDropdownState createState() => _PrefectureDropdownState();
-}
-
-class _PrefectureDropdownState extends State<PrefectureDropdown> {
-  String dropdownValue = null;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButtonFormField(
-      decoration: InputDecoration(
-          contentPadding:
-              new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-          hintText: "Prefecture",
-          hintStyle: TextStyle(color: Colors.grey),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-          labelText: "Prefecture"),
-      value: dropdownValue,
-      icon: Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 16,
-      style: TextStyle(color: Colors.black),
-      onChanged: (String newValue) {
-        setState(
-          () {
-            dropdownValue = newValue;
-          },
-        );
-      },
-      items: <String>[
-        '北海道',
-        '青森県',
-        '岩手県',
-        '宮城県',
-        '秋田県',
-        '山形県',
-        '福島県',
-        '茨城県',
-        '栃木県',
-        '群馬県',
-        '埼玉県',
-        '千葉県',
-        '東京都',
-        '神奈川県',
-        '山梨県',
-        '新潟県',
-        '長野県',
-        '岐阜県',
-        '静岡県',
-        '愛知県',
-        '三重県',
-        '富山県',
-        '石川県',
-        '福井県',
-        '滋賀県',
-        '京都府',
-        '大阪府',
-        '兵庫県',
-        '奈良県',
-        '和歌山県',
-        '鳥取県',
-        '島根県',
-        '岡山県',
-        '広島県',
-        '山口県',
-        '徳島県',
-        '香川県',
-        '愛媛県',
-        '高知県',
-        '熊本県',
-        '福岡県',
-        '佐賀県',
-        '長崎県',
-        '熊本県',
-        '大分県',
-        '宮崎県',
-        '鹿児島県'
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
+  String validatePass(value) {
+    if (value.isEmpty) {
+      return "You cannot leave this empty *";
+    } else {
+      return null;
+    }
   }
 }

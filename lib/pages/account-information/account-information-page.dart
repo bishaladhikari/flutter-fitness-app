@@ -5,7 +5,6 @@ import 'package:ecapp/models/response/profile_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
 import '../../constants.dart';
 
 class AccountInformationPage extends StatefulWidget {
@@ -428,74 +427,3 @@ class _AccountInformationPageState extends State<AccountInformationPage>
     }
   }
 }
-
-// Padding(
-// padding: const EdgeInsets.all(10.0),
-// child: SingleChildScrollView(
-// child: Form(
-// autovalidate: true,
-// key: formkey,
-// child: Column(children: <Widget>[
-// TextFormField(
-// decoration: InputDecoration(
-// border: OutlineInputBorder(),
-// hintText: " Full Name",
-// hintStyle: TextStyle(color: Colors.grey),
-// labelText: "Full name"),
-// validator: validatepass,
-// ),
-// SizedBox(
-// height: 10,
-// ),
-// TextFormField(
-// decoration: InputDecoration(
-// border: OutlineInputBorder(),
-// hintText: " Last Name",
-// hintStyle: TextStyle(color: Colors.grey),
-// labelText: "Last name"),
-// validator: validatepass,
-// ),
-// SizedBox(height: 10),
-// TextFormField(
-// decoration: InputDecoration(
-// border: OutlineInputBorder(),
-// hintText: "Mobile",
-// hintStyle: TextStyle(color: Colors.grey),
-// labelText: "Contact"),
-// validator: MultiValidator([
-// PatternValidator(
-// r'(^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$)',
-// errorText: 'Not A Valid  Mobile Number')
-// ])),
-// SizedBox(
-// height: 10,
-// ),
-// TextFormField(
-// decoration: InputDecoration(
-// border: OutlineInputBorder(),
-// hintText: "Email Address",
-// hintStyle: TextStyle(color: Colors.grey),
-// labelText: "Email"),
-// validator: MultiValidator([
-// RequiredValidator(errorText: "Required*"),
-// EmailValidator(errorText: "Not A Valid Email"),
-// ]),
-// ),
-// Padding(
-// padding: EdgeInsets.only(top: 30.0),
-// ),
-// GestureDetector(
-// onTap: validate,
-// child: Container(
-// height: 45,
-// decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(10),
-// color: NPrimaryColor),
-// child: Center(
-// child: Text(
-// 'Update',
-// style: TextStyle(color: Colors.white, fontSize: 18),
-// ))),
-// )
-// ]),
-// ))));
