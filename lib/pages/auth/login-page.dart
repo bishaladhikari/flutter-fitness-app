@@ -367,6 +367,7 @@ class _LoginPageState extends State<LoginPage>
       }
       else
         _showErrorMessage(context, response.error);
+      Navigator.pop(context);
     } else {
       setState(() => _validate = true);
     }
