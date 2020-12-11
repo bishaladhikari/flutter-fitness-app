@@ -32,15 +32,15 @@ class Customer {
   bool status;
   bool verified;
   String referCode;
-  int userId;
+  String userId;
   String ip;
   String actor;
   String subject;
   String imageLink;
   String totalPoints;
-  int totalReferrals;
-  int totalReferralPoints;
-  int totalOrderPoints;
+  String totalReferrals;
+  String totalReferralPoints;
+  String totalOrderPoints;
 
   Customer(
       {this.status,
@@ -60,15 +60,15 @@ class Customer {
     status = json['status'];
     verified = json['verified'];
     referCode = json['refer_code'];
-    userId = json['user_id'];
+    userId = json['user_id'].toString();
     ip = json['ip'];
     actor = json['actor'];
     subject = json['subject'];
     imageLink = json['image_link'];
     totalPoints = json['total_points'].toString();
-    totalReferrals = json['total_referrals'];
-    totalReferralPoints = json['total_referral_points'];
-    totalOrderPoints = json['total_order_points'];
+    totalReferrals = json['total_referrals'].toString();
+    totalReferralPoints = json['total_referral_points'].toString();
+    totalOrderPoints = json['total_order_points'].toString();
   }
 
   Map<String, dynamic> toJson() {

@@ -342,8 +342,8 @@ class _LoginPageState extends State<LoginPage>
 
       FocusScope.of(context).requestFocus(new FocusNode());
       LoginResponse response = await authBloc.login({
-        "email": "${emailController.text.trim()}",
-        "password": "${passwordController.text.trim()}"
+        "email": "${emailController.text}",
+        "password": "${passwordController.text}"
       });
 //      var stream = authBloc.subject.stream;
 ////        StreamSubscription<LoginResponse> subscription;
