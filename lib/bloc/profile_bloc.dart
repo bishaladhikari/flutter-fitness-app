@@ -1,3 +1,4 @@
+import 'package:ecapp/models/response/email_confirm_response.dart';
 import 'package:ecapp/models/response/profile_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,6 +17,12 @@ class ProfileBloc {
 
   userProfileUpdate(params) async {
     ProfileResponse response = await _repository.userProfileUpdate(params);
+    return response;
+  }
+
+  userPasswordUpdate(params) async {
+    EmailConfirmResponse response =
+        await _repository.userPasswordUpdate(params);
     return response;
   }
 

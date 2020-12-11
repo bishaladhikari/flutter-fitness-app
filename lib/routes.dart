@@ -24,6 +24,7 @@ import 'package:ecapp/pages/product-view-more/product-view-more-page.dart';
 import 'package:ecapp/pages/rating-reviews/ratings-reviews-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
+import 'package:ecapp/pages/settings/components/user_password_form_page.dart';
 import 'package:ecapp/pages/settings/components/user_profile_form_page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/store/store-page.dart';
@@ -38,104 +39,156 @@ abstract class Routes {
 //    final arguments = routeSettings.arguments as Map<String, dynamic> ?? {};
     switch (routeSettings.name) {
       case 'mainPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  MainPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: MainPage());
         break;
       case 'noInternetPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child: NoInternetPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: NoInternetPage());
         break;
       case 'privacyPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  PrivacyPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: PrivacyPage());
         break;
       case 'discountView':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  DiscountView(discountInfo: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: DiscountView(discountInfo: arguments));
         break;
       case 'storePage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  StorePage(storeSlug: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: StorePage(storeSlug: arguments));
         break;
       case 'wishListPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  WishListPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: WishListPage());
         break;
       case '/settings-page':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  SettingsPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: SettingsPage());
         break;
       case 'loginPage':
-        return PageTransition(type:PageTransitionType.bottomToTop,child:  LoginPage());
+        return PageTransition(
+            type: PageTransitionType.bottomToTop, child: LoginPage());
         break;
       case 'cartPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  CartPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: CartPage());
         break;
       case 'productDetailPage':
-        return PageTransition(type:PageTransitionType.fade,child:  ProductDetailPage(
-                  product: arguments,
-                ));
+        return PageTransition(
+            type: PageTransitionType.fade,
+            child: ProductDetailPage(
+              product: arguments,
+            ));
         break;
       case 'comboDetailPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  ComboDetailPage(
-                  combo: arguments,
-                ));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: ComboDetailPage(
+              combo: arguments,
+            ));
         break;
       case 'registerPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  RegisterPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: RegisterPage());
         break;
       case 'searchPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  SearchPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: SearchPage());
         break;
       case 'addressPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  AddressPage(selectMode: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: AddressPage(selectMode: arguments));
         break;
       case 'emailConfirmPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  EmailConfirmPage(email: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: EmailConfirmPage(email: arguments));
         break;
       case 'forgetPasswordPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  ForgetPasswordPage(email: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: ForgetPasswordPage(email: arguments));
         break;
       case 'emailForgotPasswordPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child: EmailForgotPasswordPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: EmailForgotPasswordPage());
         break;
       case 'addressFormPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  AddressFormPage(address: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: AddressFormPage(address: arguments));
         break;
       case 'ordersPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrdersListPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: OrdersListPage());
         break;
       case 'selectPaymentMethodPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  SelectPaymentMethodPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: SelectPaymentMethodPage());
         break;
       case 'checkoutPage':
 //        return PageTransition(type:PageTransitionType.rightToLeft,child:  CheckoutPage());
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  CheckoutPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: CheckoutPage());
         break;
       case 'cashOnDeliveryPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  CashOnDeliveryPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: CashOnDeliveryPage());
         break;
       case 'cardPaymentPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  CardPaymentPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: CardPaymentPage());
       case 'ordersPages':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrdersListPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: OrdersListPage());
         break;
       case 'orderDetailPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrderDetailPage(order: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: OrderDetailPage(order: arguments));
         break;
       case 'orderConfirmationPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrderCompletePage(order: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: OrderCompletePage(order: arguments));
         break;
       case 'orderReviewPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  OrderReviewPage(orderProductItem: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: OrderReviewPage(orderProductItem: arguments));
         break;
       case 'ratingsReviewsPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  RatingsReviewsPage(productDetail: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: RatingsReviewsPage(productDetail: arguments));
         break;
       case 'fromSameSellerPage':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  FromSameSellerPage(slug: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: FromSameSellerPage(slug: arguments));
         break;
       case 'productViewMore':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  ProductViewMorePage(types: arguments));
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: ProductViewMorePage(types: arguments));
         break;
       case 'userProfileForm':
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  UserProfileFormPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: UserProfileFormPage());
+        break;
+      case 'userPasswordForm':
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: UserPasswordFormPage());
         break;
       default:
-        return PageTransition(type:PageTransitionType.rightToLeft,child:  WishListPage());
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: WishListPage());
     }
   }
 }

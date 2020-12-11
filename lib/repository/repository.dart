@@ -62,6 +62,7 @@ class Repository {
   var searchSuggestionUrl = '$appUrl/search';
   var userProfileUrl = '$appUrl/customer/profile';
   var userProfileUpdateUrl = '$appUrl/customer/profile/update';
+  var userPasswordUpdateUrl = '$appUrl/customer/change-password';
   var getStoreDetailUrl = '$appUrl/stores';
 
   Repository() {
@@ -671,7 +672,7 @@ class Repository {
       Response response = await _dio.post(userProfileUrl);
       return ProfileResponse.fromJson(response.data);
     } catch (error, stacktrace) {
-      print(['erro',error]);
+      print(['erro', error]);
       return ProfileResponse.withError(_handleError(error));
     }
   }
@@ -683,6 +684,16 @@ class Repository {
       return ProfileResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       return ProfileResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<EmailConfirmResponse> userPasswordUpdate(params) async {
+    try {
+      Response response =
+          await _dio.post(userPasswordUpdateUrl, queryParameters: params);
+      return EmailConfirmResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      return EmailConfirmResponse.withError(_handleError(error));
     }
   }
 

@@ -15,6 +15,12 @@ class _BodyState extends State<Body> {
         : Navigator.of(context).pushNamed('loginPage');
   }
 
+  _navigateToUserPasswordForm() async {
+    await authBloc.isAuthenticated() == true
+        ? Navigator.of(context).pushNamed('userPasswordForm')
+        : Navigator.of(context).pushNamed('loginPage');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,9 +55,10 @@ class _BodyState extends State<Body> {
                 );
               }),
           ListTile(
-            title: Text('Change Password'),
-            onTap: () {},
-          ),
+              title: Text('Change Password'),
+              onTap: () async {
+                _navigateToUserPasswordForm();
+              }),
           ListTile(
             title: Text('Logout'),
             onTap: () {
