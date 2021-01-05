@@ -311,6 +311,7 @@ class _LoginPageState extends State<LoginPage>
 
       showDialog(
           context: context,
+          useRootNavigator: false,
           barrierDismissible: false,
           builder: (context) => Center(
                   child: Padding(
@@ -332,7 +333,10 @@ class _LoginPageState extends State<LoginPage>
                         Material(
                           child: Text(
                             tr("Logging in"),
-                            style: TextStyle(color: Colors.black87, fontSize: 18,),
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                            ),
                           ),
                         )
                       ],
@@ -353,7 +357,7 @@ class _LoginPageState extends State<LoginPage>
 //        if (response.token != null) _loginSuccess(context);
 //        subscription.cancel();
 //      });
-      if (response.token != null){
+      if (response.token != null) {
         _loginSuccess(context);
         cartBloc.getCart();
         Fluttertoast.showToast(
@@ -364,10 +368,10 @@ class _LoginPageState extends State<LoginPage>
             backgroundColor: response.error == null ? Colors.green : Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-      }
-      else
+      } else {
         _showErrorMessage(context, response.error);
-      Navigator.pop(context);
+        Navigator.pop(context, true);
+      }
     } else {
       setState(() => _validate = true);
     }
