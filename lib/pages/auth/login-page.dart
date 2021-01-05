@@ -308,36 +308,43 @@ class _LoginPageState extends State<LoginPage>
 //        PageRouteBuilder(
 //            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
 //      );
+      BuildContext dialogContext;
 
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) => Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                    color: Colors.white,
-                    width: 200,
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator()),
-                        SizedBox(
-                          width: 20.0,
-                        ),
-                        Material(
-                          child: Text(
-                            tr("Logging in"),
-                            style: TextStyle(color: Colors.black87, fontSize: 18,),
+          builder: (context) {
+            dialogContext = context;
+            return Center(
+                child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                  color: Colors.white,
+                  width: 200,
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator()),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Material(
+                        child: Text(
+                          tr("Logging in"),
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 18,
                           ),
-                        )
-                      ],
-                    )),
-              )));
+                        ),
+                      )
+                    ],
+                  )),
+            ));
+          });
       _scaffoldKey.currentState.removeCurrentSnackBar();
 
       FocusScope.of(context).requestFocus(new FocusNode());
@@ -353,7 +360,7 @@ class _LoginPageState extends State<LoginPage>
 //        if (response.token != null) _loginSuccess(context);
 //        subscription.cancel();
 //      });
-      if (response.token != null){
+      if (response.token != null) {
         _loginSuccess(context);
         cartBloc.getCart();
         Fluttertoast.showToast(
@@ -364,10 +371,9 @@ class _LoginPageState extends State<LoginPage>
             backgroundColor: response.error == null ? Colors.green : Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-      }
-      else
+      } else
         _showErrorMessage(context, response.error);
-      Navigator.pop(context);
+      Navigator.pop(dialogContext);
     } else {
       setState(() => _validate = true);
     }
