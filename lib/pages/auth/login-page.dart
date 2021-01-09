@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage>
 
   void _loginSuccess(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pop(context);
+      Navigator.pop(context); Navigator.pop(context);
 //      _scaffoldKey.currentState.showSnackBar(SnackBar(
 //        content: Text("Successfully Logged In"),
 //      ));
