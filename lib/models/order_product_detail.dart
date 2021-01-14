@@ -1,4 +1,5 @@
 import 'package:ecapp/models/customer_review.dart';
+import 'package:uuid/uuid.dart';
 
 class OrderProductDetail {
   int id;
@@ -18,6 +19,8 @@ class OrderProductDetail {
   String variant;
   String variantTitle;
   String reviewId;
+
+  get heroTag => Uuid().v4();
 
   OrderProductDetail(
       {this.id,

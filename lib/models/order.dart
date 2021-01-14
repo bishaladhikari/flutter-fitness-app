@@ -63,10 +63,10 @@ class Order {
     shippingCost = json['shipping_cost'];
     shippingDiscountCost = json['shipping_discount_cost'].toString();
     status = json['status'];
-    subTotal = json['sub_total'];
+    subTotal = json['sub_total'].toString();
     totalQuantity = json['total_quantity'].toString();
-    weight = json['weight'];
-    zipCode = json['zip_code'];
+    weight = json['weight'].toString();
+    zipCode = json['zip_code'].toString();
     createdAt = json['created_at'];
     createdDate = json['created_date'];
     paymentStatus = json['payment_status'];

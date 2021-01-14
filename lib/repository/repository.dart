@@ -310,11 +310,11 @@ class Repository {
   //   }
   // }
 
-  Future<OrderProductDetailResponse> getOrderItemDetail(int id) async {
-    var params = {"order_id": id};
+  Future<OrderProductDetailResponse> getOrderItemDetail(String orderId) async {
+    var params = {"order_id": orderId};
     try {
       Response response =
-          await _dio.get(orderProductsUrl + "/$id", queryParameters: params);
+          await _dio.get(orderProductsUrl, queryParameters: params);
       return OrderProductDetailResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");

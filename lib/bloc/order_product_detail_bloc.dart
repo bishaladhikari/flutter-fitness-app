@@ -12,8 +12,8 @@ class OrderProductDetailBloc {
 
   OrderProductDetailResponse response;
 
-  getOrderProductDetail(int id) async {
-    response = await _repository.getOrderItemDetail(id);
+  getOrderProductDetail(String orderId) async {
+    response = await _repository.getOrderItemDetail(orderId);
     _orderProductDetail.sink.add(response);
     return response;
   }

@@ -7,7 +7,7 @@ class AddToWishlistResponse {
   AddToWishlistResponse(this.cartItem, this.error);
 
   AddToWishlistResponse.fromJson(Map<String, dynamic> json)
-      : cartItem = CartItem.fromJson(json["data"]),
+      : cartItem = json["data"]?CartItem.fromJson(json["data"]):CartItem(),
         error = null;
 
   AddToWishlistResponse.withError(String errorValue)

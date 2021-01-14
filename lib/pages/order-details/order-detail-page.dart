@@ -15,13 +15,13 @@ class OrderDetailPage extends StatefulWidget {
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
   Order detail;
-  int id;
+  String orderId;
 
   @override
   void initState() {
     super.initState();
     detail = widget.order;
-    id = widget.order.id;
+    orderId = widget.order.orderId;
 //    orderProductDetailBloc.getOrderProductDetail(id);
   }
 
@@ -65,7 +65,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     detail.address,
                     style: TextStyle(fontSize: 16, color: Colors.black38),
                   ),
-                  OrderItemDetails(id: this.id, orderDetail: this.detail),
+                  OrderItemDetails(orderId: orderId, orderDetail: detail),
                   ListTile(
                     contentPadding: const EdgeInsets.all(8.0),
                     title: Row(

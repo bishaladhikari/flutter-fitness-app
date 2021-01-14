@@ -1,22 +1,23 @@
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:ecapp/models/order_product_detail.dart';
+import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
 class OrderItemDetails extends StatefulWidget {
-  final int id;
+  final String orderId;
   Order orderDetail;
   OrderProductDetailBloc _orderProductDetailBloc;
 
   get orderDetailBloc => _orderProductDetailBloc;
 
-  OrderItemDetails({Key key, this.id, this.orderDetail});
+  OrderItemDetails({Key key, this.orderId, this.orderDetail});
 
   @override
-  _OrderItemDetailsState createState() => _OrderItemDetailsState(id);
+  _OrderItemDetailsState createState() => _OrderItemDetailsState(orderId);
 
   static _OrderItemDetailsState of(BuildContext context) {
     final _OrderItemDetailsState navigator = context
@@ -36,15 +37,15 @@ class OrderItemDetails extends StatefulWidget {
 
 class _OrderItemDetailsState extends State<OrderItemDetails>
     with TickerProviderStateMixin {
-  final int id;
+  final String orderId;
   Order orderDetail;
 
-  _OrderItemDetailsState(this.id);
+  _OrderItemDetailsState(this.orderId);
 
   @override
   void initState() {
     super.initState();
-    orderProductDetailBloc..getOrderProductDetail(id);
+    orderProductDetailBloc..getOrderProductDetail(orderId);
   }
 
   @override
@@ -115,15 +116,24 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
                         image: NetworkImage(orderProductDetail.imageThumbnail),
                         fit: BoxFit.cover)),
               ),
-              title: Text(
-                orderProductDetail.productName,
+              title: GestureDetector(
+                onTap: () {
+                  Product product = Product();
+                  product.name = orderProductDetail.productName;
+                  product.slug = orderProductDetail.slug;
+                  product.imageThumbnail = orderProductDetail.imageThumbnail;
+                  product.heroTag = orderProductDetail.heroTag;
+
+                  Navigator.pushNamed(context, "productDetailPage", arguments: product);
+                },
+                child:Text(orderProductDetail.productName,
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
-              ),
+              )),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
