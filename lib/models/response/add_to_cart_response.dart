@@ -10,7 +10,6 @@ class AddToCartResponse {
 
   AddToCartResponse.fromJson(Map<String, dynamic> json)
       :
-        // : cartItem = CartItem.fromJson(json["data"]),
         totalItems = json['cart_summary']['total_items'] != null
             ? json['cart_summary']['total_items']
             : 0,

@@ -401,7 +401,7 @@ class _ProductItemState extends State<ProductItem> {
         ));
       } else {
         setState(() {
-          saved = response.cartItem.attribute.saved;
+          saved = true;
         });
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Item added to wish list"),

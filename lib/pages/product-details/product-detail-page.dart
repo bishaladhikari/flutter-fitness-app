@@ -145,17 +145,20 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         );
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(snackbar);
+
       } else {
         var snackbar = SnackBar(
           content: Row(
             children: [
-              Text("Successfully Updated"),
+              Text("Successfully Added"),
               Spacer(),
             ],
           ),
           backgroundColor: NPrimaryColor,
         );
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(snackbar);
       }
     }
@@ -172,17 +175,19 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         );
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(snackbar);
       } else {
         var snackbar = SnackBar(
           content: Row(
             children: [
-              Text("Successfully Updated"),
+              Text("Successfully Removed"),
               Spacer(),
             ],
           ),
           backgroundColor: NPrimaryColor,
         );
+        _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(snackbar);
       }
     }
