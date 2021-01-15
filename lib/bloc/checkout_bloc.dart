@@ -83,6 +83,7 @@ class CheckoutBloc {
       "achieved_promotions": cartBloc.subject.value.achievedPromotions
     };
     response = await _repository.createOrder(params);
+    Navigator.pop(dialogContext);
     _subject.sink.add(response);
     Fluttertoast.showToast(
         msg: response.error == null
@@ -98,13 +99,12 @@ class CheckoutBloc {
     if (response.error == null) {
       checkoutBloc.drainStream();
       cartBloc.drainStream();
-      Navigator.of(context,rootNavigator: true).pushReplacementNamed(
+      Navigator.of(context).pushReplacementNamed(
         'orderConfirmationPage',
         // (r) => false,
         arguments: response.order,
       );
     }
-    Navigator.pop(dialogContext);
 //    if (response.error == null) {
 //      Navigator.pop(context);
 //      Navigator.of(context).pushNamed(
