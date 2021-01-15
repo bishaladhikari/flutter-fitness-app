@@ -12,6 +12,16 @@ class ProfileBloc {
   final BehaviorSubject<ProfileResponse> _subject =
       BehaviorSubject<ProfileResponse>();
 
+  void drainStream() {
+    _subject.value = null;
+  }
+
+  @mustCallSuper
+  void dispose() async {
+    await _subject.drain();
+    _subject.close();
+  }
+
   userProfile() async {
     ProfileResponse response = await _repository.userProfile();
     _subject.add(response);

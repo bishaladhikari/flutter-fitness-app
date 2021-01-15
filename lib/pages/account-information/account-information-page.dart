@@ -4,6 +4,7 @@ import 'package:ecapp/models/response/profile_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/profile-form-widget.dart';
+import 'package:ecapp/constants.dart';
 
 class AccountInformationPage extends StatefulWidget {
 
@@ -28,13 +29,13 @@ class _AccountInformationPageState extends State<AccountInformationPage>
   }
 
   getUserProfile() async {
-    // isLoading  = true;
     await profileBloc.userProfile();
   }
 
   @override
   void dispose() {
     super.dispose();
+    profileBloc.drainStream();
     // firstNameController.dispose();
     // lastNameController.dispose();
     // mobileController.dispose();
@@ -84,11 +85,11 @@ class _AccountInformationPageState extends State<AccountInformationPage>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 35.0,
-          width: 35.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-            strokeWidth: 4.0,
+          height: 3.0,
+          // width: 35.0,
+          child: LinearProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(NPrimaryColor),
+            minHeight: 4.0,
           ),
         )
       ],

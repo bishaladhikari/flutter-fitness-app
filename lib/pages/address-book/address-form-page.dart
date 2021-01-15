@@ -124,7 +124,11 @@ class _AddressFormPageState extends State<AddressFormPage> {
         text: widget.address == null ? "" : widget.address.city);
     addressController = TextEditingController(
         text: widget.address == null ? "" : widget.address.address);
-    prefectureValue = widget.address == null ? null : widget.address.prefecture;
+    prefectureValue = widget.address == null
+        ? null
+        : (prefecture.contains(widget.address.prefecture)
+            ? widget.address.prefecture
+            : null);
     defaultAddress = widget.address == null ? false : widget.address.isDefault;
     _loadingController = BehaviorSubject<bool>();
   }
