@@ -53,14 +53,14 @@ class _BodyState extends State<Body> {
               onTap: () {
                 _languageChange(context);
               }),
-          ListTile(
-              title: Text('Review'.tr()),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReviewPage()),
-                );
-              }),
+          // ListTile(
+          //     title: Text('Review'.tr()),
+          //     onTap: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => ReviewPage()),
+          //       );
+          //     }),
           ListTile(
               title: Text('Change Password'.tr()),
               onTap: () async {
