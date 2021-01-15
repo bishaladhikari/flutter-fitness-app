@@ -40,11 +40,15 @@ class CheckoutBloc {
   }
 
   createOrder({context, token}) async {
+    BuildContext dialogContext;
     showDialog(
         context: context,
         barrierColor: Colors.white70,
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator()));
+        builder: (context){
+          dialogContext = context;
+          return Center(child: CircularProgressIndicator());
+        });
     var addressId = addressBloc.defaultAddress.value.id;
     var shippingCost = cartBloc.subject.value.shippingCost;
     var totalWeight = cartBloc.subject.value.totalWeight;
@@ -80,7 +84,6 @@ class CheckoutBloc {
     };
     response = await _repository.createOrder(params);
     _subject.sink.add(response);
-    if (response.error == null) cartBloc.response = null;
     Fluttertoast.showToast(
         msg: response.error == null
             ? tr("Order Placed Successfully")
@@ -101,6 +104,7 @@ class CheckoutBloc {
         arguments: response.order,
       );
     }
+    Navigator.pop(dialogContext);
 //    if (response.error == null) {
 //      Navigator.pop(context);
 //      Navigator.of(context).pushNamed(
