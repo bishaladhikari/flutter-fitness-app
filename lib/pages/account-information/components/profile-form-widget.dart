@@ -23,6 +23,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget>
   static final _formKey = GlobalKey<FormState>();
   // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -34,6 +35,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget>
     firstNameController.text = profile.firstName;
     lastNameController.text = profile.lastName;
     mobileController.text = profile.mobile;
+    emailController.text = profile.email;
     super.initState();
   }
   @override
@@ -51,6 +53,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget>
           autovalidate: _validate,
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
                 height: 15,
@@ -62,11 +65,21 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget>
                 // textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 10.0),
-                    hintStyle: TextStyle(color: Colors.grey),
-                    hintText: "First Name"),
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
+                  fillColor: NPrimaryColor,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: NPrimaryColor),
+                  ),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.grey),
+                  ),
+                  labelText: tr("First Name"),
+                  labelStyle: TextStyle(
+                      color: Colors.grey),
+                  // hintText: tr("First Name"),
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
                 validator: MultiValidator([
                   RequiredValidator(
                       errorText: "You cannot leave this field empty"),
@@ -78,30 +91,54 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget>
               TextFormField(
                 controller: lastNameController,
                 style: TextStyle(color: Color(0xFF000000)),
-                cursorColor: Color(0xFF9b9b9b),
+                // cursorColor: Color(0xFF9b9b9b),
                 keyboardType: TextInputType.text,
-                // textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 10.0),
-                    hintStyle: TextStyle(color: Colors.grey),
-                    hintText: "Last Name"),
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
+                  fillColor: NPrimaryColor,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: NPrimaryColor),
+                  ),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.grey),
+                  ),
+                  labelText: tr("Last Name"),
+                  labelStyle: TextStyle(
+                      color: Colors.grey),
+                  // hintText: tr("Last Name"),
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
                 validator: MultiValidator([
                   RequiredValidator(
                       errorText: "You cannot leave this field empty"),
                 ]),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
-              Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    tr(profile.email),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black87),
-                  )),
+              TextFormField(
+                controller: emailController,
+                readOnly: true,
+                style: TextStyle(color: Color(0xFF000000)),
+                // textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
+                  fillColor: NPrimaryColor,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: NPrimaryColor),
+                  ),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.grey),
+                  ),
+                  labelText: tr("Email"),
+                  labelStyle: TextStyle(
+                      color: Colors.grey),
+                  // hintText: tr("Mobile Number"),
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
+              ),
               SizedBox(
                 height: 15,
               ),
@@ -115,11 +152,21 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget>
                 // textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    contentPadding: new EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 10.0),
-                    hintStyle: TextStyle(color: Colors.grey),
-                    hintText: "Mobile Number"),
+                  contentPadding: new EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 10.0),
+                  fillColor: NPrimaryColor,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: NPrimaryColor),
+                  ),
+                  border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.grey),
+                  ),
+                  labelText: tr("Mobile Number"),
+                  labelStyle: TextStyle(
+                      color: Colors.grey),
+                  // hintText: tr("Mobile Number"),
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
                 validator: MultiValidator([
                   RequiredValidator(
                       errorText: "You cannot leave this field empty"),

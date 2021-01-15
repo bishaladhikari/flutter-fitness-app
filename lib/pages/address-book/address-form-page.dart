@@ -189,12 +189,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(color: Colors.grey),
                         ),
-                        labelText: "Name",
+                        labelText: tr("Full Name"),
                         labelStyle: TextStyle(
                             color: _nameFocus.hasFocus
                                 ? NPrimaryColor
                                 : Colors.grey),
-                        hintText: "Full Name",
+                        // hintText: "Full Name",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
                       validator: validatePass,
@@ -219,12 +219,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                           border: new OutlineInputBorder(
                             borderSide: new BorderSide(color: Colors.grey),
                           ),
-                          labelText: "Mobile Number",
+                          labelText: tr("Mobile Number"),
                           labelStyle: TextStyle(
                               color: _mobileFocus.hasFocus
                                   ? NPrimaryColor
                                   : Colors.grey),
-                          hintText: "Mobile Number",
+                          // hintText: tr("Mobile Number"),
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                         validator: MultiValidator([
@@ -248,12 +248,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(color: Colors.grey),
                         ),
-                        labelText: "Email",
+                        labelText: tr("Email"),
                         labelStyle: TextStyle(
                             color: _emailFocus.hasFocus
                                 ? NPrimaryColor
                                 : Colors.grey),
-                        hintText: "Email Address",
+                        // hintText: "Email Address",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
                       validator: MultiValidator([
@@ -278,12 +278,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                           border: new OutlineInputBorder(
                             borderSide: new BorderSide(color: Colors.grey),
                           ),
-                          labelText: "Zipcode",
+                          labelText: tr("Zipcode"),
                           labelStyle: TextStyle(
                               color: _zipFocus.hasFocus
                                   ? NPrimaryColor
                                   : Colors.grey),
-                          hintText: "Zip-Code",
+                          // hintText: "Zip-Code",
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                         validator: MultiValidator([
@@ -307,12 +307,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(color: Colors.grey),
                         ),
-                        labelText: "House",
+                        labelText: tr("House"),
                         labelStyle: TextStyle(
                             color: _houseFocus.hasFocus
                                 ? NPrimaryColor
                                 : Colors.grey),
-                        hintText: "House",
+                        // hintText: "House",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
                       validator: validatePass,
@@ -333,12 +333,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(color: Colors.grey),
                         ),
-                        labelText: "City",
+                        labelText: tr("City"),
                         labelStyle: TextStyle(
                             color: _cityFocus.hasFocus
                                 ? NPrimaryColor
                                 : Colors.grey),
-                        hintText: "City",
+                        // hintText: "City",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
                       validator: validatePass,
@@ -359,12 +359,12 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         border: new OutlineInputBorder(
                           borderSide: new BorderSide(color: Colors.grey),
                         ),
-                        labelText: "Address",
+                        labelText: tr("Address"),
                         labelStyle: TextStyle(
                             color: _addressFocus.hasFocus
                                 ? NPrimaryColor
                                 : Colors.grey),
-                        hintText: "Address",
+                        // hintText: "Address",
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
                       validator: validatePass,
@@ -376,11 +376,11 @@ class _AddressFormPageState extends State<AddressFormPage> {
                       decoration: InputDecoration(
                           contentPadding: new EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
-                          hintText: "Prefecture",
+                          hintText: tr("Prefecture"),
                           hintStyle: TextStyle(color: Colors.grey),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
-                          labelText: "Prefecture"),
+                          labelText: tr("Prefecture")),
                       value: prefectureValue,
                       icon: Icon(Icons.keyboard_arrow_down),
                       iconSize: 24,
@@ -401,27 +401,30 @@ class _AddressFormPageState extends State<AddressFormPage> {
                         );
                       }).toList(),
                     ),
-                    Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              Text(
-                                'Make a Default Address',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 17),
-                              ),
-                              Spacer(),
-                              Switch(
-                                  value: defaultAddress,
-                                  onChanged: (bool state) {
-                                    setState(() {
-                                      defaultAddress = state;
-                                    });
-                                  }),
-                            ])),
+                    widget.address != null
+                        ? Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Text(
+                                    'Make a Default Address',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 17),
+                                  ),
+                                  Spacer(),
+                                  Switch(
+                                      value: defaultAddress,
+                                      onChanged: (bool state) {
+                                        setState(() {
+                                          defaultAddress = state;
+                                        });
+                                      }),
+                                ]))
+                        : Container(),
                     Padding(
                       padding: EdgeInsets.only(top: 10.0),
                     ),
