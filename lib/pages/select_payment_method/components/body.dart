@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/bloc/loyalty_point_bloc.dart';
 import 'package:ecapp/models/response/loyalty_point_response.dart';
 import 'package:ecapp/models/response/email_confirm_response.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../../../constants.dart';
-
 class SelectPaymentBody extends StatefulWidget {
   @override
   _SelectPaymentBodyState createState() => _SelectPaymentBodyState();
@@ -618,6 +618,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
           builder: (context) => Center(child: CircularProgressIndicator()));
       RedeemPointResponse response = await loyaltyPointBloc.redeemPoints({
         "redeem_value": "${redeemPointController.text}",
+        "final_total": checkoutBloc.finalTotalAmount,
+        "total": checkoutBloc.billableAmount
       });
       if (response.error == null)
         setState(() {

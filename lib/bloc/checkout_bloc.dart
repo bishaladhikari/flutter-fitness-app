@@ -131,12 +131,17 @@ class CheckoutBloc {
 
   get paymentMethod => _paymentMethod.stream;
 
-  get finalTotalAmount {
-    var shippingCost = cartBloc.subject.value.shippingCost;
+
+  get totalAmount {
     var cartTotalAmount = cartBloc.subject.value.totalAmount;
     var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
+    return cartTotalAmount - bulkDiscountCost;
+  }
+
+  get finalTotalAmount {
+    var shippingCost = cartBloc.subject.value.shippingCost;
     var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
-    return cartTotalAmount + shippingCost - bulkDiscountCost - shippingDiscountCost;
+    return totalAmount + shippingCost - shippingDiscountCost;
   }
 
   get billableAmount {
@@ -152,7 +157,6 @@ class CheckoutBloc {
   get payableTotal {
     //    if (paymentMethod.value == "Cash Payment")
     return billableAmount + loyaltyPointBloc.cashOnDeliveryCharge;
-
   }
 }
 
