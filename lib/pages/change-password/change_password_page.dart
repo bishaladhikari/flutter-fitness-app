@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-class UserPasswordFormPage extends StatefulWidget {
+class ChangePasswordPage extends StatefulWidget {
   @override
-  _UserPasswordFormPageState createState() => _UserPasswordFormPageState();
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-class _UserPasswordFormPageState extends State<UserPasswordFormPage> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
   static final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

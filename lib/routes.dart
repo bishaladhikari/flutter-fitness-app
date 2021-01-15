@@ -9,6 +9,7 @@ import 'package:ecapp/pages/auth/register-page.dart';
 import 'package:ecapp/pages/card-payment/card-payment-page.dart';
 import 'package:ecapp/pages/cart/cart-page.dart';
 import 'package:ecapp/pages/cash-on-delivery/cash-on-delivery-page.dart';
+import 'package:ecapp/pages/change-password/change_password_page.dart';
 import 'package:ecapp/pages/checkout/checkout-page.dart';
 import 'package:ecapp/pages/combo/combo-detail-page.dart';
 import 'package:ecapp/pages/from-same-seller/from-same-seller-page.dart';
@@ -24,7 +25,6 @@ import 'package:ecapp/pages/product-view-more/product-view-more-page.dart';
 import 'package:ecapp/pages/rating-reviews/ratings-reviews-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
-import 'package:ecapp/pages/settings/components/user_password_form_page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/store/store-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
@@ -183,7 +183,7 @@ abstract class Routes {
           break;
       case 'userPasswordForm':
         return PageTransition(
-            type: PageTransitionType.rightToLeft, child: UserPasswordFormPage());
+            type: PageTransitionType.rightToLeft, child: ChangePasswordPage());
         break;
       default:
         return PageTransition(
