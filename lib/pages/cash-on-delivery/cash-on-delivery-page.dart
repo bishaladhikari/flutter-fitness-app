@@ -66,7 +66,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + checkoutBloc.totalAmount.toString(),
+                          '¥ ' + checkoutBloc.finalTotalAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: NPrimaryColor,
