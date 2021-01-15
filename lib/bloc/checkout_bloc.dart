@@ -20,7 +20,7 @@ class CheckoutBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<AddOrderResponse> _subject =
       BehaviorSubject<AddOrderResponse>();
-  final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
+  // final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
   final BehaviorSubject<String> _paymentMethod = BehaviorSubject<String>();
 
   AddOrderResponse response;
@@ -28,15 +28,15 @@ class CheckoutBloc {
 //  loyalty point amount = total_amount-bulk_discount_amount
   void drainStream() {
     _subject.value = null;
-    _defaultAddress.value = null;
+    // _defaultAddress.value = null;
   }
 
   @mustCallSuper
   void dispose() async {
     await _subject.drain();
     _subject.close();
-    await _defaultAddress.drain();
-    _defaultAddress.close();
+    // await _defaultAddress.drain();
+    // _defaultAddress.close();
   }
 
   createOrder({context, token}) async {
@@ -93,9 +93,14 @@ class CheckoutBloc {
         fontSize: 16.0);
 
     if (response.error == null) {
-      Navigator.of(context, rootNavigator: true).pushReplacementNamed(
-          'orderConfirmationPage',
-          arguments: response.order);
+      checkoutBloc.drainStream();
+      cartBloc.drainStream();
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        'orderConfirmationPage',
+        (r) => false,
+        arguments: response.order,
+      );
     }
 //    if (response.error == null) {
 //      Navigator.pop(context);
@@ -116,7 +121,7 @@ class CheckoutBloc {
 
   getDefaultAddress() async {
     AddressResponse response = await addressBloc.getAddresses();
-    if (response.error == null) _defaultAddress.sink.add(response.addresses[0]);
+    // if (response.error == null) _defaultAddress.sink.add(response.addresses[0]);
   }
 
   // setDefaultAddress(address) {
@@ -127,10 +132,9 @@ class CheckoutBloc {
 
   BehaviorSubject<AddOrderResponse> get addresses => _subject.stream;
 
-  BehaviorSubject<Address> get defaultAddress => _defaultAddress.stream;
+  // BehaviorSubject<Address> get defaultAddress => _defaultAddress.stream;
 
   get paymentMethod => _paymentMethod.stream;
-
 
   get totalAmount {
     var cartTotalAmount = cartBloc.subject.value.totalAmount;
