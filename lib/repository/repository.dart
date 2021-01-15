@@ -34,7 +34,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 class Repository {
-  static String appUrl = "http://ecsite.eeeinnovation.com/api";
+  // static String appUrl = "http://ecsite.eeeinnovation.com/api";
+  static String appUrl = "http://prod-ecsite.eeeinnovation.com/api";
 
 //  static String appUrl = "http://ecsite-dashboard.test/api";
 

@@ -53,8 +53,7 @@ class _AddressPageState extends State<AddressPage> {
                                 }
                               },
                               child: AddressListItem(
-                                  address: address,
-                                  selectMode: widget.selectMode));
+                                  address: address));
                         });
                   }
                   return Container();

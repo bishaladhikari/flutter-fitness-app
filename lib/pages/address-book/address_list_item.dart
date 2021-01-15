@@ -1,18 +1,17 @@
 import 'package:ecapp/models/address.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddressListItem extends StatefulWidget {
   Address address;
-  bool selectMode;
 
-  AddressListItem({Key key, this.address, this.selectMode}) : super(key: key);
+  AddressListItem({Key key, this.address}) : super(key: key);
 
   @override
   _AddressListItemState createState() => _AddressListItemState();
 }
 
 class _AddressListItemState extends State<AddressListItem> {
-  bool selectMode;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class _AddressListItemState extends State<AddressListItem> {
                           arguments: widget.address);
                     },
                     child: Text(
-                      "Edit",
+                      tr("Edit"),
                       style: TextStyle(color: Colors.lightBlue, fontSize: 15),
                     ),
                   )
