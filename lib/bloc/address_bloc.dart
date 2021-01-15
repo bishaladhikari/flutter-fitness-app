@@ -20,6 +20,9 @@ class AddressBloc {
     return response;
   }
 
+  setDefaultAddress(address) {
+    _defaultAddress.sink.add(address);
+  }
 //   addAddress(item) async{
 //     await repository.addAddress(item);
 // response.add(id)

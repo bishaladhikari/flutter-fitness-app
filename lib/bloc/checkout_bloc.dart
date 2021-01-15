@@ -118,9 +118,11 @@ class CheckoutBloc {
     if (response.error == null) _defaultAddress.sink.add(response.addresses[0]);
   }
 
-  setDefaultAddress(address) {
-    _defaultAddress.sink.add(address);
-  }
+  // setDefaultAddress(address) {
+  //   print("called default Address"+jsonEncode(address));
+  //   _defaultAddress.sink.add(address);
+  //   // _defaultAddress.value= address;
+  // }
 
   BehaviorSubject<AddOrderResponse> get addresses => _subject.stream;
 

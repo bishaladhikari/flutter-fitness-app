@@ -5,6 +5,7 @@ import 'package:ecapp/models/address.dart';
 import 'package:ecapp/pages/address-book/address_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddressPage extends StatefulWidget {
   bool selectMode;
@@ -16,7 +17,6 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  bool selectMode;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _AddressPageState extends State<AddressPage> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: new Text(
-            ' My Address',
+            widget.selectMode?tr('Select Address'):tr('My Address'),
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
         ),
@@ -44,11 +44,11 @@ class _AddressPageState extends State<AddressPage> {
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (_, index) {
                           Address address = snapshot.data.addresses[index];
-                          return GestureDetector(
-                              behavior: HitTestBehavior.translucent,
+                          return InkWell(
+                              // behavior: HitTestBehavior.translucent,
                               onTap: () {
                                 if (widget.selectMode) {
-                                  checkoutBloc.setDefaultAddress(address);
+                                  addressBloc.setDefaultAddress(address);
                                   Navigator.pop(context);
                                 }
                               },

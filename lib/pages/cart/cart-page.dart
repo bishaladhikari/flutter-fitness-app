@@ -131,8 +131,9 @@ class _CartPageState extends State<CartPage>
     AddressResponse response = await addressBloc.getAddresses();
     Navigator.pop(context);
     if (response.error != null) {
+      Scaffold.of(context).removeCurrentSnackBar();
       Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(tr("Please. Try Again.")),
+        content: Text(tr(response.error)),
         backgroundColor: Colors.redAccent,
       ));
     } else {

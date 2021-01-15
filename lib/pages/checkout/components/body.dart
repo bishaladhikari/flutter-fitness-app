@@ -11,6 +11,7 @@ import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/checkout/components/checkout_cart_item_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'dart:convert';
 
 import 'checkout_address_list_item.dart';
 
@@ -48,6 +49,7 @@ class _BodyState extends State<Body> {
                     stream: addressBloc.defaultAddress,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
+                        print("defaultAddress"+jsonEncode(snapshot.data));
                         return _buildAddressWidget(snapshot.data);
                       }
                       // WidgetsBinding.instance.addPostFrameCallback((_) {
