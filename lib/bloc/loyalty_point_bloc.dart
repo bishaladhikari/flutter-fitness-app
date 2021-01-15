@@ -4,6 +4,7 @@ import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
+import 'checkout_bloc.dart';
 
 class LoyaltyPointBloc {
   final Repository _repository = Repository();
@@ -16,12 +17,15 @@ class LoyaltyPointBloc {
 
   LoyaltyPointResponse response;
 
-  getLoyaltyPoint(int amount) async {
-    LoyaltyPointResponse response = await _repository.loyaltyPoints(amount);
+  getLoyaltyPoint(amount) async {
+    var params = {
+      "amount": amount,
+      "final_total": checkoutBloc.finalTotalAmount
+    };
+    LoyaltyPointResponse response = await _repository.loyaltyPoints(params);
     _subject.sink.add(response);
     if (response.error == null)
       _cashOnDeliveryCharge = response.cashOnDeliveryCharge;
-    print("myresponse"+response.cashOnDeliveryCharge.toString());
     return response;
   }
 
@@ -52,7 +56,7 @@ class LoyaltyPointBloc {
 
   BehaviorSubject<RedeemPointResponse> get redeemResponse => _redeemResponse;
 
-  get cashOnDeliveryCharge => _cashOnDeliveryCharge;
+  get cashOnDeliveryCharge => _cashOnDeliveryCharge??0.0;
 }
 
 final LoyaltyPointBloc loyaltyPointBloc = LoyaltyPointBloc();

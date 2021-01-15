@@ -28,7 +28,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
   @override
   void initState() {
     loyaltyPointBloc
-      ..getLoyaltyPoint(cartBloc.subject.value.totalAmount.toInt());
+      ..getLoyaltyPoint(cartBloc.subject.value.totalAmount.toString());
     super.initState();
   }
 

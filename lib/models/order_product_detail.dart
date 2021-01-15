@@ -15,7 +15,7 @@ class OrderProductDetail {
   bool reviewed;
   String slug;
   String soldBy;
-  int subTotal;
+  var subTotal;
   String variant;
   String variantTitle;
   String reviewId;

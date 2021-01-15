@@ -646,9 +646,7 @@ class Repository {
     }
   }
 
-  Future<LoyaltyPointResponse> loyaltyPoints(amount) async {
-    var params = {'amount': amount};
-
+  Future<LoyaltyPointResponse> loyaltyPoints(params) async {
     try {
       Response response =
           await _dio.post(loyaltyPointsUrl, queryParameters: params);

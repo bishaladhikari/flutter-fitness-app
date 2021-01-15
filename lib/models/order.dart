@@ -60,7 +60,7 @@ class Order {
     phone = json['phone'];
     prefecture = json['prefecture'];
     redeemedAmount = json['redeemed_amount'];
-    shippingCost = json['shipping_cost'];
+    shippingCost = json['shipping_cost'].toString();
     shippingDiscountCost = json['shipping_discount_cost'].toString();
     status = json['status'];
     subTotal = json['sub_total'].toString();

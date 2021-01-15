@@ -45,7 +45,7 @@ class CheckoutBloc {
         barrierColor: Colors.white70,
         barrierDismissible: false,
         builder: (context) => Center(child: CircularProgressIndicator()));
-    var addressId = _defaultAddress.value.id;
+    var addressId = addressBloc.defaultAddress.value.id;
     var shippingCost = cartBloc.subject.value.shippingCost;
     var totalWeight = cartBloc.subject.value.totalWeight;
     var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
@@ -93,8 +93,9 @@ class CheckoutBloc {
         fontSize: 16.0);
 
     if (response.error == null) {
-      Navigator.of(context, rootNavigator: true)
-          .pushReplacementNamed('orderConfirmationPage',arguments:response.order);
+      Navigator.of(context, rootNavigator: true).pushReplacementNamed(
+          'orderConfirmationPage',
+          arguments: response.order);
     }
 //    if (response.error == null) {
 //      Navigator.pop(context);
@@ -130,26 +131,28 @@ class CheckoutBloc {
 
   get paymentMethod => _paymentMethod.stream;
 
-  get billableAmount {
+  get finalTotalAmount {
     var shippingCost = cartBloc.subject.value.shippingCost;
-    var subTotal = cartBloc.subject.value.totalAmount;
+    var cartTotalAmount = cartBloc.subject.value.totalAmount;
     var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
+    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
+    return cartTotalAmount + shippingCost - bulkDiscountCost - shippingDiscountCost;
+  }
+
+  get billableAmount {
     var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
         ? loyaltyPointBloc.redeemResponse.value.amountValue
         : 0;
-    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
-    var billableAmount = subTotal +
-        shippingCost -
-        bulkDiscountCost -
-        shippingDiscountCost -
-        redeemedAmount;
+    var billableAmount = finalTotalAmount - redeemedAmount;
 //    if (paymentMethod.value == "Cash Payment")
 //      return billableAmount + cashOnDeliveryCharge;
     return billableAmount;
   }
-  get payableTotal{
+
+  get payableTotal {
     //    if (paymentMethod.value == "Cash Payment")
-      return billableAmount + loyaltyPointBloc.cashOnDeliveryCharge;
+    return billableAmount + loyaltyPointBloc.cashOnDeliveryCharge;
+
   }
 }
 
