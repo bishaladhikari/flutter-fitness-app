@@ -148,6 +148,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                                   )
                                 ],
                               ),
+                              SizedBox(height: 5),
                               snapshot.data.amountValue >=
                                       cartTotalAmount.toInt()
                                   ? SizedBox(
@@ -169,7 +170,6 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                             ],
                           );
                         }),
-                    SizedBox(height: 5),
                     // StreamBuilder<RedeemPointResponse>(
                     //     stream: loyaltyPointBloc.redeemResponse.stream,
                     //     builder: (context, snapshot) {
