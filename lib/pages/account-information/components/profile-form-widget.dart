@@ -1,114 +1,49 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/profile_bloc.dart';
-import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/profile_response.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ecapp/models/profile.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-class UserProfileFormPage extends StatefulWidget {
+import '../../../constants.dart';
+
+class ProfileFormWidget extends StatefulWidget {
+  final Profile profile;
+
+  ProfileFormWidget({this.profile});
+
   @override
-  _UserProfileFormPageState createState() => _UserProfileFormPageState();
+  _ProfileFormWidgetState createState() => _ProfileFormWidgetState();
 }
 
-class _UserProfileFormPageState extends State<UserProfileFormPage>
-    with SingleTickerProviderStateMixin {
+class _ProfileFormWidgetState extends State<ProfileFormWidget>
+    with AutomaticKeepAliveClientMixin {
   static final _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   bool _validate = false;
-  String email;
-
+  Profile profile;
   @override
   void initState() {
+    profile = widget.profile;
+    firstNameController.text = profile.firstName;
+    lastNameController.text = profile.lastName;
+    mobileController.text = profile.mobile;
     super.initState();
-    profileBloc.userProfile();
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    mobileController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // key: _scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => {Navigator.pop(context)},
-            icon: Icon(Icons.close),
-          ),
-          title: Text(tr("Account Information"),
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0)),
-          backgroundColor: Colors.white,
-        ),
-        body: SingleChildScrollView(child: _buildProfileFromWidget()));
+    super.build(context);
+    return _buildFormWidget();
   }
 
-  Widget _buildProfileFromWidget() {
-    return StreamBuilder<ProfileResponse>(
-        stream: profileBloc.subject.stream,
-        builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
-          if (snapshot.hasData) {
-            print(['hello', snapshot.data]);
-            if (snapshot.data.error != null) {
-              return _buildErrorWidget(snapshot.data.error);
-            }
-            var profile = snapshot.data.profile;
-            firstNameController =
-                TextEditingController(text: profile.firstName);
-            lastNameController = TextEditingController(text: profile.lastName);
-            mobileController = TextEditingController(text: profile.mobile);
-            email = profile.email;
-            return _buildFormWidget();
-          } else if (snapshot.hasError) {
-            return _buildErrorWidget(snapshot.error);
-          } else {
-            return _buildLoadingWidget();
-          }
-        });
-  }
 
-  Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 35.0,
-          width: 35.0,
-          child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-            strokeWidth: 4.0,
-          ),
-        )
-      ],
-    ));
-  }
-
-  Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(tr("Error occurred: $error")),
-      ],
-    ));
-  }
-
-  Widget _buildFormWidget() {
+  _buildFormWidget() {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -163,7 +98,7 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
               Container(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    tr(email),
+                    tr(profile.email),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black87),
                   )),
@@ -203,9 +138,9 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
                       borderRadius: BorderRadius.circular(5.0)),
                   child: Center(
                       child: Text(
-                    "Save",
-                    style: TextStyle(fontSize: 14, color: Colors.white),
-                  )),
+                        "Save",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      )),
                 ),
               ),
               SizedBox(
@@ -253,4 +188,13 @@ class _UserProfileFormPageState extends State<UserProfileFormPage>
       setState(() => _validate = true);
     }
   }
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    mobileController.dispose();
+  }
+  @override
+  bool get wantKeepAlive => true;
 }

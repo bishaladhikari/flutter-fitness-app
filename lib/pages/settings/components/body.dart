@@ -1,7 +1,10 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ecapp/bloc/profile_bloc.dart';
+import 'package:ecapp/models/response/profile_response.dart';
 import 'package:ecapp/pages/review/review-page.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,9 +13,11 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   _navigateToUserProfileForm() async {
-    await authBloc.isAuthenticated() == true
-        ? Navigator.of(context).pushNamed('userProfileForm')
-        : Navigator.of(context).pushNamed('loginPage');
+    // ProfileResponse response = await profileBloc.userProfile();
+    // if (response.error == null) {
+      Navigator.of(context)
+          .pushNamed('accountInformationPage');
+    // }
   }
 
   _navigateToUserPasswordForm() async {
@@ -28,17 +33,19 @@ class _BodyState extends State<Body> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ListTile(
-              title: Text('Account Information'),
+              title: Text('Account Information'.tr()),
               onTap: () async {
-                _navigateToUserProfileForm();
+                await authBloc.isAuthenticated()
+                    ? _navigateToUserProfileForm()
+                    : Navigator.of(context).pushNamed('loginPage');
               }),
           ListTile(
-              title: Text('Address Book'),
+              title: Text('Address Book'.tr()),
               onTap: () {
                 Navigator.pushNamed(context, 'addressPage', arguments: false);
               }),
           ListTile(
-              title: Text('Language'),
+              title: Text('Language'.tr()),
               subtitle: Text(EasyLocalization.of(context)
                   .locale
                   .toLanguageTag()
@@ -47,7 +54,7 @@ class _BodyState extends State<Body> {
                 _languageChange(context);
               }),
           ListTile(
-              title: Text('Review'),
+              title: Text('Review'.tr()),
               onTap: () {
                 Navigator.push(
                   context,
@@ -55,12 +62,12 @@ class _BodyState extends State<Body> {
                 );
               }),
           ListTile(
-              title: Text('Change Password'),
+              title: Text('Change Password'.tr()),
               onTap: () async {
                 _navigateToUserPasswordForm();
               }),
           ListTile(
-            title: Text('Logout'),
+            title: Text('Logout'.tr()),
             onTap: () {
               authBloc.logout();
               Navigator.of(context).pop();

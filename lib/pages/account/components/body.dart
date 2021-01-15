@@ -129,19 +129,19 @@ class _BodyState extends State<Body> {
             height: 15.0,
           ),
           AppBarIconText(
-            title: "FAQs ",
+            title: "FAQs".tr(),
             onPressed: () {},
           ),
           AppBarIconText(
-            title: "About Us ",
+            title: "About Us".tr(),
             onPressed: () {},
           ),
           AppBarIconText(
-            title: "Terms of Use ",
+            title: "Terms of Use".tr(),
             onPressed: () {},
           ),
           AppBarIconText(
-            title: "Privacy Policy ",
+            title: "Privacy Policy".tr(),
             onPressed: () {
               Navigator.pushNamed(context, "privacyPage");
             },

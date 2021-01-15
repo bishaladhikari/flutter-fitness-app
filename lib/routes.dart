@@ -25,7 +25,6 @@ import 'package:ecapp/pages/rating-reviews/ratings-reviews-page.dart';
 import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
 import 'package:ecapp/pages/settings/components/user_password_form_page.dart';
-import 'package:ecapp/pages/settings/components/user_profile_form_page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/store/store-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
@@ -178,10 +177,10 @@ abstract class Routes {
             type: PageTransitionType.rightToLeft,
             child: ProductViewMorePage(types: arguments));
         break;
-      case 'userProfileForm':
-        return PageTransition(
-            type: PageTransitionType.rightToLeft, child: UserProfileFormPage());
-        break;
+      case 'accountInformationPage':
+          return PageTransition(
+              type: PageTransitionType.rightToLeft, child: AccountInformationPage());
+          break;
       case 'userPasswordForm':
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: UserPasswordFormPage());
