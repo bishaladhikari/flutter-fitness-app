@@ -619,7 +619,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
       RedeemPointResponse response = await loyaltyPointBloc.redeemPoints({
         "redeem_value": "${redeemPointController.text}",
         "final_total": checkoutBloc.finalTotalAmount,
-        "total": checkoutBloc.billableAmount
+        "total": checkoutBloc.totalAmount
       });
       if (response.error == null)
         setState(() {
