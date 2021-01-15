@@ -83,7 +83,10 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                       children: [
                         Text(
                           "Total Amount",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 16),
                         ),
                         Text(
                           '¥ ' + checkoutBloc.finalTotalAmount.toString(),
@@ -127,7 +130,8 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData &&
                               snapshot.data.amountValue != null &&
-                              snapshot.data.amountValue >= cartTotalAmount.toInt())
+                              snapshot.data.amountValue >=
+                                  cartTotalAmount.toInt())
                             return SizedBox(
                               width: double.infinity,
                               height: 50,
