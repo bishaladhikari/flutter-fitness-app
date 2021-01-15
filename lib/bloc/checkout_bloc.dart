@@ -95,8 +95,7 @@ class CheckoutBloc {
     if (response.error == null) {
       checkoutBloc.drainStream();
       cartBloc.drainStream();
-      Navigator.pushNamedAndRemoveUntil(
-        context,
+      Navigator.of(context,rootNavigator: true).pushNamedAndRemoveUntil(
         'orderConfirmationPage',
         (r) => false,
         arguments: response.order,
