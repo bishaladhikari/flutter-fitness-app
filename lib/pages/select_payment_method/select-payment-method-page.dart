@@ -32,35 +32,35 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    StreamBuilder<RedeemPointResponse>(
-                        stream: loyaltyPointBloc.redeemResponse.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData &&
-                              snapshot.data.amountValue != null) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  tr("Redeemed Amount"),
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 16),
-                                ),
-                                Text(
-                                  '¥ ' +
-                                      loyaltyPointBloc
-                                          .redeemResponse.value.amountValue
-                                          .toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
-                                      fontSize: 16),
-                                )
-                              ],
-                            );
-                          } else {
-                            return Container();
-                          }
-                        }),
+                    // StreamBuilder<RedeemPointResponse>(
+                    //     stream: loyaltyPointBloc.redeemResponse.stream,
+                    //     builder: (context, snapshot) {
+                    //       if (snapshot.hasData &&
+                    //           snapshot.data.amountValue != null) {
+                    //         return Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //             Text(
+                    //               tr("Redeemed Amount"),
+                    //               style: TextStyle(
+                    //                   color: Colors.black, fontSize: 16),
+                    //             ),
+                    //             Text(
+                    //               '¥ ' +
+                    //                   loyaltyPointBloc
+                    //                       .redeemResponse.value.amountValue
+                    //                       .toString(),
+                    //               style: TextStyle(
+                    //                   fontWeight: FontWeight.w400,
+                    //                   color: Colors.black,
+                    //                   fontSize: 16),
+                    //             )
+                    //           ],
+                    //         );
+                    //       } else {
+                    //         return Container();
+                    //       }
+                    //     }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -104,50 +104,95 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                           if (!(snapshot.hasData &&
                               snapshot.data.amountValue != null))
                             return Container();
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          return Column(
                             children: [
-                              Text(
-                                "Payable total Amount",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize: 16),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    tr("Redeemed Amount"),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16),
+                                  ),
+                                  Text(
+                                    '¥ ' +
+                                        loyaltyPointBloc
+                                            .redeemResponse.value.amountValue
+                                            .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                        fontSize: 16),
+                                  )
+                                ],
                               ),
-                              Text(
-                                '¥ ' + checkoutBloc.payableTotal.toString(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: NPrimaryColor,
-                                    fontSize: 16),
-                              )
+                              SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Payable total Amount",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    '¥ ' + checkoutBloc.payableTotal.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: NPrimaryColor,
+                                        fontSize: 16),
+                                  )
+                                ],
+                              ),
+                              snapshot.data.amountValue >=
+                                      cartTotalAmount.toInt()
+                                  ? SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: FlatButton(
+                                        color: NPrimaryColor,
+                                        onPressed: () async {
+                                          checkoutBloc.createOrder(
+                                              context: context);
+                                        },
+                                        child: Text(
+                                          "Place order",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    )
+                                  : Container()
                             ],
                           );
                         }),
                     SizedBox(height: 5),
-                    StreamBuilder<RedeemPointResponse>(
-                        stream: loyaltyPointBloc.redeemResponse.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData &&
-                              snapshot.data.amountValue != null &&
-                              snapshot.data.amountValue >=
-                                  cartTotalAmount.toInt())
-                            return SizedBox(
-                              width: double.infinity,
-                              height: 50,
-                              child: FlatButton(
-                                color: NPrimaryColor,
-                                onPressed: () async {
-                                  checkoutBloc.createOrder(context: context);
-                                },
-                                child: Text(
-                                  "Place order",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            );
-                          return Container();
-                        })
+                    // StreamBuilder<RedeemPointResponse>(
+                    //     stream: loyaltyPointBloc.redeemResponse.stream,
+                    //     builder: (context, snapshot) {
+                    //       if (snapshot.hasData &&
+                    //           snapshot.data.amountValue != null &&
+                    //           snapshot.data.amountValue >=
+                    //               cartTotalAmount.toInt())
+                    //         return SizedBox(
+                    //           width: double.infinity,
+                    //           height: 50,
+                    //           child: FlatButton(
+                    //             color: NPrimaryColor,
+                    //             onPressed: () async {
+                    //               checkoutBloc.createOrder(context: context);
+                    //             },
+                    //             child: Text(
+                    //               "Place order",
+                    //               style: TextStyle(color: Colors.white),
+                    //             ),
+                    //           ),
+                    //         );
+                    //       return Container();
+                    //     })
                   ],
                 ),
               );
