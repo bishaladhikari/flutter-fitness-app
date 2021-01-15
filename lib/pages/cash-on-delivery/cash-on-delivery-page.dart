@@ -29,7 +29,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double totalAmount = snapshot.data.totalAmount;
+              double cartTotalAmount = snapshot.data.totalAmount;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -46,7 +46,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + totalAmount.toString(),
+                          '¥ ' + cartTotalAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
@@ -66,7 +66,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + checkoutBloc.billableAmount.toString(),
+                          '¥ ' + checkoutBloc.totalAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: NPrimaryColor,

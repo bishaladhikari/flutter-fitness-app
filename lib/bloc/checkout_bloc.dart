@@ -141,7 +141,7 @@ class CheckoutBloc {
   get finalTotalAmount {
     var shippingCost = cartBloc.subject.value.shippingCost;
     var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
-    return totalAmount + shippingCost - shippingDiscountCost;
+    return (totalAmount + shippingCost - shippingDiscountCost).toInt();
   }
 
   get billableAmount {

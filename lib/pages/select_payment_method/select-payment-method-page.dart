@@ -26,7 +26,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double totalAmount = snapshot.data.totalAmount;
+              double cartTotalAmount = snapshot.data.totalAmount;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -69,7 +69,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + totalAmount.toString(),
+                          '¥ ' + cartTotalAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
@@ -83,16 +83,13 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                       children: [
                         Text(
                           "Total Amount",
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        Text(
+                          '¥ ' + checkoutBloc.finalTotalAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          '¥ ' + checkoutBloc.billableAmount.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: NPrimaryColor,
                               fontSize: 16),
                         )
                       ],
@@ -101,9 +98,36 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                     StreamBuilder<RedeemPointResponse>(
                         stream: loyaltyPointBloc.redeemResponse.stream,
                         builder: (context, snapshot) {
+                          if (!(snapshot.hasData &&
+                              snapshot.data.amountValue != null))
+                            return Container();
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Payable total Amount",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 16),
+                              ),
+                              Text(
+                                '¥ ' + checkoutBloc.payableTotal.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: NPrimaryColor,
+                                    fontSize: 16),
+                              )
+                            ],
+                          );
+                        }),
+                    SizedBox(height: 5),
+                    StreamBuilder<RedeemPointResponse>(
+                        stream: loyaltyPointBloc.redeemResponse.stream,
+                        builder: (context, snapshot) {
                           if (snapshot.hasData &&
                               snapshot.data.amountValue != null &&
-                              snapshot.data.amountValue > totalAmount)
+                              snapshot.data.amountValue >= cartTotalAmount.toInt())
                             return SizedBox(
                               width: double.infinity,
                               height: 50,
