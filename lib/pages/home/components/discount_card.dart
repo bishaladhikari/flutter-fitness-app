@@ -31,67 +31,69 @@ class _DiscountCardState extends State<DiscountCard> {
           stream: bannerBloc.banners,
           builder: (context, snapShot) {
             if (snapShot.hasData) {
-              return CarouselSlider.builder(
-                  itemCount: snapShot.data.banners.length,
-                  options: CarouselOptions(
-                      height: 200.0,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 5),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn),
-                  itemBuilder: (BuildContext context, int itemIndex) {
-                    final item = snapShot.data.banners[itemIndex];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "discountView",
-                            arguments: DiscountInfo(
-                                image: item.imageThumbnail,
-                                imageUrl: item.imageLink,
-                                caption: item.caption,
-                                url: item.url));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 20),
-                        padding: const EdgeInsets.all(5.0),
-                        width: double.infinity,
-                        child: CachedNetworkImage(
-                          placeholder: (context, url) => Center(
-                            child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/placeholder.png"),
-                                    fit: BoxFit.cover),
+              if (snapShot.data.banners.length > 0)
+                return CarouselSlider.builder(
+                    itemCount: snapShot.data.banners.length,
+                    options: CarouselOptions(
+                        height: 200.0,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn),
+                    itemBuilder: (BuildContext context, int itemIndex) {
+                      final item = snapShot.data.banners[itemIndex];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "discountView",
+                              arguments: DiscountInfo(
+                                  image: item.imageThumbnail,
+                                  imageUrl: item.imageLink,
+                                  caption: item.caption,
+                                  url: item.url));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          padding: const EdgeInsets.all(5.0),
+                          width: double.infinity,
+                          child: CachedNetworkImage(
+                            placeholder: (context, url) => Center(
+                              child: Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/placeholder.png"),
+                                      fit: BoxFit.cover),
+                                ),
                               ),
                             ),
-                          ),
-                          imageUrl: item.imageLink,
+                            imageUrl: item.imageLink,
 //            imageUrl: product.imageThumbnail,
-                          imageBuilder: (context, imageProvider) => Container(
+                            imageBuilder: (context, imageProvider) => Container(
 //              width: 75,
-                            height: 200,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            )),
-                          ),
-                          errorWidget: (context, url, error) => Center(
-                            child: Container(
                               height: 200,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/placeholder.png"),
-                                    fit: BoxFit.cover),
+                                  image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              )),
+                            ),
+                            errorWidget: (context, url, error) => Center(
+                              child: Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/placeholder.png"),
+                                      fit: BoxFit.cover),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  });
+                      );
+                    });
+              return Container();
             }
             return _buildShimmerWidget();
           },
