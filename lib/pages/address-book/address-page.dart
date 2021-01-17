@@ -1,4 +1,5 @@
 import 'package:ecapp/bloc/address_bloc.dart';
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/components/add_address.dart';
 import 'package:ecapp/models/address.dart';
@@ -46,9 +47,12 @@ class _AddressPageState extends State<AddressPage> {
                           Address address = snapshot.data.addresses[index];
                           return InkWell(
                               // behavior: HitTestBehavior.translucent,
-                              onTap: () {
+                              onTap: () async {
                                 if (widget.selectMode) {
-                                  addressBloc.setDefaultAddress(address);
+                                  var response = await addressBloc.setDefaultAddress(address);
+                                  if(response.error == null){
+                                    await cartBloc.getCartSummary();
+                                  }
                                   Navigator.pop(context);
                                 }
                               },

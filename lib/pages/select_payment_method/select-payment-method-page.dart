@@ -26,7 +26,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double cartTotalAmount = snapshot.data.totalAmount;
+              var cartTotalAmount = snapshot.data.cartSummary.totalAmount;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -150,7 +150,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                               ),
                               SizedBox(height: 5),
                               snapshot.data.amountValue >=
-                                      cartTotalAmount.toInt()
+                                      checkoutBloc.payableTotal.toInt()
                                   ? SizedBox(
                                       width: double.infinity,
                                       height: 50,

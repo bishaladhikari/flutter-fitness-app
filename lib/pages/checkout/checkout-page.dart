@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:ecapp/bloc/checkout_bloc.dart';
 import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/cart_response.dart';
@@ -23,7 +24,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double totalAmount = snapshot.data.totalAmount;
+              var cartTotalAmount = snapshot.data.cartSummary.totalAmount;
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 height: 80,
@@ -49,7 +50,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Text(tr('Total Amount'),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black)),
-                    Text(' ¥ ' + totalAmount.toStringAsFixed(2),
+                    Text('¥ ' + checkoutBloc.finalTotalAmount.toString(),
                         style: TextStyle(
                             color: NPrimaryColor,
                             fontWeight: FontWeight.bold,

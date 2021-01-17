@@ -1,5 +1,8 @@
+import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/address_response.dart';
+import 'package:ecapp/models/response/cart_summary_response.dart';
+import 'package:ecapp/models/response/default_address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -15,14 +18,24 @@ class AddressBloc {
   getAddresses() async {
     response = await _repository.getAddresses();
     _subject.sink.add(response);
-    if (response.error == null && response.addresses.length > 0)
-      _defaultAddress.sink.add(response.addresses[0]);
+    if (response.error == null && response.addresses.length > 0) {
+      var defaultAddressIndex =
+          response.addresses.indexWhere((element) => element.isDefault == true);
+      if (defaultAddressIndex > -1)
+        _defaultAddress.sink.add(response.addresses[defaultAddressIndex]);
+    }
     return response;
   }
 
-  setDefaultAddress(address) {
-    _defaultAddress.sink.add(address);
+  setDefaultAddress(address) async {
+    DefaultAddressResponse defaultAddressResponse =
+        await _repository.setDefaultAddress(address.id);
+    if (defaultAddressResponse.error == null) {
+      _defaultAddress.sink.add(defaultAddressResponse.address);
+    }
+    return defaultAddressResponse;
   }
+
 //   addAddress(item) async{
 //     await repository.addAddress(item);
 // response.add(id)

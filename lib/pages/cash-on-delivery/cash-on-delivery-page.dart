@@ -39,7 +39,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double cartTotalAmount = snapshot.data.totalAmount;
+              var cartTotalAmount = snapshot.data.cartSummary.totalAmount;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

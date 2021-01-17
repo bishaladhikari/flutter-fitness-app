@@ -388,7 +388,7 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                                           minHeight: 14,
                                         ),
                                         child: Text(
-                                          snapshot.data.totalItems.toString(),
+                                          snapshot.data.cartSummary.totalItems.toString(),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 9,
