@@ -430,7 +430,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                           minHeight: 14,
                                         ),
                                         child: Text(
-                                          snapshot.data.totalItems.toString(),
+                                          snapshot.data.cartSummary.totalItems.toString(),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 9,
