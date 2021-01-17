@@ -166,7 +166,7 @@ class CheckoutBloc {
 
   get payableTotal {
     //    if (paymentMethod.value == "Cash Payment")
-    return billableAmount + loyaltyPointBloc.cashOnDeliveryCharge;
+    return (billableAmount + loyaltyPointBloc.cashOnDeliveryCharge).round();
   }
 }
 

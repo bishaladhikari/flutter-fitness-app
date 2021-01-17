@@ -355,7 +355,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       tr('You have redeemed reward points with amount value equal to ¥{rewardPoints}. Now you can place order.',
-                          namedArgs: {"rewardPoints": "38"}),
+                          namedArgs: {"rewardPoints": redeem_amount.toString()}),
                       style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   )
@@ -623,8 +623,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
       });
       if (response.error == null)
         setState(() {
-          showPaymentMethods = double.parse(redeemPointController.text) <
-              cartBloc.subject.value.cartSummary.totalAmount;
+          showPaymentMethods =int.parse(redeemPointController.text) <
+              checkoutBloc.payableTotal;
         });
       Navigator.pop(context);
       Fluttertoast.showToast(
