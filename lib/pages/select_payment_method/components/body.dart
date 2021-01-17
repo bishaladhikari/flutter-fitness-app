@@ -28,7 +28,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
   @override
   void initState() {
     loyaltyPointBloc
-      ..getLoyaltyPoint(cartBloc.subject.value.totalAmount.toString());
+      ..getLoyaltyPoint(cartBloc.subject.value.cartSummary.totalAmount.toString());
     super.initState();
   }
 
@@ -624,7 +624,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
       if (response.error == null)
         setState(() {
           showPaymentMethods = double.parse(redeemPointController.text) <
-              cartBloc.subject.value.totalAmount;
+              cartBloc.subject.value.cartSummary.totalAmount;
         });
       Navigator.pop(context);
       Fluttertoast.showToast(

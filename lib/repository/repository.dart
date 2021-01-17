@@ -8,10 +8,12 @@ import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/banner_response.dart';
 import 'package:ecapp/models/response/brand_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
+import 'package:ecapp/models/response/cart_summary_response.dart';
 import 'package:ecapp/models/response/category_response.dart';
 import 'package:ecapp/models/response/customer_review_response.dart';
 import 'package:ecapp/models/response/combo_detail_response.dart';
 import 'package:ecapp/models/response/combo_response.dart';
+import 'package:ecapp/models/response/default_address_response.dart';
 import 'package:ecapp/models/response/error_response.dart';
 import 'package:ecapp/models/response/login_response.dart';
 import 'package:ecapp/models/response/loyalty_point_response.dart';
@@ -547,6 +549,26 @@ class Repository {
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
       return AddOrderResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<CartSummaryResponse> getCartSummary() async {
+    try {
+      Response response = await _dio.get(appUrl + '/cart-summary');
+      return CartSummaryResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return CartSummaryResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<DefaultAddressResponse> setDefaultAddress(id) async {
+    try {
+      Response response = await _dio.post(appUrl + '/customer/default-address/$id');
+      return DefaultAddressResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return DefaultAddressResponse.withError(_handleError(error));
     }
   }
 

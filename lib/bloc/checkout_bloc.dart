@@ -20,6 +20,7 @@ class CheckoutBloc {
   final Repository _repository = Repository();
   final BehaviorSubject<AddOrderResponse> _subject =
       BehaviorSubject<AddOrderResponse>();
+
   // final BehaviorSubject<Address> _defaultAddress = BehaviorSubject<Address>();
   final BehaviorSubject<String> _paymentMethod = BehaviorSubject<String>();
 
@@ -45,13 +46,14 @@ class CheckoutBloc {
         context: context,
         barrierColor: Colors.white70,
         barrierDismissible: false,
-        builder: (context){
+        builder: (context) {
           dialogContext = context;
           return Center(child: CircularProgressIndicator());
         });
     var addressId = addressBloc.defaultAddress.value.id;
-    var shippingCost = cartBloc.subject.value.shippingCost;
-    var totalWeight = cartBloc.subject.value.totalWeight;
+    var cartSummary = cartBloc.subject.value.cartSummary;
+    var shippingCost = cartSummary.shippingCost;
+    var totalWeight = cartSummary.totalWeight;
     var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
 
 //    var subTotal = cartBloc.subject.value.totalAmount;
@@ -140,14 +142,15 @@ class CheckoutBloc {
   get paymentMethod => _paymentMethod.stream;
 
   get totalAmount {
-    var cartTotalAmount = cartBloc.subject.value.totalAmount;
-    var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
+    var cartTotalAmount = cartBloc.subject.value.cartSummary.totalAmount;
+    var bulkDiscountCost = cartBloc.subject.value.cartSummary.bulkDiscountCost;
     return cartTotalAmount - bulkDiscountCost;
   }
 
   get finalTotalAmount {
-    var shippingCost = cartBloc.subject.value.shippingCost;
-    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
+    var shippingCost = cartBloc.subject.value.cartSummary.shippingCost;
+    var shippingDiscountCost =
+        cartBloc.subject.value.cartSummary.shippingDiscountCost;
     return (totalAmount + shippingCost - shippingDiscountCost).round();
   }
 

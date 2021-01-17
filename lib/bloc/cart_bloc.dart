@@ -1,6 +1,7 @@
 import 'package:ecapp/models/cart_item.dart';
 import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
+import 'package:ecapp/models/response/cart_summary_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -62,6 +63,15 @@ class CartBloc {
     response = await _repository.deleteFromCartList(id);
     if (response.error == null) _subject.sink.add(response);
     return response;
+  }
+
+
+  getCartSummary() async {
+    CartSummaryResponse response = await _repository.getCartSummary();
+    // _subject.sink.add(response);
+    if(response.error == null){
+      _subject.value.cartSummary = response.cartSummary;
+    }
   }
 
   void drainStream() {

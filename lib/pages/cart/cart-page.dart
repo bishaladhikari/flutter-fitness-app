@@ -45,7 +45,7 @@ class _CartPageState extends State<CartPage>
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.carts.length == 0) return Text("");
-              double totalAmount = snapshot.data.totalAmount;
+              double totalAmount = snapshot.data.cartSummary.totalAmount;
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 35),
                 height: 75,

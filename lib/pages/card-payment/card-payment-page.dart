@@ -44,7 +44,7 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              double totalAmount = snapshot.data.totalAmount;
+              var totalAmount = snapshot.data.cartSummary.totalAmount;
               return Container(
                 color: Colors.white,
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
