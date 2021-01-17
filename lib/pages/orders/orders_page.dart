@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 import 'components/orders_by_status.dart';
@@ -58,11 +59,20 @@ class _OrdersListPageState extends State<OrdersListPage>
                             fontSize: 14.0, fontWeight: FontWeight.bold)));
               }).toList(),
             )),
-        body: TabBarView(
-          controller: _tabController,
-          children: orderTitleList.map((title) {
-            return OrdersByStatus(status: title);
-          }).toList(),
-        ));
+        body: WillPopScope(
+            onWillPop: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+                  (route) => false);
+              return Future.value(false);
+            },
+            child: Center(
+              child: TabBarView(
+                  controller: _tabController,
+                  children: orderTitleList.map((title) {
+                    return OrdersByStatus(status: title);
+                  }).toList()),
+            )));
   }
 }

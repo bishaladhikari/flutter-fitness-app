@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/models/order.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'components/body.dart';
 
@@ -18,17 +19,30 @@ class _OrderCompletePageState extends State<OrderCompletePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, "ordersPage");
-          },
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, "ordersPage");
+            },
+          ),
+          backgroundColor: Colors.white,
+          title: Text(tr("Order Received")),
         ),
-        backgroundColor: Colors.white,
-        title: Text(tr("Order Received")),
-      ),
-      body: Body(order: widget.order),
-    );
+        body: WillPopScope(
+          onWillPop: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MainPage()),
+                (route) => false);
+            return Future.value(false);
+          },
+          child: Center(
+              child: Body(
+            order: widget.order,
+          )),
+        )
+        // body: Body(order: widget.order),
+        );
   }
 }

@@ -6,6 +6,7 @@ import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/loyalty_point_response.dart';
+import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
@@ -24,7 +25,16 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: cashOnDeliveryAppBar(),
-      body: Body(),
+      body: WillPopScope(
+        onWillPop: () {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => MainPage()),
+              (route) => false);
+          return Future.value(false);
+        },
+        child: Center(child: Body()),
+      ),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
@@ -46,7 +56,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + cartTotalAmount.toString(),
+                          '¥ ' + cartTotalAmount.toStringAsFixed(2),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black,

@@ -69,7 +69,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + cartTotalAmount.toString(),
+                          '¥ ' + cartTotalAmount.toStringAsFixed(2),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black,

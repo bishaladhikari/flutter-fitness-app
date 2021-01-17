@@ -68,16 +68,22 @@ class _CartPageState extends State<CartPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Total Amount',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black)),
-                    Text('¥ ' + totalAmount.toString(),
-                        style: TextStyle(
-                            color: NPrimaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16)),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Text('Total Amount',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                          Text(' ¥ ' + totalAmount.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: NPrimaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16)),
+                        ],
+                      ),
+                    ),
                     RaisedButton(
                       color: NPrimaryColor,
                       onPressed: () {

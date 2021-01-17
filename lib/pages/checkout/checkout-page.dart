@@ -49,7 +49,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Text(tr('Total Amount'),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black)),
-                    Text('¥ ' + totalAmount.toString(),
+                    Text(' ¥ ' + totalAmount.toStringAsFixed(2),
                         style: TextStyle(
                             color: NPrimaryColor,
                             fontWeight: FontWeight.bold,
