@@ -421,18 +421,19 @@ class _AddressFormPageState extends State<AddressFormPage> {
                                       value: defaultAddress,
                                       onChanged: (bool state) async {
                                         var response;
+                                        print("state"+state.toString());
                                         if (state) {
                                           response = await addressBloc
                                               .setDefaultAddress(
-                                                  widget.address.id);
+                                                  widget.address);
                                         }
                                         else
                                           Fluttertoast.showToast(
-                                              msg: tr(response.error),
+                                              msg: tr("Sorry to turn off default address, please set another address as default"),
                                               toastLength: Toast.LENGTH_LONG,
                                               gravity: ToastGravity.BOTTOM,
                                               timeInSecForIosWeb: 1,
-                                              backgroundColor: response.error == null ? Colors.green : Colors.red,
+                                              backgroundColor: Colors.black.withOpacity(0.6),
                                               textColor: Colors.white,
                                               fontSize: 16.0);
                                         //
