@@ -421,19 +421,33 @@ class _AddressFormPageState extends State<AddressFormPage> {
                                       value: defaultAddress,
                                       onChanged: (bool state) async {
                                         var response;
-                                        print("state"+state.toString());
+                                        print("state" + state.toString());
                                         if (state) {
                                           response = await addressBloc
                                               .setDefaultAddress(
                                                   widget.address);
-                                        }
-                                        else
+                                          if (response.error == null)
+                                            setState(() {
+                                              defaultAddress = true;
+                                            });
                                           Fluttertoast.showToast(
-                                              msg: tr("Sorry to turn off default address, please set another address as default"),
+                                              msg: tr(response.error),
                                               toastLength: Toast.LENGTH_LONG,
                                               gravity: ToastGravity.BOTTOM,
                                               timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.black.withOpacity(0.6),
+                                              backgroundColor:
+                                                  Colors.redAccent,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                        } else
+                                          Fluttertoast.showToast(
+                                              msg: tr(
+                                                  "Sorry to turn off default address, please set another address as default"),
+                                              toastLength: Toast.LENGTH_LONG,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor:
+                                                  Colors.black.withOpacity(0.6),
                                               textColor: Colors.white,
                                               fontSize: 16.0);
                                         //
