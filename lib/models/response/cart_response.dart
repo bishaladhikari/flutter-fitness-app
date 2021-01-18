@@ -58,6 +58,13 @@ class AchievedPromotion {
         id = json["id"],
         error = null;
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['discount'] = discount;
+    return data;
+  }
+
   AchievedPromotion.withError(String errorValue)
       : discount = null,
         id = null,

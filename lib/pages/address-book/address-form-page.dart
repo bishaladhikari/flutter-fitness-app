@@ -4,6 +4,7 @@ import 'package:ecapp/models/address.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:ecapp/widgets/loadingIndicator.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../constants.dart';
@@ -411,17 +412,35 @@ class _AddressFormPageState extends State<AddressFormPage> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Text(
-                                    'Make a Default Address',
+                                    tr('Make a Default Address'),
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 17),
                                   ),
                                   Spacer(),
                                   Switch(
                                       value: defaultAddress,
-                                      onChanged: (bool state) {
-                                        setState(() {
-                                          defaultAddress = state;
-                                        });
+                                      onChanged: (bool state) async {
+                                        var response;
+                                        if (state) {
+                                          response = await addressBloc
+                                              .setDefaultAddress(
+                                                  widget.address.id);
+                                        }
+                                        else
+                                          Fluttertoast.showToast(
+                                              msg: tr(response.error),
+                                              toastLength: Toast.LENGTH_LONG,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: response.error == null ? Colors.green : Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                        //
+                                        // if (response.error == null)
+                                        //   state = !state;
+                                        // setState(() {
+                                        //   defaultAddress = state;
+                                        // });
                                       }),
                                 ]))
                         : Container(),

@@ -6,6 +6,7 @@ import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/add_order_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
+import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/models/response/order_product_detail_response.dart';
 import 'package:ecapp/models/response/order_response.dart';
 import 'package:ecapp/repository/repository.dart';
@@ -82,7 +83,7 @@ class CheckoutBloc {
       "cash_on_delivery_charge": cashOnDeliveryCharge,
       "products": cartBloc.products,
       "note": "",
-      "achieved_promotions": cartBloc.subject.value.achievedPromotions
+      "achieved_promotions": cartBloc.subject.value.achievedPromotions.map((e) => e.toJson()).toList()
     };
     response = await _repository.createOrder(params);
     Navigator.pop(dialogContext);
