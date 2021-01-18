@@ -373,34 +373,37 @@ class _AddressFormPageState extends State<AddressFormPage> {
                     SizedBox(
                       height: 25.0,
                     ),
-                    DropdownButtonFormField(
-                      decoration: InputDecoration(
-                          contentPadding: new EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          hintText: tr("Prefecture"),
-                          hintStyle: TextStyle(color: Colors.grey),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          labelText: tr("Prefecture")),
-                      value: prefectureValue,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.black),
-                      onChanged: (String newValue) {
-                        setState(
-                          () {
-                            prefectureValue = newValue;
-                          },
-                        );
-                      },
-                      items: prefecture
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButtonFormField(
+                        decoration: InputDecoration(
+                            contentPadding: new EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
+                            hintText: tr("Prefecture"),
+                            hintStyle: TextStyle(color: Colors.grey),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            labelText: tr("Prefecture")),
+                        value: prefectureValue,
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.black),
+                        onChanged: (String newValue) {
+                          setState(
+                            () {
+                              prefectureValue = newValue;
+                            },
+                          );
+                        },
+                        items: prefecture
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ),
                     widget.address != null
                         ? Container(

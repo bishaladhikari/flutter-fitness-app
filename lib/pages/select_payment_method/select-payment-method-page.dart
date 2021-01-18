@@ -149,8 +149,8 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                                 ],
                               ),
                               SizedBox(height: 5),
-                              snapshot.data.amountValue >=
-                                      checkoutBloc.payableTotal.toInt()
+                              checkoutBloc.finalTotalAmount <=
+                                      snapshot.data.amountValue
                                   ? SizedBox(
                                       width: double.infinity,
                                       height: 50,

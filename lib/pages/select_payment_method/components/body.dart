@@ -623,8 +623,12 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
       });
       if (response.error == null)
         setState(() {
-          showPaymentMethods =int.parse(redeemPointController.text) <
-              checkoutBloc.payableTotal;
+          showPaymentMethods =response.amountValue <
+              checkoutBloc.finalTotalAmount;
+        });
+      else
+        setState(() {
+          showPaymentMethods = true;
         });
       Navigator.pop(context);
       Fluttertoast.showToast(
