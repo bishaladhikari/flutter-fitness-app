@@ -50,14 +50,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-       statusBarColor: NPrimaryColor,
-//        statusBarIcon
-//        statusBar
-       systemNavigationBarIconBrightness: Brightness.light,
-//        systemNavigationBarColor: Colors.white.withOpacity(0.1)
-   ));
-    _locale = context.locale;
+//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//        statusBarColor: NPrimaryColor,
+// //        statusBarIcon
+// //        statusBar
+//        systemNavigationBarIconBrightness: Brightness.light,
+// //        systemNavigationBarColor: Colors.white.withOpacity(0.1)
+//    ));
+
+   _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecapp',
