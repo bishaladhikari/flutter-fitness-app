@@ -62,7 +62,7 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(snapshot.data);
+          return _buildHomeWidget(context,snapshot.data);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -90,18 +90,18 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
     ));
   }
 
-  Widget _buildHomeWidget(OrderProductDetailResponse data) {
+  Widget _buildHomeWidget(context,OrderProductDetailResponse data) {
     List<OrderProductDetail> orderProductDetails = data.orderProductDetails;
     return Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children:
             orderProductDetails.map((OrderProductDetail orderProductDetail) {
-          return _buildOrderProductListItem(orderProductDetail);
+          return _buildOrderProductListItem(context,orderProductDetail);
         }).toList());
   }
 
-  Widget _buildOrderProductListItem(orderProductDetail) {
+  Widget _buildOrderProductListItem(context,orderProductDetail) {
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -168,7 +168,7 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       onPressed: () {
-                        Navigator.of(context).pushNamed('orderReviewPage',
+                        Navigator.pushNamed(context,'orderReviewPage',
                             arguments: orderProductDetail);
                       },
                       child: orderProductDetail.reviewed

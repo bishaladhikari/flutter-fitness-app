@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/customer_review_bloc.dart';
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/components/dialogs.dart';
@@ -148,7 +149,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Add a headline ",
+                            Text(tr("Add a headline"),
                                 style:
                                     TextStyle(fontSize: 14, color: Colors.black)),
                             SizedBox(height: 5),
@@ -162,11 +163,11 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                                   contentPadding: new EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10.0),
                                   hintStyle: TextStyle(color: Colors.grey),
-                                  hintText: "Headline"),
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "Heading is required"),
-                              ]),
+                                  hintText: tr("Headline")),
+                              // validator: MultiValidator([
+                              //   RequiredValidator(
+                              //       errorText: "Heading is required"),
+                              // ]),
                             ),
                             SizedBox(height: 10),
                             Text("Write your review ",
@@ -186,21 +187,21 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                                       vertical: 10.0, horizontal: 10.0),
                                   hintStyle: TextStyle(color: Colors.grey),
                                   hintText: "Message"),
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: "Message is required"),
-                              ]),
+                              // validator: MultiValidator([
+                              //   RequiredValidator(
+                              //       errorText: "Message is required"),
+                              // ]),
                             ),
                             SizedBox(height: 20),
                           ])),
                   GestureDetector(
                     onTap: () {
                       var params = {
-                        "rating": rating,
+                        "ratedStar": rating.toInt(),
                         "headline": "${headingController.text}",
                         "message": "${messageController.text}",
                         "order_attribute_id": orderProductItem.orderAttributeId,
-                        "image": null
+                        "images": null
                       };
                       _validateReviewForm(context, params);
                     },
@@ -233,13 +234,14 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
         backgroundColor: Colors.redAccent,
       ));
 
-    if (_formKey.currentState.validate()) {
+    // if (_formKey.currentState.validate()) {
       if (widget.customerReview != null) {
         params["id"] = widget.customerReview.id;
         response = await orderProductDetailBloc.updateProductReview(params);
       } else
         response = await orderProductDetailBloc.addProductReview(params);
 
+      print("submitting");
       if (response.error == null) {
         Navigator.pop(context);
         _showToast("Review Submitted", "green");
@@ -248,7 +250,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
           content: Text(response.error),
           backgroundColor: Colors.redAccent,
         ));
-    }
+    // }
   }
 
   _showToast(msg, color) {

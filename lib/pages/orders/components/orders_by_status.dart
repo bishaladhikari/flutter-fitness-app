@@ -91,7 +91,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return CustomErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(snapshot.data);
+          return _buildHomeWidget(context,snapshot.data);
         } else if (snapshot.hasError) {
           return CustomErrorWidget(snapshot.error);
         } else {
@@ -128,7 +128,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
     ));
   }
 
-  Widget _buildHomeWidget(OrderResponse data) {
+  Widget _buildHomeWidget(context,OrderResponse data) {
     List<Order> orders = data.orders;
     if (orders.length == 0) {
       return Container(
@@ -159,7 +159,7 @@ class _OrdersListByStatusState extends State<OrdersByStatus> {
                 controller: _scrollController,
                 itemCount: orders.length + 1,
                 itemExtent: 100,
-                itemBuilder: (context, index) {
+                itemBuilder: (ctxt, index) {
                   if (index == orders.length) {
                     return StreamBuilder(
                         stream: widget.ordersListByStatusBloc.loading,

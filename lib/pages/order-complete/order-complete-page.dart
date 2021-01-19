@@ -29,19 +29,10 @@ class _OrderCompletePageState extends State<OrderCompletePage> {
           backgroundColor: Colors.white,
           title: Text(tr("Order Received")),
         ),
-        body: WillPopScope(
-          onWillPop: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => MainPage()),
-                (route) => false);
-            return Future.value(false);
-          },
-          child: Center(
-              child: Body(
-            order: widget.order,
-          )),
-        )
+        body: Center(
+            child: Body(
+          order: widget.order,
+        ))
         // body: Body(order: widget.order),
         );
   }
