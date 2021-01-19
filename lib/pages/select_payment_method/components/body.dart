@@ -250,7 +250,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                       Alignment.centerLeft,
                                                 ),
                                           Expanded(
-                                            child: TextButton(
+                                            child: RaisedButton(
                                                 onPressed: () {
                                                   setState(() {
                                                     triggerCheckbox =
