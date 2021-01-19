@@ -66,7 +66,7 @@ class _PopularProductsListState extends State<PopularProductsList> {
   Widget _buildProductsListWidget(ProductResponse data) {
     List<Product> products = data.products;
     return Container(
-        height: 300,
+        height: 320,
         padding: EdgeInsets.only(top: 8),
         child: ListView.builder(
             padding: const EdgeInsets.all(8.0),
