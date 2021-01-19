@@ -224,10 +224,18 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                   onPressed: () {
                                                     setState(() {
                                                       triggerCheckbox = false;
+                                                      showPaymentMethods = true;
+                                                      redeem_amount = "0";
+                                                      loyaltyPointBloc
+                                                          .redeemResponse
+                                                          .value = null;
+                                                      redeemPointController
+                                                          .text = "";
                                                     });
                                                   },
                                                   icon: Icon(Icons.check_box),
-                                            alignment: Alignment.centerLeft,
+                                                  alignment:
+                                                      Alignment.centerLeft,
                                                 )
                                               : IconButton(
                                                   color: Colors.grey,
@@ -238,8 +246,9 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                   },
                                                   icon: Icon(Icons
                                                       .check_box_outline_blank),
-                                            alignment: Alignment.centerLeft,
-                                          ),
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                ),
                                           Expanded(
                                             child: TextButton(
                                                 onPressed: () {
@@ -259,120 +268,144 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 10),
-                                    Align(
-                                      alignment: Alignment.center,
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 5,
-                                              child: Form(
-                                                key: formKey,
-                                                autovalidate: _validate,
-                                                child: TextFormField(
-                                                  autofocus: false,
-                                                  onChanged: (text) {
-                                                    setState(() {
-                                                      showRedeemAmount =
-                                                          redeemPointController
-                                                              .text.isNotEmpty;
-                                                      redeem_amount = text
-                                                              .isNotEmpty
-                                                          ? (double.parse(
-                                                                      text) *
-                                                                  snapshot.data
-                                                                      .rate)
-                                                              .toString()
-                                                          : "0";
-                                                    });
-                                                  },
-                                                  controller:
-                                                      redeemPointController,
-                                                  style: TextStyle(
-                                                      color: Color(0xFF000000)),
-                                                  cursorColor:
-                                                      Color(0xFF9b9b9b),
-                                                  keyboardType: TextInputType
-                                                      .numberWithOptions(
-                                                          signed: false,
-                                                          decimal: false),
-                                                  inputFormatters: <
-                                                      TextInputFormatter>[
-                                                    FilteringTextInputFormatter
-                                                        .digitsOnly,
-                                                    LengthLimitingTextInputFormatter(
-                                                        6),
-                                                  ],
-                                                  decoration: InputDecoration(
-                                                      isDense: true,
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                      contentPadding:
-                                                          new EdgeInsets
-                                                                  .symmetric(
-                                                              vertical: 10.0,
-                                                              horizontal: 10.0),
-                                                      hintStyle: TextStyle(
-                                                          color: Colors.grey),
-                                                      hintText: tr(
-                                                          "Redeem Points (Amount)")),
-                                                  validator: MultiValidator([
-                                                    RequiredValidator(
-                                                        errorText:
-                                                            "Please enter the amount."),
-                                                  ]),
-                                                ),
+                                    triggerCheckbox
+                                        ? Column(
+                                            children: [
+                                              SizedBox(height: 10),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                        flex: 5,
+                                                        child: Form(
+                                                          key: formKey,
+                                                          autovalidate:
+                                                              _validate,
+                                                          child: TextFormField(
+                                                            autofocus: false,
+                                                            onChanged: (text) {
+                                                              setState(() {
+                                                                showRedeemAmount =
+                                                                    redeemPointController
+                                                                        .text
+                                                                        .isNotEmpty;
+                                                                redeem_amount = text
+                                                                        .isNotEmpty
+                                                                    ? (double.parse(text) *
+                                                                            snapshot.data.rate)
+                                                                        .toString()
+                                                                    : "0";
+                                                              });
+                                                            },
+                                                            controller:
+                                                                redeemPointController,
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xFF000000)),
+                                                            cursorColor: Color(
+                                                                0xFF9b9b9b),
+                                                            keyboardType: TextInputType
+                                                                .numberWithOptions(
+                                                                    signed:
+                                                                        false,
+                                                                    decimal:
+                                                                        false),
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .digitsOnly,
+                                                              LengthLimitingTextInputFormatter(
+                                                                  6),
+                                                            ],
+                                                            decoration: InputDecoration(
+                                                                isDense: true,
+                                                                border:
+                                                                    OutlineInputBorder(),
+                                                                contentPadding: new EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical:
+                                                                        10.0,
+                                                                    horizontal:
+                                                                        10.0),
+                                                                hintStyle: TextStyle(
+                                                                    color: Colors
+                                                                        .grey),
+                                                                hintText: tr(
+                                                                    "Redeem Points (Amount)")),
+                                                            validator:
+                                                                MultiValidator([
+                                                              RequiredValidator(
+                                                                  errorText: tr(
+                                                                      "Please enter the amount.")),
+                                                            ]),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 8,
+                                                      ),
+                                                      showRedeemAmount
+                                                          ? Text(
+                                                              "= ¥ " +
+                                                                  redeem_amount,
+                                                              style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold))
+                                                          : Container(),
+                                                      SizedBox(
+                                                        width: 8.0,
+                                                      ),
+                                                      Expanded(
+                                                        flex: 3,
+                                                        child: SizedBox(
+                                                          width:
+                                                              double.infinity,
+                                                          child: RaisedButton(
+                                                            color:
+                                                                NPrimaryColor,
+                                                            textColor:
+                                                                Colors.white,
+                                                            elevation: .2,
+                                                            onPressed: () {
+                                                              validateRedeemPoint(
+                                                                  context);
+                                                            },
+                                                            child: Text(
+                                                                tr('Redeem')),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ]),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: 8,
-                                            ),
-                                            showRedeemAmount
-                                                ? Text("= ¥ " + redeem_amount,
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold))
-                                                : Container(),
-                                            SizedBox(
-                                              width: 8.0,
-                                            ),
-                                            Expanded(
-                                              flex: 3,
-                                              child: SizedBox(
+                                              SizedBox(
+                                                height: 2.0,
+                                              ),
+                                              Container(
                                                 width: double.infinity,
-                                                child: RaisedButton(
-                                                  color: NPrimaryColor,
-                                                  textColor: Colors.white,
-                                                  elevation: .2,
-                                                  onPressed: () {
-                                                    validateRedeemPoint(
-                                                        context);
-                                                  },
-                                                  child: Text('Redeem'),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 10),
+                                                color:
+                                                    NPrimaryColor.withOpacity(
+                                                        .2),
+                                                child: Text(
+                                                  tr('Note: 1 reward point is equal to ¥1'),
+                                                  style: TextStyle(
+                                                      color: Colors.black45,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ),
-                                            )
-                                          ]),
-                                    ),
-                                    SizedBox(
-                                      height: 2.0,
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      color: NPrimaryColor.withOpacity(.2),
-                                      child: Text(
-                                        tr('Note: 1 reward point is equal to ¥1'),
-                                        style: TextStyle(
-                                            color: Colors.black45,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(height: 10.0),
+                                              SizedBox(height: 10.0),
+                                            ],
+                                          )
+                                        : Container(),
                                   ],
                                 )
                               : Container(
@@ -417,7 +450,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         color: Colors.black.withOpacity(.01),
         child: Text(
-          'Recommended method(s)',
+          tr('Recommended method(s)'),
           style: TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         ),
       ),
@@ -449,7 +482,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Credit/Debit Card",
+                            tr("Credit/Debit Card"),
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black,
@@ -462,7 +495,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
 //                            Icon(Icons.home),
                         ],
                       ),
-                      Text('Credit/Debit Card'),
+                      Text(tr('Credit/Debit Card')),
                     ],
                   ),
                 ],
@@ -485,7 +518,7 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         color: Colors.black.withOpacity(.01),
         child: Text(
-          'Payment methods',
+          tr('Payment methods'),
           style: TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         ),
       ),
