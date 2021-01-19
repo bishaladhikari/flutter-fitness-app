@@ -589,7 +589,7 @@ class Repository {
   Future<OrderProductItemResponse> addProductReview(params) async {
     try {
       Response response =
-          await _dio.post(reviewProductUrl, queryParameters: params);
+          await _dio.post(reviewProductUrl, data: {"form":jsonEncode(params)});
       return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -600,7 +600,7 @@ class Repository {
   Future<OrderProductItemResponse> updateProductReview(params, id) async {
     try {
       Response response =
-          await _dio.put(reviewProductUrl + "/$id", queryParameters: params);
+          await _dio.put(reviewProductUrl + "/$id", data: {"form":jsonEncode(params)});
       return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");

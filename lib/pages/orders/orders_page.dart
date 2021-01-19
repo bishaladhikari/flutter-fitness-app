@@ -59,20 +59,12 @@ class _OrdersListPageState extends State<OrdersListPage>
                             fontSize: 14.0, fontWeight: FontWeight.bold)));
               }).toList(),
             )),
-        body: WillPopScope(
-            onWillPop: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => MainPage()),
-                  (route) => false);
-              return Future.value(false);
-            },
-            child: Center(
-              child: TabBarView(
-                  controller: _tabController,
-                  children: orderTitleList.map((title) {
-                    return OrdersByStatus(status: title);
-                  }).toList()),
-            )));
+        body: Center(
+          child: TabBarView(
+              controller: _tabController,
+              children: orderTitleList.map((title) {
+                return OrdersByStatus(status: title);
+              }).toList()),
+        ));
   }
 }
