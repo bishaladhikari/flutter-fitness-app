@@ -25,16 +25,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: cashOnDeliveryAppBar(),
-      body: WillPopScope(
-        onWillPop: () {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainPage()),
-              (route) => false);
-          return Future.value(false);
-        },
-        child: Center(child: Body()),
-      ),
+      body: Center(child: Body()),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {

@@ -156,9 +156,7 @@ class CheckoutBloc {
   }
 
   get billableAmount {
-    var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
-        ? loyaltyPointBloc.redeemResponse.value.amountValue
-        : 0;
+    var redeemedAmount = loyaltyPointBloc.redeemResponse.value?.amountValue ?? 0;
     var billableAmount = finalTotalAmount - redeemedAmount;
 //    if (paymentMethod.value == "Cash Payment")
 //      return billableAmount + cashOnDeliveryCharge;

@@ -133,7 +133,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Payable total Amount",
+                                    tr("Payable total Amount"),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
@@ -161,7 +161,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                                               context: context);
                                         },
                                         child: Text(
-                                          "Place order",
+                                          tr("Place order"),
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ),
