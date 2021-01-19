@@ -108,6 +108,7 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                                 expYear: _card.expYear);
                             StripePayment.createTokenWithCard(testCard)
                                 .then((token) async {
+                              checkoutBloc.paymentMethod.value = "Card Payment";
                               AddOrderResponse response =
                               await checkoutBloc.createOrder(context:context,token: token);
 //                              if (response.error == null) {

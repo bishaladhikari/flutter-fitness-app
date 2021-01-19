@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../../../constants.dart';
+
 class SelectPaymentBody extends StatefulWidget {
   @override
   _SelectPaymentBodyState createState() => _SelectPaymentBodyState();
@@ -28,7 +29,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
   @override
   void initState() {
     loyaltyPointBloc
-      ..getLoyaltyPoint(cartBloc.subject.value.cartSummary.totalAmount.toString());
+      ..getLoyaltyPoint(
+          cartBloc.subject.value.cartSummary.totalAmount.toString());
     super.initState();
   }
 
@@ -196,23 +198,64 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          tr('Reward Points Available:'),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16),
+                                        ),
+                                        Text(
+                                          " " + snapshot.data.points.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
                                     Container(
                                       child: Row(
                                         children: [
-                                          Text(
-                                            tr('Reward Points Available:'),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16),
+                                          triggerCheckbox
+                                              ? IconButton(
+                                                  color: NPrimaryColor,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      triggerCheckbox = false;
+                                                    });
+                                                  },
+                                                  icon: Icon(Icons.check_box),
+                                            alignment: Alignment.centerLeft,
+                                                )
+                                              : IconButton(
+                                                  color: Colors.grey,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      triggerCheckbox = true;
+                                                    });
+                                                  },
+                                                  icon: Icon(Icons
+                                                      .check_box_outline_blank),
+                                            alignment: Alignment.centerLeft,
                                           ),
-                                          Text(
-                                            " " +
-                                                snapshot.data.points.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16),
-                                          ),
+                                          Expanded(
+                                            child: TextButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    triggerCheckbox =
+                                                        !triggerCheckbox;
+                                                  });
+                                                },
+                                                child: Text(
+                                                  tr("Use my Reward Points to pay for this order"),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      // fontWeight: FontWeight.bold,
+                                                      fontSize: 15),
+                                                )),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -355,7 +398,9 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       tr('You have redeemed reward points with amount value equal to ¥{rewardPoints}. Now you can place order.',
-                          namedArgs: {"rewardPoints": redeem_amount.toString()}),
+                          namedArgs: {
+                            "rewardPoints": redeem_amount.toString()
+                          }),
                       style: TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   )
@@ -623,8 +668,8 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
       });
       if (response.error == null)
         setState(() {
-          showPaymentMethods =response.amountValue <
-              checkoutBloc.finalTotalAmount;
+          showPaymentMethods =
+              response.amountValue < checkoutBloc.finalTotalAmount;
         });
       else
         setState(() {

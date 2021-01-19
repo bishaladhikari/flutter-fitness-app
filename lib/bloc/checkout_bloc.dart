@@ -30,6 +30,7 @@ class CheckoutBloc {
 //  loyalty point amount = total_amount-bulk_discount_amount
   void drainStream() {
     _subject.value = null;
+    _paymentMethod.value = null;
     // _defaultAddress.value = null;
   }
 
@@ -83,7 +84,9 @@ class CheckoutBloc {
       "cash_on_delivery_charge": cashOnDeliveryCharge,
       "products": cartBloc.products,
       "note": "",
-      "achieved_promotions": cartBloc.subject.value.achievedPromotions.map((e) => e.toJson()).toList()
+      "achieved_promotions": cartBloc.subject.value.achievedPromotions
+          .map((e) => e.toJson())
+          .toList()
     };
     response = await _repository.createOrder(params);
     Navigator.pop(dialogContext);
@@ -156,7 +159,8 @@ class CheckoutBloc {
   }
 
   get billableAmount {
-    var redeemedAmount = loyaltyPointBloc.redeemResponse.value?.amountValue ?? 0;
+    var redeemedAmount =
+        loyaltyPointBloc.redeemResponse.value?.amountValue ?? 0;
     var billableAmount = finalTotalAmount - redeemedAmount;
 //    if (paymentMethod.value == "Cash Payment")
 //      return billableAmount + cashOnDeliveryCharge;
@@ -164,8 +168,9 @@ class CheckoutBloc {
   }
 
   get payableTotal {
-    //    if (paymentMethod.value == "Cash Payment")
-    return (billableAmount + loyaltyPointBloc.cashOnDeliveryCharge).round();
+    if (paymentMethod.value == "Cash Payment")
+      return (billableAmount + loyaltyPointBloc.cashOnDeliveryCharge).round();
+    return billableAmount.round();
   }
 }
 
