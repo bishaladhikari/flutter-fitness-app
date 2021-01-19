@@ -514,9 +514,10 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Cash On Delivery",
+                          tr("Cash On Delivery"),
                           style: TextStyle(
                             fontSize: 14,
+                            // fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
