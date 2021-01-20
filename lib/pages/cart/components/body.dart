@@ -196,18 +196,35 @@ class CartBody extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Text(
-        promotionItem.title,
+        tr('Spend ¥ ') +
+            promotionItem.minimumRequirement.toString() +
+            tr(' and ¥ ') +
+            promotionItem.discount.toString() +
+            tr(' enjoy ') +
+            promotionItem.type +
+            tr(' under ') +
+            promotionItem.title +
+            tr(' promotion for anywhere'),
         style: TextStyle(color: NPrimaryColor),
       ),
     );
   }
 
   Widget _buildPlatformPromotionWidget(platformPromotion) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Text(
-        platformPromotion.title,
-        style: TextStyle(color: NPrimaryColor),
+    return Container(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(tr('Spend ¥ ')),
+          platformPromotion.minimumRequirement.toString() != null ? Text(platformPromotion.minimumRequirement.toString()) : Text(''),
+          Text(tr(' and ¥ ')),
+          platformPromotion.discount.toString() != null ? Text(platformPromotion.discount.toString()) : Text(''),
+          Text(tr(' enjoy ')),
+          platformPromotion.type != null ? Text(platformPromotion.type) : Text(''),
+          Text(tr(' under ')),
+          platformPromotion.title != null ? Text(platformPromotion.title) : Text(''),
+          Text(tr(' promotion for anywhere')),
+        ],
       ),
     );
   }
