@@ -3,6 +3,9 @@ import 'package:ecapp/pages/splash_screen.dart';
 import 'package:ecapp/routes.dart';
 import 'package:ecapp/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'constants.dart';
 
 void main() {
 //  WidgetsFlutterBinding.ensureInitialized();
@@ -49,12 +52,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
 //        statusBarColor: NPrimaryColor,
-////        statusBarIcon
-////        statusBar
+// //        statusBarIcon
+// //        statusBar
 //        systemNavigationBarIconBrightness: Brightness.light,
-////        systemNavigationBarColor: Colors.white.withOpacity(0.1)
+// //        systemNavigationBarColor: Colors.white.withOpacity(0.1)
 //    ));
-    _locale = context.locale;
+
+   _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecapp',
