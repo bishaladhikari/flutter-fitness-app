@@ -8,7 +8,7 @@ class Cart {
   List<CartItem> items;
   List<PromotionItem> promotions;
 
-  Cart({this.id, this.soldBy, this.storeSlug, this.items, this.promotions});
+  Cart(this.id, this.soldBy, this.storeSlug, this.items, this.promotions);
 
   Cart.fromJson(Map<String, dynamic> json) {
     id = json['id'];

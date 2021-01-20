@@ -22,7 +22,8 @@ class CartResponse {
 //    carts.removeWhere((element) => element.id == id);
 //  }
 
-  CartResponse(this.carts, this.cartSummary, this.error);
+  CartResponse(this.carts, this.cartSummary, this.achievedPromotions,
+      this.platformPromotions, this.error);
 
   CartResponse.fromJson(Map<String, dynamic> json)
       : carts = (json["data"]["data"] as List)
