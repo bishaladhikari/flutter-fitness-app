@@ -1,13 +1,14 @@
 import 'package:ecapp/models/cart_item.dart';
+import 'package:ecapp/models/promotion_item.dart';
 
 class Cart {
   int id;
   String soldBy;
   String storeSlug;
   List<CartItem> items;
-//  List<Null> promotions;
+  List<PromotionItem> promotions;
 
-  Cart({this.id, this.soldBy, this.storeSlug, this.items});
+  Cart({this.id, this.soldBy, this.storeSlug, this.items, this.promotions});
 
   Cart.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -19,12 +20,12 @@ class Cart {
         items.add(new CartItem.fromJson(v));
       });
     }
-//    if (json['promotions'] != null) {
-//      promotions = new List<Null>();
-//      json['promotions'].forEach((v) {
-//        promotions.add(new Null.fromJson(v));
-//      });
-//    }
+    if (json['promotions'] != null) {
+      promotions = new List<PromotionItem>();
+      json['promotions'].forEach((v) {
+        promotions.add(new PromotionItem.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -35,10 +36,9 @@ class Cart {
     if (this.items != null) {
       data['items'] = this.items.map((v) => v.toJson()).toList();
     }
-//    if (this.promotions != null) {
-//      data['promotions'] = this.promotions.map((v) => v.toJson()).toList();
-//    }
+    if (this.promotions != null) {
+      data['promotions'] = this.promotions.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
-

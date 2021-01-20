@@ -5,6 +5,7 @@ import 'package:ecapp/components/custom_error_widget.dart';
 import 'package:ecapp/components/no_internet_widget.dart';
 import 'package:ecapp/models/cart.dart';
 import 'package:ecapp/models/cart_item.dart';
+import 'package:ecapp/models/promotion_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,25 @@ class CartBody extends StatelessWidget {
 
   Widget _buildCartWidget(context, CartResponse data) {
     List<Cart> carts = data.carts;
+    List<PromotionItem> platformPromotions = data.platformPromotions;
     final cartChildren = <Widget>[];
+    final platformPromotionChildren = <Widget>[];
+    for (int i = 0; i < platformPromotions?.length ?? 0; i++) {
+      platformPromotionChildren
+          .add(_buildPlatformPromotionWidget(platformPromotions[i]));
+    }
+
     for (int i = 0; i < carts?.length ?? 0; i++) {
       List<CartItem> cartItems = carts[i].items;
+      List<PromotionItem> promotionItems = carts[i].promotions;
       int itemCount = cartItems.length;
       final itemChildren = <Widget>[];
       for (int i = 0; i < cartItems?.length ?? 0; i++) {
         itemChildren.add(CartItemView(cartItem: cartItems[i]));
+      }
+      final promotionChildren = <Widget>[];
+      for (int p = 0; p < promotionItems?.length ?? 0; p++) {
+        promotionChildren.add(_buildPromotionWidget(promotionItems[p]));
       }
       cartChildren.add(Column(
         children: [
@@ -54,23 +67,32 @@ class CartBody extends StatelessWidget {
             width: double.infinity,
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(
-                    context, "storePage", arguments: carts[i].storeSlug);
+                Navigator.pushNamed(context, "storePage",
+                    arguments: carts[i].storeSlug);
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
-                child: Row(children: [
-                  Text(
-                    carts[i].soldBy + " ($itemCount items)",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey,
-                  )
-                ]),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                child: Column(
+                  children: [
+                    Row(children: [
+                      Text(
+                        carts[i].soldBy + " ($itemCount items)",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Colors.grey,
+                      )
+                    ]),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: promotionChildren,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -110,28 +132,44 @@ class CartBody extends StatelessWidget {
           ),
         ),
       );
+
     return Container(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, children: cartChildren),
+      child: Container(
+        child: Column(
+          children: [
+            ExpansionTile(
+              title: Text(
+                'Claimed! offer under promotion for anywhere',
+                style: TextStyle(fontSize: 14),
+              ),
+              childrenPadding: const EdgeInsets.only(
+                  top: 0.0, left: 15, right: 0.0, bottom: 10.0),
+              children: platformPromotionChildren,
+            ),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: cartChildren),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 25.0,
-              width: 25.0,
-              child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(
-                    Colors.blueAccent),
-                strokeWidth: 4.0,
-              ),
-            )
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 25.0,
+          width: 25.0,
+          child: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+            strokeWidth: 4.0,
+          ),
+        )
+      ],
+    ));
   }
 
   Widget _buildErrorWidget(context, String error) {
@@ -146,11 +184,31 @@ class CartBody extends StatelessWidget {
       );
     return Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Error occurred: $error"),
-          ],
-        ));
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Error occurred: $error"),
+      ],
+    ));
+  }
+
+  Widget _buildPromotionWidget(promotionItem) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Text(
+        promotionItem.title,
+        style: TextStyle(color: NPrimaryColor),
+      ),
+    );
+  }
+
+  Widget _buildPlatformPromotionWidget(platformPromotion) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Text(
+        platformPromotion.title,
+        style: TextStyle(color: NPrimaryColor),
+      ),
+    );
   }
 }
