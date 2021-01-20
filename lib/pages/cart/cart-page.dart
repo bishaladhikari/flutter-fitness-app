@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/address_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/checkout_bloc.dart';
-import 'package:ecapp/models/address.dart';
-import 'package:ecapp/models/response/add_to_cart_response.dart';
 import 'package:ecapp/models/response/address_response.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:ecapp/models/cart_summary.dart';
+import 'package:ecapp/models/promotion_item.dart';
 
 import '../cart.dart';
 
@@ -11,6 +12,7 @@ class CartResponse {
   // int shippingDiscountCost;
   // int bulkDiscountCost;
   List<AchievedPromotion> achievedPromotions;
+  List<PromotionItem> platformPromotions;
 
   // int shippingCost;
   final String error;
@@ -28,6 +30,9 @@ class CartResponse {
             .toList(),
         achievedPromotions = (json["data"]["achieved_promotions"] as List)
             .map((i) => new AchievedPromotion.fromJson(i))
+            .toList(),
+        platformPromotions = (json["data"]["platform_promotions"] as List)
+            .map((i) => new PromotionItem.fromJson(i))
             .toList(),
         cartSummary = CartSummary.fromJson(json["data"]),
         error = null;
