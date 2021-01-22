@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:ecapp/bloc/cart_bloc.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:ecapp/models/response/address_response.dart';
-import 'package:ecapp/models/response/cart_summary_response.dart';
 import 'package:ecapp/models/response/default_address_response.dart';
 import 'package:ecapp/repository/repository.dart';
 import 'package:flutter/cupertino.dart';

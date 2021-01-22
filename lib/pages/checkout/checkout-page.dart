@@ -66,11 +66,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         children: [
                           Spacer(),
                           Text(tr("View more info"),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                          IconButton(
-                              icon: Icon(
-                            Icons.keyboard_arrow_up_outlined,
-                            size: 25,
-                          ))
+                          // IconButton(
+                          //     icon: Icon(
+                          //   Icons.keyboard_arrow_up_outlined,
+                          //   size: 25,
+                          // ))
                         ],
                       ),
                       Row(
@@ -167,11 +167,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
               children: [
                 Spacer(),
                 Text(tr("View less info"),style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                IconButton(
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      size: 25,
-                    ))
+                // IconButton(
+                //     icon: Icon(
+                //       Icons.keyboard_arrow_down_outlined,
+                //       size: 25,
+                //     ))
               ],
             ),
             Row(

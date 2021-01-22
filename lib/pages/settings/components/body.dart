@@ -1,10 +1,6 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/profile_bloc.dart';
-import 'package:ecapp/models/response/profile_response.dart';
-import 'package:ecapp/pages/review/review-page.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -15,8 +11,7 @@ class _BodyState extends State<Body> {
   _navigateToUserProfileForm() async {
     // ProfileResponse response = await profileBloc.userProfile();
     // if (response.error == null) {
-      Navigator.of(context)
-          .pushNamed('accountInformationPage');
+    Navigator.of(context).pushNamed('accountInformationPage');
     // }
   }
 
@@ -32,18 +27,23 @@ class _BodyState extends State<Body> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ListTile(
-              title: Text('Account Information'.tr()),
-              onTap: () async {
-                await authBloc.isAuthenticated()
-                    ? _navigateToUserProfileForm()
-                    : Navigator.of(context).pushNamed('loginPage');
-              }),
-          ListTile(
-              title: Text('Address Book'.tr()),
-              onTap: () {
-                Navigator.pushNamed(context, 'addressPage', arguments: false);
-              }),
+          authBloc.isAuthenticated() == true
+              ? ListTile(
+                  title: Text('Account Information'.tr()),
+                  onTap: () async {
+                    await authBloc.isAuthenticated()
+                        ? _navigateToUserProfileForm()
+                        : Navigator.of(context).pushNamed('loginPage');
+                  })
+              : Container(),
+          authBloc.isAuthenticated() == true
+              ? ListTile(
+                  title: Text('Address Book'.tr()),
+                  onTap: () {
+                    Navigator.pushNamed(context, 'addressPage',
+                        arguments: false);
+                  })
+              : Container(),
           ListTile(
               title: Text('Language'.tr()),
               subtitle: Text(EasyLocalization.of(context)
@@ -61,18 +61,22 @@ class _BodyState extends State<Body> {
           //         MaterialPageRoute(builder: (context) => ReviewPage()),
           //       );
           //     }),
-          ListTile(
-              title: Text('Change Password'.tr()),
-              onTap: () async {
-                _navigateToUserPasswordForm();
-              }),
-          ListTile(
-            title: Text('Logout'.tr()),
-            onTap: () {
-              authBloc.logout();
-              Navigator.of(context).pop();
-            },
-          ),
+          authBloc.isAuthenticated() == true
+              ? ListTile(
+                  title: Text('Change Password'.tr()),
+                  onTap: () async {
+                    _navigateToUserPasswordForm();
+                  })
+              : Container(),
+          authBloc.isAuthenticated() == true
+              ? ListTile(
+                  title: Text('Logout'.tr()),
+                  onTap: () {
+                    authBloc.logout();
+                    Navigator.of(context).pop();
+                  },
+                )
+              : Container(),
         ],
       ),
     );

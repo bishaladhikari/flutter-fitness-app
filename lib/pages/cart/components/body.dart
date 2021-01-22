@@ -193,40 +193,28 @@ class CartBody extends StatelessWidget {
   }
 
   Widget _buildPromotionWidget(promotionItem) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Text(
-        tr('Spend ¥ ') +
-            promotionItem.minimumRequirement.toString() +
-            tr(' and ¥ ') +
-            promotionItem.discount.toString() +
-            tr(' enjoy ') +
-            promotionItem.type +
-            tr(' under ') +
-            promotionItem.title +
-            tr(' promotion for anywhere'),
-        style: TextStyle(color: NPrimaryColor),
-      ),
+    return Container(
+      child: Text(tr(
+          "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere")),
+      // Text(
+      //   tr('Spend ¥ ') +
+      //       promotionItem.minimumRequirement.toString() +
+      //       tr(' and ¥ ') +
+      //       promotionItem.discount.toString() +
+      //       tr(' enjoy ') +
+      //       promotionItem.type +
+      //       tr(' under ') +
+      //       promotionItem.title +
+      //       tr(' promotion for anywhere'),
+      //   style: TextStyle(color: NPrimaryColor),
+      // ),
     );
   }
 
   Widget _buildPlatformPromotionWidget(platformPromotion) {
     return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere")),
-          // Text(tr('Spend ¥ ')),
-          // platformPromotion.minimumRequirement.toString() != null ? Text(platformPromotion.minimumRequirement.toString()) : Text(''),
-          // Text(tr(' and ¥ ')),
-          // platformPromotion.discount.toString() != null ? Text(platformPromotion.discount.toString()) : Text(''),
-          // Text(tr(' enjoy ')),
-          // platformPromotion.type != null ? Text(platformPromotion.type) : Text(''),
-          // Text(tr(' under ')),
-          // platformPromotion.title != null ? Text(platformPromotion.title) : Text(''),
-          // Text(tr(' promotion for anywhere')),
-        ],
-      ),
+      child: Text(tr(
+          "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere")),
     );
   }
 }
