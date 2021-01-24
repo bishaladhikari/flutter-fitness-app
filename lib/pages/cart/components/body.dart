@@ -141,7 +141,7 @@ class CartBody extends StatelessWidget {
               title: Expanded(
                 child: Text(
                   tr('Claimed! offer under promotion for anywhere'),
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               ),
               childrenPadding: const EdgeInsets.only(
@@ -196,8 +196,9 @@ class CartBody extends StatelessWidget {
 
   Widget _buildPromotionWidget(promotionItem) {
     return Container(
-      child: Text(tr(
-          "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere")),
+      child: Text(
+          tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
+          style: TextStyle(color: NPrimaryColor)),
       // Text(
       //   tr('Spend ¥ ') +
       //       promotionItem.minimumRequirement.toString() +
@@ -215,8 +216,10 @@ class CartBody extends StatelessWidget {
 
   Widget _buildPlatformPromotionWidget(platformPromotion) {
     return Container(
-      child: Text(tr(
-          "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere")),
+      child: Text(
+        tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
+        style: TextStyle(color: NPrimaryColor),
+      ),
     );
   }
 }
