@@ -87,7 +87,7 @@ class _CartPageState extends State<CartPage>
                       onPressed: () {
                         getDefaultAddress(context);
                       },
-                      child: Text('Checkout',
+                      child: Text(tr('Checkout'),
                           style: TextStyle(color: Colors.white)),
                     ),
                   ],

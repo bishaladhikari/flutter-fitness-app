@@ -27,8 +27,23 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var cartTotalAmount = snapshot.data.cartSummary.totalAmount;
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
+              return Container(
+                width: double.infinity,
+                // double.infinity means it cove the available width
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, -7),
+                      blurRadius: 33,
+                      color: Color(0xFF6DAED9).withOpacity(0.11),
+                    ),
+                  ],
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

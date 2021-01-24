@@ -57,11 +57,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Spacer(),
+                                IconButton(
+                                    icon: Icon(
+                                  Icons.info_outline_rounded,
+                                  size: 25,
+                                )),
                                 Text(
-                                  tr("View more info"),
+                                  tr("View info"),
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold
+                                  ),
                                 ),
                                 // IconButton(
                                 //     icon: Icon(
@@ -118,7 +124,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               ],
                             ),
                             SizedBox(
-                              height: 10.0,
+                              height: 5.0,
                             ),
                             StreamBuilder<Address>(
                                 stream: addressBloc.defaultAddress,
@@ -254,7 +260,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             //   ],
             // ),
             SizedBox(
-              height: 10.0,
+              height: 5.0,
             ),
           ],
         ),
