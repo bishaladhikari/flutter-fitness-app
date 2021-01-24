@@ -28,6 +28,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
             if (snapshot.hasData) {
               var cartTotalAmount = snapshot.data.cartSummary.totalAmount;
               return Container(
+                padding: const EdgeInsets.all(8.0),
                 width: double.infinity,
                 // double.infinity means it cove the available width
                 decoration: BoxDecoration(
