@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 import '../main_page.dart';
 import 'components/body.dart';
+import 'package:ecapp/bloc/checkout_bloc.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -68,12 +69,12 @@ class _CartPageState extends State<CartPage>
                     Expanded(
                       child: Row(
                         children: [
-                          Text('Total Amount',
+                          Text(tr('Total Amount'),
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          Text(' ¥ ' + totalAmount.toStringAsFixed(2),
+                          Text(' ¥ ' + checkoutBloc.finalTotalAmount.toString(),
                               style: TextStyle(
                                   color: NPrimaryColor,
                                   fontWeight: FontWeight.bold,

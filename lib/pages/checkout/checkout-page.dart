@@ -33,8 +33,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0),
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -44,116 +44,120 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ExpansionTile(
-                          tilePadding: const EdgeInsets.all(0),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Spacer(),
-                                  Text(
-                                    tr("View more info"),
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  // IconButton(
-                                  //     icon: Icon(
-                                  //   Icons.keyboard_arrow_up_outlined,
-                                  //   size: 25,
-                                  // ))
-                                ],
-                              ),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     Text(tr('Subtotal'),
-                              //         style: TextStyle(
-                              //             fontWeight: FontWeight.w400,
-                              //             fontSize: 16,
-                              //             color: Colors.black)),
-                              //     Text(
-                              //         '¥ ' +
-                              //             checkoutBloc.finalTotalAmount
-                              //                 .toString(),
-                              //         style: TextStyle(
-                              //             // color: NPrimaryColor,
-                              //             fontWeight: FontWeight.w400,
-                              //             color: Colors.black,
-                              //             fontSize: 16)),
-                              //   ],
-                              // ),
-                              SizedBox(height: 5),
-                            ],
-                          ),
-                          children: _showCartSummary(cartSummary, context),
-                          // tilePadding: const EdgeInsets.all(0),
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(tr('Total Amount'),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black)),
-                            Text(
-                                '¥ ' +
-                                    checkoutBloc.finalTotalAmount
-                                        .toString(),
-                                style: TextStyle(
-                                    color: NPrimaryColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16)),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ExpansionTile(
+                        tilePadding: const EdgeInsets.symmetric(horizontal: 5),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Spacer(),
+                                Text(
+                                  tr("View more info"),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                // IconButton(
+                                //     icon: Icon(
+                                //   Icons.keyboard_arrow_up_outlined,
+                                //   size: 25,
+                                // ))
+                              ],
+                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Text(tr('Subtotal'),
+                            //         style: TextStyle(
+                            //             fontWeight: FontWeight.w400,
+                            //             fontSize: 16,
+                            //             color: Colors.black)),
+                            //     Text(
+                            //         '¥ ' +
+                            //             checkoutBloc.finalTotalAmount
+                            //                 .toString(),
+                            //         style: TextStyle(
+                            //             // color: NPrimaryColor,
+                            //             fontWeight: FontWeight.w400,
+                            //             color: Colors.black,
+                            //             fontSize: 16)),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 5),
                           ],
                         ),
-                        SizedBox(
-                          height: 10.0,
+                        children: _showCartSummary(cartSummary, context),
+                        // tilePadding: const EdgeInsets.all(0),
+                      ),
+                      // SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(tr('Total Amount'),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                                Text(
+                                    '¥ ' +
+                                        checkoutBloc.finalTotalAmount
+                                            .toString(),
+                                    style: TextStyle(
+                                        color: NPrimaryColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16)),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            StreamBuilder<Address>(
+                                stream: addressBloc.defaultAddress,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: RaisedButton(
+                                        color: NPrimaryColor,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, "selectPaymentMethodPage");
+                                        },
+                                        child: Text(tr('Proceed to Pay'),
+                                            style: TextStyle(color: Colors.white)),
+                                      ),
+                                    );
+                                  } else {
+                                    return SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: RaisedButton(
+                                        color: NPrimaryColor,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, 'addressFormPage');
+                                        },
+                                        child: Text(tr('Add Address'),
+                                            style: TextStyle(color: Colors.white)),
+                                      ),
+                                    );
+                                  }
+                                }),
+                          ],
                         ),
-                        StreamBuilder<Address>(
-                            stream: addressBloc.defaultAddress,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return SizedBox(
-                                  width: double.infinity,
-                                  height: 50,
-                                  child: RaisedButton(
-                                    color: NPrimaryColor,
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, "selectPaymentMethodPage");
-                                    },
-                                    child: Text(tr('Proceed to Pay'),
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                );
-                              } else {
-                                return SizedBox(
-                                  width: double.infinity,
-                                  height: 50,
-                                  child: RaisedButton(
-                                    color: NPrimaryColor,
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, 'addressFormPage');
-                                    },
-                                    child: Text(tr('Add Address'),
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                );
-                              }
-                            }),
-                      ],
-                    ),
-                ),
+                      ),
+                    ],
+                  ),
               );
             } else
               return Container();
@@ -161,96 +165,99 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  _showCartSummary(CartSummary cartSummary, context) {
+  List<Widget> _showCartSummary(CartSummary cartSummary, context) {
     return [
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(tr('Total items'),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Colors.black)),
-              Text(cartSummary.totalItems.toString(),
-                  style: TextStyle(
-                      // color: NPrimaryColor,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      fontSize: 16)),
-            ],
-          ),
-          SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(tr('Total Weight'),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Colors.black)),
-              Text(cartSummary.totalWeight.toString(),
-                  style: TextStyle(
-                      // color: NPrimaryColor,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      fontSize: 16)),
-            ],
-          ),
-          SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(tr('Subtotal'),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Colors.black)),
-              Text('¥ ' + cartSummary.totalAmount.toString(),
-                  style: TextStyle(
-                      // color: NPrimaryColor,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      fontSize: 16)),
-            ],
-          ),
-          SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(tr('Discount Amount'),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Colors.black)),
-              Text('¥ ' + cartSummary.bulkDiscountCost.toString(),
-                  style: TextStyle(
-                      // color: NPrimaryColor,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                      fontSize: 16)),
-            ],
-          ),
-          // SizedBox(height: 5),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: <Widget>[
-          //     Text(tr('Total Amount'),
-          //         style: TextStyle(
-          //             fontWeight: FontWeight.bold, color: Colors.black)),
-          //     Text('¥ ' + checkoutBloc.finalTotalAmount.toString(),
-          //         style: TextStyle(
-          //             color: NPrimaryColor,
-          //             fontWeight: FontWeight.bold,
-          //             fontSize: 16)),
-          //   ],
-          // ),
-          SizedBox(
-            height: 10.0,
-          ),
-        ],
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(tr('Total items'),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.black)),
+                Text(cartSummary.totalItems.toString(),
+                    style: TextStyle(
+                        // color: NPrimaryColor,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(tr('Total Weight'),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.black)),
+                Text(cartSummary.totalWeight.toString(),
+                    style: TextStyle(
+                        // color: NPrimaryColor,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(tr('Subtotal'),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.black)),
+                Text('¥ ' + cartSummary.totalAmount.toString(),
+                    style: TextStyle(
+                        // color: NPrimaryColor,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(tr('Discount Amount'),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.black)),
+                Text('¥ ' + cartSummary.bulkDiscountCost.toString(),
+                    style: TextStyle(
+                        // color: NPrimaryColor,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        fontSize: 16)),
+              ],
+            ),
+            // SizedBox(height: 5),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: <Widget>[
+            //     Text(tr('Total Amount'),
+            //         style: TextStyle(
+            //             fontWeight: FontWeight.bold, color: Colors.black)),
+            //     Text('¥ ' + checkoutBloc.finalTotalAmount.toString(),
+            //         style: TextStyle(
+            //             color: NPrimaryColor,
+            //             fontWeight: FontWeight.bold,
+            //             fontSize: 16)),
+            //   ],
+            // ),
+            SizedBox(
+              height: 10.0,
+            ),
+          ],
+        ),
       )
     ];
   }
