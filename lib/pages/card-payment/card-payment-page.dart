@@ -10,6 +10,7 @@ import 'package:stripe_sdk/stripe_sdk.dart';
 import 'package:stripe_sdk/stripe_sdk_ui.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
+import 'dart:convert';
 
 class CardPaymentPage extends StatefulWidget {
   @override
@@ -24,6 +25,8 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
 
   @override
   void initState() {
+    checkoutBloc.paymentMethod.value = "Card Payment";
+
 //    stripeApi = StripeApi(
 //        "pk_test_51HLfupKoHgRHkB8gxXW89hAxj3pQFdve3FsoYJPh5izaYtVdFHppAjG00TWQo6ldxDW6gF4jsK7i4c4fX7PjW18900xZTBCswt");
     StripePayment.setOptions(StripeOptions(
@@ -35,12 +38,18 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
   }
 
   @override
+  void dispose() {
+    checkoutBloc.paymentMethod.value = null;
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: cardPaymentAppBar(),
       body: Body(formKey: _formKey, card: _card),
-      bottomNavigationBar:
-      StreamBuilder<CartResponse>(
+      bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -56,14 +65,14 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Subtotal",
+                          tr("Subtotal"),
                           style: TextStyle(
 //                      fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + checkoutBloc.billableAmount.toString(),
+                          '¥ ' + checkoutBloc.totalAmount.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
@@ -76,14 +85,14 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Total Amount",
+                          tr("Total Amount"),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 16),
                         ),
                         Text(
-                          '¥ ' + totalAmount.toString(),
+                          '¥ ' + checkoutBloc.payableTotal.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: NPrimaryColor,
@@ -108,9 +117,11 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                                 expYear: _card.expYear);
                             StripePayment.createTokenWithCard(testCard)
                                 .then((token) async {
-                              checkoutBloc.paymentMethod.value = "Card Payment";
-                              AddOrderResponse response =
-                              await checkoutBloc.createOrder(context:context,token: token);
+                              print("stripetoken" + jsonEncode(token));
+                              AddOrderResponse response = await checkoutBloc
+                                  .createOrder(
+                                      context: context,
+                                      token: {"id": token.tokenId});
 //                              if (response.error == null) {
 //                                Navigator.of(context).pushNamed("orderConfirmationPage",
 //                                    arguments: response.order);
@@ -170,7 +181,8 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    )                  ],
+                    )
+                  ],
                 ),
               );
             } else

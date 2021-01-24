@@ -20,6 +20,18 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    checkoutBloc.paymentMethod.value = "Cash Payment";
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    checkoutBloc.paymentMethod.value = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,

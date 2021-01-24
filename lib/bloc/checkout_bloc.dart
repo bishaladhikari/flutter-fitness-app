@@ -168,6 +168,7 @@ class CheckoutBloc {
   }
 
   get payableTotal {
+    print("paymentMethod"+paymentMethod.value.toString());
     if (paymentMethod.value == "Cash Payment")
       return (billableAmount + loyaltyPointBloc.cashOnDeliveryCharge).round();
     return billableAmount.round();
