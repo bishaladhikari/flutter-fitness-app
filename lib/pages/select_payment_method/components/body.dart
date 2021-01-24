@@ -250,20 +250,13 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
                                                       Alignment.centerLeft,
                                                 ),
                                           Expanded(
-                                            child: RaisedButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    triggerCheckbox =
-                                                        !triggerCheckbox;
-                                                  });
-                                                },
-                                                child: Text(
-                                                  tr("Use my Reward Points to pay for this order"),
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      // fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                )),
+                                            child: Text(
+                                              tr("Use my Reward Points to pay for this order"),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  // fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            ),
                                           )
                                         ],
                                       ),

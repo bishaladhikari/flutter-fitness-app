@@ -18,7 +18,7 @@ class CartSummary {
     bulkDiscountCost = json['bulk_discount_cost'];
     shippingCost = json['shipping_cost'];
     shippingDiscountCost = json['shipping_discount_cost'];
-    totalAmount = json['total_amount']?.toDouble();
+    totalAmount = double.parse((json['total_amount']).toStringAsFixed(2));
     totalItems = json['total_items'];
     totalWeight = json['total_weight']?.toDouble();
   }
