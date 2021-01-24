@@ -113,7 +113,7 @@ class CartBody extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "There are no items in this cart",
+                  tr("There are no items in this cart"),
                   style: TextStyle(color: Colors.black87),
                 ),
                 SizedBox(
@@ -125,7 +125,7 @@ class CartBody extends StatelessWidget {
                   },
                   color: NPrimaryColor,
                   textColor: Colors.white,
-                  child: Text("CONTINUE SHOPPING"),
+                  child: Text(tr("CONTINUE SHOPPING")),
                 )
               ],
             ),
@@ -138,9 +138,11 @@ class CartBody extends StatelessWidget {
         child: Column(
           children: [
             ExpansionTile(
-              title: Text(
-                'Claimed! offer under promotion for anywhere',
-                style: TextStyle(fontSize: 14),
+              title: Expanded(
+                child: Text(
+                  tr('Claimed! offer under promotion for anywhere'),
+                  style: TextStyle(fontSize: 14),
+                ),
               ),
               childrenPadding: const EdgeInsets.only(
                   top: 0.0, left: 15, right: 0.0, bottom: 10.0),
