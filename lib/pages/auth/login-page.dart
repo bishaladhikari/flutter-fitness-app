@@ -235,42 +235,43 @@ class _LoginPageState extends State<LoginPage>
 //            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
 //      );
 
-    BuildContext dialogContext;
+      BuildContext dialogContext;
       showDialog(
           context: context,
           useRootNavigator: false,
           barrierDismissible: false,
-          builder: (context){
+          builder: (context) {
             dialogContext = context;
             return Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                    color: Colors.white,
-                    width: 200,
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator()),
-                        SizedBox(
-                          width: 20.0,
-                        ),
-                        Material(
-                          child: Text(
-                            tr("Logging in"),
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 18,
-                            ),
+                child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                  color: Colors.white,
+                  width: 200,
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator()),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Material(
+                        child: Text(
+                          tr("Logging in"),
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 18,
                           ),
-                        )
-                      ],
-                    )),
-              ));});
+                        ),
+                      )
+                    ],
+                  )),
+            ));
+          });
       _scaffoldKey.currentState.removeCurrentSnackBar();
 
       FocusScope.of(context).requestFocus(new FocusNode());
@@ -341,8 +342,8 @@ class _LoginPageState extends State<LoginPage>
                       height: 25,
                       width: 25,
                       child: CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(
-                            NPrimaryColor),
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(NPrimaryColor),
                       ),
                     ),
                     SizedBox(
@@ -365,7 +366,7 @@ class _LoginPageState extends State<LoginPage>
         },
       );
       LoginResponse response =
-          await Repository().socialLogin({"access_token": accessToken});
+          await authBloc.socialLogin({"access_token": accessToken});
       Navigator.pop(dialogContext);
       Navigator.pop(dialogContext, true);
       if (response.token != null) {
@@ -427,8 +428,8 @@ class _LoginPageState extends State<LoginPage>
                       height: 25,
                       width: 25,
                       child: CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(
-                            NPrimaryColor),
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(NPrimaryColor),
                       ),
                     ),
                     SizedBox(
@@ -450,8 +451,8 @@ class _LoginPageState extends State<LoginPage>
           );
         },
       );
-      LoginResponse response = await Repository()
-          .appleLogin({"access_token": credential.identityToken});
+      LoginResponse response =
+          await authBloc.appleLogin({"access_token": credential.identityToken});
       Navigator.pop(dialogContext, true);
       if (response.token != null) {
         // _loginSuccess(context);
