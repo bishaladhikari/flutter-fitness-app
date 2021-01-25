@@ -265,7 +265,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ],
                 )
               : Container(),
-          SizedBox(height: 5),
+          cartSummary.shippingCost > 0 ? SizedBox(height: 5) : Container(),
           cartSummary.shippingDiscountCost > 0
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -284,7 +284,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ],
                 )
               : Container(),
-          SizedBox(height: 5),
+          cartSummary.shippingDiscountCost > 0 ? SizedBox(height: 5) : Container(),
           cartSummary.bulkDiscountCost > 0
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
