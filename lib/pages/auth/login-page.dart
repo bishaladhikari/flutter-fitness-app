@@ -88,13 +88,13 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void _loginSuccess(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pop(context);
-      Navigator.pop(context);
-//      _scaffoldKey.currentState.showSnackBar(SnackBar(
-//        content: Text("Successfully Logged In"),
-//      ));
-    });
+//     WidgetsBinding.instance.addPostFrameCallback((_) {
+//       Navigator.pop(context);
+//       Navigator.pop(context);
+// //      _scaffoldKey.currentState.showSnackBar(SnackBar(
+// //        content: Text("Successfully Logged In"),
+// //      ));
+//     });
   }
 
   Widget _buildLoginFormWidget(context) {
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage>
                   borderRadius: BorderRadius.circular(5.0)),
               child: Center(
                   child: Text(
-                "SIGN IN",
+                tr("SIGN IN"),
                 style: TextStyle(fontSize: 14, color: Colors.white),
               )),
             ),
@@ -197,16 +197,16 @@ class _LoginPageState extends State<LoginPage>
             handleSignIn: handleSignIn,
           ),
           SizedBox(height: 16),
-          // platform.Platform.isIOS
-          //     ? AppleSignInButton(
-          //         handleSignIn: handleAppleSignIn,
-          //       )
-          //     : Container(),
+          platform.Platform.isIOS
+              ? AppleSignInButton(
+                  handleSignIn: handleAppleSignIn,
+                )
+              : Container(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'New to Rakurakubazaar?',
+                tr('New to rakurakubazzar?'),
                 style: TextStyle(fontFamily: 'quicksand'),
               ),
               SizedBox(width: 5.0),
@@ -235,11 +235,14 @@ class _LoginPageState extends State<LoginPage>
 //            pageBuilder: (context, _, __) => LoadingScreen(), opaque: false),
 //      );
 
+    BuildContext dialogContext;
       showDialog(
           context: context,
           useRootNavigator: false,
           barrierDismissible: false,
-          builder: (context) => Center(
+          builder: (context){
+            dialogContext = context;
+            return Center(
                   child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
@@ -267,7 +270,7 @@ class _LoginPageState extends State<LoginPage>
                         )
                       ],
                     )),
-              )));
+              ));});
       _scaffoldKey.currentState.removeCurrentSnackBar();
 
       FocusScope.of(context).requestFocus(new FocusNode());
@@ -283,8 +286,9 @@ class _LoginPageState extends State<LoginPage>
 //        if (response.token != null) _loginSuccess(context);
 //        subscription.cancel();
 //      });
+      Navigator.pop(dialogContext, true);
       if (response.token != null) {
-        _loginSuccess(context);
+        // _loginSuccess(context);
         cartBloc.getCart();
         Fluttertoast.showToast(
             msg: tr("Login Success"),
@@ -296,7 +300,6 @@ class _LoginPageState extends State<LoginPage>
             fontSize: 16.0);
       } else {
         _showErrorMessage(context, response.error);
-        Navigator.pop(context, true);
       }
     } else {
       setState(() => _validate = true);
@@ -364,153 +367,108 @@ class _LoginPageState extends State<LoginPage>
       LoginResponse response =
           await Repository().socialLogin({"access_token": accessToken});
       Navigator.pop(dialogContext);
-      if (response.error == null) {
-        token = response.token;
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        // prefs.setString('token', '$token');
-        // if (token.isNotEmpty) {
-        //   if (cvBloc.isCreateCV) {
-        //     CVResponse response = await cvBloc.createCV();
-        //     cvBloc.isCreateCV = false;
-        //     if (response.error == null) {
-        //       cvInfo.id = response.cv.id;
-        //       await cvBloc.updateCVInfo();
-        //     }
-        //   }
-        //
-        //   Fluttertoast.showToast(
-        //       msg: tr("Login success"),
-        //       toastLength: Toast.LENGTH_LONG,
-        //       gravity: ToastGravity.BOTTOM,
-        //       timeInSecForIosWeb: 1,
-        //       backgroundColor:
-        //           response.error == null ? Colors.green : Colors.red,
-        //       textColor: Colors.white,
-        //       fontSize: 16.0);
-        //   Navigator.pushNamedAndRemoveUntil(
-        //       context, '/NavigationScreen', (r) => false);
-        // }
+      Navigator.pop(dialogContext, true);
+      if (response.token != null) {
+        // _loginSuccess(context);
+        cartBloc.getCart();
+        Fluttertoast.showToast(
+            msg: tr("Login Success"),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: response.error == null ? Colors.green : Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       } else {
-        var msg = response.error == 'unauthenticated'.tr()
-            ? 'Invalid Credentials'.tr()
-            : tr(response.error);
-        var snackbar = SnackBar(
-          content: Text(tr(msg)),
-          backgroundColor: Colors.redAccent,
-        );
-        _scaffoldKey.currentState.showSnackBar(snackbar);
+        _showErrorMessage(context, response.error);
       }
-      print("login response" + response.token);
     } catch (error) {
       print(error);
     }
   }
 
-//   Future<void> handleAppleSignIn() async {
-//     _scaffoldKey.currentState.removeCurrentSnackBar();
-//     FocusScope.of(context).requestFocus(new FocusNode());
-//     try {
-//       final credential = await SignInWithApple.getAppleIDCredential(
-//         scopes: [
-//           AppleIDAuthorizationScopes.email,
-//           AppleIDAuthorizationScopes.fullName,
-//         ],
-//         webAuthenticationOptions: WebAuthenticationOptions(
-//           clientId: 'jp.co.cvpro',
-// //          '2K6Q8V56C3',
-//           redirectUri: Uri.parse(
-//             Repository().baseUrl + "/apple/callback",
-//           ),
-//         ),
-// //        nonce: 'example-nonce',
-// //        state: 'example-state',
-//       );
-//       print("apple credential ");
-//       BuildContext dialogContext;
-//       showDialog(
-//         context: context,
-//         barrierDismissible: false,
-//         builder: (context) {
-//           dialogContext = context;
-//           return Center(
-//             child: Padding(
-//               padding: const EdgeInsets.all(20.0),
-//               child: Container(
-//                 color: Colors.white,
-//                 width: 200,
-//                 padding: const EdgeInsets.all(20),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     SizedBox(
-//                       height: 25,
-//                       width: 25,
-//                       child: CircularProgressIndicator(
-//                         valueColor: new AlwaysStoppedAnimation<Color>(
-//                             NPrimaryColor),
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       width: 20.0,
-//                     ),
-//                     Material(
-//                       child: Text(
-//                         tr("Logging in"),
-//                         style: TextStyle(
-//                           color: Colors.black87,
-//                           fontSize: 18,
-//                         ),
-//                       ),
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           );
-//         },
-//       );
-//       LoginResponse response = await BaseRepository()
-//           .appleLogin({"access_token": credential.identityToken});
-//       Navigator.pop(dialogContext);
-//       if (response.error == null) {
-//         token = response.token;
-//         final SharedPreferences prefs = await SharedPreferences.getInstance();
-//         prefs.setString('token', '$token');
-//         prefs.setString('activityId', response.activityId);
-//         if (token.isNotEmpty) {
-//           if (cvBloc.isCreateCV) {
-//             CVResponse response = await cvBloc.createCV();
-//             cvBloc.isCreateCV = false;
-//             if (response.error == null) {
-//               cvInfo.id = response.cv.id;
-//               await cvBloc.updateCVInfo();
-//             }
-//           }
-//           Fluttertoast.showToast(
-//               msg: tr("Login success"),
-//               toastLength: Toast.LENGTH_LONG,
-//               gravity: ToastGravity.BOTTOM,
-//               timeInSecForIosWeb: 1,
-//               backgroundColor:
-//                   response.error == null ? Colors.green : Colors.red,
-//               textColor: Colors.white,
-//               fontSize: 16.0);
-//           Navigator.pushNamedAndRemoveUntil(
-//               context, '/NavigationScreen', (r) => false);
-//         }
-//       } else {
-//         var msg = response.error == 'unauthenticated'.tr()
-//             ? 'Invalid Credentials'.tr()
-//             : tr(response.error);
-//         var snackbar = SnackBar(
-//           content: Text(tr(msg)),
-//           backgroundColor: Colors.redAccent,
-//         );
-//         _scaffoldKey.currentState.showSnackBar(snackbar);
-//       }
-//       print("login response" + response.token);
-//     } catch (error) {
-//       print(error);
-//     }
-//   }
+  Future<void> handleAppleSignIn() async {
+    _scaffoldKey.currentState.removeCurrentSnackBar();
+    FocusScope.of(context).requestFocus(new FocusNode());
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: 'jp.co.cvpro',
+//          '2K6Q8V56C3',
+          redirectUri: Uri.parse(
+            Repository().baseUrl + "/apple/callback",
+          ),
+        ),
+//        nonce: 'example-nonce',
+//        state: 'example-state',
+      );
+      print("apple credential ");
+      BuildContext dialogContext;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          dialogContext = context;
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                color: Colors.white,
+                width: 200,
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        valueColor: new AlwaysStoppedAnimation<Color>(
+                            NPrimaryColor),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Material(
+                      child: Text(
+                        tr("Logging in"),
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 18,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+      LoginResponse response = await Repository()
+          .appleLogin({"access_token": credential.identityToken});
+      Navigator.pop(dialogContext, true);
+      if (response.token != null) {
+        // _loginSuccess(context);
+        cartBloc.getCart();
+        Fluttertoast.showToast(
+            msg: tr("Login Success"),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: response.error == null ? Colors.green : Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        _showErrorMessage(context, response.error);
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 }
