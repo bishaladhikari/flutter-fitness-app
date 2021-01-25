@@ -69,10 +69,10 @@ class CartBloc {
 
 
   getCartSummary() async {
-    CartSummaryResponse response = await _repository.getCartSummary();
-    // _subject.sink.add(response);
-    if(response.error == null){
-      _subject.value.cartSummary = response.cartSummary;
+    CartSummaryResponse cartSummaryResponse = await _repository.getCartSummary();
+    if(cartSummaryResponse.error == null){
+      response.cartSummary = cartSummaryResponse.cartSummary;
+      _subject.sink.add(response);
     }
   }
 

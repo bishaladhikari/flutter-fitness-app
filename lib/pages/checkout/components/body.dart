@@ -37,38 +37,36 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            color: Colors.black.withOpacity(.01),
-            height: 200,
-            child: Column(
-              children: [
-                StreamBuilder<Address>(
-                    stream: addressBloc.defaultAddress,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        print("defaultAddress"+jsonEncode(snapshot.data));
-                        return _buildAddressWidget(snapshot.data);
-                      }
-                      // WidgetsBinding.instance.addPostFrameCallback((_) {
-                      //   if (!snapshot.hasData) {
-                      //     Scaffold.of(context).showSnackBar(SnackBar(
-                      //       content:
-                      //           Text(tr("Please provide a shipping address.")),
-                      //       backgroundColor: Colors.redAccent,
-                      //     ));
-                      //   }
-                      // });
-                      return AddAddress();
-                    }),
-              ],
-            ),
+    return Column(
+      children: [
+        Container(
+          color: Colors.black.withOpacity(.01),
+          height: 200,
+          child: Column(
+            children: [
+              StreamBuilder<Address>(
+                  stream: addressBloc.defaultAddress,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      print("defaultAddress"+jsonEncode(snapshot.data));
+                      return _buildAddressWidget(snapshot.data);
+                    }
+                    // WidgetsBinding.instance.addPostFrameCallback((_) {
+                    //   if (!snapshot.hasData) {
+                    //     Scaffold.of(context).showSnackBar(SnackBar(
+                    //       content:
+                    //           Text(tr("Please provide a shipping address.")),
+                    //       backgroundColor: Colors.redAccent,
+                    //     ));
+                    //   }
+                    // });
+                    return AddAddress();
+                  }),
+            ],
           ),
-          _buildCartListWidget()
-        ],
-      ),
+        ),
+        _buildCartListWidget()
+      ],
     );
   }
 
