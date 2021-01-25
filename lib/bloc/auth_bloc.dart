@@ -46,6 +46,24 @@ class AuthBloc {
     return response;
   }
 
+  socialLogin(params) async {
+    LoginResponse response = await _repository.socialLogin(params);
+    _subject.sink.add(response);
+    if (response.token != null) {
+      _setPref(response);
+    }
+    return response;
+  }
+
+  appleLogin(params) async {
+    LoginResponse response = await _repository.appleLogin(params);
+    _subject.sink.add(response);
+    if (response.token != null) {
+      _setPref(response);
+    }
+    return response;
+  }
+
   emailForgotPassword(email) async {
     EmailConfirmResponse response = await _repository.emailForgotPassword(email);
     return response;

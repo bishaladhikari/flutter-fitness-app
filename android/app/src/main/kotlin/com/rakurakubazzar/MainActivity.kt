@@ -1,4 +1,4 @@
-package com.example.ecapp
+package com.rakurakubazzar
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -37,7 +37,9 @@ import '../main.dart';
 
 class Repository {
   // static String appUrl = "http://ecsite.eeeinnovation.com/api";
-  static String appUrl = "http://prod-ecsite.eeeinnovation.com/api";
+  static String _baseUrl = "http://prod-ecsite.eeeinnovation.com";
+  static String appUrl = "$_baseUrl/api";
+  get baseUrl => _baseUrl;
 
 //  static String appUrl = "http://ecsite-dashboard.test/api";
 
@@ -106,6 +108,31 @@ class Repository {
       // Debug request
       LogInterceptor(requestBody: true, responseBody: true)
     ]);
+  }
+
+
+  Future<LoginResponse> socialLogin(params) async {
+    print("params:" + params.toString());
+    try {
+      Response response = await _dio.get('$_baseUrl/login/google/callback',
+          queryParameters: params);
+      return LoginResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return LoginResponse.withError(_handleError(error));
+    }
+  }
+
+  Future<LoginResponse> appleLogin(params) async {
+    print("params:" + params.toString());
+    try {
+      Response response =
+      await _dio.get('$baseUrl/apple/callback', queryParameters: params);
+      return LoginResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occurred: $error stackTrace: $stacktrace");
+      return LoginResponse.withError(_handleError(error));
+    }
   }
 
   getToken() async {

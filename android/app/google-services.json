@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "81340543499",
+    "project_id": "rakurakubazzar",
+    "storage_bucket": "rakurakubazzar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81340543499:android:dc24fa66e3ce4a6ca3cd0e",
+        "android_client_info": {
+          "package_name": "com.rakurakubazzar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81340543499-l472s2ie7srs5e372me4epmc827jujs5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rakurakubazzar",
+            "certificate_hash": "e0288788b078f6770f0d2209f3d0cd8cfeb283db"
+          }
+        },
+        {
+          "client_id": "81340543499-8663oabqq3m88skeuph6u9ftg2qkq3aa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP-cHb2eeoi-ieB6aTCzy-uoBWJjusAbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81340543499-8663oabqq3m88skeuph6u9ftg2qkq3aa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
