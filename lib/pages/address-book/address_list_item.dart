@@ -54,7 +54,7 @@ class _AddressListItemState extends State<AddressListItem> {
                     ],
                   ),
                   Spacer(),
-                  RaisedButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'addressFormPage',
                           arguments: widget.address);
