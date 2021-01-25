@@ -96,15 +96,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       style: TextStyle(
                           color: Colors.black87, fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Transaction Id: " + detail.transactionId),
-                        ],
-                      ),
-                    ),
+                    subtitle: detail.transactionId != null
+                        ? Text("Transaction Id: " + detail.transactionId)
+                        : Text(""),
                   ),
                   ListTile(
                     contentPadding: const EdgeInsets.all(8.0),
