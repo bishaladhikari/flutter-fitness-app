@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "808556877726",
+    "project_id": "cvpro-b4382",
+    "storage_bucket": "cvpro-b4382.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808556877726:android:eb9add12b8a43e88b4288f",
+        "android_client_info": {
+          "package_name": "jp.co.cvpro.cv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808556877726-452smsqr36bu87ovt2d1brfkhdf512pt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jp.co.cvpro.cv",
+            "certificate_hash": "e0288788b078f6770f0d2209f3d0cd8cfeb283db"
+          }
+        },
+        {
+          "client_id": "808556877726-p8f3rvq2t01hsu8103pjcfp7f7qfbhc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3n4qwDCGtflU5TMd-ZFMXJytIRtEh2t8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808556877726-p8f3rvq2t01hsu8103pjcfp7f7qfbhc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
