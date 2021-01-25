@@ -1,7 +1,4 @@
-import 'package:ecapp/models/cart_summary.dart';
-
 import '../address.dart';
-import '../cart.dart';
 
 class DefaultAddressResponse {
   Address address;

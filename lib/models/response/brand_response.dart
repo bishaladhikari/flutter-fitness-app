@@ -1,5 +1,3 @@
-
-import '../address.dart';
 import '../brand.dart';
 
 class BrandResponse {

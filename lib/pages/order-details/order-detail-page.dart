@@ -22,6 +22,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     super.initState();
     detail = widget.order;
     orderId = widget.order.orderId;
+    print(detail);
 //    orderProductDetailBloc.getOrderProductDetail(id);
   }
 
@@ -87,6 +88,37 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         ],
                       ),
                     ),
+                  ),
+                  ListTile(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    title: Text(
+                      "Payment Method: " + detail.paymentMethod,
+                      style: TextStyle(
+                          color: Colors.black87, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Transaction Id: " + detail.transactionId),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    title: detail.shippingCompany != null
+                        ? Text(
+                            "Shipping Via: " + detail.shippingCompany,
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text("Shipping Via: Not Assigned Yet",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold)),
                   ),
                   ListTile(
                     contentPadding: const EdgeInsets.all(8.0),

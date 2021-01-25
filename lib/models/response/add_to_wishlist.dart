@@ -1,4 +1,3 @@
-import 'package:ecapp/models/cart_item.dart';
 
 class AddToWishlistResponse {
   final String error;

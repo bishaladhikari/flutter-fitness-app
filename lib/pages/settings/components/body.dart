@@ -1,6 +1,7 @@
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -8,6 +9,21 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool isAuthenticated;
+
+  @override
+  void initState() {
+    super.initState();
+    getIsAuthenticated();
+  }
+
+  getIsAuthenticated() async {
+    bool isAuth = await authBloc.isAuthenticated();
+    setState(() {
+      isAuthenticated = isAuth;
+    });
+  }
+
   _navigateToUserProfileForm() async {
     // ProfileResponse response = await profileBloc.userProfile();
     // if (response.error == null) {
@@ -27,7 +43,7 @@ class _BodyState extends State<Body> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          authBloc.isAuthenticated() == true
+          isAuthenticated
               ? ListTile(
                   title: Text('Account Information'.tr()),
                   onTap: () async {
@@ -36,7 +52,7 @@ class _BodyState extends State<Body> {
                         : Navigator.of(context).pushNamed('loginPage');
                   })
               : Container(),
-          authBloc.isAuthenticated() == true
+          isAuthenticated
               ? ListTile(
                   title: Text('Address Book'.tr()),
                   onTap: () {
@@ -61,14 +77,14 @@ class _BodyState extends State<Body> {
           //         MaterialPageRoute(builder: (context) => ReviewPage()),
           //       );
           //     }),
-          authBloc.isAuthenticated() == true
+          isAuthenticated
               ? ListTile(
                   title: Text('Change Password'.tr()),
                   onTap: () async {
                     _navigateToUserPasswordForm();
                   })
               : Container(),
-          authBloc.isAuthenticated() == true
+          isAuthenticated
               ? ListTile(
                   title: Text('Logout'.tr()),
                   onTap: () {

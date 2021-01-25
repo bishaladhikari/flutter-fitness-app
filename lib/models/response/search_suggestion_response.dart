@@ -1,7 +1,5 @@
 import 'package:ecapp/models/SearchSuggestion.dart';
 
-import '../cart.dart';
-
 class SearchSuggestionResponse {
 
   List<SearchSuggestion> suggestions;

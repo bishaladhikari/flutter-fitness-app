@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
 import 'package:ecapp/bloc/search_bloc.dart';
 import 'package:ecapp/components/products_list.dart';
-import 'package:ecapp/constants.dart';
 import 'package:ecapp/models/SearchSuggestion.dart';
 import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/response/search_suggestion_response.dart';
