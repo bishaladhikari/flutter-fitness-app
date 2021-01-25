@@ -60,9 +60,9 @@ class CheckoutBloc {
 
 //    var subTotal = cartBloc.subject.value.totalAmount;
 //    var bulkDiscountCost = cartBloc.subject.value.bulkDiscountCost;
-//    var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
-//        ? loyaltyPointBloc.redeemResponse.value.amountValue
-//        : 0;
+//     var redeemedAmount = loyaltyPointBloc.redeemResponse.value != null
+//         ? loyaltyPointBloc.redeemResponse.value.amountValue
+//         : 0;
 //    var cashOnDeliveryCharge = loyaltyPointBloc.cashOnDeliveryCharge;
 //    var shippingDiscountCost = cartBloc.subject.value.shippingDiscountCost;
 //    var billableAmount = subTotal +
@@ -77,8 +77,7 @@ class CheckoutBloc {
       "address_id": addressId,
 //      "store_id": 2,
       "token": token,
-      "redeemed_amount": "",
-      "redeemed_points": "",
+      "redeemed_amount": redeemedAmount,
       "payment_method": paymentMethod.value,
       "billable_amount": billableAmount,
       "cash_on_delivery_charge": cashOnDeliveryCharge,
@@ -158,9 +157,11 @@ class CheckoutBloc {
     return (totalAmount + shippingCost - shippingDiscountCost).round();
   }
 
+  get redeemedAmount {
+    return loyaltyPointBloc.redeemResponse.value?.amountValue ?? 0;
+  }
+
   get billableAmount {
-    var redeemedAmount =
-        loyaltyPointBloc.redeemResponse.value?.amountValue ?? 0;
     var billableAmount = finalTotalAmount - redeemedAmount;
 //    if (paymentMethod.value == "Cash Payment")
 //      return billableAmount + cashOnDeliveryCharge;
@@ -168,7 +169,7 @@ class CheckoutBloc {
   }
 
   get payableTotal {
-    print("paymentMethod"+paymentMethod.value.toString());
+    print("paymentMethod" + paymentMethod.value.toString());
     if (paymentMethod.value == "Cash Payment")
       return (billableAmount + loyaltyPointBloc.cashOnDeliveryCharge).round();
     return billableAmount.round();
