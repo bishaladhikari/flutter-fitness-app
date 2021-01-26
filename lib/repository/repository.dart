@@ -38,6 +38,7 @@ import '../main.dart';
 class Repository {
   // static String appUrl = "http://ecsite.eeeinnovation.com/api";
   static String _baseUrl = "http://prod-ecsite.eeeinnovation.com";
+  // static String _baseUrl = "https://www.rakurakubazzar.com";
   static String appUrl = "$_baseUrl/api";
   get baseUrl => _baseUrl;
 
