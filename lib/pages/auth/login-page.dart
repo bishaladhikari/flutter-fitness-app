@@ -290,7 +290,6 @@ class _LoginPageState extends State<LoginPage>
       Navigator.pop(dialogContext, true);
       if (response.token != null) {
         // _loginSuccess(context);
-        cartBloc.getCart();
         Fluttertoast.showToast(
             msg: tr("Login Success"),
             toastLength: Toast.LENGTH_LONG,
@@ -366,7 +365,7 @@ class _LoginPageState extends State<LoginPage>
         },
       );
       LoginResponse response =
-          await authBloc.socialLogin({"access_token": accessToken});
+          await authBloc.socialLogin('google', {"access_token": accessToken});
       Navigator.pop(dialogContext);
       Navigator.pop(dialogContext, true);
       if (response.token != null) {
@@ -398,16 +397,16 @@ class _LoginPageState extends State<LoginPage>
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: 'jp.co.cvpro',
+          clientId: 'com.rakurakubazzar',
 //          '2K6Q8V56C3',
           redirectUri: Uri.parse(
-            Repository().baseUrl + "/apple/callback",
+            Repository().baseUrl + "/sign-in-with-apple/callback",
           ),
         ),
 //        nonce: 'example-nonce',
 //        state: 'example-state',
       );
-      print("apple credential ");
+      print("apple credential");
       BuildContext dialogContext;
       showDialog(
         context: context,
@@ -451,12 +450,11 @@ class _LoginPageState extends State<LoginPage>
           );
         },
       );
-      LoginResponse response =
-          await authBloc.appleLogin({"access_token": credential.identityToken});
+      LoginResponse response = await authBloc.socialLogin(
+          'sign-in-with-apple', {"access_token": credential.identityToken});
       Navigator.pop(dialogContext, true);
       if (response.token != null) {
         // _loginSuccess(context);
-        cartBloc.getCart();
         Fluttertoast.showToast(
             msg: tr("Login Success"),
             toastLength: Toast.LENGTH_LONG,

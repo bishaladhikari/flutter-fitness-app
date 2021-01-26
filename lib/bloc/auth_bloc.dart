@@ -46,11 +46,12 @@ class AuthBloc {
     return response;
   }
 
-  socialLogin(params) async {
-    LoginResponse response = await _repository.socialLogin(params);
+  socialLogin(provider,params) async {
+    LoginResponse response = await _repository.socialLogin(provider,params);
     _subject.sink.add(response);
     if (response.token != null) {
       _setPref(response);
+      cartBloc.getCart();
     }
     return response;
   }

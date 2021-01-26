@@ -1,6 +1,7 @@
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:flutter/material.dart';
+import  'package:easy_localization/easy_localization.dart';
 
 import 'components/order_item_detail.dart';
 
@@ -47,7 +48,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Ship & bill to",
+                    "Ship & bill to".tr(),
                     style: TextStyle(fontSize: 16, color: Colors.black38),
                   ),
                   Text(

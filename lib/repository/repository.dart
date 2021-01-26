@@ -111,10 +111,10 @@ class Repository {
   }
 
 
-  Future<LoginResponse> socialLogin(params) async {
+  Future<LoginResponse> socialLogin(provider,params) async {
     print("params:" + params.toString());
     try {
-      Response response = await _dio.get('$_baseUrl/login/google/callback',
+      Response response = await _dio.get('$_baseUrl/login/$provider/callback',
           queryParameters: params);
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
