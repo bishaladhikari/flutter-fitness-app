@@ -452,6 +452,7 @@ class _LoginPageState extends State<LoginPage>
       );
       LoginResponse response = await authBloc.socialLogin(
           'sign-in-with-apple', {"access_token": credential.identityToken});
+      Navigator.pop(dialogContext);
       Navigator.pop(dialogContext, true);
       if (response.token != null) {
         // _loginSuccess(context);
