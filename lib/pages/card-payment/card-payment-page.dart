@@ -55,11 +55,25 @@ class _CardPaymentPageState extends State<CardPaymentPage> {
             if (snapshot.hasData) {
               var totalAmount = snapshot.data.cartSummary.totalAmount;
               return Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                height: 130,
+                padding: const EdgeInsets.all(8.0),
+                width: double.infinity,
+                // double.infinity means it cove the available width
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, -7),
+                      blurRadius: 33,
+                      color: Color(0xFF6DAED9).withOpacity(0.11),
+                    ),
+                  ],
+                ),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
