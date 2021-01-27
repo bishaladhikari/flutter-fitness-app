@@ -9,18 +9,20 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool isAuthenticated;
+  bool isAuthenticated = false;
+
+  @override
+  void setState(fn) {
+    // TODO: implement setState
+    if (mounted) super.setState(fn);
+  }
 
   @override
   void initState() {
     super.initState();
-    getIsAuthenticated();
-  }
-
-  getIsAuthenticated() async {
-    bool isAuth = await authBloc.isAuthenticated();
-    setState(() {
-      isAuthenticated = isAuth;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      isAuthenticated = await authBloc.isAuthenticated();
+      setState(() {});
     });
   }
 
