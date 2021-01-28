@@ -8,14 +8,14 @@ class Combo {
   String storeSlug;
   bool availability;
   int actualQuantity;
-  int actualPrice;
+  var actualPrice;
   String imageThumbnail;
   int priceDifference;
   String slug;
   int weight;
   String unit;
   bool saved;
-  int attributesCount;
+  var attributesCount;
   String heroTag;
 
   Combo(
@@ -44,7 +44,7 @@ class Combo {
     storeSlug = json['store_slug'];
     availability = json['availability'];
     actualQuantity = json['actual_quantity'];
-    actualPrice = json['actual_price'];
+    actualPrice = json['actual_price'].round();
     imageThumbnail = json['image_thumbnail'];
     priceDifference = json['price_difference'];
     slug = json['slug'];
