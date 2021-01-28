@@ -46,7 +46,7 @@ class ProductDetailPage extends StatefulWidget {
 //    super(key: key);
     this
         .images
-        .add(AttributeImage.fromJson({"image_link": this.product.image}));
+        .add(AttributeImage.fromJson({"image_link": this.product.imageThumbnail}));
   }
 
   @override
@@ -758,9 +758,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
               height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                        image: widget.product.imageThumbnail != null
-                            ? NetworkImage(widget.product.imageThumbnail)
-                            : AssetImage("assets/images/placeholder.png"),
+                        image: AssetImage("assets/images/placeholder.png"),
                         fit: BoxFit.cover),
               ),
             ),
