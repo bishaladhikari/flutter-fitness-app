@@ -108,6 +108,17 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ListTile(
+              onTap: () {
+                Product product = Product();
+                product.name = orderProductDetail.productName;
+                product.slug = orderProductDetail.slug;
+                product.imageThumbnail = orderProductDetail.imageThumbnail;
+                product.image = orderProductDetail.imageThumbnail;
+                product.heroTag = orderProductDetail.heroTag;
+
+                Navigator.pushNamed(context, "productDetailPage",
+                    arguments: product);
+              },
               leading: Container(
                 width: 80,
                 height: 80,
@@ -116,27 +127,15 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
                         image: NetworkImage(orderProductDetail.imageThumbnail),
                         fit: BoxFit.cover)),
               ),
-              title: GestureDetector(
-                  onTap: () {
-                    Product product = Product();
-                    product.name = orderProductDetail.productName;
-                    product.slug = orderProductDetail.slug;
-                    product.imageThumbnail = orderProductDetail.imageThumbnail;
-                    product.image = orderProductDetail.imageThumbnail;
-                    product.heroTag = orderProductDetail.heroTag;
-
-                    Navigator.pushNamed(context, "productDetailPage",
-                        arguments: product);
-                  },
-                  child: Text(
-                    orderProductDetail.productName,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  )),
+              title: Text(
+                orderProductDetail.productName,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
