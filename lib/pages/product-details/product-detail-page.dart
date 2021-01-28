@@ -23,6 +23,7 @@ import 'package:ecapp/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:progressive_image/progressive_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import '../../constants.dart';
@@ -752,37 +753,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     return Center(
       child: Hero(
         tag: widget.product.heroTag,
-        child: CachedNetworkImage(
-          placeholder: (context, url) => Center(
-            child: Container(
-              height: 300,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                        image: AssetImage("assets/images/placeholder.png"),
-                        fit: BoxFit.cover),
-              ),
-            ),
-          ),
-          imageUrl: imageUrl,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 300,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-            )),
-          ),
-          errorWidget: (context, url, error) => Center(
-            child: Container(
-              height: 300,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.cover),
-              ),
-            ),
-          ),
+        child: ProgressiveImage(
+          placeholder: AssetImage("assets/images/placeholder.png"),
+          // size: 1.87KB
+          thumbnail: NetworkImage(imageUrl),
+          // size: 1.29MB
+          image: NetworkImage(imageUrl),
+          height: 500,
+          width: 500,
         ),
+
       ),
     );
   }
