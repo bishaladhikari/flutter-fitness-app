@@ -223,10 +223,10 @@ class _ComboDetailPageState extends State<ComboDetailPage>
                           child: Container(
                             height: 200,
                             decoration: BoxDecoration(
-                              image:  widget.combo.imageThumbnail != null
-                                  ? NetworkImage(widget.combo.imageThumbnail)
-                                  : DecorationImage(
-                                  image: AssetImage(
+                              image:  DecorationImage(
+                                  image: widget.combo.imageThumbnail != null
+                                      ? NetworkImage(widget.combo.imageThumbnail)
+                                      : AssetImage(
                                       "assets/images/placeholder.png"),
                                   fit: BoxFit.cover),
                             ),

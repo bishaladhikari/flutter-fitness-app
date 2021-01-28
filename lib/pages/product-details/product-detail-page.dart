@@ -757,10 +757,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             child: Container(
               height: 300,
               decoration: BoxDecoration(
-                image: widget.product.imageThumbnail != null
-                    ? NetworkImage(widget.product.imageThumbnail)
-                    : DecorationImage(
-                        image: AssetImage("assets/images/placeholder.png"),
+                image: DecorationImage(
+                        image: widget.product.imageThumbnail != null
+                            ? NetworkImage(widget.product.imageThumbnail)
+                            : AssetImage("assets/images/placeholder.png"),
                         fit: BoxFit.cover),
               ),
             ),
