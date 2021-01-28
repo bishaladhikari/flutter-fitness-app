@@ -265,7 +265,7 @@ class _ProductItemState extends State<ProductItem> {
             ),
           ),
         ),
-        imageUrl: widget.product.image,
+        imageUrl: widget.product.imageThumbnail,
         imageBuilder: (context, imageProvider) => Container(
           height: 130,
           // width: 130,

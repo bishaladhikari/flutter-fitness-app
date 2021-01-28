@@ -147,6 +147,7 @@ class WishItemView extends StatelessWidget {
     product.name = cartItem.attribute.productName;
     product.slug = cartItem.attribute.slug;
     product.imageThumbnail = cartItem.attribute.imageThumbnail;
+    product.image = cartItem.attribute.imageThumbnail;
     product.heroTag = cartItem.heroTag;
 
     Navigator.pushNamed(context, "productDetailPage", arguments: product);
