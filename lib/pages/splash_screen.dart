@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'main_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MainPage()));
+          context, PageTransition(type:PageTransitionType.leftToRightWithFade,child: MainPage()));
     });
   }
 
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
       fit: StackFit.expand,
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(color: Colors.green),
+          decoration: BoxDecoration(color: Colors.white),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -40,23 +41,17 @@ class _SplashScreenState extends State<SplashScreen>
             Expanded(
               flex: 2,
               child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SlideTransition(
-                      position:
-                          Tween<Offset>(begin: Offset(0, 1), end: Offset.zero)
-                              .animate(_animationController),
-                      child: Text(
-                        "Ecapp",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 50.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Quicksand'),
-                      ),
-                    )
-                  ],
+                child: SlideTransition(
+                  position:
+                  Tween<Offset>(begin: Offset(0, 1), end: Offset.zero)
+                      .animate(_animationController),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset("assets/icons/site-logo.png",scale: 10,)
+                    ],
+                  ),
                 ),
               ),
             ),
