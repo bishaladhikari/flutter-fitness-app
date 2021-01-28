@@ -104,6 +104,7 @@ class Search extends SearchDelegate {
               product.name = suggestions[index].name;
               product.slug = suggestions[index].slug;
               product.imageThumbnail = suggestions[index].imageThumbnail;
+              product.image = suggestions[index].imageThumbnail;
               product.heroTag = Uuid().v4();
 
               Navigator.pushNamed(context, "productDetailPage",
