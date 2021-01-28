@@ -10,7 +10,7 @@ class ComboDetail {
   String title;
   int price;
   bool availability;
-  int actualPrice;
+  var actualPrice;
   String imageThumbnail;
   int priceDifference;
   int actualQuantity;
@@ -24,7 +24,7 @@ class ComboDetail {
   int totalReview;
   bool saved;
   List<AvailablePromotions> availablePromotions;
-  int attributesCount;
+  var attributesCount;
 
   ComboDetail(
       {this.id,
@@ -127,7 +127,7 @@ class Attributes {
   Brand brand;
   Null price;
   List<Images> images;
-  String weight;
+  var weight;
   String unit;
   String sku;
   int actualQuantity;

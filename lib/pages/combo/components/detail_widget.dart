@@ -5,6 +5,7 @@ import 'package:ecapp/models/product.dart';
 import 'package:ecapp/models/variant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DetailWidget extends StatefulWidget {
   Variant selectedVariant;
@@ -88,11 +89,13 @@ class _DetailWidgetState extends State<DetailWidget> {
             onPressed: () {
               Product product = Product();
               product.name = attributes[i].productName;
-              product.slug =attributes[i].slug;
+              product.slug = attributes[i].slug;
               product.imageThumbnail = attributes[i].images[0].imageThumbnail;
+              product.image = attributes[i].images[0].imageThumbnail;
               product.heroTag = attributes[i].heroTag;
 
-              Navigator.pushNamed(context, "productDetailPage", arguments: product);
+              Navigator.pushNamed(context, "productDetailPage",
+                  arguments: product);
             }, //callback when button is clicked
             borderSide: BorderSide(
               color: Colors.grey.withOpacity(0.3),
@@ -121,7 +124,7 @@ class _DetailWidgetState extends State<DetailWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "What's in the bundle?",
+              tr("What's in the bundle?"),
               style: TextStyle(color: Colors.black),
             ),
             SingleChildScrollView(

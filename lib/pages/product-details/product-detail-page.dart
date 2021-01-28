@@ -44,8 +44,9 @@ class ProductDetailPage extends StatefulWidget {
 
   ProductDetailPage({Key key, this.product, this.selectedVariant, this.index}) {
 //    super(key: key);
-    this.images.add(AttributeImage.fromJson(
-        {"image_link": this.product.image}));
+    this
+        .images
+        .add(AttributeImage.fromJson({"image_link": this.product.image}));
   }
 
   @override
@@ -147,7 +148,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
         );
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(snackbar);
-
       } else {
         var snackbar = SnackBar(
           content: Row(
@@ -430,7 +430,8 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                           minHeight: 14,
                                         ),
                                         child: Text(
-                                          snapshot.data.cartSummary.totalItems.toString(),
+                                          snapshot.data.cartSummary.totalItems
+                                              .toString(),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 9,
@@ -747,6 +748,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
 
   Widget _productSlideImage(String imageUrl) {
 //    imageUrl = imageUrl != null ? imageUrl : "assets/images/placeholder.png";
+//   return Image(image:  NetworkImage(widget.product.imageThumbnail),);
     return Center(
       child: Hero(
         tag: widget.product.heroTag,
@@ -755,9 +757,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             child: Container(
               height: 300,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/placeholder.png"),
-                    fit: BoxFit.cover),
+                image: widget.product.imageThumbnail != null
+                    ? NetworkImage(widget.product.imageThumbnail)
+                    : DecorationImage(
+                        image: AssetImage("assets/images/placeholder.png"),
+                        fit: BoxFit.cover),
               ),
             ),
           ),
