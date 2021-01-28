@@ -81,6 +81,7 @@ class _ComboProductsListState extends State<ComboProductsList> {
     List<Combo> combos = data.combos;
     return combos.length > 0
         ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
