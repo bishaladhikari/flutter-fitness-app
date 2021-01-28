@@ -62,7 +62,7 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
           if (snapshot.data.error != null && snapshot.data.error.length > 0) {
             return _buildErrorWidget(snapshot.data.error);
           }
-          return _buildHomeWidget(context,snapshot.data);
+          return _buildHomeWidget(context, snapshot.data);
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error);
         } else {
@@ -90,18 +90,18 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
     ));
   }
 
-  Widget _buildHomeWidget(context,OrderProductDetailResponse data) {
+  Widget _buildHomeWidget(context, OrderProductDetailResponse data) {
     List<OrderProductDetail> orderProductDetails = data.orderProductDetails;
     return Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children:
             orderProductDetails.map((OrderProductDetail orderProductDetail) {
-          return _buildOrderProductListItem(context,orderProductDetail);
+          return _buildOrderProductListItem(context, orderProductDetail);
         }).toList());
   }
 
-  Widget _buildOrderProductListItem(context,orderProductDetail) {
+  Widget _buildOrderProductListItem(context, orderProductDetail) {
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -117,23 +117,26 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
                         fit: BoxFit.cover)),
               ),
               title: GestureDetector(
-                onTap: () {
-                  Product product = Product();
-                  product.name = orderProductDetail.productName;
-                  product.slug = orderProductDetail.slug;
-                  product.imageThumbnail = orderProductDetail.imageThumbnail;
-                  product.heroTag = orderProductDetail.heroTag;
+                  onTap: () {
+                    Product product = Product();
+                    product.name = orderProductDetail.productName;
+                    product.slug = orderProductDetail.slug;
+                    product.imageThumbnail = orderProductDetail.imageThumbnail;
+                    product.image = orderProductDetail.imageThumbnail;
+                    product.heroTag = orderProductDetail.heroTag;
 
-                  Navigator.pushNamed(context, "productDetailPage", arguments: product);
-                },
-                child:Text(orderProductDetail.productName,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              )),
+                    Navigator.pushNamed(context, "productDetailPage",
+                        arguments: product);
+                  },
+                  child: Text(
+                    orderProductDetail.productName,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  )),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -168,7 +171,7 @@ class _OrderItemDetailsState extends State<OrderItemDetails>
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       onPressed: () {
-                        Navigator.pushNamed(context,'orderReviewPage',
+                        Navigator.pushNamed(context, 'orderReviewPage',
                             arguments: orderProductDetail);
                       },
                       child: orderProductDetail.reviewed

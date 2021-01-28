@@ -155,13 +155,13 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            detail.totalQuantity.toString() + " Item",
+                            detail.totalQuantity.toString() + " "+"Item".tr(),
                             style:
                                 TextStyle(fontSize: 14, color: Colors.black38),
                           ),
                         ),
                         Text(
-                          "Total: " + detail.subTotal.toString(),
+                          "Total".tr()+": " + detail.subTotal.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.black38),
                         ),
                       ],
