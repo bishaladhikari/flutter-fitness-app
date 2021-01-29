@@ -258,13 +258,13 @@ class ProfileImage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData &&
               snapshot.data?.isAuthenticated &&
-              snapshot.data?.avatar != null)
+              snapshot.data?.user != null)
             return Container(
                 height: MediaQuery.of(context).size.height / 4.5,
                 width: MediaQuery.of(context).size.width / 3,
                 margin: const EdgeInsets.only(top:15),
                 child: Image(
-                  image: NetworkImage(snapshot.data.avatar),
+                  image: NetworkImage(snapshot.data.user.userImage),
                 ));
           return Container(
             height: 150,
