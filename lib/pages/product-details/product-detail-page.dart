@@ -45,9 +45,8 @@ class ProductDetailPage extends StatefulWidget {
 
   ProductDetailPage({Key key, this.product, this.selectedVariant, this.index}) {
 //    super(key: key);
-    this
-        .images
-        .add(AttributeImage.fromJson({"image_link": this.product.imageThumbnail}));
+    this.images.add(
+        AttributeImage.fromJson({"image_thumbnail": product.imageThumbnail,"image_link":product.image}));
   }
 
   @override
@@ -753,16 +752,39 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     return Center(
       child: Hero(
         tag: widget.product.heroTag,
-        child: ProgressiveImage(
-          placeholder: AssetImage("assets/images/placeholder.png"),
-          // size: 1.87KB
-          thumbnail: NetworkImage(imageUrl),
-          // size: 1.29MB
-          image: NetworkImage(imageUrl),
-          height: 500,
-          width: 500,
+        child: CachedNetworkImage(
+          placeholder: (context, url) => Center(
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(imageUrl),
+                    fit: BoxFit.cover),
+              ),
+            ),
+          ),
+          imageUrl: imageUrl,
+//            imageUrl: product.imageThumbnail,
+          imageBuilder: (context, imageProvider) => Container(
+//              width: 75,
+            height: 300,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            )),
+          ),
+          errorWidget: (context, url, error) => Center(
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/placeholder.png"),
+                    fit: BoxFit.cover),
+              ),
+            ),
+          ),
         ),
-
       ),
     );
   }
