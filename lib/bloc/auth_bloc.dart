@@ -93,7 +93,6 @@ class AuthBloc {
     pref.setString("token", response.token);
     pref.setString("user", json.encode(response.user.toJson()));
     pref.setString("avatar", response.avatar);
-
     pref.commit();
     _currentPreference.sink.add(PrefsData(response.user, response.token,
         response.token != null ? true : false, response.avatar));

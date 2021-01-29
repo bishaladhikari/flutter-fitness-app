@@ -298,6 +298,7 @@ class _LoginPageState extends State<LoginPage>
             backgroundColor: response.error == null ? Colors.green : Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
+        Navigator.pop(context);
       } else {
         _showErrorMessage(context, response.error);
       }
