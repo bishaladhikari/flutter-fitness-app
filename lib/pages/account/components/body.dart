@@ -260,24 +260,55 @@ class ProfileImage extends StatelessWidget {
               snapshot.data?.isAuthenticated &&
               snapshot.data?.user != null)
             return Container(
-                height: MediaQuery.of(context).size.height / 4.5,
-                width: MediaQuery.of(context).size.width / 3,
-                margin: const EdgeInsets.only(top:15),
-                child: Image(
-                  image: NetworkImage(snapshot.data.user.userImage),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, -7),
+                      blurRadius: 33,
+                      color: Color(0xFF6DAED9).withOpacity(0.11),
+                    ),
+                  ],
+                ),
+                height: 100,
+                width: 100,
+                // margin: const EdgeInsets.only(top:0),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Image(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(snapshot.data.user.userImage),
+                  ),
                 ));
           return Container(
-            height: 150,
-            width: MediaQuery.of(context).size.width / 3,
-            decoration: BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(width: 1.0)),
-            child: Icon(
-              Icons.person_outline,
-              size: 50.0,
-            ),
-          );
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(0),
+                  topRight: Radius.circular(0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, -7),
+                    blurRadius: 33,
+                    color: Color(0xFF6DAED9).withOpacity(0.11),
+                  ),
+                ],
+              ),
+              height: 100,
+              width: 100,
+              // margin: const EdgeInsets.only(top:0),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Image(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/icons/person_placeholder.png"),
+                ),
+              ));
         });
   }
 }
