@@ -12,7 +12,6 @@ import 'package:ecapp/components/apple_sign_in_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' as platform;
-
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginPage extends StatefulWidget {
@@ -202,6 +201,7 @@ class _LoginPageState extends State<LoginPage>
                   handleSignIn: handleAppleSignIn,
                 )
               : Container(),
+          SizedBox(height:16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

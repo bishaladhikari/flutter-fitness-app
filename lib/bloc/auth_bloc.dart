@@ -33,8 +33,9 @@ class AuthBloc {
         ? User.fromJson(json.decode(pref.getString("user")))
         : User();
     final token = pref.getString("token");
+    final avatar = pref.getString("avatar");
     _currentPreference.sink
-        .add(PrefsData(user, token, token != null ? true : false));
+        .add(PrefsData(user, token, token != null ? true : false, avatar));
   }
 
   login(credentials) async {
@@ -46,8 +47,8 @@ class AuthBloc {
     return response;
   }
 
-  socialLogin(provider,params) async {
-    LoginResponse response = await _repository.socialLogin(provider,params);
+  socialLogin(provider, params) async {
+    LoginResponse response = await _repository.socialLogin(provider, params);
     _subject.sink.add(response);
     if (response.token != null) {
       _setPref(response);
@@ -66,12 +67,14 @@ class AuthBloc {
   }
 
   emailForgotPassword(email) async {
-    EmailConfirmResponse response = await _repository.emailForgotPassword(email);
+    EmailConfirmResponse response =
+        await _repository.emailForgotPassword(email);
     return response;
   }
 
   forgotPasswordUpdate(params) async {
-    EmailConfirmResponse response = await _repository.forgotPasswordUpdate(params);
+    EmailConfirmResponse response =
+        await _repository.forgotPasswordUpdate(params);
     return response;
   }
 
@@ -89,9 +92,11 @@ class AuthBloc {
     pref = await SharedPreferences.getInstance();
     pref.setString("token", response.token);
     pref.setString("user", json.encode(response.user.toJson()));
+    pref.setString("avatar", response.avatar);
+
     pref.commit();
-    _currentPreference.sink.add(PrefsData(
-        response.user, response.token, response.token != null ? true : false));
+    _currentPreference.sink.add(PrefsData(response.user, response.token,
+        response.token != null ? true : false, response.avatar));
   }
 
   dispose() {
@@ -133,8 +138,9 @@ class AuthBloc {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("token", null);
     pref.setString("user", null);
+    pref.setString("avatar", null);
     User user;
-    _currentPreference.sink.add(PrefsData(user, "", false));
+    _currentPreference.sink.add(PrefsData(user, "", false, null));
     cartBloc.drainStream();
   }
 }
@@ -144,7 +150,8 @@ final authBloc = AuthBloc();
 class PrefsData {
   final User user;
   final String token;
+  final avatar;
   final bool isAuthenticated;
 
-  PrefsData(this.user, this.token, this.isAuthenticated);
+  PrefsData(this.user, this.token, this.isAuthenticated, this.avatar);
 }

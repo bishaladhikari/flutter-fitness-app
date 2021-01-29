@@ -3,15 +3,17 @@ class User {
   String firstName;
   String lastName;
   String fullName;
+  String userImage;
   Customer customer;
 
-  User({this.id, this.firstName, this.lastName, this.fullName, this.customer});
+  User({this.id, this.firstName, this.lastName, this.fullName, this.customer,this.userImage});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
     fullName = json['full_name'];
+    userImage = json['user_image'];
     customer = json['customer'] != null
         ? Customer.fromJson(json['customer'])
         : Customer();
@@ -23,6 +25,7 @@ class User {
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
     data['full_name'] = this.fullName;
+    data['user_image'] = this.userImage;
     data['customer'] = this.customer;
     return data;
   }
