@@ -23,7 +23,7 @@ class AppleSignInButton extends StatelessWidget {
         ),
         label: Center(
           child: Text(
-            "Sign up with Apple".tr(),
+            tr("Sign up with Apple"),
             style: TextStyle(
               fontFamily: 'OpenSans',
               color: Color(0xFF2B2B2B),
