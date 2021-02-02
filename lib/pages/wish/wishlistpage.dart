@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/wishlist_bloc.dart';
 import 'package:ecapp/components/custom_error_widget.dart';
@@ -38,7 +39,7 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wish List"),
+        title: Text(tr("WishList")),
         backgroundColor: Colors.white,
       ),
       body: StreamBuilder<WishlistResponse>(
