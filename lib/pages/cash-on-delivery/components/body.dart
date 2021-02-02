@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -38,7 +39,7 @@ class _BodyState extends State<Body> {
                         Container(
                           width: MediaQuery.of(context).size.width - 80,
                           child: Text(
-                            "You can pay in cash to our courier when you receive the goods at your doorstep.",
+                            tr("You can pay in cash to our courier when you receive the goods at your doorstep."),
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.black,

@@ -52,7 +52,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Subtotal",
+                          tr("Subtotal"),
                           style: TextStyle(
 //                      fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -72,7 +72,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Total Amount",
+                          tr("Total Amount"),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,

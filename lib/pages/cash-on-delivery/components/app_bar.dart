@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 AppBar cashOnDeliveryAppBar() {
@@ -5,6 +6,6 @@ AppBar cashOnDeliveryAppBar() {
     backgroundColor: Colors.white,
 
     elevation: 1,
-    title: Text("Cash On Delivery"),
+    title: Text(tr("Cash On Delivery")),
   );
 }
