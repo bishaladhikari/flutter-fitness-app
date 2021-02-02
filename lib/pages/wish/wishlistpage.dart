@@ -39,7 +39,7 @@ class _WishListPageState extends State<WishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr("WishList")),
+        title: Text(tr("Wishlist")),
         backgroundColor: Colors.white,
       ),
       body: StreamBuilder<WishlistResponse>(

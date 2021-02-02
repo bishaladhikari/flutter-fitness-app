@@ -1,7 +1,7 @@
 import 'package:ecapp/bloc/order_product_detail_bloc.dart';
 import 'package:ecapp/models/order.dart';
 import 'package:flutter/material.dart';
-import  'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'components/order_item_detail.dart';
 
@@ -85,7 +85,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Placed on " + detail.createdDate),
+                          Text(tr("Placed on") + " " + detail.createdDate),
                         ],
                       ),
                     ),
@@ -93,24 +93,26 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   ListTile(
                     contentPadding: const EdgeInsets.all(8.0),
                     title: Text(
-                      "Payment Method: " + detail.paymentMethod,
+                      tr("Payment Method") + ": " + detail.paymentMethod,
                       style: TextStyle(
                           color: Colors.black87, fontWeight: FontWeight.bold),
                     ),
                     subtitle: detail.transactionId != null
-                        ? Text("Transaction Id: " + detail.transactionId)
+                        ? Text(
+                            tr("Transaction Id") + ": " + detail.transactionId)
                         : Text(""),
                   ),
                   ListTile(
                     contentPadding: const EdgeInsets.all(8.0),
                     title: detail.shippingCompany != null
                         ? Text(
-                            "Shipping Via: " + detail.shippingCompany,
+                            tr("Shipping Via") + ": " + detail.shippingCompany,
                             style: TextStyle(
                                 color: Colors.black87,
                                 fontWeight: FontWeight.bold),
                           )
-                        : Text("Shipping Via: Not Assigned Yet",
+                        : Text(
+                            tr("Shipping Via") + ": " + tr("Not Assigned Yet"),
                             style: TextStyle(
                                 color: Colors.black87,
                                 fontWeight: FontWeight.bold)),
@@ -119,7 +121,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     contentPadding: const EdgeInsets.all(8.0),
                     title: Row(
                       children: [
-                        Text("Subtotal", style: TextStyle(fontSize: 16)),
+                        Text(tr("Subtotal"), style: TextStyle(fontSize: 16)),
                       ],
                     ),
                     subtitle: Padding(
@@ -127,7 +129,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Shipping Fee "),
+                          Text(tr("Shipping Fee") + " "),
                         ],
                       ),
                     ),
@@ -155,13 +157,13 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            detail.totalQuantity.toString() + " "+tr("Item"),
+                            detail.totalQuantity.toString() + " " + tr("Item"),
                             style:
                                 TextStyle(fontSize: 14, color: Colors.black38),
                           ),
                         ),
                         Text(
-                          tr("Total")+": " + detail.subTotal.toString(),
+                          tr("Total") + ": " + detail.subTotal.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.black38),
                         ),
                       ],

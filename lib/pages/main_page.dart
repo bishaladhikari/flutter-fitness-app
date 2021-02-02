@@ -250,7 +250,7 @@ class _MainPageState extends State<MainPage> {
                                 Navigator.pushNamed(context, "wishListPage");
                               },
                               child: Text(
-                                "View Wishlist",
+                                tr("View Wishlist"),
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -350,7 +350,7 @@ class _MainPageState extends State<MainPage> {
 //          leading: Container(),
             title: Container(
               margin: EdgeInsets.only(left: 50.0),
-              child: Text(tr("FAQ"),
+              child: Text(tr("FAQs"),
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
