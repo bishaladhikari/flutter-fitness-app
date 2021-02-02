@@ -265,8 +265,10 @@ class _MainPageState extends State<MainPage> {
                                   color: blackColor),
                             ),
                             leading: CircleAvatar(
-                                child: Image.asset(
-                                    "assets/icons/person_placeholder.png")),
+                                child: Image(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(snapshot.data.user.userImage),
+                                ),),
                           )
                         : ListTile(
                             onTap: () {
