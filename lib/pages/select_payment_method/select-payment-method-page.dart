@@ -81,7 +81,7 @@ class _SelectPaymentMethodPageState extends State<SelectPaymentMethodPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Subtotal",
+                          tr("Subtotal"),
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         Text(
