@@ -16,11 +16,12 @@ void main() {
     path: "assets/translations",
     saveLocale: true,
     supportedLocales: [
-      Locale('en', "US"),
-      Locale('ja', "JP"),
-      Locale('vi', "VN"),
+      Locale('en','US'),
+      Locale('ja','JP'),
+      Locale('ne','NP'),
+      Locale('vi','VN'),
     ],
-    fallbackLocale: Locale('en', 'US'),
+    fallbackLocale: Locale('en','US'),
   ));
 }
 
