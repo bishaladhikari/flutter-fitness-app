@@ -44,7 +44,7 @@ class SearchBox extends StatelessWidget {
 //      icon: Icon(Icons.menu),
 //            onPressed: () {},
 //          ),
-              hintText: tr("Search Here"),
+              hintText: tr("Search here"),
               hintStyle: TextStyle(color: ksecondaryColor),
             ),
           ),

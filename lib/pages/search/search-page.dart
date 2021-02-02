@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
 //      icon: Icon(Icons.menu),
 //            onPressed: () {},
 //          ),
-          hintText: tr("Search Here"),
+          hintText: tr("Search here"),
           hintStyle: TextStyle(color: ksecondaryColor),
         ),
       ),

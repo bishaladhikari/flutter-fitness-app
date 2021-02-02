@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
    _locale = context.locale;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Ecapp',
+      title: 'Rakurakubazzar',
 //      theme: ThemeData(
 //        primaryColor: kPrimaryColor,
 //        scaffoldBackgroundColor: Colors.white,

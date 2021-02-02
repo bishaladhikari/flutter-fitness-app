@@ -38,8 +38,10 @@ import '../main.dart';
 class Repository {
   // static String appUrl = "http://ecsite.eeeinnovation.com/api";
   static String _baseUrl = "http://prod-ecsite.eeeinnovation.com";
+
   // static String _baseUrl = "https://www.rakurakubazzar.com";
   static String appUrl = "$_baseUrl/api";
+
   get baseUrl => _baseUrl;
 
 //  static String appUrl = "http://ecsite-dashboard.test/api";
@@ -98,10 +100,27 @@ class Repository {
       InterceptorsWrapper(onRequest: (RequestOptions options) {
         if (!options.headers.containsKey("locale")) {
           _dio.lock();
-          var locale = myApp.locale?.languageCode.toString() == 'ja'
-              ? 'jp'
-              : myApp.locale?.languageCode.toString();
+          // var locale = myApp.locale?.languageCode.toString() == 'ja'
+          //     ? 'jp'
+          //     : myApp.locale?.languageCode.toString();
+          var locale = myApp.locale?.languageCode.toString();
+          switch (locale) {
+            case 'ja':
+              locale = 'jp';
+              break;
+            case 'vi':
+              locale = 'vn';
+              break;
+            case 'ne':
+              locale = 'np';
+              break;
+            default:
+              locale = 'en';
+              break;
+
+          }
 //          var locale = 'jp';
+          print("locale in header" + locale);
           options.headers["locale"] = locale;
           _dio.unlock();
         }
@@ -111,8 +130,7 @@ class Repository {
     ]);
   }
 
-
-  Future<LoginResponse> socialLogin(provider,params) async {
+  Future<LoginResponse> socialLogin(provider, params) async {
     print("params:" + params.toString());
     try {
       Response response = await _dio.get('$_baseUrl/login/$provider/callback',
@@ -128,7 +146,7 @@ class Repository {
     print("params:" + params.toString());
     try {
       Response response =
-      await _dio.get('$baseUrl/apple/callback', queryParameters: params);
+          await _dio.get('$baseUrl/apple/callback', queryParameters: params);
       return LoginResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -592,7 +610,8 @@ class Repository {
 
   Future<DefaultAddressResponse> setDefaultAddress(id) async {
     try {
-      Response response = await _dio.post(appUrl + '/customer/default-address/$id');
+      Response response =
+          await _dio.post(appUrl + '/customer/default-address/$id');
       return DefaultAddressResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -617,7 +636,7 @@ class Repository {
   Future<OrderProductItemResponse> addProductReview(params) async {
     try {
       Response response =
-          await _dio.post(reviewProductUrl, data: {"form":jsonEncode(params)});
+          await _dio.post(reviewProductUrl, data: {"form": jsonEncode(params)});
       return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
@@ -627,8 +646,8 @@ class Repository {
 
   Future<OrderProductItemResponse> updateProductReview(params, id) async {
     try {
-      Response response =
-          await _dio.put(reviewProductUrl + "/$id", data: {"form":jsonEncode(params)});
+      Response response = await _dio
+          .put(reviewProductUrl + "/$id", data: {"form": jsonEncode(params)});
       return OrderProductItemResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occurred: $error stackTrace: $stacktrace");
