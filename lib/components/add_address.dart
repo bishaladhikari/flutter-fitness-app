@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AddAddress extends StatelessWidget {
@@ -25,7 +26,7 @@ class AddAddress extends StatelessWidget {
               color: const Color(0XFFB3E5FC),
             ),
             child: Text(
-              " + Add address",
+              " + " + tr("Add address"),
               style: TextStyle(color: Colors.lightBlue, fontSize: 20),
             ),
             alignment: Alignment(

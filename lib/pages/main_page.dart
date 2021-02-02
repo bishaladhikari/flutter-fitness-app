@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/bloc/banner_bloc.dart';
 import 'package:ecapp/bloc/cart_bloc.dart';
@@ -293,7 +294,7 @@ class _MainPageState extends State<MainPage> {
               color: ksecondaryColor,
             ),
             title: Text(
-              'Browse',
+              tr("Browse"),
               style: TextStyle(
                   fontSize: 16, fontWeight: FontWeight.w600, color: blackColor),
             ),
@@ -309,7 +310,7 @@ class _MainPageState extends State<MainPage> {
           ListTile(
             contentPadding: const EdgeInsets.all(8.0),
             leading: Icon(Icons.shopping_basket, color: ksecondaryColor),
-            title: Text('My orders',
+            title: Text( tr("My orders"),
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -331,7 +332,7 @@ class _MainPageState extends State<MainPage> {
           ListTile(
             contentPadding: const EdgeInsets.all(8.0),
             leading: Icon(Icons.search, color: ksecondaryColor),
-            title: Text('Search',
+            title: Text(tr("Search"),
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -349,7 +350,7 @@ class _MainPageState extends State<MainPage> {
 //          leading: Container(),
             title: Container(
               margin: EdgeInsets.only(left: 50.0),
-              child: Text('FAQ',
+              child: Text(tr("FAQ"),
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -361,7 +362,7 @@ class _MainPageState extends State<MainPage> {
 //          leading: Container(),
             title: Container(
               margin: EdgeInsets.only(left: 50.0),
-              child: Text('Terms of Use',
+              child: Text(tr('Terms of Use'),
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -373,7 +374,7 @@ class _MainPageState extends State<MainPage> {
 //          leading: Container(),
             title: Container(
               margin: EdgeInsets.only(left: 50.0),
-              child: Text('Privacy Policy',
+              child: Text(tr('Privacy Policy'),
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

@@ -54,7 +54,7 @@ class _OrdersListPageState extends State<OrdersListPage>
               tabs: orderTitleList.map((title) {
                 return Container(
                     padding: const EdgeInsets.all(6.0),
-                    child: new Text(title.toUpperCase(),
+                    child: new Text(tr(title.toUpperCase()),
                         style: new TextStyle(
                             fontSize: 14.0, fontWeight: FontWeight.bold)));
               }).toList(),

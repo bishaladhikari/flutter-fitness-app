@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 AppBar checkoutAppBar() {
@@ -5,6 +6,6 @@ AppBar checkoutAppBar() {
     backgroundColor: Colors.white,
 
     elevation: 1,
-    title: Text("Checkout"),
+    title: Text(tr("Checkout")),
   );
 }

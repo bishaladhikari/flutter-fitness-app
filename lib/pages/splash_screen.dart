@@ -41,17 +41,12 @@ class _SplashScreenState extends State<SplashScreen>
             Expanded(
               flex: 2,
               child: Container(
-                child: SlideTransition(
-                  position:
-                  Tween<Offset>(begin: Offset(0, 1), end: Offset.zero)
-                      .animate(_animationController),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset("assets/icons/site-logo.png",scale: 10,)
-                    ],
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset("assets/icons/site-logo.png",scale: 10,)
+                  ],
                 ),
               ),
             ),

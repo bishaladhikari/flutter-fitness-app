@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../main_page.dart';
@@ -18,7 +19,7 @@ AppBar AccountAppBar(BuildContext context) {
 //      image: SvgPicture.asset("assets/icons/menu.svg"),
 //      onPressed: () {},
 //    ),
-    title: Text("Profile"),
+    title: Text(tr("Profile")),
     actions: [
       IconButton(
         icon: Icon(Icons.settings),

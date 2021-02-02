@@ -50,8 +50,8 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             iconData: Icons.shopping_basket,
-            title: "Orders",
-            subtitle: "Check your order status.",
+            title: tr("Orders"),
+            subtitle: tr("Check your order status."),
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
               _navigateToOrders();
@@ -66,8 +66,8 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             iconData: Icons.help_outline,
-            title: "Help",
-            subtitle: "Help regarding your recent Purchases.",
+            title: tr("Help"),
+            subtitle: tr("Help regarding your recent Purchases."),
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {},
           ),
@@ -78,7 +78,7 @@ class _BodyState extends State<Body> {
           AppBarIconText(
             iconData: Icons.loyalty,
             title: tr("Wishlist"),
-            subtitle: "Your Most Loved Products.",
+            subtitle: tr("Your Most Loved Products."),
             tralingIcon: Icons.keyboard_arrow_right,
             onPressed: () {
               _navigateToWishlist();

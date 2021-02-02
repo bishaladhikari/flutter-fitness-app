@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/models/address.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,7 @@ class _CheckoutAddressListItemState extends State<CheckoutAddressListItem> {
                           arguments: true);
                     },
                     child: Text(
-                      "Change",
+                      tr("Change"),
                       style: TextStyle(color: Colors.lightBlue, fontSize: 15),
                     ),
                   )
