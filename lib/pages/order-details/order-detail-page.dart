@@ -48,7 +48,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Ship & bill to".tr(),
+                    tr("Ship & bill to"),
                     style: TextStyle(fontSize: 16, color: Colors.black38),
                   ),
                   Text(
@@ -155,13 +155,13 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            detail.totalQuantity.toString() + " "+"Item".tr(),
+                            detail.totalQuantity.toString() + " "+tr("Item"),
                             style:
                                 TextStyle(fontSize: 14, color: Colors.black38),
                           ),
                         ),
                         Text(
-                          "Total".tr()+": " + detail.subTotal.toString(),
+                          tr("Total")+": " + detail.subTotal.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.black38),
                         ),
                       ],

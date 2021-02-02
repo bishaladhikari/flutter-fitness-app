@@ -22,7 +22,7 @@ class GoogleSignInButton extends StatelessWidget {
         ),
         label: Center(
           child: Text(
-            "Sign up with Google".tr(),
+           tr("Sign up with Google"),
             style: TextStyle(
               fontFamily: 'OpenSans',
               color: Color(0xFF2B2B2B),

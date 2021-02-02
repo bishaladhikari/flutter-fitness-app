@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
         children: <Widget>[
           isAuthenticated
               ? ListTile(
-                  title: Text('Account Information'.tr()),
+                  title: Text(tr('Account Information')),
                   onTap: () async {
                     await authBloc.isAuthenticated()
                         ? _navigateToUserProfileForm()
@@ -56,14 +56,14 @@ class _BodyState extends State<Body> {
               : Container(),
           isAuthenticated
               ? ListTile(
-                  title: Text('Address Book'.tr()),
+                  title: Text(tr('Address Book')),
                   onTap: () {
                     Navigator.pushNamed(context, 'addressPage',
                         arguments: false);
                   })
               : Container(),
           ListTile(
-              title: Text('Language'.tr()),
+              title: Text(tr('Language')),
               subtitle: Text(EasyLocalization.of(context)
                   .locale
                   .toLanguageTag()
@@ -81,14 +81,14 @@ class _BodyState extends State<Body> {
           //     }),
           isAuthenticated
               ? ListTile(
-                  title: Text('Change Password'.tr()),
+                  title: Text(tr('Change Password')),
                   onTap: () async {
                     _navigateToUserPasswordForm();
                   })
               : Container(),
           isAuthenticated
               ? ListTile(
-                  title: Text('Logout'.tr()),
+                  title: Text(tr('Logout')),
                   onTap: () {
                     authBloc.logout();
                     Navigator.of(context).pop();

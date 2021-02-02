@@ -166,7 +166,7 @@ class _CashOnDeliveryPageState extends State<CashOnDeliveryPage> {
 //                          }
                         },
                         child: Text(
-                          "Confirm Order".tr(),
+                          tr("Confirm Order"),
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

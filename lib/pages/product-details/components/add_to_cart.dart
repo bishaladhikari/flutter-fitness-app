@@ -136,7 +136,7 @@ class _AddToCartState extends State<AddToCart> {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        "Add to cart".tr(),
+                        tr("Add to cart"),
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -185,7 +185,7 @@ class _AddToCartState extends State<AddToCart> {
                 widget.addToCart(context, params,false);
               },
               child: Text(
-                "Add to cart".tr(),
+                tr("Add to cart"),
                 style: TextStyle(color: Colors.white),
               ),
             ),
