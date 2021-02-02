@@ -120,12 +120,14 @@ class _CartPageState extends State<CartPage>
                       SizedBox(
                         width: 20.0,
                       ),
-                      Material(
-                        child: Text(
-                          tr("Checking out"),
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 18,
+                      Expanded(
+                        child: Material(
+                          child: Text(
+                            tr("Checking out"),
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       )
