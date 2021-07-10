@@ -87,39 +87,39 @@ class _ProductItemState extends State<ProductItem> {
                         Divider(),
                       ],
                     ),
-                    Positioned(
-                      top: 2.0,
-                      right: 2.0,
-                      child: Container(
-                        height: 40.0,
-                        width: 40.0,
-                        decoration: BoxDecoration(
-                          color: saved ? NPrimaryColor : Colors.white,
-                          borderRadius: BorderRadius.circular(30),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: IconButton(
-                          icon: Icon(Icons.favorite_border),
-                          color: !saved ? Colors.black38 : Colors.white,
-                          onPressed: () {
-                            var params = {
-                              "attribute_id": widget.product.attributeId,
-                              "combo_id": null,
-                            };
-                            !saved
-                                ? addToWishList(context, params)
-                                : removeFromWishList(context, params);
-                          },
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   top: 2.0,
+                    //   right: 2.0,
+                    //   child: Container(
+                    //     height: 40.0,
+                    //     width: 40.0,
+                    //     decoration: BoxDecoration(
+                    //       color: saved ? NPrimaryColor : Colors.white,
+                    //       borderRadius: BorderRadius.circular(30),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           color: Colors.grey.withOpacity(0.5),
+                    //           spreadRadius: 3,
+                    //           blurRadius: 7,
+                    //           offset: Offset(0, 2),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     child: IconButton(
+                    //       icon: Icon(Icons.favorite_border),
+                    //       color: !saved ? Colors.black38 : Colors.white,
+                    //       onPressed: () {
+                    //         var params = {
+                    //           "attribute_id": widget.product.attributeId,
+                    //           "combo_id": null,
+                    //         };
+                    //         !saved
+                    //             ? addToWishList(context, params)
+                    //             : removeFromWishList(context, params);
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
