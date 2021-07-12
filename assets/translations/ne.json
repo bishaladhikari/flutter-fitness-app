@@ -61,7 +61,7 @@
   "Subtotal": "उप कूल",
   "Checking out": "जाँच गर्दै",
   "CONTINUE SHOPPING": "शपिंग जारी राख्नुहोस्",
-  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "¥ 500 खर्च गर्नुहोस् र ¥ १० लाई कहीँको लागि विशेष पदोन्नति प्रमोशन अन्तर्गत क्यास डिस्काउंट अफरको मजा लिनुहोस्",
+  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "Spend ¥ ${minimumRequirement} and enjoy ¥${discount} Cash Discount offer under Special promotions promotion for anywhere",
   "Item Unavailable": "वस्तु अनुपलब्ध",
   "Cash on delivery charge": "वितरण शुल्कमा नगद",
   "Payable Total Amount": "भुक्तान कुल राशि",

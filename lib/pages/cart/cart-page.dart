@@ -37,7 +37,10 @@ class _CartPageState extends State<CartPage>
         ),
         actions: [],
       ),
-      body: SingleChildScrollView(child: CartBody()),
+      body: SingleChildScrollView(
+          physics:
+              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          child: CartBody()),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
