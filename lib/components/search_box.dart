@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/components/search.dart';
+import 'package:rakurakubazzar/components/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ecapp/constants.dart';
+import 'package:rakurakubazzar/constants.dart';
 
 class SearchBox extends StatelessWidget {
   final ValueChanged<String> onChanged;

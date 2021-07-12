@@ -1,10 +1,10 @@
-import 'package:ecapp/bloc/categories_bloc.dart';
-import 'package:ecapp/components/custom_error_widget.dart';
-import 'package:ecapp/models/response/category_response.dart';
-import 'package:ecapp/pages/category/components/category_list.dart';
+import 'package:rakurakubazzar/bloc/categories_bloc.dart';
+import 'package:rakurakubazzar/components/custom_error_widget.dart';
+import 'package:rakurakubazzar/models/response/category_response.dart';
+import 'package:rakurakubazzar/pages/category/components/category_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/models/category.dart';
+import 'package:rakurakubazzar/models/category.dart';
 
 class CategoryBody extends StatefulWidget {
   @override

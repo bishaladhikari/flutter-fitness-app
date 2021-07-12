@@ -1,4 +1,4 @@
-import 'package:ecapp/models/profile.dart';
+import 'package:rakurakubazzar/models/profile.dart';
 
 class ProfileResponse {
   final Profile profile;

@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/components/search.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/attribute.dart';
-import 'package:ecapp/models/product_detail.dart';
-import 'package:ecapp/models/variant.dart';
-import 'package:ecapp/pages/product-details/components/widgets/variants.dart';
-import 'package:ecapp/pages/product-details/components/widgets/price.dart';
+import 'package:rakurakubazzar/bloc/product_detail_bloc.dart';
+import 'package:rakurakubazzar/components/search.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/attribute.dart';
+import 'package:rakurakubazzar/models/product_detail.dart';
+import 'package:rakurakubazzar/models/variant.dart';
+import 'package:rakurakubazzar/pages/product-details/components/widgets/variants.dart';
+import 'package:rakurakubazzar/pages/product-details/components/widgets/price.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 

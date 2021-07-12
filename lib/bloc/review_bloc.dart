@@ -1,5 +1,5 @@
-import 'package:ecapp/models/response/review_response.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/models/response/review_response.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ReviewBloc {

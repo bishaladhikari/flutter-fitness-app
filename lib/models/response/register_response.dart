@@ -1,4 +1,4 @@
-import 'package:ecapp/models/user.dart';
+import 'package:rakurakubazzar/models/user.dart';
 
 class RegisterResponse {
   final String error;

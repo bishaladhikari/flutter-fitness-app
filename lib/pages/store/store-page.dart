@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/store_bloc.dart';
-import 'package:ecapp/components/combo_list.dart';
-import 'package:ecapp/components/products_list.dart';
-import 'package:ecapp/components/store_search_box.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/response/store_response.dart';
-import 'package:ecapp/pages/store/components/store_home_tab.dart';
+import 'package:rakurakubazzar/bloc/store_bloc.dart';
+import 'package:rakurakubazzar/components/combo_list.dart';
+import 'package:rakurakubazzar/components/products_list.dart';
+import 'package:rakurakubazzar/components/store_search_box.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/response/store_response.dart';
+import 'package:rakurakubazzar/pages/store/components/store_home_tab.dart';
 import 'package:flutter/material.dart';
 
 class StorePage extends StatefulWidget {

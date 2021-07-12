@@ -1,9 +1,9 @@
 // import 'dart:js';
-// import 'package:ecapp/bloc/brands_bloc.dart';
-import 'package:ecapp/models/brand.dart';
-import 'package:ecapp/models/category.dart';
-import 'package:ecapp/models/response/product_response.dart';
-import 'package:ecapp/repository/repository.dart';
+// import 'package:rakurakubazzar/bloc/brands_bloc.dart';
+import 'package:rakurakubazzar/models/brand.dart';
+import 'package:rakurakubazzar/models/category.dart';
+import 'package:rakurakubazzar/models/response/product_response.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 

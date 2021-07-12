@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/components/custom_error_widget.dart';
-import 'package:ecapp/components/no_internet_widget.dart';
-import 'package:ecapp/models/cart.dart';
-import 'package:ecapp/models/cart_item.dart';
-import 'package:ecapp/models/promotion_item.dart';
-import 'package:ecapp/models/response/cart_response.dart';
-import 'package:ecapp/pages/main_page.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/components/custom_error_widget.dart';
+import 'package:rakurakubazzar/components/no_internet_widget.dart';
+import 'package:rakurakubazzar/models/cart.dart';
+import 'package:rakurakubazzar/models/cart_item.dart';
+import 'package:rakurakubazzar/models/promotion_item.dart';
+import 'package:rakurakubazzar/models/response/cart_response.dart';
+import 'package:rakurakubazzar/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';

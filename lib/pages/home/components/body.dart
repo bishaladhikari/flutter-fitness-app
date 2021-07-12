@@ -1,10 +1,10 @@
-import 'package:ecapp/bloc/main_bloc.dart';
-import 'package:ecapp/bloc/products_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/meta.dart';
-import 'package:ecapp/pages/home/components/category_tab.dart';
-import 'package:ecapp/pages/home/components/combo_products_list.dart';
-import 'package:ecapp/pages/home/components/products_list.dart';
+import 'package:rakurakubazzar/bloc/main_bloc.dart';
+import 'package:rakurakubazzar/bloc/products_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/meta.dart';
+import 'package:rakurakubazzar/pages/home/components/category_tab.dart';
+import 'package:rakurakubazzar/pages/home/components/combo_products_list.dart';
+import 'package:rakurakubazzar/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'category_chips_list.dart';

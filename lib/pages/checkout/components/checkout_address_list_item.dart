@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/models/address.dart';
+import 'package:rakurakubazzar/models/address.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutAddressListItem extends StatefulWidget {

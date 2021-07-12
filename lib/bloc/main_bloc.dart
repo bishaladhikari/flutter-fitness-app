@@ -1,6 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:ecapp/bloc/products_bloc.dart';
+import 'package:rakurakubazzar/bloc/products_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'banner_bloc.dart';

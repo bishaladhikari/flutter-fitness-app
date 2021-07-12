@@ -1,9 +1,9 @@
-import 'package:ecapp/bloc/address_bloc.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/checkout_bloc.dart';
-import 'package:ecapp/components/add_address.dart';
-import 'package:ecapp/models/address.dart';
-import 'package:ecapp/pages/address-book/address_list_item.dart';
+import 'package:rakurakubazzar/bloc/address_bloc.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
+import 'package:rakurakubazzar/components/add_address.dart';
+import 'package:rakurakubazzar/models/address.dart';
+import 'package:rakurakubazzar/pages/address-book/address_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';

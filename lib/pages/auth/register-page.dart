@@ -1,18 +1,18 @@
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/bloc/auth_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/components/google_sign_in_button.dart';
-import 'package:ecapp/components/apple_sign_in_button.dart';
+import 'package:rakurakubazzar/components/google_sign_in_button.dart';
+import 'package:rakurakubazzar/components/apple_sign_in_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' as platform;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:ecapp/models/response/login_response.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/models/response/login_response.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
 
 class RegisterPage extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
-import 'package:ecapp/bloc/products_list_bloc.dart';
-import 'package:ecapp/components/search_box.dart';
+import 'package:rakurakubazzar/bloc/products_list_bloc.dart';
+import 'package:rakurakubazzar/components/search_box.dart';
 import 'package:flutter/material.dart';
 import '../main_page.dart';
 import 'components/body.dart';

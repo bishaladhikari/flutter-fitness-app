@@ -1,4 +1,4 @@
-import 'package:ecapp/models/meta.dart';
+import 'package:rakurakubazzar/models/meta.dart';
 import '../review.dart';
 
 class ReviewResponse {

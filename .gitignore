@@ -10,7 +10,7 @@
 .svn/
 .fvm/
 .vscode/
-
+.fvm/flutter_sdk
 # IntelliJ related
 *.iml
 *.ipr

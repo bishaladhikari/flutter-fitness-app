@@ -1,4 +1,4 @@
-import 'package:ecapp/models/SearchSuggestion.dart';
+import 'package:rakurakubazzar/models/SearchSuggestion.dart';
 
 class SearchSuggestionResponse {
 

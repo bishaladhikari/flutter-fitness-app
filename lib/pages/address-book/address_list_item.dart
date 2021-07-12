@@ -1,4 +1,4 @@
-import 'package:ecapp/models/address.dart';
+import 'package:rakurakubazzar/models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 

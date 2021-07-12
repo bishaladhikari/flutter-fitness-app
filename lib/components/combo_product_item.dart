@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/bloc/main_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/combo.dart';
+import 'package:rakurakubazzar/bloc/auth_bloc.dart';
+import 'package:rakurakubazzar/bloc/main_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/combo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

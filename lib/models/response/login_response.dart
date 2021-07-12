@@ -1,4 +1,4 @@
-import 'package:ecapp/models/user.dart';
+import 'package:rakurakubazzar/models/user.dart';
 
 class LoginResponse {
   final String error;

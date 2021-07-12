@@ -1,5 +1,5 @@
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/models/cart_item.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/models/cart_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

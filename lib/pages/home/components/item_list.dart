@@ -1,4 +1,4 @@
-import 'package:ecapp/pages/details/details-page.dart';
+import 'package:rakurakubazzar/pages/details/details-page.dart';
 import 'package:flutter/material.dart';
 import 'item_card.dart';
 

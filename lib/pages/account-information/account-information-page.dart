@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/profile_bloc.dart';
-import 'package:ecapp/models/response/profile_response.dart';
+import 'package:rakurakubazzar/bloc/profile_bloc.dart';
+import 'package:rakurakubazzar/models/response/profile_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'components/profile-form-widget.dart';
-import 'package:ecapp/constants.dart';
+import 'package:rakurakubazzar/constants.dart';
 
 class AccountInformationPage extends StatefulWidget {
 

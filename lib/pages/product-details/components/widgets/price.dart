@@ -1,7 +1,7 @@
-import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/models/attribute.dart';
-import 'package:ecapp/models/combo_detail.dart';
-import 'package:ecapp/models/product_detail.dart';
+import 'package:rakurakubazzar/bloc/product_detail_bloc.dart';
+import 'package:rakurakubazzar/models/attribute.dart';
+import 'package:rakurakubazzar/models/combo_detail.dart';
+import 'package:rakurakubazzar/models/product_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';

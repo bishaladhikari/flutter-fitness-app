@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecapp/bloc/banner_bloc.dart';
-import 'package:ecapp/models/response/banner_response.dart';
+import 'package:rakurakubazzar/bloc/banner_bloc.dart';
+import 'package:rakurakubazzar/models/response/banner_response.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:webview_flutter/webview_flutter.dart';

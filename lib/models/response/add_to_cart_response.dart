@@ -1,4 +1,4 @@
-import 'package:ecapp/models/cart_item.dart';
+import 'package:rakurakubazzar/models/cart_item.dart';
 
 class AddToCartResponse {
   int totalItems;

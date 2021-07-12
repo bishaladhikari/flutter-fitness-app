@@ -1,6 +1,6 @@
-import 'package:ecapp/models/response/loyalty_point_response.dart';
-import 'package:ecapp/models/response/redeem_point_response.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/models/response/loyalty_point_response.dart';
+import 'package:rakurakubazzar/models/response/redeem_point_response.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';

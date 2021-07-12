@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/combo_bloc.dart';
-import 'package:ecapp/components/combo_product_item.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/combo.dart';
-import 'package:ecapp/models/response/combo_response.dart';
+import 'package:rakurakubazzar/bloc/combo_bloc.dart';
+import 'package:rakurakubazzar/components/combo_product_item.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/combo.dart';
+import 'package:rakurakubazzar/models/response/combo_response.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

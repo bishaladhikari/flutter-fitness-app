@@ -1,5 +1,5 @@
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/pages/card-payment/components/card_number_form_field.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/pages/card-payment/components/card_number_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:stripe_sdk/stripe_sdk_ui.dart';
 

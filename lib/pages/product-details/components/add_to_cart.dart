@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/combo_detail_bloc.dart';
-import 'package:ecapp/bloc/product_detail_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/combo_detail.dart';
-import 'package:ecapp/models/product_detail.dart';
-import 'package:ecapp/models/response/product_detail_response.dart';
-import 'package:ecapp/pages/product-details/components/widgets/price.dart';
-import 'package:ecapp/pages/product-details/components/widgets/variants.dart';
+import 'package:rakurakubazzar/bloc/combo_detail_bloc.dart';
+import 'package:rakurakubazzar/bloc/product_detail_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/combo_detail.dart';
+import 'package:rakurakubazzar/models/product_detail.dart';
+import 'package:rakurakubazzar/models/response/product_detail_response.dart';
+import 'package:rakurakubazzar/pages/product-details/components/widgets/price.dart';
+import 'package:rakurakubazzar/pages/product-details/components/widgets/variants.dart';
 import 'package:flutter/material.dart';
 
 class AddToCart extends StatefulWidget {

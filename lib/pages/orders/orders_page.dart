@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/pages/main_page.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 import 'components/orders_by_status.dart';

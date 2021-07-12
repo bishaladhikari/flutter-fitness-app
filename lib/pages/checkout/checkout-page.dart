@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/address_bloc.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/checkout_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/address.dart';
-import 'package:ecapp/models/response/cart_response.dart';
+import 'package:rakurakubazzar/bloc/address_bloc.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/address.dart';
+import 'package:rakurakubazzar/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
-import 'package:ecapp/models/cart_summary.dart';
+import 'package:rakurakubazzar/models/cart_summary.dart';
 
 class CheckoutPage extends StatefulWidget {
   @override
