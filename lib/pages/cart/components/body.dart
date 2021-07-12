@@ -9,6 +9,7 @@ import 'package:ecapp/models/promotion_item.dart';
 import 'package:ecapp/models/response/cart_response.dart';
 import 'package:ecapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../constants.dart';
 import 'cart_item_view.dart';
@@ -61,6 +62,7 @@ class CartBody extends StatelessWidget {
       for (int p = 0; p < promotionItems?.length ?? 0; p++) {
         promotionChildren.add(_buildPromotionWidget(promotionItems[p]));
       }
+
       cartChildren.add(Column(
         children: [
           SizedBox(
@@ -96,11 +98,9 @@ class CartBody extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: itemChildren),
-          ),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: itemChildren),
         ],
       ));
     }
@@ -134,25 +134,29 @@ class CartBody extends StatelessWidget {
       );
 
     return Container(
-      child: Container(
-        child: Column(
-          children: [
-            ExpansionTile(
-              title: Expanded(
-                child: Text(
-                  tr('Claimed! offer under promotion for anywhere'),
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                ),
-              ),
-              childrenPadding: const EdgeInsets.only(
-                  top: 0.0, left: 15, right: 0.0, bottom: 10.0),
-              children: platformPromotionChildren,
+      child: Column(
+        children: [
+          FlatButton(
+            color: kPrimaryColor,
+            onPressed: () {
+              showMaterialModalBottomSheet(
+                  expand: false,
+                  bounce: true,
+                  context: context,
+                  builder: (context, scrollController) {
+                    return _showPromotion(context);
+                  });
+            },
+            child: Text(
+              tr('Claimed! offer under promotion for anywhere'),
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
             ),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: cartChildren),
-          ],
-        ),
+          ),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: cartChildren),
+        ],
       ),
     );
   }
@@ -195,23 +199,9 @@ class CartBody extends StatelessWidget {
   }
 
   Widget _buildPromotionWidget(promotionItem) {
-    return Container(
-      child: Text(
-          tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
-          style: TextStyle(color: NPrimaryColor)),
-      // Text(
-      //   tr('Spend ¥ ') +
-      //       promotionItem.minimumRequirement.toString() +
-      //       tr(' and ¥ ') +
-      //       promotionItem.discount.toString() +
-      //       tr(' enjoy ') +
-      //       promotionItem.type +
-      //       tr(' under ') +
-      //       promotionItem.title +
-      //       tr(' promotion for anywhere'),
-      //   style: TextStyle(color: NPrimaryColor),
-      // ),
-    );
+    return Text(
+        tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
+        style: TextStyle(color: NPrimaryColor));
   }
 
   Widget _buildPlatformPromotionWidget(platformPromotion) {
@@ -219,6 +209,39 @@ class CartBody extends StatelessWidget {
       child: Text(
         tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
         style: TextStyle(color: NPrimaryColor),
+      ),
+    );
+  }
+
+  _showPromotion(context) {
+    return Container(
+      height: MediaQuery.of(context).size.height / 2,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 10.0),
+            child: Text(
+              tr("Promotions"),
+              style: TextStyle(
+                  color: kTextColor, fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 5.0),
+            child: Text(
+              tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
+              style: TextStyle(color: NPrimaryColor),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 5.0),
+            child: Text(
+              tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
+              style: TextStyle(color: NPrimaryColor),
+            ),
+          ),
+        ]),
       ),
     );
   }
