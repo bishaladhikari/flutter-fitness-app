@@ -61,7 +61,7 @@
   "Subtotal": "小計",
   "Checking out": "チェックアウト",
   "CONTINUE SHOPPING": "ショッピングを続ける",
-  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "500円と10円を使うと、どこでも特別プロモーションプロモーションで現金割引が受けられます",
+  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "Spend ¥ ${minimumRequirement} and enjoy ¥${discount} Cash Discount offer under Special promotions promotion for anywhere",
   "Item Unavailable": "アイテムは利用できません",
   "Cash on delivery charge": "代金引換手数料",
   "Payable Total Amount": "支払総額",

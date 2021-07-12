@@ -61,7 +61,7 @@
   "Subtotal": "Tổng phụ",
   "Checking out": "Kiểm tra",
   "CONTINUE SHOPPING": "TIẾP TỤC MUA SẮM",
-  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "Chi tiêu ¥ 500 và ¥ 10 để được hưởng ưu đãi Giảm giá tiền mặt trong chương trình khuyến mãi Khuyến mãi đặc biệt cho mọi nơi",
+  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "Spend ¥ ${minimumRequirement} and enjoy ¥${discount} Cash Discount offer under Special promotions promotion for anywhere",
   "Item Unavailable": "Mặt hàng không có sẵn",
   "Cash on delivery charge": "Tính tiền khi giao hàng",
   "Payable Total Amount": "Tổng số tiền phải trả",

@@ -199,15 +199,21 @@ class CartBody extends StatelessWidget {
   }
 
   Widget _buildPromotionWidget(promotionItem) {
-    return Text(
-        tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
-        style: TextStyle(color: NPrimaryColor));
+    return Container(
+      child: Text(
+          tr('Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere',
+              namedArgs: {
+                'minimumRequirement': promotionItem.minimumRequirement.toString(),
+                'discount': promotionItem.discount.toString()
+              }),
+          style: TextStyle(color: NPrimaryColor)),
+    );
   }
 
   Widget _buildPlatformPromotionWidget(platformPromotion) {
     return Container(
       child: Text(
-        tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
+        tr(platformPromotion.title),
         style: TextStyle(color: NPrimaryColor),
       ),
     );

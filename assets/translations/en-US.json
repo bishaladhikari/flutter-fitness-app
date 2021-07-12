@@ -61,7 +61,7 @@
   "Subtotal": "Subtotal",
   "Checking out": "Checking out",
   "CONTINUE SHOPPING": "CONTINUE SHOPPING",
-  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere",
+  "Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere": "Spend ¥{minimumRequirement} and enjoy ¥{discount} Cash Discount offer under Special promotions promotion for anywhere",
   "Item Unavailable": "Item Unavailable",
   "Cash on delivery charge": "Cash on delivery charge",
   "Payable Total Amount": "Payable Total Amount",
