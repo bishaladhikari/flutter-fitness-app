@@ -42,13 +42,7 @@ class CartBody extends StatelessWidget {
 
   Widget _buildCartWidget(context, CartResponse data) {
     List<Cart> carts = data.carts;
-    List<PromotionItem> platformPromotions = data.platformPromotions;
     final cartChildren = <Widget>[];
-    final platformPromotionChildren = <Widget>[];
-    for (int i = 0; i < platformPromotions?.length ?? 0; i++) {
-      platformPromotionChildren
-          .add(_buildPlatformPromotionWidget(platformPromotions[i]));
-    }
 
     for (int i = 0; i < carts?.length ?? 0; i++) {
       List<CartItem> cartItems = carts[i].items;
@@ -203,52 +197,70 @@ class CartBody extends StatelessWidget {
       child: Text(
           tr('Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere',
               namedArgs: {
-                'minimumRequirement': promotionItem.minimumRequirement.toString(),
+                'minimumRequirement':
+                    promotionItem.minimumRequirement.toString(),
                 'discount': promotionItem.discount.toString()
               }),
           style: TextStyle(color: NPrimaryColor)),
     );
   }
 
-  Widget _buildPlatformPromotionWidget(platformPromotion) {
+  _showPromotion(context) {
     return Container(
-      child: Text(
-        tr(platformPromotion.title),
-        style: TextStyle(color: NPrimaryColor),
+      height: MediaQuery.of(context).size.height / 2,
+      child: StreamBuilder<CartResponse>(
+          stream: cartBloc.subject.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data.error != null &&
+                  snapshot.data.error.length > 0) {
+                return CustomErrorWidget(snapshot.data.error);
+              }
+              return _platformPromotion(context, snapshot.data);
+            } else {
+              return Container();
+            }
+          }),
+    );
+  }
+
+  Widget _platformPromotion(context, CartResponse data) {
+    List<PromotionItem> platformPromotions = data.platformPromotions;
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              child: Text(
+            tr('Platform Promotion'),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 21,
+                color: kPrimaryColor),
+          )),
+          Column(
+            children: platformPromotions.map((promotion) {
+              return _buildPlatformPromotionWidget(promotion);
+            }).toList(),
+          ),
+        ],
       ),
     );
   }
 
-  _showPromotion(context) {
+  Widget _buildPlatformPromotionWidget(platformPromotion) {
     return Container(
-      height: MediaQuery.of(context).size.height / 2,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 10.0),
-            child: Text(
-              tr("Promotions"),
-              style: TextStyle(
-                  color: kTextColor, fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 5.0),
-            child: Text(
-              tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
-              style: TextStyle(color: NPrimaryColor),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 5.0),
-            child: Text(
-              tr("Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere"),
-              style: TextStyle(color: NPrimaryColor),
-            ),
-          ),
-        ]),
-      ),
+      child: Text(
+          tr('Spend ¥500 and ¥10 enjoy Cash Discount offer under Special promotions promotion for anywhere',
+              namedArgs: {
+                'minimumRequirement':
+                    platformPromotion.minimumRequirement.toString(),
+                'discount': platformPromotion.type == 'Free Shipping'
+                    ? platformPromotion.type
+                    : platformPromotion.discount.toString()
+              }),
+          style: TextStyle(color: NPrimaryColor)),
     );
   }
 }
