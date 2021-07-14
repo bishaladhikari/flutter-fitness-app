@@ -27,6 +27,7 @@ import 'package:ecapp/pages/search/search-page.dart';
 import 'package:ecapp/pages/select_payment_method/select-payment-method-page.dart';
 import 'package:ecapp/pages/settings/settings-page.dart';
 import 'package:ecapp/pages/store/store-page.dart';
+import 'package:ecapp/pages/webview-pages/webview-page.dart';
 import 'package:ecapp/pages/wish/wishlistpage.dart';
 import 'package:ecapp/pages/orders/orders_page.dart';
 import 'package:flutter/material.dart';
@@ -178,12 +179,18 @@ abstract class Routes {
             child: ProductViewMorePage(types: arguments));
         break;
       case 'accountInformationPage':
-          return PageTransition(
-              type: PageTransitionType.rightToLeft, child: AccountInformationPage());
-          break;
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: AccountInformationPage());
+        break;
       case 'userPasswordForm':
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: ChangePasswordPage());
+        break;
+      case 'webViewPage':
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: WebViewPage(infoPage: arguments));
         break;
       default:
         return PageTransition(
