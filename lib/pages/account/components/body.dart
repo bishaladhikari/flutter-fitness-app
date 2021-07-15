@@ -136,6 +136,13 @@ class _BodyState extends State<Body> {
             },
           ),
           AppBarIconText(
+            title: tr("Help"),
+            onPressed: () {
+              InfoPage infoPage = new InfoPage(url: 'help', title: 'Help');
+              Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
+            },
+          ),
+          AppBarIconText(
             title: tr("About Us"),
             onPressed: () {
               InfoPage infoPage =
