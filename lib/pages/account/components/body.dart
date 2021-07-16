@@ -2,6 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ecapp/bloc/auth_bloc.dart';
 import 'package:ecapp/constants.dart';
+import 'package:ecapp/models/info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -129,23 +130,42 @@ class _BodyState extends State<Body> {
           ),
           AppBarIconText(
             title: tr("FAQs"),
-            onPressed: () {},
+            onPressed: () {
+              InfoPage infoPage = new InfoPage(url: 'faq', title: 'FAQs');
+              Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
+            },
+          ),
+          AppBarIconText(
+            title: tr("Help"),
+            onPressed: () {
+              InfoPage infoPage = new InfoPage(url: 'help', title: 'Help');
+              Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
+            },
           ),
           AppBarIconText(
             title: tr("About Us"),
-            onPressed: () {},
+            onPressed: () {
+              InfoPage infoPage =
+                  new InfoPage(url: 'about-us', title: 'About Us');
+              Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
+            },
           ),
           AppBarIconText(
             title: tr("Terms of Use"),
-            onPressed: () {},
+            onPressed: () {
+              InfoPage infoPage =
+                  new InfoPage(url: 'terms-of-use', title: 'Terms of Use');
+              Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
+            },
           ),
           AppBarIconText(
             title: tr("Privacy Policy"),
             onPressed: () {
-              Navigator.pushNamed(context, "privacyPage");
+              InfoPage infoPage =
+                  new InfoPage(url: 'privacy-policy', title: 'Privacy Policy');
+              Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
             },
           ),
-//          DiscountCard(),
         ],
       ),
     );
