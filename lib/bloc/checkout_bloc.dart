@@ -150,6 +150,8 @@ class CheckoutBloc {
     return cartTotalAmount - bulkDiscountCost;
   }
 
+
+
   get finalTotalAmount {
     var shippingCost = cartBloc.subject.value.cartSummary.shippingCost;
     var shippingDiscountCost =

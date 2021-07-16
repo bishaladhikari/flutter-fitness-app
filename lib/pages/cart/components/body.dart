@@ -17,26 +17,32 @@ import 'cart_item_view.dart';
 class CartBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        StreamBuilder<CartResponse>(
-            stream: cartBloc.subject.stream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data.error != null &&
-                    snapshot.data.error.length > 0) {
-                  return CustomErrorWidget(snapshot.data.error);
-                }
-                return _buildCartWidget(context, snapshot.data);
-              } else if (snapshot.hasError) {
-                return CustomErrorWidget(snapshot.error);
-              } else {
-                return _buildLoadingWidget();
-              }
-            }),
-      ],
+    return Container(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            StreamBuilder<CartResponse>(
+                stream: cartBloc.subject.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0) {
+                      return CustomErrorWidget(snapshot.data.error);
+                    }
+                    return _buildCartWidget(context, snapshot.data);
+                  } else if (snapshot.hasError) {
+                    return CustomErrorWidget(snapshot.error);
+                  } else {
+                    return _buildLoadingWidget();
+                  }
+                }),
+          ],
+        ),
+      ),
     );
   }
 

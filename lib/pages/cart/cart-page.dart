@@ -37,10 +37,7 @@ class _CartPageState extends State<CartPage>
         ),
         actions: [],
       ),
-      body: SingleChildScrollView(
-          physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          child: CartBody()),
+      body: CartBody(),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
@@ -77,7 +74,7 @@ class _CartPageState extends State<CartPage>
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          Text(' ¥ ' + checkoutBloc.finalTotalAmount.toString(),
+                          Text(' ¥ ' + checkoutBloc.totalAmount.toString(),
                               style: TextStyle(
                                   color: NPrimaryColor,
                                   fontWeight: FontWeight.bold,
