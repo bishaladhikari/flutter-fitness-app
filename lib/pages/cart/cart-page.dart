@@ -17,6 +17,12 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage>
     with AutomaticKeepAliveClientMixin {
   @override
+  void dispose() {
+    super.dispose();
+    cartBloc..drainStream();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -143,7 +149,9 @@ class _CartPageState extends State<CartPage>
         backgroundColor: Colors.redAccent,
       ));
     } else {
-      Navigator.pushNamed(context, "checkoutPage");
+      Navigator.pushNamed(context, "checkoutPage").then((value) => setState(() {
+            cartBloc.getCart();
+          }));
     }
   }
 
