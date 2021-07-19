@@ -149,9 +149,8 @@ class _CartPageState extends State<CartPage>
         backgroundColor: Colors.redAccent,
       ));
     } else {
-      Navigator.pushNamed(context, "checkoutPage").then((value) => setState(() {
-            cartBloc.getCart();
-          }));
+      Navigator.pushNamed(context, "checkoutPage")
+          .then((value) => {cartBloc.getCart()});
     }
   }
 
