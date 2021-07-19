@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/checkout_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/response/add_order_response.dart';
-import 'package:ecapp/models/response/cart_response.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/response/add_order_response.dart';
+import 'package:rakurakubazzar/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 import 'package:stripe_sdk/stripe_sdk.dart';

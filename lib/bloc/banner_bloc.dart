@@ -1,5 +1,5 @@
-import 'package:ecapp/models/response/banner_response.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/models/response/banner_response.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';

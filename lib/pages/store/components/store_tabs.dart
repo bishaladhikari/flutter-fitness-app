@@ -1,5 +1,5 @@
-import 'package:ecapp/components/combo_list.dart';
-import 'package:ecapp/components/products_list.dart';
+import 'package:rakurakubazzar/components/combo_list.dart';
+import 'package:rakurakubazzar/components/products_list.dart';
 import 'package:flutter/material.dart';
 
 class StoreTabs extends StatefulWidget {

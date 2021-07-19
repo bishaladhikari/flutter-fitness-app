@@ -1,7 +1,7 @@
-import 'package:ecapp/bloc/profile_bloc.dart';
-import 'package:ecapp/models/response/profile_response.dart';
+import 'package:rakurakubazzar/bloc/profile_bloc.dart';
+import 'package:rakurakubazzar/models/response/profile_response.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/models/profile.dart';
+import 'package:rakurakubazzar/models/profile.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';

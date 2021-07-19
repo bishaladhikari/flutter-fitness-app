@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/models/cart_item.dart';
-import 'package:ecapp/models/combo.dart';
-import 'package:ecapp/models/product.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/models/cart_item.dart';
+import 'package:rakurakubazzar/models/combo.dart';
+import 'package:rakurakubazzar/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';

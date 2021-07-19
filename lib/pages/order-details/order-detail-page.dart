@@ -1,5 +1,5 @@
-import 'package:ecapp/bloc/order_product_detail_bloc.dart';
-import 'package:ecapp/models/order.dart';
+import 'package:rakurakubazzar/bloc/order_product_detail_bloc.dart';
+import 'package:rakurakubazzar/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 

@@ -1,5 +1,5 @@
 
-import 'package:ecapp/models/cart_summary.dart';
+import 'package:rakurakubazzar/models/cart_summary.dart';
 
 class CartSummaryResponse {
   CartSummary cartSummary;

@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/bloc/wishlist_bloc.dart';
-import 'package:ecapp/components/custom_error_widget.dart';
-import 'package:ecapp/components/no_internet_widget.dart';
-import 'package:ecapp/models/cart.dart';
-import 'package:ecapp/models/cart_item.dart';
-import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/pages/wish/wish_item_view.dart';
+import 'package:rakurakubazzar/bloc/auth_bloc.dart';
+import 'package:rakurakubazzar/bloc/wishlist_bloc.dart';
+import 'package:rakurakubazzar/components/custom_error_widget.dart';
+import 'package:rakurakubazzar/components/no_internet_widget.dart';
+import 'package:rakurakubazzar/models/cart.dart';
+import 'package:rakurakubazzar/models/cart_item.dart';
+import 'package:rakurakubazzar/models/response/wishlist_response.dart';
+import 'package:rakurakubazzar/pages/wish/wish_item_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';

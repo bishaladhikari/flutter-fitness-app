@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/pages/splash_screen.dart';
-import 'package:ecapp/routes.dart';
-import 'package:ecapp/theme.dart';
+import 'package:rakurakubazzar/pages/splash_screen.dart';
+import 'package:rakurakubazzar/routes.dart';
+import 'package:rakurakubazzar/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

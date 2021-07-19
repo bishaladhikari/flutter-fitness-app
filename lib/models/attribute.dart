@@ -1,4 +1,4 @@
-import 'package:ecapp/models/variant.dart';
+import 'package:rakurakubazzar/models/variant.dart';
 
 import 'attribute_image.dart';
 

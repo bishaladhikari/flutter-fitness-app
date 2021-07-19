@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/address_bloc.dart';
-import 'package:ecapp/models/address.dart';
-import 'package:ecapp/repository/repository.dart';
-import 'package:ecapp/widgets/loadingIndicator.dart';
+import 'package:rakurakubazzar/bloc/address_bloc.dart';
+import 'package:rakurakubazzar/models/address.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:rakurakubazzar/widgets/loadingIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';

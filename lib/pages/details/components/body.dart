@@ -1,7 +1,7 @@
-import 'package:ecapp/pages/details/components/order_button.dart';
-import 'package:ecapp/pages/details/components/title_price_rating.dart';
+import 'package:rakurakubazzar/pages/details/components/order_button.dart';
+import 'package:rakurakubazzar/pages/details/components/title_price_rating.dart';
 import 'package:flutter/material.dart';
-import 'package:ecapp/constants.dart';
+import 'package:rakurakubazzar/constants.dart';
 
 import 'item_image.dart';
 

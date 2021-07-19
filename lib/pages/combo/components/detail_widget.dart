@@ -1,8 +1,8 @@
-import 'package:ecapp/bloc/combo_detail_bloc.dart';
-import 'package:ecapp/models/attribute.dart';
-import 'package:ecapp/models/combo_detail.dart';
-import 'package:ecapp/models/product.dart';
-import 'package:ecapp/models/variant.dart';
+import 'package:rakurakubazzar/bloc/combo_detail_bloc.dart';
+import 'package:rakurakubazzar/models/attribute.dart';
+import 'package:rakurakubazzar/models/combo_detail.dart';
+import 'package:rakurakubazzar/models/product.dart';
+import 'package:rakurakubazzar/models/variant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:easy_localization/easy_localization.dart';

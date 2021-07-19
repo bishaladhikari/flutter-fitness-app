@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/models/response/email_confirm_response.dart';
-import 'package:ecapp/models/response/profile_response.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/models/response/email_confirm_response.dart';
+import 'package:rakurakubazzar/models/response/profile_response.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';

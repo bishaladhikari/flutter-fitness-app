@@ -1,5 +1,5 @@
-import 'package:ecapp/models/cart_item.dart';
-import 'package:ecapp/models/promotion_item.dart';
+import 'package:rakurakubazzar/models/cart_item.dart';
+import 'package:rakurakubazzar/models/promotion_item.dart';
 
 class Cart {
   int id;

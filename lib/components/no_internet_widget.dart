@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 
 class NoInternetWidget extends StatelessWidget {

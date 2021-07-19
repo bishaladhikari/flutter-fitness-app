@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/customer_review_bloc.dart';
-import 'package:ecapp/bloc/order_product_detail_bloc.dart';
-import 'package:ecapp/components/dialogs.dart';
-import 'package:ecapp/models/customer_review.dart';
-import 'package:ecapp/models/order_product_detail.dart';
-import 'package:ecapp/models/response/order_product_item_response.dart';
+import 'package:rakurakubazzar/bloc/customer_review_bloc.dart';
+import 'package:rakurakubazzar/bloc/order_product_detail_bloc.dart';
+import 'package:rakurakubazzar/components/dialogs.dart';
+import 'package:rakurakubazzar/models/customer_review.dart';
+import 'package:rakurakubazzar/models/order_product_detail.dart';
+import 'package:rakurakubazzar/models/response/order_product_item_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

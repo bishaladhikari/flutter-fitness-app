@@ -1,4 +1,4 @@
-import 'package:ecapp/components/search_box.dart';
+import 'package:rakurakubazzar/components/search_box.dart';
 import 'package:flutter/material.dart';
 
 AppBar homeAppBar(BuildContext context) {

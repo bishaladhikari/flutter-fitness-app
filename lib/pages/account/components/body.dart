@@ -1,8 +1,8 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/info_page.dart';
+import 'package:rakurakubazzar/models/info_page.dart';
+import 'package:rakurakubazzar/bloc/auth_bloc.dart';
+import 'package:rakurakubazzar/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -166,6 +166,7 @@ class _BodyState extends State<Body> {
               Navigator.pushNamed(context, "webViewPage", arguments: infoPage);
             },
           ),
+//          DiscountCard(),
         ],
       ),
     );

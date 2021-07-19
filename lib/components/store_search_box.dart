@@ -1,7 +1,7 @@
-import 'package:ecapp/components/search.dart';
+import 'package:rakurakubazzar/components/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ecapp/constants.dart';
+import 'package:rakurakubazzar/constants.dart';
 
 class StoreSearchBox extends StatelessWidget {
   final ValueChanged<String> onChanged;

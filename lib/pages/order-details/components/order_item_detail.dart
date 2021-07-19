@@ -1,8 +1,8 @@
-import 'package:ecapp/bloc/order_product_detail_bloc.dart';
-import 'package:ecapp/models/order.dart';
-import 'package:ecapp/models/order_product_detail.dart';
-import 'package:ecapp/models/product.dart';
-import 'package:ecapp/models/response/order_product_detail_response.dart';
+import 'package:rakurakubazzar/bloc/order_product_detail_bloc.dart';
+import 'package:rakurakubazzar/models/order.dart';
+import 'package:rakurakubazzar/models/order_product_detail.dart';
+import 'package:rakurakubazzar/models/product.dart';
+import 'package:rakurakubazzar/models/response/order_product_detail_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';

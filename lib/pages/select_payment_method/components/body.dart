@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/checkout_bloc.dart';
-import 'package:ecapp/bloc/loyalty_point_bloc.dart';
-import 'package:ecapp/models/response/loyalty_point_response.dart';
-import 'package:ecapp/models/response/email_confirm_response.dart';
-import 'package:ecapp/models/response/redeem_point_response.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
+import 'package:rakurakubazzar/bloc/loyalty_point_bloc.dart';
+import 'package:rakurakubazzar/models/response/loyalty_point_response.dart';
+import 'package:rakurakubazzar/models/response/email_confirm_response.dart';
+import 'package:rakurakubazzar/models/response/redeem_point_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';

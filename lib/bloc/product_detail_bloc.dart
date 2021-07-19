@@ -1,8 +1,8 @@
-import 'package:ecapp/models/response/add_to_wishlist.dart';
-import 'package:ecapp/models/response/product_detail_response.dart';
-import 'package:ecapp/models/response/product_response.dart';
-import 'package:ecapp/models/response/remove_from_wishlist.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/models/response/add_to_wishlist.dart';
+import 'package:rakurakubazzar/models/response/product_detail_response.dart';
+import 'package:rakurakubazzar/models/response/product_response.dart';
+import 'package:rakurakubazzar/models/response/remove_from_wishlist.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 

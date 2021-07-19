@@ -1,18 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/bloc/banner_bloc.dart';
-import 'package:ecapp/bloc/cart_bloc.dart';
-import 'package:ecapp/bloc/categories_bloc.dart';
-import 'package:ecapp/bloc/products_bloc.dart';
-import 'package:ecapp/components/search.dart';
-import 'package:ecapp/models/response/cart_response.dart';
-import 'package:ecapp/pages/home/home-page.dart';
+import 'package:rakurakubazzar/bloc/auth_bloc.dart';
+import 'package:rakurakubazzar/bloc/banner_bloc.dart';
+import 'package:rakurakubazzar/bloc/cart_bloc.dart';
+import 'package:rakurakubazzar/bloc/categories_bloc.dart';
+import 'package:rakurakubazzar/bloc/products_bloc.dart';
+import 'package:rakurakubazzar/components/search.dart';
+import 'package:rakurakubazzar/models/response/cart_response.dart';
+import 'package:rakurakubazzar/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'account/account-page.dart';
 import 'cart/cart-page.dart';
 import 'category/category_page.dart';
-import 'package:ecapp/constants.dart';
+import 'package:rakurakubazzar/constants.dart';
 
 class MainPage extends StatefulWidget {
   @override

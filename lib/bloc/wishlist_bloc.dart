@@ -1,7 +1,7 @@
-import 'package:ecapp/models/response/add_to_wishlist.dart';
-import 'package:ecapp/models/response/remove_from_wishlist.dart';
-import 'package:ecapp/models/response/wishlist_response.dart';
-import 'package:ecapp/repository/repository.dart';
+import 'package:rakurakubazzar/models/response/add_to_wishlist.dart';
+import 'package:rakurakubazzar/models/response/remove_from_wishlist.dart';
+import 'package:rakurakubazzar/models/response/wishlist_response.dart';
+import 'package:rakurakubazzar/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 

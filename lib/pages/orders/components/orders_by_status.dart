@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ecapp/bloc/auth_bloc.dart';
-import 'package:ecapp/bloc/main_bloc.dart';
-import 'package:ecapp/bloc/orders_by_status_bloc.dart';
-import 'package:ecapp/components/custom_error_widget.dart';
-import 'package:ecapp/models/meta.dart';
-import 'package:ecapp/models/order.dart';
-import 'package:ecapp/models/response/order_response.dart';
+import 'package:rakurakubazzar/bloc/auth_bloc.dart';
+import 'package:rakurakubazzar/bloc/main_bloc.dart';
+import 'package:rakurakubazzar/bloc/orders_by_status_bloc.dart';
+import 'package:rakurakubazzar/components/custom_error_widget.dart';
+import 'package:rakurakubazzar/models/meta.dart';
+import 'package:rakurakubazzar/models/order.dart';
+import 'package:rakurakubazzar/models/response/order_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

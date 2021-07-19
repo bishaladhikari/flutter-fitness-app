@@ -1,8 +1,8 @@
-import 'package:ecapp/bloc/categories_bloc.dart';
-import 'package:ecapp/bloc/products_list_bloc.dart';
-import 'package:ecapp/components/products_list.dart';
-import 'package:ecapp/constants.dart';
-import 'package:ecapp/models/category.dart';
+import 'package:rakurakubazzar/bloc/categories_bloc.dart';
+import 'package:rakurakubazzar/bloc/products_list_bloc.dart';
+import 'package:rakurakubazzar/components/products_list.dart';
+import 'package:rakurakubazzar/constants.dart';
+import 'package:rakurakubazzar/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

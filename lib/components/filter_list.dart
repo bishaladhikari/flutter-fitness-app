@@ -1,5 +1,5 @@
-import 'package:ecapp/bloc/categories_bloc.dart';
-import 'package:ecapp/models/response/category_response.dart';
+import 'package:rakurakubazzar/bloc/categories_bloc.dart';
+import 'package:rakurakubazzar/models/response/category_response.dart';
 import 'package:flutter/material.dart';
 
 class FilterList extends StatelessWidget {
