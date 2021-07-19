@@ -1,3 +1,4 @@
+import 'package:rakurakubazzar/pages/webview-pages/webview-page.dart';
 import 'package:rakurakubazzar/pages/account-information/account-information-page.dart';
 import 'package:rakurakubazzar/pages/address-book/address-form-page.dart';
 import 'package:rakurakubazzar/pages/address-book/address-page.dart';
@@ -178,12 +179,18 @@ abstract class Routes {
             child: ProductViewMorePage(types: arguments));
         break;
       case 'accountInformationPage':
-          return PageTransition(
-              type: PageTransitionType.rightToLeft, child: AccountInformationPage());
-          break;
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: AccountInformationPage());
+        break;
       case 'userPasswordForm':
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: ChangePasswordPage());
+        break;
+      case 'webViewPage':
+        return PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: WebViewPage(infoPage: arguments));
         break;
       default:
         return PageTransition(

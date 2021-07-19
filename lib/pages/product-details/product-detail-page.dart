@@ -23,7 +23,6 @@ import 'package:rakurakubazzar/widgets/dotted_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:progressive_image/progressive_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliver_fab/sliver_fab.dart';
 import '../../constants.dart';

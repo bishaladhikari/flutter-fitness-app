@@ -43,11 +43,14 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        color: Colors.black.withOpacity(.01),
-        child: Column(
-          children: [
+    return Container(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        child: Container(
+          color: Colors.black.withOpacity(.01),
+          child: Column(
+            children: [
 //           rewardPoints > 0
 //               ? Container(
 //                   width: double.infinity,
@@ -182,255 +185,262 @@ class _SelectPaymentBodyState extends State<SelectPaymentBody> {
 //                         color: Colors.black, fontWeight: FontWeight.bold),
 //                   ),
 //                 ),
-            SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              color: Colors.black.withOpacity(.01),
-              child: Column(
-                children: [
-                  StreamBuilder<LoyaltyPointResponse>(
-                      stream: loyaltyPointBloc.subject.stream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return snapshot.data.points != null
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          tr('Reward Points Available:'),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16),
-                                        ),
-                                        Text(
-                                          " " + snapshot.data.points.toString(),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      child: Row(
+              SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                color: Colors.black.withOpacity(.01),
+                child: Column(
+                  children: [
+                    StreamBuilder<LoyaltyPointResponse>(
+                        stream: loyaltyPointBloc.subject.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return snapshot.data.points != null
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
                                         children: [
-                                          triggerCheckbox
-                                              ? IconButton(
-                                                  color: NPrimaryColor,
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      triggerCheckbox = false;
-                                                      showPaymentMethods = true;
-                                                      redeem_amount = "0";
-                                                      loyaltyPointBloc
-                                                          .redeemResponse
-                                                          .value = null;
-                                                      redeemPointController
-                                                          .text = "";
-                                                    });
-                                                  },
-                                                  icon: Icon(Icons.check_box),
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                )
-                                              : IconButton(
-                                                  color: Colors.grey,
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      triggerCheckbox = true;
-                                                    });
-                                                  },
-                                                  icon: Icon(Icons
-                                                      .check_box_outline_blank),
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                ),
-                                          Expanded(
-                                            child: Text(
-                                              tr("Use my Reward Points to pay for this order"),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  // fontWeight: FontWeight.bold,
-                                                  fontSize: 15),
-                                            ),
-                                          )
+                                          Text(
+                                            tr('Reward Points Available:'),
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16),
+                                          ),
+                                          Text(
+                                            " " +
+                                                snapshot.data.points.toString(),
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    triggerCheckbox
-                                        ? Column(
-                                            children: [
-                                              SizedBox(height: 10),
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      Expanded(
-                                                        flex: 5,
-                                                        child: Form(
-                                                          key: formKey,
-                                                          autovalidate:
-                                                              _validate,
-                                                          child: TextFormField(
-                                                            autofocus: false,
-                                                            onChanged: (text) {
-                                                              setState(() {
-                                                                showRedeemAmount =
-                                                                    redeemPointController
-                                                                        .text
-                                                                        .isNotEmpty;
-                                                                redeem_amount = text
-                                                                        .isNotEmpty
-                                                                    ? (double.parse(text) *
-                                                                            snapshot.data.rate)
-                                                                        .toString()
-                                                                    : "0";
-                                                              });
-                                                            },
-                                                            controller:
-                                                                redeemPointController,
-                                                            style: TextStyle(
-                                                                color: Color(
-                                                                    0xFF000000)),
-                                                            cursorColor: Color(
-                                                                0xFF9b9b9b),
-                                                            keyboardType: TextInputType
-                                                                .numberWithOptions(
-                                                                    signed:
-                                                                        false,
-                                                                    decimal:
-                                                                        false),
-                                                            inputFormatters: <
-                                                                TextInputFormatter>[
-                                                              FilteringTextInputFormatter
-                                                                  .digitsOnly,
-                                                              LengthLimitingTextInputFormatter(
-                                                                  6),
-                                                            ],
-                                                            decoration: InputDecoration(
-                                                                isDense: true,
-                                                                border:
-                                                                    OutlineInputBorder(),
-                                                                contentPadding: new EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical:
-                                                                        10.0,
-                                                                    horizontal:
-                                                                        10.0),
-                                                                hintStyle: TextStyle(
-                                                                    color: Colors
-                                                                        .grey),
-                                                                hintText: tr(
-                                                                    "Redeem Points (Amount)")),
-                                                            validator:
-                                                                MultiValidator([
-                                                              RequiredValidator(
-                                                                  errorText: tr(
-                                                                      "Please enter the amount.")),
-                                                            ]),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      showRedeemAmount
-                                                          ? Text(
-                                                              "= ¥ " +
-                                                                  redeem_amount,
+                                      Container(
+                                        child: Row(
+                                          children: [
+                                            triggerCheckbox
+                                                ? IconButton(
+                                                    color: NPrimaryColor,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        triggerCheckbox = false;
+                                                        showPaymentMethods =
+                                                            true;
+                                                        redeem_amount = "0";
+                                                        loyaltyPointBloc
+                                                            .redeemResponse
+                                                            .value = null;
+                                                        redeemPointController
+                                                            .text = "";
+                                                      });
+                                                    },
+                                                    icon: Icon(Icons.check_box),
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                  )
+                                                : IconButton(
+                                                    color: Colors.grey,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        triggerCheckbox = true;
+                                                      });
+                                                    },
+                                                    icon: Icon(Icons
+                                                        .check_box_outline_blank),
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                  ),
+                                            Expanded(
+                                              child: Text(
+                                                tr("Use my Reward Points to pay for this order"),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    // fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      triggerCheckbox
+                                          ? Column(
+                                              children: [
+                                                SizedBox(height: 10),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          flex: 5,
+                                                          child: Form(
+                                                            key: formKey,
+                                                            autovalidate:
+                                                                _validate,
+                                                            child:
+                                                                TextFormField(
+                                                              autofocus: false,
+                                                              onChanged:
+                                                                  (text) {
+                                                                setState(() {
+                                                                  showRedeemAmount =
+                                                                      redeemPointController
+                                                                          .text
+                                                                          .isNotEmpty;
+                                                                  redeem_amount = text
+                                                                          .isNotEmpty
+                                                                      ? (double.parse(text) *
+                                                                              snapshot.data.rate)
+                                                                          .toString()
+                                                                      : "0";
+                                                                });
+                                                              },
+                                                              controller:
+                                                                  redeemPointController,
                                                               style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold))
-                                                          : Container(),
-                                                      SizedBox(
-                                                        width: 8.0,
-                                                      ),
-                                                      Expanded(
-                                                        flex: 3,
-                                                        child: SizedBox(
-                                                          width:
-                                                              double.infinity,
-                                                          child: RaisedButton(
-                                                            color:
-                                                                NPrimaryColor,
-                                                            textColor:
-                                                                Colors.white,
-                                                            elevation: .2,
-                                                            onPressed: () {
-                                                              validateRedeemPoint(
-                                                                  context);
-                                                            },
-                                                            child: Text(
-                                                                tr('Redeem')),
+                                                                  color: Color(
+                                                                      0xFF000000)),
+                                                              cursorColor: Color(
+                                                                  0xFF9b9b9b),
+                                                              keyboardType: TextInputType
+                                                                  .numberWithOptions(
+                                                                      signed:
+                                                                          false,
+                                                                      decimal:
+                                                                          false),
+                                                              inputFormatters: <
+                                                                  TextInputFormatter>[
+                                                                FilteringTextInputFormatter
+                                                                    .digitsOnly,
+                                                                LengthLimitingTextInputFormatter(
+                                                                    6),
+                                                              ],
+                                                              decoration: InputDecoration(
+                                                                  isDense: true,
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  contentPadding: new EdgeInsets
+                                                                          .symmetric(
+                                                                      vertical:
+                                                                          10.0,
+                                                                      horizontal:
+                                                                          10.0),
+                                                                  hintStyle: TextStyle(
+                                                                      color: Colors
+                                                                          .grey),
+                                                                  hintText: tr(
+                                                                      "Redeem Points (Amount)")),
+                                                              validator:
+                                                                  MultiValidator([
+                                                                RequiredValidator(
+                                                                    errorText: tr(
+                                                                        "Please enter the amount.")),
+                                                              ]),
+                                                            ),
                                                           ),
                                                         ),
-                                                      )
-                                                    ]),
-                                              ),
-                                              SizedBox(
-                                                height: 2.0,
-                                              ),
-                                              Container(
-                                                width: double.infinity,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 10),
-                                                color:
-                                                    NPrimaryColor.withOpacity(
-                                                        .2),
-                                                child: Text(
-                                                  tr('Note: 1 reward point is equal to ¥1'),
-                                                  style: TextStyle(
-                                                      color: Colors.black45,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                        SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        showRedeemAmount
+                                                            ? Text(
+                                                                "= ¥ " +
+                                                                    redeem_amount,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold))
+                                                            : Container(),
+                                                        SizedBox(
+                                                          width: 8.0,
+                                                        ),
+                                                        Expanded(
+                                                          flex: 3,
+                                                          child: SizedBox(
+                                                            width:
+                                                                double.infinity,
+                                                            child: RaisedButton(
+                                                              color:
+                                                                  NPrimaryColor,
+                                                              textColor:
+                                                                  Colors.white,
+                                                              elevation: .2,
+                                                              onPressed: () {
+                                                                validateRedeemPoint(
+                                                                    context);
+                                                              },
+                                                              child: Text(
+                                                                  tr('Redeem')),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ]),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.0),
-                                            ],
-                                          )
-                                        : Container(),
-                                  ],
-                                )
-                              : Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    tr("Currently you don't have any reward points to redeem. Refer your friends or family to get reward points."),
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14),
-                                  ),
-                                );
-                        } else {
-                          return Container();
-                        }
-                      }),
-                ],
+                                                SizedBox(
+                                                  height: 2.0,
+                                                ),
+                                                Container(
+                                                  width: double.infinity,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 10),
+                                                  color:
+                                                      NPrimaryColor.withOpacity(
+                                                          .2),
+                                                  child: Text(
+                                                    tr('Note: 1 reward point is equal to ¥1'),
+                                                    style: TextStyle(
+                                                        color: Colors.black45,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 10.0),
+                                              ],
+                                            )
+                                          : Container(),
+                                    ],
+                                  )
+                                : Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      tr("Currently you don't have any reward points to redeem. Refer your friends or family to get reward points."),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14),
+                                    ),
+                                  );
+                          } else {
+                            return Container();
+                          }
+                        }),
+                  ],
+                ),
               ),
-            ),
-            showPaymentMethods
-                ? _buildPaymentMethodsWidget()
-                : Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      tr('You have redeemed reward points with amount value equal to ¥{rewardPoints}. Now you can place order.',
-                          namedArgs: {
-                            "rewardPoints": redeem_amount.toString()
-                          }),
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                    ),
-                  )
-          ],
+              showPaymentMethods
+                  ? _buildPaymentMethodsWidget()
+                  : Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        tr('You have redeemed reward points with amount value equal to ¥{rewardPoints}. Now you can place order.',
+                            namedArgs: {
+                              "rewardPoints": redeem_amount.toString()
+                            }),
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      ),
+                    )
+            ],
+          ),
         ),
       ),
     );

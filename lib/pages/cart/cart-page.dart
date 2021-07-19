@@ -17,6 +17,12 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage>
     with AutomaticKeepAliveClientMixin {
   @override
+  void dispose() {
+    super.dispose();
+    cartBloc..drainStream();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +43,7 @@ class _CartPageState extends State<CartPage>
         ),
         actions: [],
       ),
-      body: SingleChildScrollView(child: CartBody()),
+      body: CartBody(),
       bottomNavigationBar: StreamBuilder<CartResponse>(
           stream: cartBloc.subject.stream,
           builder: (context, snapshot) {
@@ -74,7 +80,7 @@ class _CartPageState extends State<CartPage>
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),
-                          Text(' ¥ ' + checkoutBloc.finalTotalAmount.toString(),
+                          Text(' ¥ ' + checkoutBloc.totalAmount.toString(),
                               style: TextStyle(
                                   color: NPrimaryColor,
                                   fontWeight: FontWeight.bold,
@@ -143,7 +149,8 @@ class _CartPageState extends State<CartPage>
         backgroundColor: Colors.redAccent,
       ));
     } else {
-      Navigator.pushNamed(context, "checkoutPage");
+      Navigator.pushNamed(context, "checkoutPage")
+          .then((value) => {cartBloc.getCart()});
     }
   }
 

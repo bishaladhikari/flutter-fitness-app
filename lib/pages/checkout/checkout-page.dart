@@ -21,6 +21,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     return Scaffold(
       appBar: checkoutAppBar(),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Column(
           children: [
             Body(),
@@ -66,58 +67,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ExpansionTile(
-                    //   tilePadding: const EdgeInsets.symmetric(horizontal: 5),
-                    //   title: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Row(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //         children: [
-                    //           Spacer(),
-                    //           IconButton(
-                    //               icon: Icon(
-                    //             Icons.info_outline_rounded,
-                    //             size: 25,
-                    //           )),
-                    //           Text(
-                    //             tr("View info"),
-                    //             style: TextStyle(
-                    //                 color: Colors.black,
-                    //                 fontWeight: FontWeight.bold),
-                    //           ),
-                    //           // IconButton(
-                    //           //     icon: Icon(
-                    //           //   Icons.keyboard_arrow_up_outlined,
-                    //           //   size: 25,
-                    //           // ))
-                    //         ],
-                    //       ),
-                    //       // Row(
-                    //       //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       //   children: [
-                    //       //     Text(tr('Subtotal'),
-                    //       //         style: TextStyle(
-                    //       //             fontWeight: FontWeight.w400,
-                    //       //             fontSize: 16,
-                    //       //             color: Colors.black)),
-                    //       //     Text(
-                    //       //         '¥ ' +
-                    //       //             checkoutBloc.finalTotalAmount
-                    //       //                 .toString(),
-                    //       //         style: TextStyle(
-                    //       //             // color: NPrimaryColor,
-                    //       //             fontWeight: FontWeight.w400,
-                    //       //             color: Colors.black,
-                    //       //             fontSize: 16)),
-                    //       //   ],
-                    //       // ),
-                    //       // SizedBox(height: 5),
-                    //     ],
-                    //   ),
-                    //   children: [_showCartSummary(cartSummary, context)],
-                    //   // tilePadding: const EdgeInsets.all(0),
-                    // ),
                     SizedBox(height: 5),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -284,7 +233,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ],
                 )
               : Container(),
-          cartSummary.shippingDiscountCost > 0 ? SizedBox(height: 5) : Container(),
+          cartSummary.shippingDiscountCost > 0
+              ? SizedBox(height: 5)
+              : Container(),
           cartSummary.bulkDiscountCost > 0
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
