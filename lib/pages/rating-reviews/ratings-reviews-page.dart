@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/review_bloc.dart';
-import 'package:rakurakubazzar/components/star_rating.dart';
-import 'package:rakurakubazzar/constants.dart';
-import 'package:rakurakubazzar/models/meta.dart';
-import 'package:rakurakubazzar/models/product_detail.dart';
-import 'package:rakurakubazzar/models/response/review_response.dart';
-import 'package:rakurakubazzar/models/review.dart';
+import 'package:fitnessive/bloc/review_bloc.dart';
+import 'package:fitnessive/components/star_rating.dart';
+import 'package:fitnessive/constants.dart';
+import 'package:fitnessive/models/meta.dart';
+import 'package:fitnessive/models/product_detail.dart';
+import 'package:fitnessive/models/response/review_response.dart';
+import 'package:fitnessive/models/review.dart';
 import 'package:flutter/material.dart';
 
 class RatingsReviewsPage extends StatefulWidget {

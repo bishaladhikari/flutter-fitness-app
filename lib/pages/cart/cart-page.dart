@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/address_bloc.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/models/response/address_response.dart';
-import 'package:rakurakubazzar/models/response/cart_response.dart';
+import 'package:fitnessive/bloc/address_bloc.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/models/response/address_response.dart';
+import 'package:fitnessive/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
 import '../main_page.dart';
 import 'components/body.dart';
-import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
+import 'package:fitnessive/bloc/checkout_bloc.dart';
 
 class CartPage extends StatefulWidget {
   @override

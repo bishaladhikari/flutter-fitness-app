@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/customer_review_bloc.dart';
-import 'package:rakurakubazzar/bloc/order_product_detail_bloc.dart';
-import 'package:rakurakubazzar/components/dialogs.dart';
-import 'package:rakurakubazzar/models/customer_review.dart';
-import 'package:rakurakubazzar/models/order_product_detail.dart';
-import 'package:rakurakubazzar/models/response/order_product_item_response.dart';
+import 'package:fitnessive/bloc/customer_review_bloc.dart';
+import 'package:fitnessive/bloc/order_product_detail_bloc.dart';
+import 'package:fitnessive/components/dialogs.dart';
+import 'package:fitnessive/models/customer_review.dart';
+import 'package:fitnessive/models/order_product_detail.dart';
+import 'package:fitnessive/models/response/order_product_item_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -145,7 +145,7 @@ class _OrderReviewPageState extends State<OrderReviewPage> {
                   SizedBox(height: 10),
                   Form(
                       key: _formKey,
-                      autovalidate: _validate,
+
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

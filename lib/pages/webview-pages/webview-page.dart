@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/models/info_page.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/models/info_page.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

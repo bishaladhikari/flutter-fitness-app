@@ -1,5 +1,5 @@
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/models/cart_item.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/models/cart_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

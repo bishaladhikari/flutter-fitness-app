@@ -1,7 +1,7 @@
-import 'package:rakurakubazzar/models/address.dart';
-import 'package:rakurakubazzar/models/response/address_response.dart';
-import 'package:rakurakubazzar/models/response/default_address_response.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/models/address.dart';
+import 'package:fitnessive/models/response/address_response.dart';
+import 'package:fitnessive/models/response/default_address_response.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';

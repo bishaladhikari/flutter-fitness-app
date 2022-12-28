@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/meta.dart';
+import 'package:fitnessive/models/meta.dart';
 import '../combo.dart';
 
 class ComboResponse {

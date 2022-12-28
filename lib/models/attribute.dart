@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/variant.dart';
+import 'package:fitnessive/models/variant.dart';
 
 import 'attribute_image.dart';
 

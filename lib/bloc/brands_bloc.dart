@@ -1,6 +1,6 @@
-import 'package:rakurakubazzar/models/response/address_response.dart';
-import 'package:rakurakubazzar/models/response/brand_response.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/models/response/address_response.dart';
+import 'package:fitnessive/models/response/brand_response.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';

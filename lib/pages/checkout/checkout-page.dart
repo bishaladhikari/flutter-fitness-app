@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/address_bloc.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
-import 'package:rakurakubazzar/constants.dart';
-import 'package:rakurakubazzar/models/address.dart';
-import 'package:rakurakubazzar/models/response/cart_response.dart';
+import 'package:fitnessive/bloc/address_bloc.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/bloc/checkout_bloc.dart';
+import 'package:fitnessive/constants.dart';
+import 'package:fitnessive/models/address.dart';
+import 'package:fitnessive/models/response/cart_response.dart';
 import 'package:flutter/material.dart';
 import 'components/app_bar.dart';
 import 'components/body.dart';
-import 'package:rakurakubazzar/models/cart_summary.dart';
+import 'package:fitnessive/models/cart_summary.dart';
 
 class CheckoutPage extends StatefulWidget {
   @override

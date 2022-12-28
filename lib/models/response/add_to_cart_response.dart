@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/cart_item.dart';
+import 'package:fitnessive/models/cart_item.dart';
 
 class AddToCartResponse {
   int totalItems;

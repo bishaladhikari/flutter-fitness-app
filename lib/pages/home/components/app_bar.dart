@@ -1,11 +1,10 @@
-import 'package:rakurakubazzar/components/search_box.dart';
 import 'package:flutter/material.dart';
 
 AppBar homeAppBar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.white,
     elevation: 0,
-    title: SearchBox(),
+    title: Container(),
 
 //    leading: IconButton(
 //      icon: Icon(Icons.menu),

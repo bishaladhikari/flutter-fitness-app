@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/pages/home/components/best_sellers_products_list.dart';
-import 'package:rakurakubazzar/pages/home/components/new_arrivals_products_list.dart';
-import 'package:rakurakubazzar/pages/home/components/top_rated_products_list.dart';
+import 'package:fitnessive/pages/home/components/best_sellers_products_list.dart';
+import 'package:fitnessive/pages/home/components/new_arrivals_products_list.dart';
+import 'package:fitnessive/pages/home/components/top_rated_products_list.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 

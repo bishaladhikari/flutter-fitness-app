@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/order_product_detail.dart';
+import 'package:fitnessive/models/order_product_detail.dart';
 
 class OrderProductItemResponse {
   OrderProductDetail orderProductItem;

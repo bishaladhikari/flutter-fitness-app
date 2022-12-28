@@ -1,13 +1,12 @@
-import 'package:rakurakubazzar/bloc/main_bloc.dart';
-import 'package:rakurakubazzar/bloc/products_bloc.dart';
-import 'package:rakurakubazzar/constants.dart';
-import 'package:rakurakubazzar/models/meta.dart';
-import 'package:rakurakubazzar/pages/home/components/category_tab.dart';
-import 'package:rakurakubazzar/pages/home/components/combo_products_list.dart';
-import 'package:rakurakubazzar/pages/home/components/products_list.dart';
+import 'package:fitnessive/bloc/main_bloc.dart';
+import 'package:fitnessive/bloc/products_bloc.dart';
+import 'package:fitnessive/constants.dart';
+import 'package:fitnessive/models/meta.dart';
+import 'package:fitnessive/pages/home/components/category_tab.dart';
+import 'package:fitnessive/pages/home/components/combo_products_list.dart';
+import 'package:fitnessive/pages/home/components/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'category_chips_list.dart';
 import 'discount_card.dart';
 import 'featured_products_list.dart';
 
@@ -53,7 +52,7 @@ class _BodyState extends State<Body> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CategoryChipsList(),
+            Container(),
             DiscountCard(),
             CategoryTab(),
             SizedBox(height: 10),

@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/models/cart_item.dart';
-import 'package:rakurakubazzar/models/combo.dart';
-import 'package:rakurakubazzar/models/product.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/models/cart_item.dart';
+import 'package:fitnessive/models/combo.dart';
+import 'package:fitnessive/models/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';

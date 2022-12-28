@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/SearchSuggestion.dart';
+import 'package:fitnessive/models/SearchSuggestion.dart';
 
 class SearchSuggestionResponse {
 

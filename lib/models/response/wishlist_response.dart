@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/cart.dart';
+import 'package:fitnessive/models/cart.dart';
 
 class WishlistResponse {
   List<Cart> wishes;

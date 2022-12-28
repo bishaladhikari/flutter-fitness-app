@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/constants.dart';
+import 'package:fitnessive/constants.dart';
 import 'package:flutter/material.dart';
 
 class StarRating extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/pages/account/account-page.dart';
+import 'package:fitnessive/pages/account/account-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

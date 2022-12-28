@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/profile.dart';
+import 'package:fitnessive/models/profile.dart';
 
 class ProfileResponse {
   final Profile profile;

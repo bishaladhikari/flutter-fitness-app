@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/pages/splash_screen.dart';
-import 'package:rakurakubazzar/routes.dart';
-import 'package:rakurakubazzar/theme.dart';
+import 'package:fitnessive/pages/splash_screen.dart';
+import 'package:fitnessive/routes.dart';
+import 'package:fitnessive/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,31 +17,10 @@ void main() {
     saveLocale: true,
     supportedLocales: [
       Locale('en','US'),
-      Locale('ja','JP'),
-      Locale('ne','NP'),
-      Locale('vi','VN'),
     ],
     fallbackLocale: Locale('en','US'),
   ));
 }
-
-//     builder: (context) => EasyLocalization(
-// //    For translation to work on iOS you need to add supported locales to ios/Runner/Info.plist
-// //<key>CFBundleLocalizations</key>
-// //<array>
-// //<string>en</string>
-// //<string>nb</string>
-// //</array>
-//       child: myApp,
-//       path: "assets/translations",
-//       saveLocale: true,
-//       supportedLocales: [
-//         Locale('en', "US"),
-//         Locale('ja', "JP"),
-//         Locale('vi', "VN"),
-//       ],
-//       fallbackLocale: Locale('en', 'US'),
-//     ),
 
 class MyApp extends StatelessWidget {
   Locale _locale;

@@ -1,5 +1,5 @@
-import 'package:rakurakubazzar/models/response/customer_review_response.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/models/response/customer_review_response.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 

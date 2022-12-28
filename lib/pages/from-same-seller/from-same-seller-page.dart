@@ -1,8 +1,8 @@
-import 'package:rakurakubazzar/bloc/product_detail_bloc.dart';
-import 'package:rakurakubazzar/components/product_item.dart';
-import 'package:rakurakubazzar/models/meta.dart';
-import 'package:rakurakubazzar/models/product.dart';
-import 'package:rakurakubazzar/models/response/product_response.dart';
+import 'package:fitnessive/bloc/product_detail_bloc.dart';
+import 'package:fitnessive/components/product_item.dart';
+import 'package:fitnessive/models/meta.dart';
+import 'package:fitnessive/models/product.dart';
+import 'package:fitnessive/models/response/product_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 

@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/components/custom_error_widget.dart';
-import 'package:rakurakubazzar/components/no_internet_widget.dart';
-import 'package:rakurakubazzar/models/cart.dart';
-import 'package:rakurakubazzar/models/cart_item.dart';
-import 'package:rakurakubazzar/models/promotion_item.dart';
-import 'package:rakurakubazzar/models/response/cart_response.dart';
-import 'package:rakurakubazzar/pages/main_page.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/components/custom_error_widget.dart';
+import 'package:fitnessive/components/no_internet_widget.dart';
+import 'package:fitnessive/models/cart.dart';
+import 'package:fitnessive/models/cart_item.dart';
+import 'package:fitnessive/models/promotion_item.dart';
+import 'package:fitnessive/models/response/cart_response.dart';
+import 'package:fitnessive/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

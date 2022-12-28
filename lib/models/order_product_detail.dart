@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/customer_review.dart';
+import 'package:fitnessive/models/customer_review.dart';
 import 'package:uuid/uuid.dart';
 
 class OrderProductDetail {

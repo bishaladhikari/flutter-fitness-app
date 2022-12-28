@@ -1,9 +1,9 @@
 // import 'dart:js';
-// import 'package:rakurakubazzar/bloc/brands_bloc.dart';
-import 'package:rakurakubazzar/models/brand.dart';
-import 'package:rakurakubazzar/models/category.dart';
-import 'package:rakurakubazzar/models/response/product_response.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+// import 'package:fitnessive/bloc/brands_bloc.dart';
+import 'package:fitnessive/models/brand.dart';
+import 'package:fitnessive/models/category.dart';
+import 'package:fitnessive/models/response/product_response.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 

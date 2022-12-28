@@ -1,4 +1,4 @@
-import 'package:rakurakubazzar/models/user.dart';
+import 'package:fitnessive/models/user.dart';
 
 class RegisterResponse {
   final String error;

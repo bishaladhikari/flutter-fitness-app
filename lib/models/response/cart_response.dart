@@ -1,5 +1,5 @@
-import 'package:rakurakubazzar/models/cart_summary.dart';
-import 'package:rakurakubazzar/models/promotion_item.dart';
+import 'package:fitnessive/models/cart_summary.dart';
+import 'package:fitnessive/models/promotion_item.dart';
 
 import '../cart.dart';
 

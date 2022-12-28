@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/models/response/login_response.dart';
-import 'package:rakurakubazzar/models/response/email_confirm_response.dart';
-import 'package:rakurakubazzar/models/user.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/models/response/login_response.dart';
+import 'package:fitnessive/models/response/email_confirm_response.dart';
+import 'package:fitnessive/models/user.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

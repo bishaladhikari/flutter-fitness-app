@@ -1,18 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/auth_bloc.dart';
-import 'package:rakurakubazzar/bloc/banner_bloc.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/bloc/categories_bloc.dart';
-import 'package:rakurakubazzar/bloc/products_bloc.dart';
-import 'package:rakurakubazzar/components/search.dart';
-import 'package:rakurakubazzar/models/response/cart_response.dart';
-import 'package:rakurakubazzar/pages/home/home-page.dart';
+import 'package:fitnessive/bloc/auth_bloc.dart';
+import 'package:fitnessive/bloc/banner_bloc.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/bloc/categories_bloc.dart';
+import 'package:fitnessive/bloc/products_bloc.dart';
+import 'package:fitnessive/models/response/cart_response.dart';
+import 'package:fitnessive/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'account/account-page.dart';
 import 'cart/cart-page.dart';
-import 'category/category_page.dart';
-import 'package:rakurakubazzar/constants.dart';
+import 'package:fitnessive/constants.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -20,7 +18,7 @@ class MainPage extends StatefulWidget {
 
   static _MainPageState of(BuildContext context) {
     final _MainPageState navigator =
-        context.ancestorStateOfType(const TypeMatcher<_MainPageState>());
+        context.findAncestorStateOfType<_MainPageState>();
 
     assert(() {
       if (navigator == null) {
@@ -40,12 +38,12 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    bannerBloc.getBanners();
-    categoryBloc.getCategories();
-    productsBloc.getFeaturedProducts();
-    productsBloc.getProducts();
-    productsBloc.getNewArrivals();
-    cartBloc.getCart();
+    // bannerBloc.getBanners();
+    // categoryBloc.getCategories();
+    // productsBloc.getFeaturedProducts();
+    // productsBloc.getProducts();
+    // productsBloc.getNewArrivals();
+    // cartBloc.getCart();
 //    comboBloc.getComboProducts();
   }
 
@@ -58,8 +56,6 @@ class _MainPageState extends State<MainPage> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomePage(),
-    CategoryPage(),
-    CartPage(),
     AccountPage()
   ];
 
@@ -340,8 +336,7 @@ class _MainPageState extends State<MainPage> {
                     fontWeight: FontWeight.w600,
                     color: blackColor)),
             onTap: () {
-              Navigator.pop(context);
-              showSearch(context: context, delegate: Search());
+
             },
           ),
           Divider(

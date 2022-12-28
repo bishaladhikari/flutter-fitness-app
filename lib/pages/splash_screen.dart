@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:fitnessive/pages/auth/login-page.dart';
 import 'package:flutter/material.dart';
-import 'main_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, PageTransition(type:PageTransitionType.leftToRightWithFade,child: MainPage()));
+          context, PageTransition(type:PageTransitionType.leftToRightWithFade,child: LoginPage()));
     });
   }
 

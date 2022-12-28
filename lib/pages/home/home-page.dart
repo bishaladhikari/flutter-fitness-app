@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/auth_bloc.dart';
-import 'package:rakurakubazzar/bloc/banner_bloc.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/bloc/categories_bloc.dart';
-import 'package:rakurakubazzar/bloc/main_bloc.dart';
-import 'package:rakurakubazzar/bloc/products_bloc.dart';
-import 'package:rakurakubazzar/components/no_internet_widget.dart';
-import 'package:rakurakubazzar/components/search_box.dart';
-import 'package:rakurakubazzar/models/meta.dart';
+import 'package:fitnessive/bloc/auth_bloc.dart';
+import 'package:fitnessive/bloc/banner_bloc.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/bloc/categories_bloc.dart';
+import 'package:fitnessive/bloc/main_bloc.dart';
+import 'package:fitnessive/bloc/products_bloc.dart';
+import 'package:fitnessive/components/no_internet_widget.dart';
+import 'package:fitnessive/models/meta.dart';
 import 'package:flutter/material.dart';
 import '../main_page.dart';
 import 'components/body.dart';
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage>
                   onPressed: () {
                     MainPage.of(context).scaffoldKey.currentState.openDrawer();
                   }),
-              SearchBox()
+              Container()
             ],
           ),
           backgroundColor: Colors.white,

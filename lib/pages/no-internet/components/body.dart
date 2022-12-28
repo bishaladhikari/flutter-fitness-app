@@ -1,8 +1,8 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/auth_bloc.dart';
-import 'package:rakurakubazzar/components/no_internet_widget.dart';
-import 'package:rakurakubazzar/constants.dart';
+import 'package:fitnessive/bloc/auth_bloc.dart';
+import 'package:fitnessive/components/no_internet_widget.dart';
+import 'package:fitnessive/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

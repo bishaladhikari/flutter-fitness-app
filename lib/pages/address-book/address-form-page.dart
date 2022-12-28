@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/address_bloc.dart';
-import 'package:rakurakubazzar/models/address.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
-import 'package:rakurakubazzar/widgets/loadingIndicator.dart';
+import 'package:fitnessive/bloc/address_bloc.dart';
+import 'package:fitnessive/models/address.dart';
+import 'package:fitnessive/repository/repository.dart';
+import 'package:fitnessive/widgets/loadingIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -174,7 +174,6 @@ class _AddressFormPageState extends State<AddressFormPage> {
                     vertical: 16.0, horizontal: 16.0),
                 child: SingleChildScrollView(
                     child: Form(
-                  autovalidate: _autoValidate,
                   key: formkey,
                   child: Column(children: <Widget>[
                     TextFormField(

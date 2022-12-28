@@ -1,6 +1,6 @@
-import 'package:rakurakubazzar/models/response/order_product_detail_response.dart';
-import 'package:rakurakubazzar/models/response/order_product_item_response.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/models/response/order_product_detail_response.dart';
+import 'package:fitnessive/models/response/order_product_item_response.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 

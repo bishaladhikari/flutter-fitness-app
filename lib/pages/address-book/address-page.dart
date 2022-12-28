@@ -1,9 +1,9 @@
-import 'package:rakurakubazzar/bloc/address_bloc.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/bloc/checkout_bloc.dart';
-import 'package:rakurakubazzar/components/add_address.dart';
-import 'package:rakurakubazzar/models/address.dart';
-import 'package:rakurakubazzar/pages/address-book/address_list_item.dart';
+import 'package:fitnessive/bloc/address_bloc.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/bloc/checkout_bloc.dart';
+import 'package:fitnessive/components/add_address.dart';
+import 'package:fitnessive/models/address.dart';
+import 'package:fitnessive/pages/address-book/address_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';

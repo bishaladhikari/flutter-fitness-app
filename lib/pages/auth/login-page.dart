@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/auth_bloc.dart';
-import 'package:rakurakubazzar/bloc/cart_bloc.dart';
-import 'package:rakurakubazzar/repository/repository.dart';
+import 'package:fitnessive/bloc/auth_bloc.dart';
+import 'package:fitnessive/bloc/cart_bloc.dart';
+import 'package:fitnessive/repository/repository.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rakurakubazzar/constants.dart';
-import 'package:rakurakubazzar/models/response/login_response.dart';
+import 'package:fitnessive/constants.dart';
+import 'package:fitnessive/models/response/login_response.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:rakurakubazzar/components/google_sign_in_button.dart';
-import 'package:rakurakubazzar/components/apple_sign_in_button.dart';
+import 'package:fitnessive/components/google_sign_in_button.dart';
+import 'package:fitnessive/components/apple_sign_in_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io' as platform;
@@ -107,7 +107,6 @@ class _LoginPageState extends State<LoginPage>
           ),
           Form(
             key: _formKey,
-            autovalidate: _validate,
             child: Column(
               children: [
                 TextFormField(

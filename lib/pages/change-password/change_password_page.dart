@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:rakurakubazzar/bloc/profile_bloc.dart';
-import 'package:rakurakubazzar/constants.dart';
-import 'package:rakurakubazzar/models/response/email_confirm_response.dart';
+import 'package:fitnessive/bloc/profile_bloc.dart';
+import 'package:fitnessive/constants.dart';
+import 'package:fitnessive/models/response/email_confirm_response.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -73,7 +73,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
-          autovalidate: _validate,
+
           key: _formKey,
           child: Column(
             children: <Widget>[
